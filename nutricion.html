@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Nutrición del Futbolista — Plan alimenticio profesional para alcanzar el máximo rendimiento"/>
+  <title>Nutrición | El Camino al Fútbol Profesional</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="./css/nutricion.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════ CURSOR ═══════════════════ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <a href="index.html" class="logo" aria-label="El Camino - Inicio">
+    <div class="logo-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+        <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+        <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+        <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+        <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+        <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <span class="logo-cross"><i class="fas fa-cross"></i></span>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">EL CAMINO</span>
+      <span class="logo-tag">Fe · Fútbol · Gloria</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+    <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
+    <li><a href="nutricion.html" class="active"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+      <i class="fas fa-sun" id="themeIcon"></i>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+  <a href="entrenamiento.html"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+  <a href="nutricion.html" class="mob-active"><i class="fas fa-apple-alt"></i> Nutrición</a>
+  <a href="fotos.html"><i class="fas fa-camera"></i> Fotos</a>
+  <a href="estadisticas.html"><i class="fas fa-chart-bar"></i> Estadísticas</a>
+  <a href="fe.html"><i class="fas fa-cross"></i> Fe & Motivación</a>
+  <a href="progreso.html"><i class="fas fa-trophy"></i> Mi Progreso</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero-nut">
+  <div class="hero-bg-nut"></div>
+  <div class="hero-overlay-nut"></div>
+  <div class="hero-content-nut">
+    <span class="hero-eyebrow"><i class="fas fa-leaf"></i> Plan Nutricional Deportivo</span>
+    <h1 class="hero-title-nut">
+      <span class="ht-white">COME</span>
+      <span class="ht-green">BIEN,</span>
+      <br>
+      <span class="ht-white">JUEGA</span>
+      <span class="ht-orange">MEJOR</span>
+    </h1>
+    <p class="hero-desc-nut">
+      Tu cuerpo es el templo del Espíritu Santo y la herramienta de tu sueño.<br>
+      <strong>Alimentalo como el atleta profesional que vas a ser.</strong>
+    </p>
+
+    <!-- Macros meta del día -->
+    <div class="hero-macro-bar">
+      <div class="hmb-item">
+        <i class="fas fa-fire hmb-icon orange"></i>
+        <span class="hmb-num" id="heroCalTarget">2800</span>
+        <span class="hmb-label">kcal meta</span>
+      </div>
+      <div class="hmb-item">
+        <i class="fas fa-drumstick-bite hmb-icon green"></i>
+        <span class="hmb-num">160g</span>
+        <span class="hmb-label">proteína</span>
+      </div>
+      <div class="hmb-item">
+        <i class="fas fa-bread-slice hmb-icon gold"></i>
+        <span class="hmb-num">350g</span>
+        <span class="hmb-label">carbos</span>
+      </div>
+      <div class="hmb-item">
+        <i class="fas fa-tint hmb-icon blue"></i>
+        <span class="hmb-num">3L</span>
+        <span class="hmb-label">hidratación</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-nut" id="heroScroll">
+    <div class="scroll-dot-nut"></div>
+    <span>Explorar</span>
+  </div>
+</header>
+
+<!-- ═══════════════════ TRACKER DIARIO ═══════════════════ -->
+<section class="tracker-section" id="trackerSection">
+  <div class="tracker-inner">
+
+    <!-- Fecha + reset -->
+    <div class="tracker-topbar">
+      <div class="tracker-date-group">
+        <i class="fas fa-calendar-day tracker-cal-icon"></i>
+        <div>
+          <span class="tracker-today-label">HOY</span>
+          <span class="tracker-today-date" id="trackerDate">—</span>
+        </div>
+      </div>
+      <button class="btn-reset-day" id="btnResetDay" title="Reiniciar día">
+        <i class="fas fa-redo"></i> Nuevo día
+      </button>
+    </div>
+
+    <!-- Anillos de macros -->
+    <div class="macro-rings-grid">
+
+      <!-- Calorías -->
+      <div class="macro-ring-card" id="macroCalCard">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill orange-ring" id="ringCal" cx="60" cy="60" r="52"
+              stroke-dasharray="327" stroke-dashoffset="327"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-val" id="ringCalVal">0</span>
+            <span class="ring-unit">kcal</span>
+          </div>
+        </div>
+        <div class="ring-info">
+          <span class="ring-name">Calorías</span>
+          <span class="ring-meta" id="ringCalMeta">de 2800</span>
+          <div class="ring-bar-thin">
+            <div class="ring-bar-fill orange-fill" id="barCal" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proteínas -->
+      <div class="macro-ring-card" id="macroProtCard">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill green-ring" id="ringProt" cx="60" cy="60" r="52"
+              stroke-dasharray="327" stroke-dashoffset="327"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-val" id="ringProtVal">0</span>
+            <span class="ring-unit">g</span>
+          </div>
+        </div>
+        <div class="ring-info">
+          <span class="ring-name">Proteínas</span>
+          <span class="ring-meta" id="ringProtMeta">de 160g</span>
+          <div class="ring-bar-thin">
+            <div class="ring-bar-fill green-fill" id="barProt" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carbohidratos -->
+      <div class="macro-ring-card" id="macroCarCard">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill gold-ring" id="ringCarb" cx="60" cy="60" r="52"
+              stroke-dasharray="327" stroke-dashoffset="327"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-val" id="ringCarbVal">0</span>
+            <span class="ring-unit">g</span>
+          </div>
+        </div>
+        <div class="ring-info">
+          <span class="ring-name">Carbohidratos</span>
+          <span class="ring-meta" id="ringCarbMeta">de 350g</span>
+          <div class="ring-bar-thin">
+            <div class="ring-bar-fill gold-fill" id="barCarb" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grasas -->
+      <div class="macro-ring-card" id="macroFatCard">
+        <div class="ring-wrap">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="52"/>
+            <circle class="ring-fill blue-ring" id="ringFat" cx="60" cy="60" r="52"
+              stroke-dasharray="327" stroke-dashoffset="327"/>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-val" id="ringFatVal">0</span>
+            <span class="ring-unit">g</span>
+          </div>
+        </div>
+        <div class="ring-info">
+          <span class="ring-name">Grasas</span>
+          <span class="ring-meta" id="ringFatMeta">de 90g</span>
+          <div class="ring-bar-thin">
+            <div class="ring-bar-fill blue-fill" id="barFat" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /macro-rings-grid -->
+
+    <!-- Hidratación -->
+    <div class="hydration-bar-wrap">
+      <div class="hydration-label">
+        <i class="fas fa-tint hyd-icon"></i>
+        <span>Hidratación</span>
+        <span class="hyd-current" id="hydCurrent">0 / 8 vasos</span>
+      </div>
+      <div class="hyd-glasses" id="hydGlasses">
+        <!-- 8 vasos — generados por JS -->
+      </div>
+      <button class="btn-add-water" id="btnAddWater">
+        <i class="fas fa-plus"></i> Agregar vaso
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ COMIDAS DEL DÍA ═══════════════════ -->
+<section class="today-log-section">
+  <div class="today-log-inner">
+    <div class="tl-header">
+      <div>
+        <span class="section-eyebrow"><i class="fas fa-clipboard-list"></i> Registro</span>
+        <h2 class="section-h2">Comidas de <span class="green">Hoy</span></h2>
+      </div>
+      <span class="tl-count" id="tlCount">0 comidas</span>
+    </div>
+
+    <!-- Lista de comidas registradas -->
+    <div class="today-log-list" id="todayLogList">
+      <div class="log-empty" id="logEmpty">
+        <i class="fas fa-utensils log-empty-icon"></i>
+        <p>Aún no registraste comidas hoy.</p>
+        <span>Explorá el menú de abajo y comenzá a trackear.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FILTROS + CATÁLOGO ═══════════════════ -->
+<section class="catalog-section">
+  <div class="catalog-inner">
+
+    <div class="catalog-header">
+      <div>
+        <span class="section-eyebrow"><i class="fas fa-book-open"></i> Catálogo</span>
+        <h2 class="section-h2">Plan de <span class="green">Comidas</span></h2>
+        <p class="section-sub">Seleccioná y agregá las comidas a tu registro diario.</p>
+      </div>
+      <!-- Búsqueda rápida -->
+      <div class="catalog-search-wrap">
+        <i class="fas fa-search csw-icon"></i>
+        <input type="text" id="catalogSearch" placeholder="Buscar comida..." class="catalog-search-input" aria-label="Buscar comida"/>
+      </div>
+    </div>
+
+    <!-- Filtros por categoría -->
+    <div class="cat-filters" id="catFilters" role="tablist">
+      <button class="cat-filter-btn active" data-cat="all" role="tab" aria-selected="true">
+        <i class="fas fa-th"></i> Todas
+      </button>
+      <button class="cat-filter-btn" data-cat="desayuno" role="tab">
+        <i class="fas fa-sun"></i> Desayuno
+      </button>
+      <button class="cat-filter-btn" data-cat="almuerzo" role="tab">
+        <i class="fas fa-cloud-sun"></i> Almuerzo
+      </button>
+      <button class="cat-filter-btn" data-cat="cena" role="tab">
+        <i class="fas fa-moon"></i> Cena
+      </button>
+      <button class="cat-filter-btn" data-cat="merienda" role="tab">
+        <i class="fas fa-cookie-bite"></i> Merienda
+      </button>
+      <button class="cat-filter-btn" data-cat="pre-partido" role="tab">
+        <i class="fas fa-bolt"></i> Pre-Partido
+      </button>
+      <button class="cat-filter-btn" data-cat="post-partido" role="tab">
+        <i class="fas fa-dumbbell"></i> Post-Partido
+      </button>
+    </div>
+
+    <!-- Grid de tarjetas de comida -->
+    <div class="food-grid" id="foodGrid">
+      <!-- Llenado por JS -->
+    </div>
+
+    <!-- Load more -->
+    <div class="load-more-center" id="loadMoreCenter" style="display:none">
+      <button class="btn-load-more" id="btnLoadMore">
+        <i class="fas fa-chevron-down"></i> Mostrar más comidas
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ SECCIÓN DEPORTIVA ═══════════════════ -->
+<section class="sport-section">
+  <div class="sport-inner">
+    <div class="sport-header">
+      <span class="section-eyebrow"><i class="fas fa-futbol"></i> Protocolo Deportivo</span>
+      <h2 class="section-h2">Nutrición para el <span class="green">Partido</span></h2>
+    </div>
+
+    <div class="sport-grid">
+
+      <!-- Día previo -->
+      <div class="sport-card" id="sportCardPrev">
+        <div class="sport-card-head prev-head">
+          <div class="sport-icon-wrap"><i class="fas fa-moon"></i></div>
+          <div>
+            <h3 class="sport-card-title">Día Previo</h3>
+            <span class="sport-card-sub">Carga de glucógeno</span>
+          </div>
+        </div>
+        <ul class="sport-list" id="sportListPrev"></ul>
+        <div class="sport-tip">
+          <i class="fas fa-lightbulb"></i>
+          <span id="sportTipPrev"></span>
+        </div>
+      </div>
+
+      <!-- Pre partido -->
+      <div class="sport-card featured-sport" id="sportCardPre">
+        <div class="sport-card-head pre-head">
+          <div class="sport-icon-wrap green-icon"><i class="fas fa-bolt"></i></div>
+          <div>
+            <h3 class="sport-card-title">Pre-Partido</h3>
+            <span class="sport-card-sub">2-3 hs antes</span>
+          </div>
+        </div>
+        <ul class="sport-list" id="sportListPre"></ul>
+        <div class="sport-tip">
+          <i class="fas fa-lightbulb"></i>
+          <span id="sportTipPre"></span>
+        </div>
+      </div>
+
+      <!-- Post partido -->
+      <div class="sport-card" id="sportCardPost">
+        <div class="sport-card-head post-head">
+          <div class="sport-icon-wrap orange-icon"><i class="fas fa-dumbbell"></i></div>
+          <div>
+            <h3 class="sport-card-title">Post-Partido</h3>
+            <span class="sport-card-sub">Primeros 30 min</span>
+          </div>
+        </div>
+        <ul class="sport-list" id="sportListPost"></ul>
+        <div class="sport-tip">
+          <i class="fas fa-lightbulb"></i>
+          <span id="sportTipPost"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ GRÁFICO SEMANAL ═══════════════════ -->
+<section class="chart-section">
+  <div class="chart-inner">
+    <div class="chart-header">
+      <div>
+        <span class="section-eyebrow"><i class="fas fa-chart-line"></i> Progreso</span>
+        <h2 class="section-h2">Evolución <span class="green">Semanal</span></h2>
+        <p class="section-sub">Calorías y proteínas registradas los últimos 7 días.</p>
+      </div>
+      <div class="chart-toggle-group">
+        <button class="chart-toggle-btn active" data-metric="calorias" id="ctBtnCal">Calorías</button>
+        <button class="chart-toggle-btn" data-metric="proteinas" id="ctBtnProt">Proteínas</button>
+        <button class="chart-toggle-btn" data-metric="carbos" id="ctBtnCarb">Carbos</button>
+      </div>
+    </div>
+    <div class="chart-canvas-wrap">
+      <canvas id="weeklyChart" aria-label="Gráfico semanal de nutrición"></canvas>
+    </div>
+    <!-- Stats debajo del gráfico -->
+    <div class="chart-stats-row">
+      <div class="chart-stat">
+        <span class="cs-label">Promedio semanal</span>
+        <span class="cs-val" id="csAvg">—</span>
+      </div>
+      <div class="chart-stat">
+        <span class="cs-label">Mejor día</span>
+        <span class="cs-val green" id="csBest">—</span>
+      </div>
+      <div class="chart-stat">
+        <span class="cs-label">Días registrados</span>
+        <span class="cs-val" id="csDays">—</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONSEJOS ═══════════════════ -->
+<section class="tips-section">
+  <div class="tips-inner">
+    <div class="tips-header">
+      <span class="section-eyebrow"><i class="fas fa-star"></i> Pro Tips</span>
+      <h2 class="section-h2">Consejos del <span class="green">Nutricionista</span></h2>
+    </div>
+    <div class="tips-grid" id="tipsGrid">
+      <!-- Generado por JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ MODAL DETALLE ═══════════════════ -->
+<div class="modal-overlay" id="foodModal" role="dialog" aria-modal="true" aria-label="Detalle de comida">
+  <div class="modal-box-nut">
+    <button class="modal-close-nut" id="modalCloseNut" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+    <div class="modal-nut-content" id="modalNutContent">
+      <!-- Llenado por JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOAST ═══════════════════ -->
+<div class="toast-cont" id="toastCont" aria-live="polite"></div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer-nut">
+  <div class="footer-nut-inner">
+    <div class="fn-brand">
+      <span class="logo-name-footer">EL CAMINO</span>
+      <p>Nutrición · Rendimiento · Fe</p>
+    </div>
+    <div class="fn-verse">
+      <i class="fas fa-cross fn-cross"></i>
+      <em>"¿O no saben que su cuerpo es templo del Espíritu Santo?"</em>
+      <cite>— 1 Corintios 6:19</cite>
+    </div>
+    <div class="fn-social">
+      <a href="#" class="fn-link"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="fn-link"><i class="fab fa-tiktok"></i></a>
+      <a href="#" class="fn-link"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+  <div class="fn-bottom">
+    <p>© 2025 El Camino · Hecho con <span style="color:var(--verde)">♥</span> y mucha fe</p>
+  </div>
+</footer>
+
+<script src="./js/nutricion.js"></script>
+</body>
+</html>

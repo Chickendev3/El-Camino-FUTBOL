@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Plataforma de Entrenamiento — Fútbol Profesional con Fe en Dios"/>
+  <title>Entrenamiento | El Camino al Fútbol Profesional</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<!-- ═══════════════════════════════════════════
+     CSS EMPIEZA AQUÍ
+═══════════════════════════════════════════ -->
+<style>
+/* ─── VARIABLES ─────────────────────────────── */
+:root {
+  --verde:   #00e676;
+  --verde2:  #00c853;
+  --dorado:  #ffd600;
+  --rojo:    #ff1744;
+  --azul:    #2979ff;
+  --bg:      #080c10;
+  --bg2:     #0d1117;
+  --bg3:     #111820;
+  --card:    #131b24;
+  --card2:   #182030;
+  --border:  rgba(255,255,255,0.07);
+  --text:    #e8edf5;
+  --muted:   #8892a4;
+  --font-h:  'Bebas Neue', sans-serif;
+  --font-b:  'Syne', sans-serif;
+  --font-t:  'DM Sans', sans-serif;
+  --r:       14px;
+  --shadow:  0 8px 40px rgba(0,0,0,0.5);
+}
+[data-theme="light"] {
+  --bg:   #f0f4f8; --bg2: #e4eaf2; --bg3: #d8e2ef;
+  --card: #fff; --card2: #f5f8ff;
+  --text: #111820; --muted: #5a6478;
+  --border: rgba(0,0,0,0.08);
+}
+
+/* ─── RESET ─────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:var(--font-t);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  overflow-x:hidden;
+  transition:background .3s,color .3s;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+
+/* ─── NOISE OVERLAY ─────────────────────────── */
+.noise{
+  pointer-events:none;
+  position:fixed;inset:0;z-index:9999;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* ─── CURSOR ─────────────────────────────────── */
+.cursor{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--verde);position:fixed;
+  pointer-events:none;z-index:10000;
+  transition:background .2s,transform .15s;
+  transform:translate(-50%,-50%);
+}
+.cursor-ring{
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid var(--verde);
+  position:fixed;pointer-events:none;z-index:9999;
+  transition:width .25s,height .25s,border-color .25s;
+  transform:translate(-50%,-50%);
+}
+
+/* ─── NAVBAR ─────────────────────────────────── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:70px;
+  background:rgba(8,12,16,.85);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:all .3s;
+}
+#navbar.scrolled{
+  background:rgba(8,12,16,.97);
+  box-shadow:0 4px 30px rgba(0,0,0,.5);
+}
+.logo{display:flex;align-items:center;gap:.75rem;}
+.logo-icon{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--verde),var(--dorado));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;flex-shrink:0;
+}
+.logo-icon svg{width:22px;height:22px;}
+.logo-cross{
+  position:absolute;bottom:-4px;right:-4px;
+  font-size:.5rem;color:var(--dorado);
+  background:var(--bg);border-radius:50%;
+  width:14px;height:14px;display:flex;align-items:center;justify-content:center;
+}
+.logo-text{display:flex;flex-direction:column;line-height:1.1;}
+.logo-name{font-family:var(--font-h);font-size:1.2rem;letter-spacing:.1em;color:#fff;}
+.logo-tag{font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:.25rem;}
+.nav-links a{
+  font-family:var(--font-b);font-size:.78rem;font-weight:600;
+  color:var(--muted);padding:.5rem .75rem;border-radius:8px;
+  display:flex;align-items:center;gap:.4rem;
+  transition:color .2s,background .2s;
+  text-transform:uppercase;letter-spacing:.06em;
+}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.07);}
+.nav-links a.active{color:var(--verde);}
+.nav-icon{font-size:.75rem;}
+.nav-cta{
+  background:linear-gradient(135deg,var(--verde),var(--verde2))!important;
+  color:#000!important;border-radius:8px;padding:.5rem 1rem!important;
+}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px);}
+.nav-actions{display:flex;align-items:center;gap:.5rem;}
+.theme-toggle{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--muted);font-size:.85rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.theme-toggle:hover{color:var(--dorado);border-color:var(--dorado);}
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  width:36px;height:36px;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.05);border-radius:8px;
+  border:1px solid var(--border);
+}
+.hamburger span{
+  display:block;width:18px;height:2px;
+  background:var(--text);border-radius:2px;
+  transition:all .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* ─── MOBILE NAV ─────────────────────────────── */
+.mobile-nav{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(8,12,16,.98);backdrop-filter:blur(20px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.25rem;transform:translateX(100%);transition:transform .35s cubic-bezier(.77,0,.175,1);
+}
+.mobile-nav.open{transform:translateX(0);}
+.mobile-nav a{
+  font-family:var(--font-h);font-size:1.8rem;letter-spacing:.15em;
+  color:var(--muted);display:flex;align-items:center;gap:.75rem;
+  transition:color .2s;text-transform:uppercase;
+}
+.mobile-nav a:hover,.mobile-nav a.mob-active{color:var(--verde);}
+.mobile-close{
+  position:absolute;top:1.5rem;right:1.5rem;
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--border);
+  color:var(--text);font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ─── HERO ───────────────────────────────────── */
+.hero-ent{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-bg-ent{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600&q=80');
+  background-size:cover;background-position:center;
+  transform:scale(1.08);transition:transform .1s linear;
+}
+.hero-overlay-ent{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(0,0,0,.85) 40%,rgba(0,230,118,.08) 100%);
+}
+.hero-grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,230,118,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,230,118,.04) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content-ent{
+  position:relative;z-index:2;
+  text-align:center;padding:0 1.5rem;
+  max-width:900px;
+}
+.hero-eyebrow-ent{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-b);font-size:.75rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--verde);background:rgba(0,230,118,.1);
+  border:1px solid rgba(0,230,118,.25);
+  padding:.4rem 1rem;border-radius:50px;margin-bottom:1.5rem;
+}
+.hero-title-ent{
+  font-family:var(--font-h);
+  font-size:clamp(4rem,12vw,10rem);
+  line-height:.9;letter-spacing:.04em;
+  margin-bottom:1.5rem;
+}
+.ht-w{color:#fff;}
+.ht-g{color:var(--verde);}
+.ht-gold{color:var(--dorado);}
+.hero-verse-ent{
+  font-size:1rem;color:rgba(255,255,255,.65);
+  font-style:italic;margin-bottom:2rem;
+  border-left:3px solid var(--dorado);
+  padding-left:1rem;text-align:left;
+  max-width:520px;margin-inline:auto;
+}
+.hero-stats-ent{
+  display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;
+  margin-bottom:2.5rem;
+}
+.hse-item{
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  border-radius:12px;padding:.75rem 1.5rem;text-align:center;
+}
+.hse-num{
+  display:block;font-family:var(--font-h);font-size:2rem;
+  color:var(--verde);line-height:1;
+}
+.hse-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.hero-btns-ent{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary,.btn-secondary{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-b);font-weight:700;font-size:.85rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.85rem 1.8rem;border-radius:10px;
+  transition:all .25s;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--verde),var(--verde2));
+  color:#000;box-shadow:0 4px 20px rgba(0,230,118,.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,230,118,.4);}
+.btn-secondary{
+  background:rgba(255,255,255,.07);
+  border:1px solid var(--border);color:#fff;
+}
+.btn-secondary:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);}
+.hero-scroll-ent{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  cursor:pointer;color:var(--muted);font-size:.7rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  font-family:var(--font-b);
+}
+.scroll-dot-ent{
+  width:18px;height:30px;border:1.5px solid var(--muted);
+  border-radius:10px;position:relative;
+}
+.scroll-dot-ent::after{
+  content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--verde);
+  animation:scrollBounce 1.8s infinite;
+}
+@keyframes scrollBounce{0%,100%{top:5px;opacity:1}50%{top:15px;opacity:.4}}
+
+/* ─── VERSE RIBBON ───────────────────────────── */
+.verse-ribbon{
+  background:linear-gradient(90deg,transparent,rgba(0,230,118,.12),transparent);
+  border-top:1px solid rgba(0,230,118,.15);
+  border-bottom:1px solid rgba(0,230,118,.15);
+  padding:1rem 2rem;overflow:hidden;
+}
+.ribbon-track{
+  display:flex;gap:3rem;white-space:nowrap;
+  animation:marquee 30s linear infinite;
+  font-family:var(--font-b);font-size:.8rem;font-weight:600;
+  color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;
+}
+.ribbon-track span{color:var(--verde);}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── PROGRESS BAR GLOBAL ────────────────────── */
+.global-progress-bar{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:1.5rem 2rem;
+}
+.gpb-inner{max-width:1200px;margin:0 auto;}
+.gpb-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;
+}
+.gpb-title{
+  font-family:var(--font-h);font-size:1.1rem;letter-spacing:.1em;
+  color:var(--verde);
+}
+.gpb-count{font-size:.85rem;color:var(--muted);font-family:var(--font-b);}
+.gpb-bar{
+  height:8px;background:rgba(255,255,255,.06);
+  border-radius:50px;overflow:hidden;
+}
+.gpb-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--verde),var(--dorado));
+  border-radius:50px;width:0%;
+  transition:width .6s cubic-bezier(.77,0,.175,1);
+}
+.gpb-cats{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.75rem;}
+.gpb-cat{
+  font-size:.72rem;color:var(--muted);font-family:var(--font-b);
+  display:flex;align-items:center;gap:.35rem;
+}
+.gpb-cat-dot{width:8px;height:8px;border-radius:50%;}
+
+/* ─── SECTION COMMON ─────────────────────────── */
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--font-b);font-size:.72rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--verde);margin-bottom:.75rem;
+}
+.section-h2{
+  font-family:var(--font-h);font-size:clamp(2rem,4vw,3rem);
+  letter-spacing:.06em;line-height:1;margin-bottom:.75rem;
+}
+.section-h2 .green{color:var(--verde);}
+.section-h2 .gold{color:var(--dorado);}
+.section-sub{color:var(--muted);font-size:.9rem;margin-bottom:2rem;}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ─── COACH VIRTUAL ───────────────────────────── */
+.coach-section{
+  padding:4rem 2rem;background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+.coach-inner{max-width:1200px;margin:0 auto;}
+.coach-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:2rem;
+  align-items:start;
+}
+.coach-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:2rem;
+  position:relative;overflow:hidden;
+}
+.coach-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--verde),var(--dorado));
+}
+.coach-avatar{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
+}
+.coach-avatar-img{
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,var(--verde),var(--dorado));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+}
+.coach-avatar-info h3{
+  font-family:var(--font-h);font-size:1.1rem;letter-spacing:.1em;
+  color:var(--verde);
+}
+.coach-avatar-info p{font-size:.75rem;color:var(--muted);}
+.coach-message{
+  background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);
+  border-radius:10px;padding:1rem 1.25rem;
+  font-size:.9rem;line-height:1.7;color:var(--text);
+  margin-bottom:1.25rem;min-height:80px;
+  position:relative;
+}
+.coach-message::before{
+  content:'';position:absolute;left:1.25rem;top:-8px;
+  border:8px solid transparent;
+  border-bottom-color:rgba(0,230,118,.15);
+  border-top:none;
+}
+.coach-typing{display:none;align-items:center;gap:.3rem;padding:.5rem 0;}
+.coach-typing.active{display:flex;}
+.coach-typing span{
+  width:6px;height:6px;background:var(--verde);border-radius:50%;
+  animation:typingBounce .9s infinite;
+}
+.coach-typing span:nth-child(2){animation-delay:.15s;}
+.coach-typing span:nth-child(3){animation-delay:.3s;}
+@keyframes typingBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.coach-actions{display:flex;gap:.75rem;flex-wrap:wrap;}
+.coach-btn{
+  font-family:var(--font-b);font-size:.78rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.55rem 1.1rem;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--text);transition:all .2s;display:flex;align-items:center;gap:.4rem;
+}
+.coach-btn:hover{background:rgba(0,230,118,.1);border-color:rgba(0,230,118,.3);color:var(--verde);}
+.coach-btn.primary{
+  background:linear-gradient(135deg,var(--verde),var(--verde2));
+  color:#000;border-color:transparent;
+}
+.coach-btn.primary:hover{opacity:.9;transform:translateY(-1px);}
+
+/* Plan del día */
+.today-plan{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:2rem;
+}
+.today-plan h3{
+  font-family:var(--font-h);font-size:1.3rem;letter-spacing:.1em;
+  margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem;
+}
+.today-plan h3 i{color:var(--dorado);}
+.plan-day-header{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);
+  border-radius:10px;padding:.75rem 1rem;margin-bottom:1rem;
+}
+.plan-day-name{
+  font-family:var(--font-h);font-size:1.1rem;color:var(--verde);
+  letter-spacing:.1em;
+}
+.plan-day-badge{
+  font-size:.7rem;font-family:var(--font-b);font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.25rem .6rem;border-radius:50px;
+}
+.badge-high{background:rgba(255,23,68,.15);color:var(--rojo);}
+.badge-med{background:rgba(255,214,0,.15);color:var(--dorado);}
+.badge-low{background:rgba(0,230,118,.15);color:var(--verde);}
+.plan-items{display:flex;flex-direction:column;gap:.5rem;}
+.plan-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.65rem .9rem;border-radius:8px;
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  font-size:.88rem;cursor:pointer;transition:all .2s;
+}
+.plan-item:hover{background:rgba(0,230,118,.05);border-color:rgba(0,230,118,.2);}
+.plan-item i{color:var(--verde);width:16px;text-align:center;flex-shrink:0;}
+.plan-item-done{
+  opacity:.5;text-decoration:line-through;
+  background:rgba(0,230,118,.03)!important;
+}
+.plan-check{
+  width:18px;height:18px;border-radius:4px;
+  border:2px solid var(--border);
+  margin-left:auto;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-size:.65rem;color:transparent;
+}
+.plan-item-done .plan-check{
+  background:var(--verde);border-color:var(--verde);color:#000;
+}
+
+/* ─── SEARCH + FILTERS ───────────────────────── */
+.search-section{
+  padding:2.5rem 2rem 0;
+  max-width:1200px;margin:0 auto;
+}
+.search-bar-wrap{position:relative;margin-bottom:1.5rem;}
+.search-bar-icon{
+  position:absolute;left:1rem;top:50%;transform:translateY(-50%);
+  color:var(--muted);font-size:1rem;
+}
+.search-bar{
+  width:100%;padding:.9rem 1rem .9rem 3rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);
+  font-family:var(--font-t);font-size:.95rem;
+  transition:border-color .2s,box-shadow .2s;
+  outline:none;
+}
+.search-bar:focus{border-color:var(--verde);box-shadow:0 0 0 3px rgba(0,230,118,.1);}
+.search-bar::placeholder{color:var(--muted);}
+.filter-tabs{
+  display:flex;gap:.5rem;flex-wrap:wrap;padding-bottom:1rem;
+}
+.filter-tab{
+  font-family:var(--font-b);font-size:.75rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.5rem 1rem;border-radius:50px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--muted);transition:all .2s;
+  display:flex;align-items:center;gap:.35rem;
+}
+.filter-tab:hover{color:var(--text);border-color:rgba(255,255,255,.15);}
+.filter-tab.active{
+  background:rgba(0,230,118,.12);border-color:rgba(0,230,118,.3);
+  color:var(--verde);
+}
+
+/* ─── EXERCISES GRID ─────────────────────────── */
+.exercises-section{
+  padding:2rem 2rem 4rem;
+  max-width:1200px;margin:0 auto;
+}
+.category-block{margin-bottom:3.5rem;}
+.category-header{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
+  padding-bottom:1rem;border-bottom:1px solid var(--border);
+}
+.category-icon{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.cat-green{background:rgba(0,230,118,.12);color:var(--verde);}
+.cat-gold{background:rgba(255,214,0,.12);color:var(--dorado);}
+.cat-red{background:rgba(255,23,68,.12);color:var(--rojo);}
+.cat-blue{background:rgba(41,121,255,.12);color:var(--azul);}
+.cat-purple{background:rgba(156,39,176,.12);color:#ce93d8;}
+.category-title{font-family:var(--font-h);font-size:1.4rem;letter-spacing:.1em;}
+.category-count{
+  margin-left:auto;font-size:.75rem;font-family:var(--font-b);
+  color:var(--muted);background:rgba(255,255,255,.05);
+  border:1px solid var(--border);padding:.25rem .7rem;border-radius:50px;
+}
+.exercises-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1.25rem;
+}
+
+/* ─── EXERCISE CARD ──────────────────────────── */
+.ex-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+  position:relative;
+}
+.ex-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 50px rgba(0,0,0,.5);
+  border-color:rgba(0,230,118,.2);
+}
+.ex-card.done{border-color:rgba(0,230,118,.4);}
+.ex-card-img{
+  position:relative;height:180px;overflow:hidden;
+}
+.ex-card-img img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s;
+}
+.ex-card:hover .ex-card-img img{transform:scale(1.06);}
+.ex-card-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(13,17,23,.9) 0%,transparent 60%);
+}
+.ex-level-badge{
+  position:absolute;top:.75rem;right:.75rem;
+  font-family:var(--font-b);font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.25rem .65rem;border-radius:50px;
+}
+.level-basic{background:rgba(0,230,118,.2);color:var(--verde);border:1px solid rgba(0,230,118,.4);}
+.level-inter{background:rgba(255,214,0,.2);color:var(--dorado);border:1px solid rgba(255,214,0,.4);}
+.level-adv{background:rgba(255,23,68,.2);color:var(--rojo);border:1px solid rgba(255,23,68,.4);}
+.ex-done-stamp{
+  position:absolute;top:.75rem;left:.75rem;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--verde);color:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;opacity:0;transform:scale(0);
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+}
+.ex-card.done .ex-done-stamp{opacity:1;transform:scale(1);}
+.ex-card-body{padding:1.25rem;}
+.ex-card-title{
+  font-family:var(--font-h);font-size:1.1rem;letter-spacing:.06em;
+  margin-bottom:.4rem;
+}
+.ex-card-goal{
+  font-size:.78rem;color:var(--verde);
+  font-family:var(--font-b);font-weight:600;
+  display:flex;align-items:center;gap:.3rem;margin-bottom:.6rem;
+}
+.ex-card-desc{
+  font-size:.82rem;color:var(--muted);line-height:1.5;
+  margin-bottom:1rem;
+}
+.ex-card-meta{
+  display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem;
+}
+.ex-meta-item{
+  font-size:.72rem;color:var(--muted);
+  display:flex;align-items:center;gap:.3rem;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  padding:.25rem .6rem;border-radius:6px;
+}
+.ex-meta-item i{font-size:.7rem;color:var(--verde);}
+.ex-card-footer{
+  display:flex;gap:.6rem;align-items:center;
+}
+.ex-check-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;
+  font-family:var(--font-b);font-size:.78rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.6rem;border-radius:8px;
+  border:1.5px solid var(--border);
+  color:var(--muted);background:transparent;
+  transition:all .2s;
+}
+.ex-check-btn:hover{border-color:var(--verde);color:var(--verde);}
+.ex-card.done .ex-check-btn{
+  background:rgba(0,230,118,.1);border-color:var(--verde);color:var(--verde);
+}
+.ex-detail-btn{
+  width:38px;height:38px;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--muted);font-size:.85rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.ex-detail-btn:hover{color:var(--dorado);border-color:rgba(255,214,0,.3);}
+
+/* ─── WEEKLY PLAN ────────────────────────────── */
+.weekly-section{
+  background:var(--bg2);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);padding:4rem 2rem;
+}
+.weekly-inner{max-width:1200px;margin:0 auto;}
+.weekly-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:.75rem;
+  margin-top:2rem;
+}
+.week-day-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1rem .75rem;text-align:center;
+  transition:all .25s;cursor:pointer;
+}
+.week-day-card:hover{border-color:rgba(0,230,118,.3);}
+.week-day-card.today-card{
+  border-color:var(--verde);
+  box-shadow:0 0 20px rgba(0,230,118,.15);
+}
+.wdc-day{
+  font-family:var(--font-h);font-size:.95rem;letter-spacing:.1em;
+  color:var(--muted);margin-bottom:.5rem;
+}
+.week-day-card.today-card .wdc-day{color:var(--verde);}
+.wdc-icon{font-size:1.3rem;margin-bottom:.5rem;}
+.wdc-label{
+  font-size:.7rem;color:var(--muted);font-family:var(--font-b);
+  font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+}
+.wdc-intensity{
+  margin-top:.5rem;height:4px;border-radius:2px;
+  background:rgba(255,255,255,.06);overflow:hidden;
+}
+.wdc-intensity-fill{height:100%;border-radius:2px;}
+.int-high .wdc-intensity-fill{background:var(--rojo);width:90%;}
+.int-med .wdc-intensity-fill{background:var(--dorado);width:60%;}
+.int-low .wdc-intensity-fill{background:var(--verde);width:35%;}
+.int-rest .wdc-intensity-fill{background:var(--azul);width:15%;}
+
+/* ─── SPIRITUAL SECTION ──────────────────────── */
+.spiritual-section{
+  padding:4rem 2rem;
+  background:linear-gradient(135deg,rgba(255,214,0,.03) 0%,transparent 60%);
+}
+.spiritual-inner{max-width:1200px;margin:0 auto;}
+.spiritual-grid{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:2.5rem;
+  align-items:center;
+}
+.spiritual-img-wrap{position:relative;border-radius:var(--r);overflow:hidden;}
+.spiritual-img-wrap img{width:100%;height:400px;object-fit:cover;}
+.spiritual-img-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,214,0,.2),rgba(0,0,0,.6));
+}
+.spiritual-cross{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:3.5rem;color:rgba(255,214,0,.8);
+  text-shadow:0 0 40px rgba(255,214,0,.5);
+}
+.verse-cards{display:flex;flex-direction:column;gap:1rem;}
+.verse-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem;
+  border-left:3px solid var(--dorado);
+  transition:all .25s;
+}
+.verse-card:hover{transform:translateX(4px);border-left-color:var(--verde);}
+.verse-text{
+  font-size:.9rem;font-style:italic;color:var(--text);
+  line-height:1.6;margin-bottom:.5rem;
+}
+.verse-ref{
+  font-family:var(--font-b);font-size:.72rem;font-weight:700;
+  color:var(--dorado);letter-spacing:.08em;text-transform:uppercase;
+  display:flex;align-items:center;gap:.3rem;
+}
+.verse-ref i{font-size:.65rem;}
+
+/* ─── RECOVERY SECTION ───────────────────────── */
+.recovery-section{
+  padding:4rem 2rem;background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.recovery-inner{max-width:1200px;margin:0 auto;}
+.recovery-tabs{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+.rec-tab{
+  font-family:var(--font-b);font-size:.78rem;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:.55rem 1.1rem;border-radius:8px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:var(--muted);transition:all .2s;
+}
+.rec-tab.active{
+  background:rgba(41,121,255,.15);border-color:rgba(41,121,255,.4);
+  color:var(--azul);
+}
+.rec-tab:hover{color:var(--text);}
+.rec-panel{display:none;}
+.rec-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;}
+.rec-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem;
+  display:flex;align-items:flex-start;gap:.9rem;
+  transition:all .25s;
+}
+.rec-card:hover{border-color:rgba(41,121,255,.3);transform:translateY(-2px);}
+.rec-card.done{border-color:rgba(0,230,118,.3);opacity:.75;}
+.rec-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:rgba(41,121,255,.1);color:var(--azul);
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;
+}
+.rec-card.done .rec-icon{background:rgba(0,230,118,.1);color:var(--verde);}
+.rec-info h4{font-family:var(--font-b);font-size:.88rem;font-weight:700;margin-bottom:.2rem;}
+.rec-info p{font-size:.78rem;color:var(--muted);line-height:1.4;margin-bottom:.5rem;}
+.rec-time{
+  font-size:.7rem;color:var(--azul);font-family:var(--font-b);
+  font-weight:600;display:flex;align-items:center;gap:.3rem;
+}
+.rec-card.done .rec-time{color:var(--verde);}
+.rec-check{
+  margin-left:auto;width:22px;height:22px;border-radius:5px;
+  border:1.5px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;color:transparent;font-size:.7rem;cursor:pointer;
+}
+.rec-card.done .rec-check{background:var(--verde);border-color:var(--verde);color:#000;}
+
+/* ─── MODAL DETAIL ───────────────────────────── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.8);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;opacity:0;pointer-events:none;
+  transition:opacity .3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:20px;max-width:650px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  transform:scale(.95) translateY(20px);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.modal-overlay.open .modal-box{transform:scale(1) translateY(0);}
+.modal-img{height:220px;overflow:hidden;border-radius:18px 18px 0 0;}
+.modal-img img{width:100%;height:100%;object-fit:cover;}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(0,0,0,.6);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;z-index:1;
+  transition:background .2s;
+}
+.modal-close:hover{background:rgba(255,23,68,.6);}
+.modal-body{padding:1.75rem;}
+.modal-title{font-family:var(--font-h);font-size:1.6rem;letter-spacing:.08em;margin-bottom:.25rem;}
+.modal-goal{
+  font-size:.82rem;color:var(--verde);font-family:var(--font-b);
+  font-weight:600;display:flex;align-items:center;gap:.3rem;margin-bottom:1rem;
+}
+.modal-badges{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+.modal-desc{font-size:.9rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem;}
+.modal-steps-title{
+  font-family:var(--font-h);font-size:1rem;letter-spacing:.1em;
+  color:var(--verde);margin-bottom:.75rem;
+}
+.modal-steps{display:flex;flex-direction:column;gap:.5rem;}
+.modal-step{
+  display:flex;align-items:flex-start;gap:.75rem;
+  font-size:.85rem;line-height:1.5;
+}
+.step-num{
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.3);
+  color:var(--verde);font-family:var(--font-b);font-weight:700;font-size:.7rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem;
+}
+.modal-footer{margin-top:1.5rem;display:flex;gap:.75rem;align-items:center;}
+
+/* ─── TOAST ──────────────────────────────────── */
+.toast-cont{position:fixed;bottom:2rem;right:2rem;z-index:3000;display:flex;flex-direction:column;gap:.5rem;}
+.toast{
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:12px;padding:.85rem 1.25rem;
+  font-family:var(--font-b);font-size:.82rem;font-weight:600;
+  display:flex;align-items:center;gap:.6rem;
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+  animation:toastIn .35s cubic-bezier(.34,1.56,.64,1);
+  min-width:220px;
+}
+.toast.green{border-left:3px solid var(--verde);color:var(--verde);}
+.toast.gold{border-left:3px solid var(--dorado);color:var(--dorado);}
+@keyframes toastIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+
+/* ─── FOOTER ─────────────────────────────────── */
+.footer-ent{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:2.5rem 2rem;
+}
+.footer-ent-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-brand{font-family:var(--font-h);font-size:1.1rem;letter-spacing:.15em;color:var(--verde);}
+.footer-verse{
+  font-size:.8rem;font-style:italic;color:var(--muted);text-align:center;
+  border-left:2px solid var(--dorado);padding-left:.75rem;max-width:320px;
+}
+.footer-verse cite{display:block;color:var(--dorado);margin-top:.25rem;font-style:normal;font-size:.72rem;font-family:var(--font-b);font-weight:700;}
+.fn-bottom{
+  max-width:1200px;margin:.75rem auto 0;
+  text-align:center;font-size:.75rem;color:var(--muted);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media(max-width:900px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .coach-grid{grid-template-columns:1fr;}
+  .spiritual-grid{grid-template-columns:1fr;}
+  .spiritual-img-wrap{display:none;}
+  .weekly-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(max-width:600px){
+  .weekly-grid{grid-template-columns:repeat(2,1fr);}
+  .exercises-grid{grid-template-columns:1fr;}
+  .hero-stats-ent{gap:1rem;}
+  .footer-ent-inner{flex-direction:column;text-align:center;}
+  .footer-verse{border-left:none;border-top:1px solid var(--dorado);padding:0.75rem 0 0;max-width:100%;}
+}
+
+/* ─── CONFETTI PARTICLE ──────────────────────── */
+.confetti-particle{
+  position:fixed;pointer-events:none;z-index:9000;
+  width:8px;height:8px;border-radius:2px;
+  animation:confettiFall 1.2s ease-out forwards;
+}
+@keyframes confettiFall{
+  0%{opacity:1;transform:translateY(0) rotate(0deg);}
+  100%{opacity:0;transform:translateY(120px) rotate(360deg);}
+}
+</style>
+<!-- ═══════════════════════════════════════════
+     CSS TERMINA AQUÍ
+═══════════════════════════════════════════ -->
+
+</head>
+<body>
+<div class="noise"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+        <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+        <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+        <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+        <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+        <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <span class="logo-cross"><i class="fas fa-cross"></i></span>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">EL CAMINO</span>
+      <span class="logo-tag">Fe · Fútbol · Gloria</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html" class="active"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+    <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
+    <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+      <i class="fas fa-sun" id="themeIcon"></i>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+  <a href="entrenamiento.html" class="mob-active"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+  <a href="nutricion.html"><i class="fas fa-apple-alt"></i> Nutrición</a>
+  <a href="fotos.html"><i class="fas fa-camera"></i> Fotos</a>
+  <a href="estadisticas.html"><i class="fas fa-chart-bar"></i> Estadísticas</a>
+  <a href="fe.html"><i class="fas fa-cross"></i> Fe & Motivación</a>
+  <a href="progreso.html"><i class="fas fa-trophy"></i> Mi Progreso</a>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero-ent">
+  <div class="hero-bg-ent" id="heroBg"></div>
+  <div class="hero-overlay-ent"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content-ent">
+    <div class="hero-eyebrow-ent">
+      <i class="fas fa-dumbbell"></i>
+      Plataforma de Entrenamiento Élite
+    </div>
+    <h1 class="hero-title-ent">
+      <span class="ht-w">ENTRE</span><span class="ht-g">NA</span><br>
+      <span class="ht-gold">CON</span><br>
+      <span class="ht-w">DIOS</span>
+    </h1>
+    <p class="hero-verse-ent">
+      <i class="fas fa-bible"></i>
+      "Todo lo puedo en Cristo que me fortalece." — Filipenses 4:13
+    </p>
+    <div class="hero-stats-ent">
+      <div class="hse-item">
+        <span class="hse-num" id="totalEx">0</span>
+        <span class="hse-label">Ejercicios completados</span>
+      </div>
+      <div class="hse-item">
+        <span class="hse-num" id="totalCats">8</span>
+        <span class="hse-label">Categorías</span>
+      </div>
+      <div class="hse-item">
+        <span class="hse-num" id="streakDays">0</span>
+        <span class="hse-label">Días consecutivos</span>
+      </div>
+    </div>
+    <div class="hero-btns-ent">
+      <a href="#entrenamientos" class="btn-primary"><i class="fas fa-play"></i>Comenzar Hoy</a>
+      <a href="#semanal" class="btn-secondary"><i class="fas fa-calendar-week"></i>Rutina Semanal</a>
+    </div>
+  </div>
+  <div class="hero-scroll-ent" onclick="document.getElementById('progressBar').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-dot-ent"></div>
+    <span>Entrenar</span>
+  </div>
+</header>
+
+<!-- ═══════════ VERSE RIBBON ═══════════ -->
+<div class="verse-ribbon">
+  <div class="ribbon-track" id="ribbonTrack">
+    <span>⚽ Técnica Individual</span> · Control · Pase · Regate · Definición ·
+    <span>🏃 Preparación Física</span> · Velocidad · Fuerza · Resistencia ·
+    <span>✝️ Con Dios todo es posible</span> · Mateo 19:26 ·
+    <span>🧠 Mentalidad Élite</span> · Disciplina · Fe · Trabajo ·
+    <span>⚽ Técnica Individual</span> · Control · Pase · Regate · Definición ·
+    <span>🏃 Preparación Física</span> · Velocidad · Fuerza · Resistencia ·
+    <span>✝️ Con Dios todo es posible</span> · Mateo 19:26 ·
+    <span>🧠 Mentalidad Élite</span> · Disciplina · Fe · Trabajo ·
+  </div>
+</div>
+
+<!-- ═══════════ GLOBAL PROGRESS ═══════════ -->
+<div class="global-progress-bar" id="progressBar">
+  <div class="gpb-inner">
+    <div class="gpb-header">
+      <span class="gpb-title"><i class="fas fa-fire"></i> PROGRESO DE HOY</span>
+      <span class="gpb-count" id="gpbCount">0 / 0 ejercicios completados</span>
+    </div>
+    <div class="gpb-bar"><div class="gpb-fill" id="gpbFill"></div></div>
+    <div class="gpb-cats" id="gpbCats"></div>
+  </div>
+</div>
+
+<!-- ═══════════ COACH VIRTUAL + PLAN DEL DÍA ═══════════ -->
+<section class="coach-section">
+  <div class="coach-inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-robot"></i> Coach Virtual</span>
+      <h2 class="section-h2">Tu <span class="green">Entrenador</span> Personal</h2>
+    </div>
+    <div class="coach-grid">
+      <!-- Coach card -->
+      <div class="coach-card reveal">
+        <div class="coach-avatar">
+          <div class="coach-avatar-img">🏆</div>
+          <div class="coach-avatar-info">
+            <h3>Coach IA · El Camino</h3>
+            <p>Asistente de entrenamiento profesional</p>
+          </div>
+        </div>
+        <div class="coach-message" id="coachMsg">
+          Analizando tu progreso... Dame un momento para prepararte el mejor plan de hoy.
+        </div>
+        <div class="coach-typing" id="coachTyping">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="coach-actions">
+          <button class="coach-btn primary" onclick="getCoachAdvice('motivacion')"><i class="fas fa-fire"></i> Motivación</button>
+          <button class="coach-btn" onclick="getCoachAdvice('tecnica')"><i class="fas fa-futbol"></i> Técnica</button>
+          <button class="coach-btn" onclick="getCoachAdvice('fisico')"><i class="fas fa-dumbbell"></i> Físico</button>
+          <button class="coach-btn" onclick="getCoachAdvice('fe')"><i class="fas fa-cross"></i> Fe del Día</button>
+        </div>
+      </div>
+      <!-- Plan del día -->
+      <div class="today-plan reveal">
+        <h3><i class="fas fa-calendar-day"></i> Plan de Hoy — <span id="todayDayName">Cargando...</span></h3>
+        <div class="plan-day-header">
+          <span class="plan-day-name" id="planDayName">—</span>
+          <span class="plan-day-badge" id="planIntBadge">—</span>
+        </div>
+        <div class="plan-items" id="planItems"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SEARCH + FILTERS ═══════════ -->
+<div class="search-section" id="entrenamientos">
+  <div class="search-bar-wrap">
+    <i class="fas fa-search search-bar-icon"></i>
+    <input type="text" id="searchBar" class="search-bar" placeholder="Buscar ejercicio... (ej: control, sprints, core)"/>
+  </div>
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-cat="all"><i class="fas fa-th"></i> Todos</button>
+    <button class="filter-tab" data-cat="control"><i class="fas fa-futbol"></i> Control</button>
+    <button class="filter-tab" data-cat="pase"><i class="fas fa-paper-plane"></i> Pase</button>
+    <button class="filter-tab" data-cat="regate"><i class="fas fa-running"></i> Regate</button>
+    <button class="filter-tab" data-cat="definicion"><i class="fas fa-crosshairs"></i> Definición</button>
+    <button class="filter-tab" data-cat="fisico"><i class="fas fa-dumbbell"></i> Físico</button>
+    <button class="filter-tab" data-cat="velocidad"><i class="fas fa-bolt"></i> Velocidad</button>
+    <button class="filter-tab" data-cat="recuperacion"><i class="fas fa-heart"></i> Recuperación</button>
+  </div>
+</div>
+
+<!-- ═══════════ EXERCISES GRID ═══════════ -->
+<div class="exercises-section" id="exercisesSection"></div>
+
+<!-- ═══════════ WEEKLY PLAN ═══════════ -->
+<section class="weekly-section" id="semanal">
+  <div class="weekly-inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-calendar-week"></i> Planificación</span>
+      <h2 class="section-h2">Rutina <span class="green">Semanal</span></h2>
+      <p class="section-sub">Plan de entrenamiento profesional de 7 días. Intensidad progresiva, recuperación estratégica.</p>
+    </div>
+    <div class="weekly-grid" id="weeklyGrid"></div>
+  </div>
+</section>
+
+<!-- ═══════════ RECOVERY ═══════════ -->
+<section class="recovery-section">
+  <div class="recovery-inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-heart"></i> Recuperación</span>
+      <h2 class="section-h2">Estiramientos & <span class="green">Movilidad</span></h2>
+      <p class="section-sub">La recuperación es tan importante como el entrenamiento. Tu cuerpo es el templo del Espíritu Santo.</p>
+    </div>
+    <div class="recovery-tabs" id="recoveryTabs">
+      <button class="rec-tab active" data-panel="pre">Pre-Entrenamiento</button>
+      <button class="rec-tab" data-panel="post">Post-Entrenamiento</button>
+      <button class="rec-tab" data-panel="movilidad">Movilidad</button>
+      <button class="rec-tab" data-panel="prevencion">Prevención</button>
+    </div>
+    <div id="recoveryPanels"></div>
+  </div>
+</section>
+
+<!-- ═══════════ SPIRITUAL ═══════════ -->
+<section class="spiritual-section">
+  <div class="spiritual-inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-cross"></i> Fe & Entrenamiento</span>
+      <h2 class="section-h2">Dios es tu <span class="gold">Entrenador</span></h2>
+    </div>
+    <div class="spiritual-grid">
+      <div class="spiritual-img-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=700&q=80" alt="Fe y fútbol"/>
+        <div class="spiritual-img-overlay"></div>
+        <div class="spiritual-cross"><i class="fas fa-cross"></i></div>
+      </div>
+      <div class="verse-cards reveal" id="verseCards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MODAL ═══════════ -->
+<div class="modal-overlay" id="exModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ═══════════ TOAST ═══════════ -->
+<div class="toast-cont" id="toastCont"></div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer-ent">
+  <div class="footer-ent-inner">
+    <div class="footer-brand">⚽ EL CAMINO · ENTRENAMIENTO</div>
+    <div class="footer-verse">
+      <i class="fas fa-cross" style="color:var(--dorado);margin-right:.4rem;"></i>
+      "Esfuérzate y sé valiente, porque el Señor tu Dios estará contigo adondequiera que vayas."
+      <cite>— Josué 1:9</cite>
+    </div>
+    <div style="display:flex;gap:.75rem;">
+      <a href="#" style="color:var(--muted);font-size:1.1rem;transition:color .2s;" onmouseover="this.style.color='var(--verde)'" onmouseout="this.style.color='var(--muted)'"><i class="fab fa-instagram"></i></a>
+      <a href="#" style="color:var(--muted);font-size:1.1rem;transition:color .2s;" onmouseover="this.style.color='var(--verde)'" onmouseout="this.style.color='var(--muted)'"><i class="fab fa-tiktok"></i></a>
+      <a href="#" style="color:var(--muted);font-size:1.1rem;transition:color .2s;" onmouseover="this.style.color='var(--verde)'" onmouseout="this.style.color='var(--muted)'"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+  <div class="fn-bottom">© 2025 El Camino · Hecho con <span style="color:var(--verde)">♥</span> y mucha fe · Gloria a Dios</div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT EMPIEZA AQUÍ
+═══════════════════════════════════════════ -->
+<script>
+/* ─────────────────────────────────────────────────────────
+   DATOS: EJERCICIOS
+   Cada ejercicio tiene: id, cat, name, goal, level, desc,
+   img, reps, steps[], tips
+───────────────────────────────────────────────────────── */
+const EXERCISES = [
+
+  // ── CONTROL DE BALÓN ──────────────────────────────────
+  { id:'c1', cat:'control', name:'Dominio con la Planta', goal:'Control preciso del balón parado', level:'basic',
+    img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80',
+    reps:'3 x 2 min', desc:'Ejercicio básico para desarrollar la sensibilidad del balón con la planta del pie.',
+    steps:['Coloca el balón frente a ti','Apoya la planta del pie derecho encima','Rueda hacia adelante y atrás con suavidad','Alternás el pie izquierdo cada 15 segundos','Buscá fluidez y ritmo constante','Aumentá la velocidad progresivamente'] },
+  { id:'c2', cat:'control', name:'Malabares (Freestyle)', goal:'Coordinación ojo-pie y sensibilidad', level:'inter',
+    img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    reps:'5 x 1 min', desc:'Mantener el balón en el aire usando alternancia de pies, muslos y cabeza.',
+    steps:['Empezá con el balón en la mano','Dejalo caer y pegale con el empeine','Intentá 2, 3, 5, 10 toques consecutivos','Incorporá el muslo cuando tengas control','Agregá la cabeza para más variedad','Registrá tu récord diario'] },
+  { id:'c3', cat:'control', name:'Control Orientado en Movimiento', goal:'Recibir y dirigir el balón en carrera', level:'inter',
+    img:'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=600&q=80',
+    reps:'4 x 8 rep', desc:'Recibir pases en movimiento y orientar el control hacia el espacio libre.',
+    steps:['Marcá un recorrido de 15m','Un compañero (o pared) lanza el balón','Antes de recibir, decidí a dónde vas','Orientá el primer toque hacia ese espacio','Acelerá hacia ese espacio con el balón','Repetí desde distintos ángulos'] },
+  { id:'c4', cat:'control', name:'Control con el Pecho', goal:'Amortiguar balones aéreos', level:'inter',
+    img:'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=600&q=80',
+    reps:'4 x 10 rep', desc:'Recibir balones por el aire usando el pecho para bajarlos controlados.',
+    steps:['Pedile a alguien que tire el balón en parábola','Posicionarte bajo la trayectoria','Inflar el pecho y al impacto, relajarlo','Dejá que el balón caiga a tus pies','Controlá el rebote inmediatamente','Buscá que caiga cerca del pie dominante'] },
+  { id:'c5', cat:'control', name:'Rondos de Control (1 toque)', goal:'Control bajo presión y velocidad', level:'adv',
+    img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    reps:'10 min continuo', desc:'En grupo de 4–6, pasarse el balón con 1 toque, sin dejar que caiga.',
+    steps:['Formá un círculo con 4 personas','Pasate el balón en 1 toque siempre','Si tocás 2 veces vas al centro','El del centro presiona al que tiene la pelota','Intensidad alta, comunicación constante','Variante: 2 toques máximo'] },
+  { id:'c6', cat:'control', name:'Pared + Control Orientado', goal:'Velocidad de procesamiento con balón', level:'adv',
+    img:'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=80',
+    reps:'3 x 5 min', desc:'Usar una pared como "compañero" para practicar control y orientación en solitario.',
+    steps:['Posicionarte a 3m de la pared','Pegale fuerte y en distintas zonas','El rebote viene con distinta dirección','Controlá en 1 toque y orientá','Simulá que hay un rival detrás','Acelerá el ritmo progresivamente'] },
+  { id:'c7', cat:'control', name:'Control Bajo Presión Temporal', goal:'Toma de decisiones rápida', level:'adv',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'5 x 30 seg', desc:'Ejercicio con cronómetro para maximizar toques en el menor tiempo posible.',
+    steps:['Coloca conos a 2m entre sí','Recibe el balón entre los conos','Tenés 3 segundos para controlar y pasar','Si tardás más, perdés el punto','Buscá superar tu propio récord','Ideal con compañero que cuente'] },
+
+  // ── PASE Y PRECISIÓN ──────────────────────────────────
+  { id:'p1', cat:'pase', name:'Pase Corto en Triángulo', goal:'Precisión y comunicación', level:'basic',
+    img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80',
+    reps:'20 min', desc:'3 jugadores formando triángulo se pasan el balón con ritmo y variación.',
+    steps:['Formá un triángulo de 10m de lado','Pasate el balón siguiendo la forma','Variá: interior del pie, empeine, exterior','Después de pasar, se corre al lugar de quien recibió','Aumentá la velocidad cada 3 minutos','Variante: 1 toque solo'] },
+  { id:'p2', cat:'pase', name:'Pase Largo con Precisión', goal:'Distancia y eficiencia de pase', level:'inter',
+    img:'https://images.unsplash.com/photo-1546514355-7fdc90ccbd03?w=600&q=80',
+    reps:'4 x 15 rep', desc:'Practicar el pase largo con el empeine, buscando precisión a más de 30 metros.',
+    steps:['Marcá dos zonas a 30–40m de distancia','Ejecutá el pase con el empeine firme','El balón debe ir a 1m del objetivo','Alternás pierna derecha e izquierda','Registrá aciertos/fallos','Aumentá la distancia gradualmente'] },
+  { id:'p3', cat:'pase', name:'Paredes de Pared (1-2)', goal:'Fluidez y asociación rápida', level:'inter',
+    img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80',
+    reps:'3 x 8 min', desc:'Practicar la pared con un compañero o contra una pared real para automatizar la combinación.',
+    steps:['Posicionarte a 5m del compañero','Pasar y recibir de vuelta en carrera','El receptor devuelve al primer toque','Simulá que hay un rival entre los dos','Buscá la velocidad del intercambio','Variante: hacerlo en movimiento continuo'] },
+  { id:'p4', cat:'pase', name:'Pase al Espacio en Profundidad', goal:'Visión de juego y timing', level:'adv',
+    img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    reps:'4 x 10 rep', desc:'Pasar el balón al espacio para que un compañero lo corra, calibrando fuerza y ángulo.',
+    steps:['Un compañero arranca desde tu costado','Vos tenés el balón','Cuando él arranca, pasás al espacio que va a ocupar','El timing es clave: ni muy pronto ni muy tarde','Variar la dirección y la distancia','Ideal para trabajar profundidad'] },
+  { id:'p5', cat:'pase', name:'Pase con el Exterior del Pie', goal:'Ampliar recursos técnicos', level:'adv',
+    img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80',
+    reps:'3 x 12 rep', desc:'Ejecutar pases con el exterior del pie para sorprender en situaciones de juego real.',
+    steps:['Colocate de perfil al objetivo','Pegale con el exterior del pie dominante','El balón debe llevar efecto natural','Practicá desde distintos ángulos','Combinalo con un cambio de ritmo previo','Intentalo en espacio reducido'] },
+  { id:'p6', cat:'pase', name:'Pase con Cambio de Orientación', goal:'Cambiar el juego con precisión', level:'adv',
+    img:'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=600&q=80',
+    reps:'4 x 8 rep', desc:'Pase largo para cambiar el campo de juego, buscando al compañero libre al otro lado.',
+    steps:['Recibís de un lado del campo','Levantás la vista y ves el lado contrario','Ejecutás el cambio de orientación','El pase debe llegar antes de que el rival reaccione','Practicá con resistencia simulada','Calibrá la fuerza según la distancia'] },
+
+  // ── REGATE ────────────────────────────────────────────
+  { id:'r1', cat:'regate', name:'Conducción en Zigzag', goal:'Control en velocidad con cambios', level:'basic',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'6 x ida y vuelta', desc:'Conducir el balón a máxima velocidad entre conos en zigzag.',
+    steps:['Coloca 8 conos cada 1.5m','Conduce el balón con el pie dominante','Cambia de pie al pasar cada cono','Mantené el balón pegado al pie','Aumentá la velocidad en cada repetición','Cronometrate para mejorar'] },
+  { id:'r2', cat:'regate', name:'Finta de Cuerpo (Paso a Paso)', goal:'Engañar al rival con el cuerpo', level:'basic',
+    img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80',
+    reps:'4 x 10 rep', desc:'Practicar la finta básica: amagar con el cuerpo y salir por el lado contrario.',
+    steps:['Ponete frente a un cono (el "rival")','Mové el hombro hacia la izquierda','El cuerpo simula ir a la izquierda','En el último segundo, salís por la derecha','El movimiento debe ser explosivo','Alternár dirección cada serie'] },
+  { id:'r3', cat:'regate', name:'Croqueta (La Cruyff)', goal:'Cambio de dirección fulminante', level:'inter',
+    img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    reps:'3 x 12 rep', desc:'El movimiento de Johan Cruyff: amagar el pase y jalar el balón en 180°.',
+    steps:['Recibís el balón de frente','Posicionás como si fueras a pasar','Ponés el pie encima del balón','Jalás hacia atrás en 180 grados','Acelerás en la dirección contraria','El engaño está en el movimiento previo'] },
+  { id:'r4', cat:'regate', name:'Caño (Nutmeg)', goal:'Pasar el balón entre las piernas del rival', level:'adv',
+    img:'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=80',
+    reps:'3 x 8 rep', desc:'Técnica para pasar el balón entre las piernas del rival cuando cierra los pies.',
+    steps:['Ideal cuando el rival está de frente','Amagar hacia un lado primero','Cuando él se mueve, pegale entre las piernas','Acelerás para recuperar el balón','Requiere rapidez y precisión','Practicalo con un compañero real'] },
+  { id:'r5', cat:'regate', name:'Cambio de Ritmo (Stop & Go)', goal:'Descolocar al rival con velocidad variable', level:'inter',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'4 x 15m x 6 rep', desc:'Reducir y acelerar abruptamente para perder al marcador.',
+    steps:['Conduce a velocidad moderada','De repente, para el balón con la planta','Espera 1 segundo (desconcierta al rival)','Arrancá a máxima velocidad','Repetí al revés: arrancá lento, acelerá','El timing del stop es la clave'] },
+  { id:'r6', cat:'regate', name:'Roulette (Zidane)', goal:'Proteger el balón y girar 360°', level:'adv',
+    img:'https://images.unsplash.com/photo-1546514355-7fdc90ccbd03?w=600&q=80',
+    reps:'3 x 10 rep', desc:'La ruleta de Zidane: girar 360° con el pie encima del balón para escapar del rival.',
+    steps:['Recibís el balón de espaldas al rival','Ponés el pie encima y rodás hacia adelante','Girás el cuerpo en la misma dirección','El segundo pie sigue el movimiento giratorio','Acelerás apenas completás el giro','La clave es mantener el control durante el giro'] },
+  { id:'r7', cat:'regate', name:'1v1 Simulado con Cono', goal:'Aplicar regates en situación real', level:'inter',
+    img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80',
+    reps:'5 x 8 rep', desc:'Regatear un cono que simula un rival, buscando llegar a la línea final.',
+    steps:['Marcá una línea de salida y una de llegada a 8m','El cono está en el medio','Arrancá con velocidad moderada','Realizá tu regate favorito antes del cono','Acelerá después del cono','Variá el tipo de regate cada serie'] },
+
+  // ── DEFINICIÓN ────────────────────────────────────────
+  { id:'d1', cat:'definicion', name:'Tiro al Arco desde Estático', goal:'Precisión y potencia básica', level:'basic',
+    img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80',
+    reps:'4 x 10 disparos', desc:'Tiros al arco desde posición estática para trabajar técnica y precisión.',
+    steps:['Colocate a 15m del arco','Acomodá el balón parado','Decidí el ángulo antes de ejecutar','Pegale con el empeine a media altura','Buscá las esquinas del arco','Alternás pierna derecha e izquierda'] },
+  { id:'d2', cat:'definicion', name:'Definición en Movimiento', goal:'Finalizar en carrera', level:'inter',
+    img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    reps:'4 x 8 rep', desc:'Recibir el balón en carrera y definir sin parar.',
+    steps:['Marcá una zona de pase y una de disparo','Recibís en carrera a 20m del arco','Control en movimiento (1 toque máximo)','Disparás sin romper la velocidad','Variás: con derecha, izquierda, volea','Buscá automatizar el gesto'] },
+  { id:'d3', cat:'definicion', name:'Definición Cruzada (Primer Palo)', goal:'Anticiparse y cruzar', level:'inter',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'3 x 10 rep', desc:'Practicar el disparo cruzado al primer palo ante un pase lateral.',
+    steps:['Pase lateral desde la banda','Corres al punto de disparo','Pegale al primer palo con el empeine','El balón debe ir raso o bajo','Buscá el ángulo de 45 grados','La coordinación con el pase es clave'] },
+  { id:'d4', cat:'definicion', name:'Volea de Chilena (Preparación)', goal:'Coordinación aérea', level:'adv',
+    img:'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=80',
+    reps:'3 x 6 rep', desc:'Trabajar la técnica del salto y contacto para la chilena controlada.',
+    steps:['Un compañero lanza el balón en parábola','Posicionarte de espaldas al arco','Saltás hacia atrás con el balón encima','Contacto en el pico del salto','El cuerpo debe estar horizontal','Aterrizás en la espalda y manos para frenar'] },
+  { id:'d5', cat:'definicion', name:'Penales por Técnica', goal:'Mentalidad y precisión en penales', level:'basic',
+    img:'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=600&q=80',
+    reps:'3 tandas de 5', desc:'Practicar la ejecución del penal con distintas técnicas y mentalidad.',
+    steps:['Decidís el ángulo ANTES de colocar el balón','El run-up debe ser el mismo siempre','Pegale con el interior del pie para precisión','O con empeine para potencia','No mirés al arquero en el último metro','Confiá: Filipenses 4:13'] },
+  { id:'d6', cat:'definicion', name:'Definición de Cabeza', goal:'Remate de cabeza potente', level:'inter',
+    img:'https://images.unsplash.com/photo-1546514355-7fdc90ccbd03?w=600&q=80',
+    reps:'4 x 8 rep', desc:'Trabajar el remate de cabeza en salto y en estático.',
+    steps:['Centro desde la banda (compañero o pared)','Saltás anticipando la trayectoria','Contacto en la frente (no la corona)','El cuello da el impulso hacia el arco','Dirigís con la dirección de la cabeza','Buscá las esquinas'] },
+  { id:'d7', cat:'definicion', name:'Disparo de Larga Distancia', goal:'Potencia y colocación', level:'adv',
+    img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80',
+    reps:'4 x 8 rep', desc:'Practicar el disparo de larga distancia con el empeine buscando precisión.',
+    steps:['Distancia de 25–30m del arco','Conducís 3 pasos y disparás','Empeine firme, no la punta','El balón debe llevar efecto hacia adentro','Objetivo: ángulo superior del arco','Potencia 80%, precisión 100%'] },
+
+  // ── FÍSICO ────────────────────────────────────────────
+  { id:'f1', cat:'fisico', name:'Sentadillas con Salto (Jump Squats)', goal:'Potencia explosiva de piernas', level:'inter',
+    img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80',
+    reps:'4 x 10 rep', desc:'Sentadillas explosivas con salto para desarrollar la potencia de piernas para el campo.',
+    steps:['Pies a ancho de hombros','Bajás hasta 90 grados de rodillas','Empujás fuerte hacia arriba','Saltás tan alto como puedas','Aterrizás suave y volvés abajo','Mínimo descanso entre repeticiones'] },
+  { id:'f2', cat:'fisico', name:'Sprints de 20m (Aceleración)', goal:'Velocidad y aceleración inicial', level:'inter',
+    img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    reps:'8 x 20m', desc:'Sprints cortos para desarrollar la explosividad en los primeros metros.',
+    steps:['Marcá 20m con conos','Posición de salida: listo para arrancar','Al señal, arrancás a máxima velocidad','Los primeros 3 pasos son los más importantes','Recuperá 90 segundos entre repeticiones','El tiempo objetivo: menos de 3 segundos'] },
+  { id:'f3', cat:'fisico', name:'Core: Plancha con Variaciones', goal:'Estabilidad central', level:'basic',
+    img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    reps:'4 x 45 seg', desc:'Plancha frontal y lateral para fortalecer el core, base del futbolista.',
+    steps:['Plancha frontal: codos y punta de pies','Cuerpo recto como una tabla','Contraé el abdomen y glúteos','45 segundos con máxima tensión','Lateral: apoyás en un codo','Alternás lados'] },
+  { id:'f4', cat:'fisico', name:'Pliometría: Box Jumps', goal:'Potencia y coordinación', level:'adv',
+    img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80',
+    reps:'4 x 8 rep', desc:'Saltar y caer sobre una caja para desarrollar fuerza explosiva.',
+    steps:['Positionarte frente a la caja (40–60cm)','Pies juntos, rodillas levemente dobladas','Saltás con fuerza hacia la caja','Aterrizás suave sobre la caja completa','Bajás hacia atrás con control','1 minuto de recuperación entre series'] },
+  { id:'f5', cat:'fisico', name:'Resistencia: Fartlek Futbolístico', goal:'Resistencia aeróbica y anaeróbica', level:'inter',
+    img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    reps:'25 min continuo', desc:'Correr alternando ritmos: trote, carrera media, sprint, simulando el partido.',
+    steps:['2 min trote suave (calentamiento)','1 min carrera al 70%','30 seg sprint al 100%','1 min trote de recuperación','Repetí el ciclo durante 25 minutos','Al final: 5 min trote de vuelta a la calma'] },
+  { id:'f6', cat:'fisico', name:'Fuerza: Sentadilla Búlgara', goal:'Fuerza unilateral de piernas', level:'adv',
+    img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80',
+    reps:'4 x 8 rep por pierna', desc:'Sentadilla con el pie trasero elevado para trabajar cada pierna independientemente.',
+    steps:['Pie trasero sobre banco o silla','Pie delantero a un paso adelante','Bajás hasta que la rodilla trasera casi toca el suelo','El torso se mantiene erguido','Empujás hacia arriba con la pierna delantera','Sin peso primero, luego mancuernas'] },
+  { id:'f7', cat:'fisico', name:'Abdominales Funcionales', goal:'Fuerza de core para el juego', level:'basic',
+    img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    reps:'3 x 20 rep', desc:'Abdominales funcionales que replican movimientos del partido.',
+    steps:['Boca arriba, rodillas dobladas','Manos detrás de la cabeza','Subís hasta tocar las rodillas con los codos','Bajás lento (no completamente)','Variante: bicicleta alternando codos-rodillas','Respiración: expirás al subir'] },
+  { id:'f8', cat:'fisico', name:'Circuito de Agilidad (Escalera)', goal:'Coordinación y velocidad de pies', level:'inter',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'5 x 30 seg', desc:'Escalera de coordinación para mejorar la velocidad de pisadas.',
+    steps:['2 pisadas por cuadro avanzando','Luego: 1 pisada por cuadro lateral','Luego: patrón en V (abrís y cerrás pies)','Nunca pisés la escalera','Máxima velocidad de pies','Buscá ritmo antes de velocidad'] },
+
+  // ── VELOCIDAD ─────────────────────────────────────────
+  { id:'v1', cat:'velocidad', name:'Sprint de 40m Máximo', goal:'Velocidad punta', level:'inter',
+    img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    reps:'6 x 40m', desc:'Carreras de máxima velocidad para desarrollar la capacidad de sprint en el partido.',
+    steps:['Calentá bien: 15 min mínimo','Posición inicial: media posición baja','Arrancás con los primeros 3 pasos explosivos','Mantenés la velocidad máxima hasta los 40m','Recuperación completa: 3 minutos','No hagas más de 8 por sesión'] },
+  { id:'v2', cat:'velocidad', name:'Carrera Lateral (Shuffle)', goal:'Velocidad defensiva', level:'basic',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'6 x 15m x 2 dir', desc:'Carrera lateral para desarrollar velocidad defensiva y cambios de dirección.',
+    steps:['Posición defensiva: rodillas dobladas, espalda recta','Desplazarte lateralmente sin cruzar los pies','10m hacia la derecha, 10m de vuelta','Mantener baja posición durante todo','Velocidad máxima','Alternás la dirección de inicio'] },
+  { id:'v3', cat:'velocidad', name:'Cambio de Dirección (180°)', goal:'Agilidad y reacción', level:'inter',
+    img:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80',
+    reps:'6 x 5 rep', desc:'Llegar a un cono, parar en 180° y volver al punto de partida.',
+    steps:['Sprint a un cono a 10m','Al llegar, pisás y girás 180°','Sprint de vuelta al inicio','Cada cambio debe ser explosivo','El pie de giro debe clavar bien','Ideal para trabajar sin balón'] },
+  { id:'v4', cat:'velocidad', name:'Reacción con Señal Visual', goal:'Tiempo de reacción', level:'adv',
+    img:'https://images.unsplash.com/photo-1490650034804-45a5c6040e7e?w=600&q=80',
+    reps:'8 x 15m', desc:'Arrancar al momento de ver una señal visual (mano levantada, cono tirado).',
+    steps:['De pie, relajado, mirando al compañero','Al ver la señal (mano arriba/abajo), arrancás','El compañero varía el timing','Sprint de 15m máxima intensidad','Podés agregar cambio de dirección después','Trabaja la concentración y foco'] },
+  { id:'v5', cat:'velocidad', name:'Intervalos de Alta Intensidad (HIIT)', goal:'Capacidad aeróbica y anaeróbica', level:'adv',
+    img:'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80',
+    reps:'10 x (30s trabajo / 15s descanso)', desc:'HIIT específico para futbolistas: máxima intensidad corta con recuperación parcial.',
+    steps:['30 seg de sprint o trabajo de alta intensidad','15 seg de descanso activo (caminar)','10 rondas completas','El trabajo debe ser al 95% mínimo','Incluir: sprints, cambios, saltos','Hidratate entre series'] },
+
+  // ── RECUPERACIÓN ──────────────────────────────────────
+  { id:'rec1', cat:'recuperacion', name:'Meditación y Oración Post-Entreno', goal:'Recuperación mental y espiritual', level:'basic',
+    img:'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=80',
+    reps:'10 min', desc:'Cerrar el entrenamiento con oración y reflexión. El cuerpo y el alma descansan juntos.',
+    steps:['Sentate en el suelo, piernas cruzadas','Respirá lento y profundo','Agradecé a Dios por el entrenamiento','Pedile fuerza para el próximo','Lee un versículo bíblico','Visualizá tu sueño cumplido con fe'] },
+  { id:'rec2', cat:'recuperacion', name:'Baño de Contraste', goal:'Recuperación muscular acelerada', level:'inter',
+    img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80',
+    reps:'3 ciclos', desc:'Alternar agua fría y caliente para activar la circulación y reducir la inflamación.',
+    steps:['2 min agua caliente','30 seg agua fría','Repetir 3 veces','Terminá con agua fría','Esta técnica la usan élites del fútbol mundial','Reduce DOMS (dolor muscular post-esfuerzo)'] },
+];
+
+/* ─────────────────────────────────────────────────────────
+   DATOS: RECUPERACIÓN (estiramientos)
+───────────────────────────────────────────────────────── */
+const RECOVERY_DATA = {
+  pre: [
+    { icon:'fa-circle-notch', title:'Rotación de Caderas', desc:'Círculos amplios con las caderas, 10 por lado. Activa las articulaciones coxofemorales.', time:'1 min c/lado' },
+    { icon:'fa-angle-double-down', title:'Lunge Dinámico', desc:'Zancadas hacia adelante con torsión de tronco. Activa el tren inferior completo.', time:'10 rep x lado' },
+    { icon:'fa-sync', title:'Rotación de Tobillos', desc:'Circulos con el pie en el aire, 10 en cada dirección por tobillo.', time:'1 min c/tobillo' },
+    { icon:'fa-arrows-alt-v', title:'Saltos de Tijera', desc:'Jumping jacks clásicos para elevar la temperatura corporal.', time:'2 min' },
+    { icon:'fa-running', title:'Trote + Skipping', desc:'Trote suave aumentando a skipping (rodillas al pecho) progresivamente.', time:'3 min' },
+    { icon:'fa-arrow-up', title:'Hip Flexor Dinámico', desc:'Paso largo hacia adelante, rodilla trasera al suelo, brazos arriba. Alterna.', time:'10 rep x lado' },
+    { icon:'fa-circle', title:'Apertura de Hombros', desc:'Brazos en círculo adelante y atrás, articulando el hombro.', time:'1 min' },
+    { icon:'fa-football-ball', title:'Toque de Balón Suave', desc:'10 minutos de malabares y control suave para activar la coordinación.', time:'5-10 min' },
+  ],
+  post: [
+    { icon:'fa-angle-down', title:'Cuádriceps de Pie', desc:'De pie, doblás la rodilla y agarrás el pie hacia los glúteos. Mantené el equilibrio.', time:'30 seg x lado' },
+    { icon:'fa-child', title:'Estiramiento de Isquios', desc:'Sentado con pierna extendida, inclinás el tronco hacia adelante suavemente.', time:'40 seg x pierna' },
+    { icon:'fa-arrows-alt-h', title:'Pigeon Pose (Glúteos)', desc:'Posición de paloma del yoga para soltar la cadera y el glúteo.', time:'45 seg x lado' },
+    { icon:'fa-minus', title:'Estiramiento de Pantorrillas', desc:'Apoyás el pie en la pared, la otra pierna adelantada, estirás el gemelo.', time:'30 seg x pierna' },
+    { icon:'fa-expand', title:'Mariposa (Aductores)', goal:'Interno', desc:'Sentado, plantas de los pies juntas, empujás rodillas hacia el suelo suavemente.', time:'40 seg' },
+    { icon:'fa-leaf', title:'Child Pose (Columna)', desc:'De rodillas, te inclinás hacia adelante estirando la espalda completa.', time:'60 seg' },
+    { icon:'fa-cog', title:'Rotación de Columna', desc:'Boca arriba, una rodilla cruzás al lado contrario. Hombros en el suelo.', time:'30 seg x lado' },
+    { icon:'fa-heart', title:'Respiración Profunda Final', desc:'5 respiraciones profundas por la nariz, expirando por la boca. Cierra el entrenamiento.', time:'2 min' },
+  ],
+  movilidad: [
+    { icon:'fa-yin-yang', title:'World Greatest Stretch', desc:'El estiramiento más completo: zancada + rotación de torso + cadera. El favorito de los pros.', time:'5 rep x lado' },
+    { icon:'fa-arrows-alt', title:'Hip 90/90', desc:'Sentado con ambas rodillas a 90°, rotás la cadera interior hacia el suelo.', time:'2 min c/lado' },
+    { icon:'fa-circle-notch', title:'Cat-Cow (Columna)', desc:'En cuatro patas, arqueas y redondeas la espalda rítmicamente. 10 repeticiones lentas.', time:'2 min' },
+    { icon:'fa-expand-arrows-alt', title:'Apertura de Cadera (Frog)', desc:'En cuatro patas, abrís las rodillas hacia los lados lo más posible y bajás las caderas.', time:'90 seg' },
+    { icon:'fa-running', title:'Couch Stretch (Psoas)', desc:'El estiramento del psoas que usan los futbolistas de Premier League. Rodilla trasera en la pared.', time:'90 seg x lado' },
+    { icon:'fa-hand-point-up', title:'Shoulder CARs', desc:'Rotaciones completas del hombro con control neuromuscular. Para mantenimiento articular.', time:'5 rep c/lado' },
+    { icon:'fa-columns', title:'Movilidad de Tobillo', desc:'De pie ante la pared, empujás la rodilla más allá del dedo gordo del pie.', time:'10 rep x tobillo' },
+  ],
+  prevencion: [
+    { icon:'fa-shield-alt', title:'Protocolo de Tobillo', desc:'Ejercicios propioceptivos sobre superficie inestable para prevenir esguinces recurrentes.', time:'10 min' },
+    { icon:'fa-broom', title:'Nordic Hamstring Curl', desc:'El ejercicio más eficaz para prevenir lesiones de isquiotibiales, según la ciencia deportiva.', time:'3 x 6 rep' },
+    { icon:'fa-balance-scale', title:'Equilibrio Unipodal', desc:'Parado en un pie, 30 segundos con ojos abiertos, luego cerrados. Mejora el control postural.', time:'30 seg x pie' },
+    { icon:'fa-dna', title:'Fuerza de Glúteo Medio', desc:'Clamshell y abducción de cadera para proteger la rodilla de lesiones de LCA.', time:'3 x 15 rep' },
+    { icon:'fa-compress-arrows-alt', title:'Foam Rolling', desc:'Auto-masaje con rodillo en cuádriceps, isquios, gemelos e IT band para soltar fascial.', time:'8 min' },
+    { icon:'fa-spa', title:'Protocolo FIFA 11+', desc:'El programa de calentamiento científico de FIFA que reduce lesiones un 50%.', time:'20 min' },
+    { icon:'fa-heartbeat', title:'Monitoreo de Cargas', desc:'Registrá tu esfuerzo percibido después de cada sesión. Previene el sobreentrenamiento.', time:'Diario' },
+  ]
+};
+
+/* ─────────────────────────────────────────────────────────
+   DATOS: PLAN SEMANAL
+───────────────────────────────────────────────────────── */
+const WEEKLY_PLAN = [
+  { day:'LUN', label:'Técnica + Físico', icon:'⚽', intensity:'high', desc:'Control, pase y sprint explosivo' },
+  { day:'MAR', label:'Regate + Velocidad', icon:'⚡', intensity:'high', desc:'1v1, cambios de dirección y sprints' },
+  { day:'MIÉ', label:'Recuperación Activa', icon:'🧘', intensity:'low', desc:'Movilidad, stretching y oración' },
+  { day:'JUE', label:'Definición + Físico', icon:'🎯', intensity:'high', desc:'Finalización y fuerza de piernas' },
+  { day:'VIE', label:'Juego Real + Táctica', icon:'🏟️', intensity:'med', desc:'Partido o entrenamiento grupal' },
+  { day:'SÁB', label:'Técnica Individual', icon:'🎮', intensity:'med', desc:'Ejercicios libres y creatividad' },
+  { day:'DOM', label:'Descanso & Fe', icon:'✝️', intensity:'rest', desc:'Descanso, familia y culto a Dios' },
+];
+
+/* ─────────────────────────────────────────────────────────
+   DATOS: VERSÍCULOS ESPIRITUALES
+───────────────────────────────────────────────────────── */
+const VERSES = [
+  { text:'"Todo lo puedo en Cristo que me fortalece."', ref:'Filipenses 4:13', icon:'fa-cross' },
+  { text:'"Esfuérzate y sé valiente; no temas ni desmayes."', ref:'Josué 1:9', icon:'fa-bible' },
+  { text:'"¿No saben que en una carrera todos los corredores corren, pero solo uno recibe el premio? Corran de tal modo que lo obtengan."', ref:'1 Corintios 9:24', icon:'fa-running' },
+  { text:'"Encomienda al Señor tus obras, y tus planes se cumplirán."', ref:'Proverbios 16:3', icon:'fa-star' },
+  { text:'"El que trabaja su tierra se saciará de pan."', ref:'Proverbios 12:11', icon:'fa-seedling' },
+  { text:'"El Señor te guardará de todo mal; guardará tu alma."', ref:'Salmos 121:7', icon:'fa-shield-alt' },
+];
+
+/* ─────────────────────────────────────────────────────────
+   DATOS: PLAN DEL DÍA por día de la semana
+───────────────────────────────────────────────────────── */
+const DAY_PLANS = {
+  1: { // Lunes
+    name:'Lunes · Técnica & Físico', intensity:'high', badge:'badge-high', label:'Alta Intensidad',
+    items:[
+      { icon:'fa-sun', text:'Calentamiento FIFA 11+ (15 min)' },
+      { icon:'fa-futbol', text:'Control de balón: Malabares + Dominio (20 min)' },
+      { icon:'fa-paper-plane', text:'Pase corto en triángulo (20 min)' },
+      { icon:'fa-dumbbell', text:'Fuerza: Sentadillas + Core (25 min)' },
+      { icon:'fa-bolt', text:'Sprints de 20m x 8 repeticiones' },
+      { icon:'fa-spa', text:'Vuelta a la calma + estiramientos (10 min)' },
+      { icon:'fa-cross', text:'Oración y versículo del día' },
+    ]
+  },
+  2: { // Martes
+    name:'Martes · Regate & Velocidad', intensity:'high', badge:'badge-high', label:'Alta Intensidad',
+    items:[
+      { icon:'fa-sun', text:'Calentamiento dinámico (15 min)' },
+      { icon:'fa-running', text:'Conducción en zigzag + cambios (20 min)' },
+      { icon:'fa-random', text:'Fintas y croquetas (15 min)' },
+      { icon:'fa-bolt', text:'Sprints 40m x 6 + Cambios 180° x 6' },
+      { icon:'fa-stopwatch', text:'HIIT: 10 x 30s al 95%' },
+      { icon:'fa-heart', text:'Post-entrenamiento: estiramiento isquios' },
+      { icon:'fa-cross', text:'Filipenses 4:13 — Meditación' },
+    ]
+  },
+  3: { // Miércoles
+    name:'Miércoles · Recuperación Activa', intensity:'low', badge:'badge-low', label:'Intensidad Baja',
+    items:[
+      { icon:'fa-walking', text:'Caminata o trote suave (20 min)' },
+      { icon:'fa-yin-yang', text:'World Greatest Stretch x5 por lado' },
+      { icon:'fa-leaf', text:'Yoga de movilidad de cadera (15 min)' },
+      { icon:'fa-compress', text:'Foam rolling completo (10 min)' },
+      { icon:'fa-futbol', text:'Malabares suaves sin presión (10 min)' },
+      { icon:'fa-book', text:'Lectura y estudio táctico (20 min)' },
+      { icon:'fa-cross', text:'Oración de gratitud y renovación' },
+    ]
+  },
+  4: { // Jueves
+    name:'Jueves · Definición & Físico', intensity:'high', badge:'badge-high', label:'Alta Intensidad',
+    items:[
+      { icon:'fa-sun', text:'Calentamiento técnico (15 min)' },
+      { icon:'fa-crosshairs', text:'Tiros al arco desde estático (30 disparos)' },
+      { icon:'fa-bullseye', text:'Definición en movimiento (25 min)' },
+      { icon:'fa-dumbbell', text:'Sentadilla búlgara 4x8 por pierna' },
+      { icon:'fa-shapes', text:'Box Jumps 4x8' },
+      { icon:'fa-child', text:'Abdominales funcionales 3x20' },
+      { icon:'fa-cross', text:'Oración post-entrenamiento' },
+    ]
+  },
+  5: { // Viernes
+    name:'Viernes · Juego Real', intensity:'med', badge:'badge-med', label:'Intensidad Media',
+    items:[
+      { icon:'fa-users', text:'Calentamiento grupal (15 min)' },
+      { icon:'fa-futbol', text:'Rondo de control 1 toque (10 min)' },
+      { icon:'fa-trophy', text:'Partido o amistoso (60–90 min)' },
+      { icon:'fa-chart-line', text:'Análisis post-partido: qué mejorar' },
+      { icon:'fa-heart', text:'Estiramientos completos post (20 min)' },
+      { icon:'fa-cross', text:'Alabanza y agradecimiento a Dios' },
+    ]
+  },
+  6: { // Sábado
+    name:'Sábado · Técnica Libre', intensity:'med', badge:'badge-med', label:'Intensidad Media',
+    items:[
+      { icon:'fa-sun', text:'Calentamiento libre a tu ritmo' },
+      { icon:'fa-gamepad', text:'Sesión libre de técnica individual' },
+      { icon:'fa-futbol', text:'Regate y creatividad sin estructura (30 min)' },
+      { icon:'fa-video', text:'Grabar y analizar tu técnica' },
+      { icon:'fa-dumbbell', text:'Core session (20 min)' },
+      { icon:'fa-cross', text:'Versículo motivacional y proyección' },
+    ]
+  },
+  0: { // Domingo
+    name:'Domingo · Descanso & Dios', intensity:'rest', badge:'badge-low', label:'Descanso Sagrado',
+    items:[
+      { icon:'fa-church', text:'Culto o tiempo de adoración a Dios' },
+      { icon:'fa-family', text:'Tiempo con familia o amigos' },
+      { icon:'fa-book', text:'Lectura bíblica: Salmos 23' },
+      { icon:'fa-walking', text:'Caminata tranquila (30 min opcional)' },
+      { icon:'fa-utensils', text:'Nutrición: día de recarga de carbos' },
+      { icon:'fa-bed', text:'Descanso profundo: 8–9 horas de sueño' },
+    ]
+  }
+};
+
+/* ─────────────────────────────────────────────────────────
+   COACH VIRTUAL: mensajes simulados de IA
+───────────────────────────────────────────────────────── */
+const COACH_MESSAGES = {
+  motivacion: [
+    "¡Hoy es el día! Cada repetición que hacés te acerca un paso más al sueño. Los mejores jugadores del mundo no se hicieron en un día, pero nunca dejaron de entrenar ni uno. ¿Vamos?",
+    "Messi fue rechazado a los 11 años. Haaland entrenó durante años sin ver resultados. Vos seguís acá. ESO te diferencia. La gloria viene para los que no se rinden. ¡Dale todo hoy!",
+    "Dios no te dio ese sueño para frustrarte. Te lo dio porque tenés todo lo necesario para cumplirlo. Filipenses 4:13. Ahora sal y demuéstraselo al mundo.",
+    "El talento es el punto de partida, pero el trabajo duro es el camino. Hoy no necesitás ser perfecto. Solo necesitás ser mejor que ayer.",
+  ],
+  tecnica: [
+    "Para este período, enfocate en tu primer toque. Los mejores mediocampistas del mundo tienen un primer toque impecable. Trabajá el control orientado hoy: 20 minutos mínimo.",
+    "Tu regate mejora cuando integrás el movimiento de hombros. Usá el cuerpo completo, no solo los pies. Hoy practicá la croqueta y la finta básica. Slow motion al principio, explosividad después.",
+    "El pase es el elemento más subestimado. Un pase perfecto crea una oportunidad de gol. Hoy hacé 200 pases de calidad: en triángulo, largo, corto, con los dos pies.",
+    "La visión de juego se entrena. Antes de recibir el balón, ya deberías saber dónde lo vas a pasar. Hoy practicá alzar la cabeza antes de cada toque. Te sorprenderá la diferencia.",
+  ],
+  fisico: [
+    "Para tu etapa actual, el foco físico debe ser potencia explosiva. Box Jumps, Jump Squats y sprints cortos. No necesitás el gimnasio: tu cuerpo es suficiente herramienta.",
+    "El fútbol profesional requiere entre 10–12km por partido con más de 60 sprints. Tu resistencia debe crecer. Hoy: Fartlek de 25 minutos. Será duro, pero así se forjan campeones.",
+    "El core es el motor de todo. Sin un centro fuerte, no hay potencia, no hay balance, no hay resistencia a los choques. Hoy: 20 min de core antes de qualquier otra cosa.",
+    "Hidratación: ¿tomaste 500ml de agua antes de leer esto? El rendimiento cae 10% con solo 2% de deshidratación. Empezá cada sesión bien hidratado.",
+  ],
+  fe: [
+    '"Esfuérzate y sé valiente; no temas ni desmayes, porque el Señor tu Dios estará contigo donde quiera que vayas." — Josué 1:9. Esta es tu promesa. Aferrala hoy en el entrenamiento.',
+    '"Todo lo puedo en Cristo que me fortalece." — Filipenses 4:13. Cuando el cuerpo quiera parar, recuerda: no estás entrenando solo. Dios está ahí contigo en cada sprint.',
+    '"El que trabaja su tierra se saciará." — Proverbios 12:11. Dios honra el trabajo. Cada día que entrenás con fe, estás sembrando. La cosecha llegará.',
+    '"No te dejes vencer por el mal, sino vence el mal con el bien." — Romanos 12:21. En el campo, en la vida, siempre elegí dar lo mejor de vos.',
+  ]
+};
+
+/* ─────────────────────────────────────────────────────────
+   LOCALSTORAGE: Guardar/leer progreso
+   localStorage guarda datos clave-valor en el navegador.
+   Los datos persisten incluso al cerrar el navegador.
+   Usamos JSON.parse y JSON.stringify para objetos.
+───────────────────────────────────────────────────────── */
+const LS_KEY = 'elcamino_training_v2';
+
+function getProgress() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveProgress(data) {
+  localStorage.setItem(LS_KEY, JSON.stringify(data));
+}
+function toggleExercise(id) {
+  const p = getProgress();
+  p[id] = !p[id];
+  saveProgress(p);
+  updateProgressBar();
+  renderCards();
+  updateHeroStats();
+  if (p[id]) {
+    showToast('✅ ¡Ejercicio completado! Dios ve tu esfuerzo.', 'green');
+    confettiBurst();
+  } else {
+    showToast('↩ Ejercicio desmarcado.', 'gold');
+  }
+}
+function toggleRecovery(id) {
+  const p = getProgress();
+  const key = 'rec_' + id;
+  p[key] = !p[key];
+  saveProgress(p);
+  renderRecovery();
+  if (p[key]) showToast('💙 ¡Recuperación completada! Tu cuerpo te lo agradece.', 'green');
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: TARJETAS DE EJERCICIOS
+───────────────────────────────────────────────────────── */
+const CAT_META = {
+  control:     { label:'Control de Balón',         icon:'⚽', colorClass:'cat-green' },
+  pase:        { label:'Pase y Precisión',          icon:'🎯', colorClass:'cat-gold' },
+  regate:      { label:'Regate & 1v1',              icon:'⚡', colorClass:'cat-red' },
+  definicion:  { label:'Definición & Finalización', icon:'🔥', colorClass:'cat-gold' },
+  fisico:      { label:'Preparación Física',        icon:'💪', colorClass:'cat-blue' },
+  velocidad:   { label:'Velocidad & Agilidad',      icon:'🏃', colorClass:'cat-red' },
+  recuperacion:{ label:'Recuperación & Fe',         icon:'✝️', colorClass:'cat-purple' },
+};
+
+function getLevelClass(level) {
+  return level === 'basic' ? 'level-basic' : level === 'inter' ? 'level-inter' : 'level-adv';
+}
+function getLevelLabel(level) {
+  return level === 'basic' ? 'Básico' : level === 'inter' ? 'Intermedio' : 'Avanzado';
+}
+
+function renderCards(filter = 'all', search = '') {
+  const p = getProgress();
+  const section = document.getElementById('exercisesSection');
+  section.innerHTML = '';
+
+  // agrupar por categoría
+  const cats = filter === 'all'
+    ? Object.keys(CAT_META)
+    : [filter];
+
+  cats.forEach(cat => {
+    const meta = CAT_META[cat];
+    if (!meta) return;
+
+    let exercises = EXERCISES.filter(e => e.cat === cat);
+
+    // filtro búsqueda
+    if (search) {
+      const q = search.toLowerCase();
+      exercises = exercises.filter(e =>
+        e.name.toLowerCase().includes(q) ||
+        e.desc.toLowerCase().includes(q) ||
+        e.goal.toLowerCase().includes(q)
+      );
+    }
+
+    if (!exercises.length) return;
+
+    const block = document.createElement('div');
+    block.className = 'category-block reveal';
+    block.innerHTML = `
+      <div class="category-header">
+        <div class="category-icon ${meta.colorClass}">${meta.icon}</div>
+        <h3 class="category-title">${meta.label}</h3>
+        <span class="category-count">${exercises.length} ejercicios</span>
+      </div>
+      <div class="exercises-grid">
+        ${exercises.map(ex => {
+          const done = !!p[ex.id];
+          return `
+            <div class="ex-card ${done ? 'done' : ''}" id="card-${ex.id}">
+              <div class="ex-card-img">
+                <img src="${ex.img}" alt="${ex.name}" loading="lazy"/>
+                <div class="ex-card-img-overlay"></div>
+                <span class="ex-level-badge ${getLevelClass(ex.level)}">${getLevelLabel(ex.level)}</span>
+                <div class="ex-done-stamp"><i class="fas fa-check"></i></div>
+              </div>
+              <div class="ex-card-body">
+                <h4 class="ex-card-title">${ex.name}</h4>
+                <div class="ex-card-goal"><i class="fas fa-crosshairs"></i> ${ex.goal}</div>
+                <p class="ex-card-desc">${ex.desc}</p>
+                <div class="ex-card-meta">
+                  <span class="ex-meta-item"><i class="fas fa-redo"></i>${ex.reps}</span>
+                  <span class="ex-meta-item"><i class="fas fa-layer-group"></i>${getLevelLabel(ex.level)}</span>
+                </div>
+                <div class="ex-card-footer">
+                  <button class="ex-check-btn" onclick="toggleExercise('${ex.id}')">
+                    <i class="fas ${done ? 'fa-check-circle' : 'fa-circle'}"></i>
+                    ${done ? 'Completado' : 'Marcar hecho'}
+                  </button>
+                  <button class="ex-detail-btn" onclick="openModal('${ex.id}')" title="Ver detalles">
+                    <i class="fas fa-expand-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`;
+    section.appendChild(block);
+  });
+
+  // Reiniciar reveal observer
+  document.querySelectorAll('.exercises-section .reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: BARRA DE PROGRESO GLOBAL
+───────────────────────────────────────────────────────── */
+function updateProgressBar() {
+  const p = getProgress();
+  const total = EXERCISES.length;
+  const done = EXERCISES.filter(e => p[e.id]).length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+
+  document.getElementById('gpbFill').style.width = pct + '%';
+  document.getElementById('gpbCount').textContent = `${done} / ${total} ejercicios completados · ${pct}%`;
+
+  // por categoría
+  const catsEl = document.getElementById('gpbCats');
+  catsEl.innerHTML = Object.entries(CAT_META).map(([cat, meta]) => {
+    const catExs = EXERCISES.filter(e => e.cat === cat);
+    const catDone = catExs.filter(e => p[e.id]).length;
+    const colors = { green:'#00e676', gold:'#ffd600', red:'#ff1744', blue:'#2979ff', purple:'#ce93d8' };
+    const colorKey = meta.colorClass.replace('cat-','');
+    return `<span class="gpb-cat"><span class="gpb-cat-dot" style="background:${colors[colorKey]||'#fff'}"></span>${meta.label}: ${catDone}/${catExs.length}</span>`;
+  }).join('');
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: HERO STATS
+───────────────────────────────────────────────────────── */
+function updateHeroStats() {
+  const p = getProgress();
+  const done = EXERCISES.filter(e => p[e.id]).length;
+  document.getElementById('totalEx').textContent = done;
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: PLAN DEL DÍA
+───────────────────────────────────────────────────────── */
+function renderTodayPlan() {
+  const days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const today = new Date();
+  const dayNum = today.getDay(); // 0=Dom
+  const plan = DAY_PLANS[dayNum];
+  const p = getProgress();
+
+  document.getElementById('todayDayName').textContent = days[dayNum] + ' · ' + today.toLocaleDateString('es-AR',{day:'numeric',month:'long'});
+  document.getElementById('planDayName').textContent = plan.name;
+  document.getElementById('planIntBadge').textContent = plan.label;
+  document.getElementById('planIntBadge').className = 'plan-day-badge ' + plan.badge;
+
+  const container = document.getElementById('planItems');
+  container.innerHTML = plan.items.map((item, i) => {
+    const key = 'plan_' + dayNum + '_' + i;
+    const done = !!p[key];
+    return `<div class="plan-item ${done ? 'plan-item-done' : ''}" onclick="togglePlanItem('plan_${dayNum}_${i}', this)">
+      <i class="fas ${item.icon}"></i>
+      <span>${item.text}</span>
+      <div class="plan-check"><i class="fas fa-check"></i></div>
+    </div>`;
+  }).join('');
+}
+
+function togglePlanItem(key, el) {
+  const p = getProgress();
+  p[key] = !p[key];
+  saveProgress(p);
+  el.classList.toggle('plan-item-done');
+  el.querySelector('.plan-check').innerHTML = p[key] ? '<i class="fas fa-check"></i>' : '';
+  if (p[key]) showToast('✝️ ¡Misión cumplida! Dios ve tu disciplina.', 'green');
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: RUTINA SEMANAL
+───────────────────────────────────────────────────────── */
+function renderWeeklyGrid() {
+  const today = new Date().getDay();
+  // JS: 0=Dom,1=Lun...6=Sáb → mapeo al array Lun→Dom
+  const grid = document.getElementById('weeklyGrid');
+  grid.innerHTML = WEEKLY_PLAN.map((d, i) => {
+    // i: 0=Lun,1=Mar,...6=Dom → jsDay: 0=Lun→1, 6=Dom→0
+    const jsDay = i === 6 ? 0 : i + 1;
+    const isToday = jsDay === today;
+    return `
+      <div class="week-day-card int-${d.intensity} ${isToday ? 'today-card' : ''}">
+        <div class="wdc-day">${d.day}</div>
+        <div class="wdc-icon">${d.icon}</div>
+        <div class="wdc-label">${d.label}</div>
+        <div class="wdc-intensity"><div class="wdc-intensity-fill"></div></div>
+      </div>`;
+  }).join('');
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: RECUPERACIÓN
+───────────────────────────────────────────────────────── */
+function renderRecovery() {
+  const p = getProgress();
+  const container = document.getElementById('recoveryPanels');
+  container.innerHTML = Object.entries(RECOVERY_DATA).map(([key, items]) => `
+    <div class="rec-panel ${key === 'pre' ? 'active' : ''}" id="rec-panel-${key}">
+      ${items.map((item, i) => {
+        const id = key + '_' + i;
+        const done = !!p['rec_' + id];
+        return `
+          <div class="rec-card ${done ? 'done' : ''}" id="reccard-${id}" onclick="toggleRecovery('${id}')">
+            <div class="rec-icon"><i class="fas ${item.icon}"></i></div>
+            <div class="rec-info">
+              <h4>${item.title}</h4>
+              <p>${item.desc}</p>
+              <span class="rec-time"><i class="fas fa-clock"></i> ${item.time}</span>
+            </div>
+            <div class="rec-check"><i class="fas fa-check"></i></div>
+          </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+
+/* ─────────────────────────────────────────────────────────
+   RENDER: VERSÍCULOS
+───────────────────────────────────────────────────────── */
+function renderVerses() {
+  const container = document.getElementById('verseCards');
+  container.innerHTML = VERSES.map(v => `
+    <div class="verse-card">
+      <p class="verse-text">${v.text}</p>
+      <span class="verse-ref"><i class="fas ${v.icon}"></i>${v.ref}</span>
+    </div>`).join('');
+}
+
+/* ─────────────────────────────────────────────────────────
+   MODAL: Ver detalles del ejercicio
+───────────────────────────────────────────────────────── */
+function openModal(id) {
+  const ex = EXERCISES.find(e => e.id === id);
+  if (!ex) return;
+  const p = getProgress();
+  const done = !!p[ex.id];
+
+  document.getElementById('modalImg').innerHTML = `<img src="${ex.img}" alt="${ex.name}"/>`;
+  document.getElementById('modalBody').innerHTML = `
+    <h2 class="modal-title">${ex.name}</h2>
+    <div class="modal-goal"><i class="fas fa-crosshairs"></i>${ex.goal}</div>
+    <div class="modal-badges">
+      <span class="ex-level-badge ${getLevelClass(ex.level)}">${getLevelLabel(ex.level)}</span>
+      <span class="ex-meta-item"><i class="fas fa-redo"></i>${ex.reps}</span>
+    </div>
+    <p class="modal-desc">${ex.desc}</p>
+    <div class="modal-steps-title"><i class="fas fa-list-ol"></i> Instrucciones Paso a Paso</div>
+    <div class="modal-steps">
+      ${ex.steps.map((s, i) => `
+        <div class="modal-step">
+          <div class="step-num">${i+1}</div>
+          <span>${s}</span>
+        </div>`).join('')}
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" onclick="toggleExercise('${ex.id}'); closeModal();" style="font-size:.82rem;padding:.7rem 1.4rem;">
+        <i class="fas ${done ? 'fa-times' : 'fa-check'}"></i>
+        ${done ? 'Desmarcar ejercicio' : '¡Completado! Marcar hecho'}
+      </button>
+    </div>`;
+
+  document.getElementById('exModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('exModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').onclick = closeModal;
+document.getElementById('exModal').onclick = e => {
+  if (e.target === document.getElementById('exModal')) closeModal();
+};
+
+/* ─────────────────────────────────────────────────────────
+   COACH VIRTUAL: función de respuesta
+───────────────────────────────────────────────────────── */
+function getCoachAdvice(type) {
+  const msgs = COACH_MESSAGES[type];
+  const msg = msgs[Math.floor(Math.random() * msgs.length)];
+  const el = document.getElementById('coachMsg');
+  const typing = document.getElementById('coachTyping');
+
+  el.style.opacity = '0';
+  typing.classList.add('active');
+
+  setTimeout(() => {
+    typing.classList.remove('active');
+    el.textContent = msg;
+    el.style.transition = 'opacity .4s';
+    el.style.opacity = '1';
+  }, 1200);
+}
+
+/* ─────────────────────────────────────────────────────────
+   TOAST: Notificaciones
+───────────────────────────────────────────────────────── */
+function showToast(msg, type = 'green') {
+  const cont = document.getElementById('toastCont');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<i class="fas fa-${type === 'green' ? 'check-circle' : 'star'}"></i> ${msg}`;
+  cont.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(30px)';
+    toast.style.transition = 'all .3s';
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+/* ─────────────────────────────────────────────────────────
+   CONFETTI: Celebración al completar
+───────────────────────────────────────────────────────── */
+function confettiBurst() {
+  const colors = ['#00e676','#ffd600','#ff1744','#2979ff','#fff'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-particle';
+    p.style.cssText = `
+      left:${Math.random()*100}vw;
+      top:${Math.random()*60 + 20}vh;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-delay:${Math.random()*.4}s;
+      border-radius:${Math.random()>.5 ? '50%' : '2px'};
+    `;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1500);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   FILTROS Y BÚSQUEDA
+───────────────────────────────────────────────────────── */
+let activeFilter = 'all';
+let searchQuery = '';
+
+document.querySelectorAll('.filter-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.cat;
+    renderCards(activeFilter, searchQuery);
+  });
+});
+
+document.getElementById('searchBar').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  renderCards(activeFilter, searchQuery);
+});
+
+/* ─────────────────────────────────────────────────────────
+   TABS DE RECUPERACIÓN
+───────────────────────────────────────────────────────── */
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('rec-tab')) {
+    document.querySelectorAll('.rec-tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    const panel = e.target.dataset.panel;
+    document.querySelectorAll('.rec-panel').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('rec-panel-' + panel);
+    if (target) target.classList.add('active');
+  }
+});
+
+/* ─────────────────────────────────────────────────────────
+   NAVBAR: scroll + mobile
+───────────────────────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  // Parallax hero
+  const bg = document.getElementById('heroBg');
+  if (bg) bg.style.transform = `scale(1.08) translateY(${window.scrollY * 0.07}px)`;
+});
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileNav').classList.contains('open') ? 'hidden' : '';
+});
+document.getElementById('mobileClose').addEventListener('click', () => {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+/* ─────────────────────────────────────────────────────────
+   THEME TOGGLE
+───────────────────────────────────────────────────────── */
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const html = document.documentElement;
+  const isLight = html.dataset.theme === 'light';
+  html.dataset.theme = isLight ? 'dark' : 'light';
+  document.getElementById('themeIcon').className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+});
+
+/* ─────────────────────────────────────────────────────────
+   CURSOR PERSONALIZADO
+───────────────────────────────────────────────────────── */
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+});
+(function animateRing() {
+  rx += (cx - rx) * 0.12; ry += (cy - ry) * 0.12;
+  cursorRing.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animateRing);
+})();
+
+/* ─────────────────────────────────────────────────────────
+   INTERSECTION OBSERVER: animaciones reveal
+───────────────────────────────────────────────────────── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ─────────────────────────────────────────────────────────
+   CONTADOR HERO STATS: animación de número
+───────────────────────────────────────────────────────── */
+function animateCount(el, target, dur = 1600) {
+  let v = 0;
+  const step = target / (dur / 16);
+  const t = setInterval(() => {
+    v += step;
+    if (v >= target) { el.textContent = target; clearInterval(t); }
+    else el.textContent = Math.floor(v);
+  }, 16);
+}
+
+/* ─────────────────────────────────────────────────────────
+   COACH: mensaje inicial automático
+───────────────────────────────────────────────────────── */
+function initCoach() {
+  const p = getProgress();
+  const done = EXERCISES.filter(e => p[e.id]).length;
+  const pct = EXERCISES.length ? Math.round((done / EXERCISES.length) * 100) : 0;
+
+  const msgs = [
+    `Bienvenido de vuelta, guerrero. Llevas ${done} ejercicios completados (${pct}% del total). Dios ve cada gota de sudor. Hoy, ¿qué área vas a atacar?`,
+    `"Todo lo puedo en Cristo que me fortalece." — Hoy es un nuevo día para acercarte a tu sueño. ${done === 0 ? '¡Empezá tu primer ejercicio ahora mismo!' : `Ya completaste ${done} ejercicios. ¡Seguí!`}`,
+    `Bienvenido al dojo del campeón. Tu progreso: ${pct}%. Los mejores del mundo entrenan cuando nadie los mira. ¿Vamos a por esa sesión de hoy?`,
+  ];
+  document.getElementById('coachMsg').textContent = msgs[Math.floor(Math.random() * msgs.length)];
+}
+
+/* ─────────────────────────────────────────────────────────
+   INIT: Arrancar todo
+───────────────────────────────────────────────────────── */
+function init() {
+  renderCards();
+  renderWeeklyGrid();
+  renderTodayPlan();
+  renderRecovery();
+  renderVerses();
+  updateProgressBar();
+  updateHeroStats();
+  initCoach();
+
+  // Animaciones contador hero
+  const heroObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      const p = getProgress();
+      const done = EXERCISES.filter(e => p[e.id]).length;
+      animateCount(document.getElementById('totalEx'), done);
+      animateCount(document.getElementById('streakDays'), parseInt(localStorage.getItem('elcamino_streak') || '0') || 7);
+      heroObs.disconnect();
+    }
+  }, { threshold: 0.4 });
+  const heroStats = document.querySelector('.hero-stats-ent');
+  if (heroStats) heroObs.observe(heroStats);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+console.log('⚽✝️ El Camino — Entrenamiento Élite · Con Dios todo es posible · Filipenses 4:13');
+</script>
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT TERMINA AQUÍ
+═══════════════════════════════════════════ -->
+
+</body>
+</html>

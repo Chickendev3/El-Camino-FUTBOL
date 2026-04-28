@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Mi Progreso — Sistema de Scouting Personal Profesional"/>
+  <title>Mi Progreso | El Camino al Fútbol Profesional</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   ROOT VARIABLES — Consistencia con el proyecto
+═══════════════════════════════════════════════════ */
+:root {
+  --verde:    #00c853;
+  --verde-d:  #00a040;
+  --verde-g:  rgba(0,200,83,0.08);
+  --dorado:   #ffd700;
+  --dorado-d: #c8a800;
+  --naranja:  #ff6b00;
+  --azul:     #00b4d8;
+  --rojo:     #ff3b30;
+  --fondo:    #0a0a0f;
+  --fondo2:   #0f0f18;
+  --fondo3:   #141420;
+  --card:     #12121e;
+  --card2:    #181828;
+  --borde:    rgba(255,255,255,0.06);
+  --borde2:   rgba(0,200,83,0.2);
+  --texto:    #e8e8f0;
+  --texto2:   #9090b0;
+  --texto3:   #5a5a80;
+  --sombra:   0 8px 32px rgba(0,0,0,0.5);
+  --radius:   16px;
+  --radius-sm:8px;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-ui:      'Syne', sans-serif;
+}
+[data-theme="light"] {
+  --fondo:  #f0f0f8; --fondo2: #e8e8f4; --fondo3: #ffffff;
+  --card:   #ffffff; --card2:  #f5f5fc;
+  --borde:  rgba(0,0,0,0.07); --texto: #1a1a2e; --texto2: #555570; --texto3: #9090b0;
+}
+
+/* ═══ RESET ═══ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--fondo);color:var(--texto);
+  font-family:var(--font-body);line-height:1.6;
+  overflow-x:hidden;transition:background .3s,color .3s;
+}
+img{max-width:100%;display:block}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+a{text-decoration:none;color:inherit}
+input,textarea,select{font-family:inherit}
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--fondo2)}
+::-webkit-scrollbar-thumb{background:var(--verde);border-radius:3px}
+
+/* ═══ CURSOR ═══ */
+.cursor{
+  position:fixed;width:10px;height:10px;background:var(--verde);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transition:background .2s;mix-blend-mode:difference;
+}
+.cursor-ring{
+  position:fixed;width:38px;height:38px;border:2px solid var(--verde);
+  border-radius:50%;pointer-events:none;z-index:9998;opacity:.6;
+  transition:width .2s,height .2s,border-color .2s;
+}
+
+/* ═══ NAVBAR ═══ */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:70px;
+  background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--borde);transition:all .3s;
+}
+#navbar.scrolled{background:rgba(10,10,15,0.97);box-shadow:var(--sombra)}
+.logo{display:flex;align-items:center;gap:.8rem}
+.logo-icon{
+  position:relative;width:44px;height:44px;
+  background:linear-gradient(135deg,var(--verde),var(--verde-d));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+}
+.logo-cross{
+  position:absolute;top:-5px;right:-5px;font-size:.55rem;
+  background:var(--dorado);color:#000;width:14px;height:14px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.logo-name{display:block;font-family:var(--font-display);font-size:1.1rem;letter-spacing:.1em;color:#fff}
+.logo-tag{display:block;font-size:.6rem;color:var(--texto2);letter-spacing:.15em}
+.nav-links{display:flex;list-style:none;gap:.2rem}
+.nav-links a{
+  font-family:var(--font-ui);font-size:.78rem;font-weight:600;
+  letter-spacing:.05em;padding:.5rem .9rem;border-radius:8px;
+  transition:all .2s;color:var(--texto2);display:flex;align-items:center;gap:.4rem;
+}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.06)}
+.nav-links a.nav-cta{background:var(--verde);color:#000 !important;font-weight:700}
+.nav-links a.nav-cta:hover{background:var(--verde-d)}
+.nav-icon{font-size:.75rem;opacity:.7}
+.nav-actions{display:flex;align-items:center;gap:.8rem}
+.theme-toggle{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,0.06);color:var(--texto2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;transition:all .2s;
+}
+.theme-toggle:hover{background:var(--verde-g);color:var(--verde)}
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  width:36px;height:36px;align-items:center;justify-content:center;
+  border-radius:8px;background:rgba(255,255,255,0.06);padding:0;
+}
+.hamburger span{
+  display:block;width:18px;height:2px;background:var(--texto);
+  border-radius:2px;transition:all .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ═══ MOBILE NAV ═══ */
+.mobile-nav{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(10,10,15,.97);backdrop-filter:blur(30px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.77,0,.18,1);
+}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav a{
+  font-family:var(--font-display);font-size:2rem;letter-spacing:.1em;
+  color:var(--texto2);transition:color .2s;display:flex;align-items:center;gap:1rem;
+}
+.mobile-nav a:hover,.mobile-nav a.mob-active{color:var(--verde)}
+.mobile-close{
+  position:absolute;top:1.5rem;right:1.5rem;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,0.06);color:var(--texto);font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ═══ HERO ═══ */
+.hero-prog{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  overflow:hidden;padding-top:70px;
+}
+.hero-bg-prog{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 80% at 60% 40%, rgba(0,200,83,0.12) 0%, transparent 60%),
+             radial-gradient(ellipse 60% 60% at 10% 80%, rgba(255,215,0,0.05) 0%, transparent 50%),
+             linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
+}
+.hero-grid-lines{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,200,83,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,83,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.hero-prog-inner{
+  position:relative;z-index:2;max-width:1200px;margin:0 auto;
+  padding:4rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-ui);font-size:.75rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--verde);
+  background:rgba(0,200,83,0.08);border:1px solid rgba(0,200,83,0.2);
+  padding:.4rem 1rem;border-radius:100px;margin-bottom:1.5rem;
+}
+.hero-title-prog{
+  font-family:var(--font-display);font-size:clamp(3.5rem,8vw,6rem);
+  line-height:.95;letter-spacing:.02em;margin-bottom:1.5rem;
+}
+.ht-w{color:#fff}
+.ht-g{color:var(--verde)}
+.ht-d{color:var(--dorado)}
+.hero-desc-prog{
+  font-size:1.05rem;color:var(--texto2);line-height:1.8;margin-bottom:2rem;max-width:480px;
+}
+.hero-btns-prog{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-prim{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:var(--verde);color:#000;font-family:var(--font-ui);
+  font-weight:700;font-size:.85rem;letter-spacing:.05em;
+  padding:.8rem 1.8rem;border-radius:10px;transition:all .25s;
+}
+.btn-prim:hover{background:var(--verde-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,83,0.3)}
+.btn-sec{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.1);
+  font-family:var(--font-ui);font-weight:600;font-size:.85rem;
+  padding:.8rem 1.8rem;border-radius:10px;transition:all .25s;
+}
+.btn-sec:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px)}
+.hero-rating-display{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;
+}
+.rating-big-wrap{
+  position:relative;width:220px;height:220px;
+  background:linear-gradient(135deg,rgba(0,200,83,0.15),rgba(255,215,0,0.08));
+  border:2px solid rgba(0,200,83,0.3);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 60px rgba(0,200,83,0.15),inset 0 0 60px rgba(0,0,0,0.3);
+  animation:pulseSlow 4s ease-in-out infinite;
+}
+@keyframes pulseSlow{0%,100%{box-shadow:0 0 60px rgba(0,200,83,0.15),inset 0 0 60px rgba(0,0,0,0.3)}50%{box-shadow:0 0 100px rgba(0,200,83,0.25),inset 0 0 60px rgba(0,0,0,0.3)}}
+.rating-big-inner{text-align:center}
+.rating-big-num{
+  font-family:var(--font-display);font-size:5rem;line-height:1;
+  background:linear-gradient(135deg,var(--verde),var(--dorado));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;
+}
+.rating-big-label{font-family:var(--font-ui);font-size:.7rem;letter-spacing:.2em;color:var(--texto2)}
+.rating-ring-svg{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px)}
+.hero-mini-stats{display:flex;gap:1.5rem}
+.hms-item{
+  text-align:center;padding:.8rem 1.2rem;
+  background:var(--card);border:1px solid var(--borde);border-radius:12px;
+  min-width:80px;
+}
+.hms-num{
+  display:block;font-family:var(--font-display);font-size:1.8rem;
+  color:var(--verde);line-height:1;
+}
+.hms-label{font-size:.7rem;color:var(--texto2);letter-spacing:.08em}
+
+/* ═══ NOISE ═══ */
+.noise{
+  position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ═══ SECTIONS GENERALES ═══ */
+.section-wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+.section-gap{padding:6rem 0}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-ui);font-size:.72rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--verde);margin-bottom:.8rem;
+}
+.section-h2{
+  font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);
+  letter-spacing:.03em;line-height:1.1;margin-bottom:1rem;
+}
+.section-h2 .green{color:var(--verde)}
+.section-h2 .gold{color:var(--dorado)}
+.section-sub{color:var(--texto2);font-size:.95rem;max-width:550px}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ═══ VERSE RIBBON ═══ */
+.verse-ribbon{
+  background:linear-gradient(90deg,var(--verde),var(--verde-d));
+  padding:1rem 2rem;text-align:center;font-size:.85rem;
+  font-family:var(--font-ui);font-weight:600;color:#000;letter-spacing:.03em;
+}
+
+/* ══════════════════════════════════════
+   FIFA CARD SECTION
+══════════════════════════════════════ */
+.fifa-section{
+  background:var(--fondo2);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);
+}
+.fifa-inner{
+  display:grid;grid-template-columns:400px 1fr;gap:4rem;align-items:start;
+}
+
+/* — CARD FIFA — */
+.fifa-card-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:2rem;
+  position:sticky;top:90px;
+}
+.fifa-card{
+  position:relative;width:300px;height:450px;
+  border-radius:20px;overflow:hidden;cursor:default;
+  transform-style:preserve-3d;perspective:1000px;
+  transition:transform .1s;
+}
+.fifa-card-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(145deg,#1a2a1a 0%,#0f1f0f 30%,#1a1500 60%,#0f1500 100%);
+}
+.fifa-card-shine{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 40%,rgba(255,215,0,0.04) 100%);
+  z-index:2;pointer-events:none;
+}
+.fifa-card-border{
+  position:absolute;inset:0;border-radius:20px;
+  border:1.5px solid rgba(255,215,0,0.25);z-index:3;pointer-events:none;
+}
+.fifa-card-content{position:relative;z-index:4;height:100%;display:flex;flex-direction:column}
+.fifa-top{padding:1.2rem 1.2rem .5rem;display:flex;justify-content:space-between;align-items:flex-start}
+.fifa-rating{
+  font-family:var(--font-display);font-size:3.5rem;line-height:1;
+  color:var(--dorado);text-shadow:0 0 30px rgba(255,215,0,0.5);
+}
+.fifa-pos-country{text-align:right}
+.fifa-pos{
+  font-family:var(--font-display);font-size:1.2rem;letter-spacing:.1em;
+  color:rgba(255,215,0,.9);display:block;
+}
+.fifa-flag{font-size:1.5rem}
+.fifa-photo-area{
+  flex:1;position:relative;display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
+}
+.fifa-player-img{
+  width:100%;height:100%;object-fit:cover;object-position:top;
+  filter:drop-shadow(0 -20px 40px rgba(0,0,0,0.5));
+}
+.fifa-player-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.2);font-size:4rem;gap:.5rem;width:100%;height:100%;
+  cursor:pointer;transition:all .3s;
+}
+.fifa-player-placeholder:hover{color:rgba(255,255,255,0.4)}
+.fifa-player-placeholder span{font-size:.8rem;font-family:var(--font-ui);letter-spacing:.1em;font-weight:600}
+.fifa-upload-input{display:none}
+.fifa-gradient-overlay{
+  position:absolute;bottom:0;left:0;right:0;height:60%;
+  background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+.fifa-name-bar{
+  padding:.5rem 1rem;text-align:center;
+  border-top:1px solid rgba(255,215,0,0.15);
+}
+.fifa-name{
+  font-family:var(--font-display);font-size:1.4rem;letter-spacing:.15em;
+  color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.8);
+}
+.fifa-stats-row{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid rgba(255,215,0,0.1);
+}
+.fifa-stat-mini{
+  text-align:center;padding:.5rem .3rem;
+  border-right:1px solid rgba(255,215,0,0.08);
+}
+.fifa-stat-mini:last-child{border-right:none}
+.fsm-val{
+  display:block;font-family:var(--font-display);font-size:1.2rem;
+  color:var(--dorado);line-height:1;
+}
+.fsm-lbl{font-size:.55rem;color:rgba(255,255,255,0.5);letter-spacing:.1em;text-transform:uppercase}
+
+/* card glow */
+.fifa-card:hover .fifa-card-bg{
+  background:linear-gradient(145deg,#1f341f 0%,#122012 30%,#201900 60%,#121800 100%);
+}
+
+/* — STATS PANEL — */
+.stats-panel{padding:0}
+.profile-edit-section{
+  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
+  padding:2rem;margin-bottom:2rem;
+}
+.pf-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.5rem;
+}
+.pf-title{font-family:var(--font-ui);font-size:1.1rem;font-weight:700;color:#fff}
+.btn-edit{
+  display:flex;align-items:center;gap:.4rem;
+  font-family:var(--font-ui);font-size:.75rem;font-weight:600;
+  color:var(--verde);background:rgba(0,200,83,0.08);
+  border:1px solid rgba(0,200,83,0.2);padding:.4rem .9rem;border-radius:8px;
+  transition:all .2s;
+}
+.btn-edit:hover{background:rgba(0,200,83,0.15)}
+.profile-fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.pf-field label{display:block;font-size:.72rem;font-family:var(--font-ui);font-weight:600;letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem;text-transform:uppercase}
+.pf-field input,.pf-field select,.pf-field textarea{
+  width:100%;background:var(--fondo2);border:1px solid var(--borde);
+  color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.9rem;
+  transition:border-color .2s;font-family:var(--font-body);
+}
+.pf-field input:focus,.pf-field select:focus,.pf-field textarea:focus{
+  outline:none;border-color:var(--verde);
+}
+.pf-field textarea{resize:vertical;min-height:70px}
+.pf-field.full{grid-column:1/-1}
+.btn-save-prof{
+  margin-top:1.2rem;width:100%;
+  background:linear-gradient(90deg,var(--verde),var(--verde-d));
+  color:#000;font-family:var(--font-ui);font-weight:700;font-size:.85rem;
+  letter-spacing:.05em;padding:.85rem;border-radius:10px;transition:all .25s;
+}
+.btn-save-prof:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,83,0.3)}
+
+/* FIFA Stats bars */
+.fifa-bars-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2rem;
+}
+.fifa-bar-card{
+  background:var(--card);border:1px solid var(--borde);border-radius:12px;
+  padding:1.2rem;transition:all .3s;
+}
+.fifa-bar-card:hover{border-color:rgba(0,200,83,0.2);transform:translateY(-2px)}
+.fbc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.fbc-name{font-family:var(--font-ui);font-size:.8rem;font-weight:700;letter-spacing:.05em;color:var(--texto2)}
+.fbc-val{font-family:var(--font-display);font-size:1.6rem;line-height:1}
+.fbc-bar-bg{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.fbc-bar-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.c-ritmo .fbc-bar-fill{background:linear-gradient(90deg,#ff6b6b,#ff8e53)}
+.c-tiro  .fbc-bar-fill{background:linear-gradient(90deg,#ffd700,#ff9f43)}
+.c-pase  .fbc-bar-fill{background:linear-gradient(90deg,#00c853,#00b4d8)}
+.c-regate.fbc-bar-fill{background:linear-gradient(90deg,#a855f7,#6366f1)}
+.c-defensa .fbc-bar-fill{background:linear-gradient(90deg,#00b4d8,#0077b6)}
+.c-fisico .fbc-bar-fill{background:linear-gradient(90deg,#22c55e,#16a34a)}
+.c-ritmo .fbc-val{color:#ff8e53}
+.c-tiro  .fbc-val{color:var(--dorado)}
+.c-pase  .fbc-val{color:var(--verde)}
+.c-regate .fbc-val{color:#a855f7}
+.c-defensa .fbc-val{color:var(--azul)}
+.c-fisico .fbc-val{color:#22c55e}
+.fbc-source{font-size:.65rem;color:var(--texto3);margin-top:.4rem;font-style:italic}
+.override-input{
+  width:60px;background:var(--fondo2);border:1px solid var(--borde);
+  color:var(--texto);border-radius:6px;padding:.25rem .5rem;
+  font-size:.85rem;text-align:center;
+}
+
+/* ══════════════════════════════════════
+   PROGRESS GLOBAL SECTION
+══════════════════════════════════════ */
+.progress-section{background:var(--fondo)}
+.progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
+.prog-factor-card{
+  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
+  padding:1.8rem;transition:all .3s;
+}
+.prog-factor-card:hover{border-color:var(--borde2);transform:translateY(-2px)}
+.pfc-icon{
+  width:50px;height:50px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1rem;
+}
+.pfc-icon.green{background:rgba(0,200,83,0.12);color:var(--verde)}
+.pfc-icon.orange{background:rgba(255,107,0,0.12);color:var(--naranja)}
+.pfc-icon.gold{background:rgba(255,215,0,0.12);color:var(--dorado)}
+.pfc-icon.blue{background:rgba(0,180,216,0.12);color:var(--azul)}
+.pfc-title{font-family:var(--font-ui);font-weight:700;font-size:.95rem;margin-bottom:.4rem;color:#fff}
+.pfc-desc{font-size:.82rem;color:var(--texto2);margin-bottom:1rem;line-height:1.6}
+.pfc-bar{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin-bottom:.4rem}
+.pfc-fill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(.22,1,.36,1)}
+.pfc-fill.green{background:linear-gradient(90deg,var(--verde),var(--verde-d))}
+.pfc-fill.orange{background:linear-gradient(90deg,var(--naranja),#ff9f43)}
+.pfc-fill.gold{background:linear-gradient(90deg,var(--dorado),var(--dorado-d))}
+.pfc-fill.blue{background:linear-gradient(90deg,var(--azul),#0077b6)}
+.pfc-pct{font-family:var(--font-display);font-size:1.4rem}
+.pfc-pct.green{color:var(--verde)}
+.pfc-pct.orange{color:var(--naranja)}
+.pfc-pct.gold{color:var(--dorado)}
+.pfc-pct.blue{color:var(--azul)}
+.how-it-works{
+  margin-top:2.5rem;background:var(--card2);border:1px solid var(--borde);
+  border-radius:var(--radius);padding:2rem;
+}
+.hiw-title{font-family:var(--font-ui);font-weight:700;font-size:1rem;color:#fff;margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.hiw-steps{display:flex;flex-direction:column;gap:1rem}
+.hiw-step{display:flex;align-items:center;gap:1rem}
+.hiw-step-num{
+  width:32px;height:32px;min-width:32px;border-radius:50%;
+  background:var(--verde-g);border:1px solid rgba(0,200,83,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:.9rem;color:var(--verde);
+}
+.hiw-step-text{font-size:.85rem;color:var(--texto2);line-height:1.5}
+.hiw-step-text strong{color:#fff}
+
+/* ══════════════════════════════════════
+   OBJETIVOS
+══════════════════════════════════════ */
+.objetivos-section{background:var(--fondo2);border-top:1px solid var(--borde)}
+.obj-tabs{display:flex;gap:.5rem;margin:2rem 0 1.5rem;flex-wrap:wrap}
+.obj-tab{
+  font-family:var(--font-ui);font-size:.78rem;font-weight:700;
+  letter-spacing:.08em;padding:.5rem 1.2rem;border-radius:100px;
+  background:rgba(255,255,255,0.04);color:var(--texto2);
+  border:1px solid var(--borde);transition:all .2s;
+}
+.obj-tab.active,.obj-tab:hover{background:var(--verde);color:#000;border-color:var(--verde)}
+.obj-list{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.obj-card{
+  background:var(--card);border:1px solid var(--borde);border-radius:12px;
+  padding:1.4rem;display:grid;grid-template-columns:1fr auto;gap:1rem;
+  align-items:start;transition:all .3s;
+}
+.obj-card:hover{border-color:var(--borde2)}
+.obj-card.logrado{border-color:rgba(0,200,83,0.3);background:rgba(0,200,83,0.04)}
+.obj-card.en-progreso{border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.03)}
+.obj-left{display:flex;flex-direction:column;gap:.6rem}
+.obj-name{font-family:var(--font-ui);font-weight:700;font-size:.95rem;color:#fff}
+.obj-date{font-size:.75rem;color:var(--texto3)}
+.obj-progress-bar{height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;width:100%;max-width:400px}
+.obj-progress-fill{height:100%;border-radius:3px;background:var(--verde);transition:width 1s}
+.obj-status{
+  font-family:var(--font-ui);font-size:.7rem;font-weight:700;letter-spacing:.08em;
+  padding:.3rem .8rem;border-radius:100px;white-space:nowrap;align-self:start;
+}
+.st-pendiente{background:rgba(255,255,255,0.06);color:var(--texto2)}
+.st-progreso{background:rgba(255,215,0,0.12);color:var(--dorado)}
+.st-logrado{background:rgba(0,200,83,0.12);color:var(--verde)}
+.add-obj-form{
+  background:var(--card);border:1px dashed rgba(0,200,83,0.2);border-radius:12px;
+  padding:1.5rem;display:grid;grid-template-columns:1fr 1fr auto;gap:1rem;align-items:end;
+}
+.aof-field label{display:block;font-size:.72rem;font-family:var(--font-ui);font-weight:600;letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem}
+.aof-field input,.aof-field select{
+  width:100%;background:var(--fondo2);border:1px solid var(--borde);
+  color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.85rem;
+}
+.aof-field input:focus,.aof-field select:focus{outline:none;border-color:var(--verde)}
+.btn-add-obj{
+  background:var(--verde);color:#000;font-family:var(--font-ui);font-weight:700;
+  font-size:.82rem;padding:.7rem 1.4rem;border-radius:8px;white-space:nowrap;
+  transition:all .2s;
+}
+.btn-add-obj:hover{background:var(--verde-d)}
+.obj-delete{
+  background:none;color:var(--texto3);font-size:.8rem;
+  padding:.2rem;border-radius:4px;transition:color .2s;
+  align-self:start;
+}
+.obj-delete:hover{color:var(--rojo)}
+
+/* ══════════════════════════════════════
+   HISTORIAL EVOLUCIÓN
+══════════════════════════════════════ */
+.evolution-section{background:var(--fondo)}
+.evo-charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+.evo-chart-card{
+  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
+  padding:1.5rem;
+}
+.ecc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.ecc-title{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff}
+.ecc-badge{
+  font-family:var(--font-ui);font-size:.7rem;font-weight:700;
+  background:rgba(0,200,83,0.1);color:var(--verde);
+  padding:.25rem .7rem;border-radius:100px;
+}
+.chart-canvas-wrap{position:relative;height:200px}
+.add-history-btn{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--font-ui);font-size:.8rem;font-weight:600;
+  color:var(--verde);background:rgba(0,200,83,0.08);
+  border:1px dashed rgba(0,200,83,0.25);border-radius:8px;
+  padding:.6rem 1.2rem;margin-top:1rem;transition:all .2s;width:100%;justify-content:center;
+}
+.add-history-btn:hover{background:rgba(0,200,83,0.15)}
+
+/* snapshot modal */
+.snapshot-modal{
+  position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.snapshot-modal.open{opacity:1;pointer-events:all}
+.snapshot-box{
+  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
+  padding:2rem;width:90%;max-width:480px;
+}
+.snp-title{font-family:var(--font-ui);font-weight:700;font-size:1.1rem;margin-bottom:1.5rem;color:#fff}
+.snp-fields{display:grid;gap:1rem}
+.snp-field label{display:block;font-size:.72rem;font-family:var(--font-ui);letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem;text-transform:uppercase}
+.snp-field input{
+  width:100%;background:var(--fondo2);border:1px solid var(--borde);
+  color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.9rem;
+}
+.snp-field input:focus{outline:none;border-color:var(--verde)}
+.snp-btns{display:flex;gap:1rem;margin-top:1.5rem}
+.snp-save{
+  flex:1;background:var(--verde);color:#000;font-family:var(--font-ui);
+  font-weight:700;font-size:.85rem;padding:.8rem;border-radius:8px;transition:all .2s;
+}
+.snp-save:hover{background:var(--verde-d)}
+.snp-cancel{
+  flex:1;background:rgba(255,255,255,0.06);color:var(--texto);
+  font-family:var(--font-ui);font-weight:600;font-size:.85rem;
+  padding:.8rem;border-radius:8px;border:1px solid var(--borde);transition:all .2s;
+}
+.snp-cancel:hover{background:rgba(255,255,255,0.1)}
+
+/* ══════════════════════════════════════
+   RADAR / SCOUTING PROFILE
+══════════════════════════════════════ */
+.scouting-section{background:var(--fondo2);border-top:1px solid var(--borde)}
+.scouting-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.radar-wrap{
+  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
+  padding:2rem;display:flex;flex-direction:column;align-items:center;
+}
+.radar-title{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff;margin-bottom:1.5rem;text-align:center}
+.profile-details-wrap{display:flex;flex-direction:column;gap:1.5rem}
+.pd-card{
+  background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1.4rem;
+}
+.pd-title{font-family:var(--font-ui);font-weight:700;font-size:.85rem;color:var(--verde);letter-spacing:.05em;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.pd-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.pd-tag{
+  font-family:var(--font-ui);font-size:.75rem;font-weight:600;
+  padding:.3rem .8rem;border-radius:6px;
+  background:rgba(255,255,255,0.06);border:1px solid var(--borde);color:var(--texto2);
+}
+.pd-tag.green{background:rgba(0,200,83,0.1);border-color:rgba(0,200,83,0.2);color:var(--verde)}
+.pd-tag.red{background:rgba(255,59,48,0.1);border-color:rgba(255,59,48,0.2);color:var(--rojo)}
+.pd-text{font-size:.85rem;color:var(--texto2);line-height:1.7}
+
+/* ══════════════════════════════════════
+   SPIRITUAL SECTION
+══════════════════════════════════════ */
+.spiritual-section{
+  background:linear-gradient(135deg,#0a0f0a 0%,#0f1a0a 50%,#0a0f12 100%);
+  border-top:1px solid rgba(0,200,83,0.1);
+  position:relative;overflow:hidden;
+}
+.spiritual-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,200,83,0.06) 0%, transparent 70%);
+}
+.spiritual-inner{position:relative;z-index:1}
+.spiritual-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.verse-card{
+  background:rgba(255,255,255,0.03);border:1px solid rgba(0,200,83,0.1);
+  border-radius:var(--radius);padding:2rem;text-align:center;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.verse-card::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--verde),transparent);
+}
+.verse-card:hover{border-color:rgba(0,200,83,0.25);transform:translateY(-3px)}
+.vc-icon{font-size:2rem;margin-bottom:1rem;color:var(--verde);opacity:.8}
+.vc-text{font-style:italic;color:var(--texto2);font-size:.9rem;line-height:1.8;margin-bottom:.8rem}
+.vc-ref{font-family:var(--font-ui);font-size:.75rem;font-weight:700;color:var(--verde);letter-spacing:.08em}
+.identity-card{
+  grid-column:1/-1;background:rgba(0,200,83,0.05);
+  border:1px solid rgba(0,200,83,0.15);border-radius:var(--radius);padding:2rem;
+  text-align:center;
+}
+.ic-title{font-family:var(--font-display);font-size:2rem;letter-spacing:.1em;color:var(--verde);margin-bottom:.5rem}
+.ic-text{font-size:1rem;color:var(--texto2);line-height:1.8;max-width:700px;margin:0 auto}
+
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+.toast-cont{position:fixed;bottom:2rem;right:2rem;z-index:5000;display:flex;flex-direction:column;gap:.7rem}
+.toast{
+  background:var(--card);border:1px solid var(--borde);border-radius:10px;
+  padding:.9rem 1.4rem;font-family:var(--font-ui);font-size:.82rem;font-weight:600;
+  color:#fff;display:flex;align-items:center;gap:.6rem;
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+  animation:slideInToast .3s ease,fadeOutToast .3s ease 2.7s forwards;
+  min-width:240px;
+}
+.toast.success{border-left:3px solid var(--verde)}
+.toast.error{border-left:3px solid var(--rojo)}
+@keyframes slideInToast{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fadeOutToast{from{opacity:1}to{opacity:0;transform:translateX(100%)}}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer-prog{
+  background:var(--fondo2);border-top:1px solid var(--borde);
+  padding:3rem 2rem 1.5rem;
+}
+.footer-prog-inner{max-width:1200px;margin:0 auto}
+.fp-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+.fp-brand p{color:var(--texto2);font-size:.85rem;line-height:1.7;margin-top:.8rem}
+.fp-col h4{font-family:var(--font-ui);font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto2);margin-bottom:1rem}
+.fp-col ul{list-style:none}
+.fp-col ul li{margin-bottom:.5rem}
+.fp-col ul li a{font-size:.85rem;color:var(--texto3);transition:color .2s}
+.fp-col ul li a:hover{color:var(--verde)}
+.fp-bottom{border-top:1px solid var(--borde);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.fp-bottom p{font-size:.8rem;color:var(--texto3)}
+.fp-social{display:flex;gap:.7rem}
+.fp-social a{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);
+  display:flex;align-items:center;justify-content:center;color:var(--texto3);font-size:.85rem;transition:all .2s;
+}
+.fp-social a:hover{border-color:var(--verde);color:var(--verde)}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero-prog-inner,.fifa-inner,.scouting-inner{grid-template-columns:1fr}
+  .hero-rating-display{flex-direction:row;align-items:center}
+  .fifa-card-wrap{position:static}
+  .fifa-card{width:260px;height:390px}
+  .evo-charts-grid,.progress-grid{grid-template-columns:1fr}
+  .spiritual-grid{grid-template-columns:1fr 1fr}
+  .fp-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-prog-inner{padding:2rem 1.5rem 1.5rem;gap:2rem}
+  .fifa-inner{padding:0}
+  .fifa-bars-grid{grid-template-columns:1fr}
+  .profile-fields{grid-template-columns:1fr}
+  .add-obj-form{grid-template-columns:1fr}
+  .spiritual-grid{grid-template-columns:1fr}
+  .fp-top{grid-template-columns:1fr}
+  .hero-mini-stats{gap:.8rem}
+  .hms-item{min-width:60px;padding:.6rem .8rem}
+  .rating-big-wrap{width:160px;height:160px}
+  .rating-big-num{font-size:3.5rem}
+}
+@media(max-width:480px){
+  .fifa-card{width:240px;height:360px}
+  .section-gap{padding:4rem 0}
+  .section-wrap{padding:0 1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NOISE -->
+<div class="noise"></div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+        <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+        <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+        <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+        <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+        <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <span class="logo-cross"><i class="fas fa-cross"></i></span>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">EL CAMINO</span>
+      <span class="logo-tag">Fe · Fútbol · Gloria</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+    <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
+    <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta active"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+      <i class="fas fa-sun" id="themeIcon"></i>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+  <a href="entrenamiento.html"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+  <a href="nutricion.html"><i class="fas fa-apple-alt"></i> Nutrición</a>
+  <a href="estadisticas.html"><i class="fas fa-chart-bar"></i> Estadísticas</a>
+  <a href="fe.html"><i class="fas fa-cross"></i> Fe & Motivación</a>
+  <a href="progreso.html" class="mob-active"><i class="fas fa-trophy"></i> Mi Progreso</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero-prog">
+  <div class="hero-bg-prog"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-prog-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><i class="fas fa-crosshairs"></i> Sistema de Scouting Personal</div>
+      <h1 class="hero-title-prog">
+        <span class="ht-w">MI</span><br>
+        <span class="ht-g">PERFIL</span><br>
+        <span class="ht-d">ÉLITE</span>
+      </h1>
+      <p class="hero-desc-prog">
+        Tu sistema de análisis profesional. Cada entrenamiento, cada comida, cada partido
+        se refleja en tu carta. <strong>Esto no es un juego — es tu camino al profesionalismo.</strong>
+      </p>
+      <div class="hero-btns-prog">
+        <a href="#fifa-section" class="btn-prim"><i class="fas fa-id-card"></i> Ver Mi Carta</a>
+        <a href="#objetivos-section" class="btn-sec"><i class="fas fa-bullseye"></i> Mis Objetivos</a>
+      </div>
+    </div>
+    <div class="hero-rating-display">
+      <div class="rating-big-wrap">
+        <svg class="rating-ring-svg" viewBox="0 0 240 240">
+          <circle cx="120" cy="120" r="112" fill="none" stroke="rgba(0,200,83,0.1)" stroke-width="3"/>
+          <circle id="heroRatingRing" cx="120" cy="120" r="112" fill="none"
+            stroke="url(#ratingGrad)" stroke-width="3" stroke-linecap="round"
+            stroke-dasharray="703" stroke-dashoffset="703" style="transform:rotate(-90deg);transform-origin:center"/>
+          <defs>
+            <linearGradient id="ratingGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="var(--verde)"/>
+              <stop offset="100%" stop-color="var(--dorado)"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="rating-big-inner">
+          <span class="rating-big-num" id="heroRatingNum">--</span>
+          <span class="rating-big-label">RATING GLOBAL</span>
+        </div>
+      </div>
+      <div class="hero-mini-stats">
+        <div class="hms-item">
+          <span class="hms-num" id="hmsTrainings">0</span>
+          <span class="hms-label">Entrenam.</span>
+        </div>
+        <div class="hms-item">
+          <span class="hms-num" id="hmsGoles">0</span>
+          <span class="hms-label">Goles</span>
+        </div>
+        <div class="hms-item">
+          <span class="hms-num" id="hmsPartidos">0</span>
+          <span class="hms-label">Partidos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERSE RIBBON -->
+<div class="verse-ribbon">
+  <i class="fas fa-cross"></i>&nbsp;
+  "No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento." — <strong>Romanos 12:2</strong>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FIFA CARD + STATS SECTION
+═══════════════════════════════════════ -->
+<section class="fifa-section section-gap" id="fifa-section">
+  <div class="section-wrap">
+    <div style="margin-bottom:2.5rem" class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-id-card"></i> Carta de Jugador</span>
+      <h2 class="section-h2">Tu Perfil <span class="gold">Profesional</span></h2>
+      <p class="section-sub">Estadísticas calculadas automáticamente desde tus datos de entrenamiento, nutrición y partidos.</p>
+    </div>
+    <div class="fifa-inner">
+
+      <!-- FIFA CARD -->
+      <div class="fifa-card-wrap reveal">
+        <div class="fifa-card" id="fifaCard">
+          <div class="fifa-card-bg"></div>
+          <div class="fifa-card-shine"></div>
+          <div class="fifa-card-border"></div>
+          <div class="fifa-card-content">
+            <div class="fifa-top">
+              <div>
+                <div class="fifa-rating" id="cardRating">--</div>
+                <div class="fifa-pos" id="cardPos">MED</div>
+              </div>
+              <div class="fifa-pos-country">
+                <span class="fifa-flag">🇦🇷</span>
+              </div>
+            </div>
+            <div class="fifa-photo-area">
+              <div class="fifa-player-placeholder" id="photoPlaceholder" onclick="document.getElementById('photoInput').click()">
+                <i class="fas fa-user-circle"></i>
+                <span>SUBIR FOTO</span>
+              </div>
+              <img id="playerPhotoImg" class="fifa-player-img" src="" alt="Foto del jugador" style="display:none"/>
+              <div class="fifa-gradient-overlay"></div>
+              <input type="file" id="photoInput" class="fifa-upload-input" accept="image/*"/>
+            </div>
+            <div class="fifa-name-bar">
+              <div class="fifa-name" id="cardName">TU NOMBRE</div>
+            </div>
+            <div class="fifa-stats-row">
+              <div class="fifa-stat-mini">
+                <span class="fsm-val" id="cs-rit">--</span>
+                <span class="fsm-lbl">RIT</span>
+              </div>
+              <div class="fifa-stat-mini">
+                <span class="fsm-val" id="cs-tir">--</span>
+                <span class="fsm-lbl">TIR</span>
+              </div>
+              <div class="fifa-stat-mini">
+                <span class="fsm-val" id="cs-pas">--</span>
+                <span class="fsm-lbl">PAS</span>
+              </div>
+              <div class="fifa-stat-mini">
+                <span class="fsm-val" id="cs-reg">--</span>
+                <span class="fsm-lbl">REG</span>
+              </div>
+              <div class="fifa-stat-mini">
+                <span class="fsm-val" id="cs-def">--</span>
+                <span class="fsm-lbl">DEF</span>
+              </div>
+              <div class="fifa-stat-mini">
+                <span class="fsm-val" id="cs-fis">--</span>
+                <span class="fsm-lbl">FIS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 3D tilt hint -->
+        <p style="font-size:.72rem;color:var(--texto3);font-family:var(--font-ui);text-align:center">
+          <i class="fas fa-hand-point-up"></i> Mové el cursor para efecto 3D
+        </p>
+        <p style="font-size:.72rem;color:var(--verde);font-family:var(--font-ui);text-align:center;cursor:pointer" onclick="document.getElementById('photoInput').click()">
+          <i class="fas fa-camera"></i> Clic en la carta para subir foto
+        </p>
+      </div>
+
+      <!-- STATS PANEL -->
+      <div class="stats-panel reveal">
+
+        <!-- PROFILE EDIT -->
+        <div class="profile-edit-section">
+          <div class="pf-header">
+            <span class="pf-title"><i class="fas fa-user-edit" style="color:var(--verde);margin-right:.4rem"></i> Perfil del Jugador</span>
+            <button class="btn-edit" id="btnSaveProfile"><i class="fas fa-save"></i> Guardar</button>
+          </div>
+          <div class="profile-fields">
+            <div class="pf-field">
+              <label>Nombre Completo</label>
+              <input type="text" id="pfName" placeholder="Tu nombre"/>
+            </div>
+            <div class="pf-field">
+              <label>Posición Principal</label>
+              <select id="pfPos">
+                <option value="DEL">Delantero (DEL)</option>
+                <option value="MED" selected>Mediocampista (MED)</option>
+                <option value="DEF">Defensor (DEF)</option>
+                <option value="ARQ">Arquero (ARQ)</option>
+                <option value="EXT">Extremo (EXT)</option>
+                <option value="CAM">Mediapunta (CAM)</option>
+                <option value="VOL">Volante (VOL)</option>
+              </select>
+            </div>
+            <div class="pf-field">
+              <label>Posición Secundaria</label>
+              <input type="text" id="pfPos2" placeholder="Ej: Extremo derecho"/>
+            </div>
+            <div class="pf-field">
+              <label>Estilo de Juego</label>
+              <select id="pfStyle">
+                <option>Ofensivo</option>
+                <option>Defensivo</option>
+                <option>Mixto</option>
+                <option>Creador de juego</option>
+                <option>Box-to-box</option>
+                <option>Presionador</option>
+              </select>
+            </div>
+            <div class="pf-field full">
+              <label>Fortalezas</label>
+              <input type="text" id="pfStrengths" placeholder="Ej: Velocidad, regate, visión de juego"/>
+            </div>
+            <div class="pf-field full">
+              <label>Áreas a mejorar</label>
+              <input type="text" id="pfWeaknesses" placeholder="Ej: Definición, juego aéreo"/>
+            </div>
+            <div class="pf-field full">
+              <label>Notas del Analista</label>
+              <textarea id="pfNotes" placeholder="Observaciones adicionales sobre tu juego..."></textarea>
+            </div>
+          </div>
+          <button class="btn-save-prof" id="btnSaveProfileFull">
+            <i class="fas fa-save"></i> Guardar Perfil Completo
+          </button>
+        </div>
+
+        <!-- STATS BARS -->
+        <h3 style="font-family:var(--font-ui);font-weight:700;color:#fff;margin-bottom:1.2rem;font-size:.95rem;">
+          <i class="fas fa-sliders-h" style="color:var(--verde);margin-right:.5rem"></i>
+          Estadísticas — Calculadas Automáticamente
+        </h3>
+        <div class="fifa-bars-grid">
+          <div class="fifa-bar-card">
+            <div class="fbc-header">
+              <span class="fbc-name">⚡ RITMO</span>
+              <span class="fbc-val c-ritmo" id="val-ritmo">--</span>
+            </div>
+            <div class="fbc-bar-bg"><div class="fbc-bar-fill c-ritmo" id="bar-ritmo" style="width:0%"></div></div>
+            <div class="fbc-source" id="src-ritmo">Basado en entrenamientos de velocidad</div>
+            <input type="number" class="override-input" id="ov-ritmo" min="1" max="99" placeholder="—" title="Override manual"/>
+          </div>
+          <div class="fifa-bar-card">
+            <div class="fbc-header">
+              <span class="fbc-name">🎯 TIRO</span>
+              <span class="fbc-val c-tiro" id="val-tiro">--</span>
+            </div>
+            <div class="fbc-bar-bg"><div class="fbc-bar-fill c-tiro" id="bar-tiro" style="width:0%"></div></div>
+            <div class="fbc-source" id="src-tiro">Basado en goles y estadísticas de partidos</div>
+            <input type="number" class="override-input" id="ov-tiro" min="1" max="99" placeholder="—" title="Override manual"/>
+          </div>
+          <div class="fifa-bar-card">
+            <div class="fbc-header">
+              <span class="fbc-name">🎪 PASE</span>
+              <span class="fbc-val c-pase" id="val-pase">--</span>
+            </div>
+            <div class="fbc-bar-bg"><div class="fbc-bar-fill c-pase" id="bar-pase" style="width:0%"></div></div>
+            <div class="fbc-source" id="src-pase">Basado en asistencias y precisión de pase</div>
+            <input type="number" class="override-input" id="ov-pase" min="1" max="99" placeholder="—" title="Override manual"/>
+          </div>
+          <div class="fifa-bar-card">
+            <div class="fbc-header">
+              <span class="fbc-name">🌀 REGATE</span>
+              <span class="fbc-val c-regate" id="val-regate">--</span>
+            </div>
+            <div class="fbc-bar-bg"><div class="fbc-bar-fill c-regate" id="bar-regate" style="width:0%"></div></div>
+            <div class="fbc-source" id="src-regate">Basado en entrenamientos técnicos</div>
+            <input type="number" class="override-input" id="ov-regate" min="1" max="99" placeholder="—" title="Override manual"/>
+          </div>
+          <div class="fifa-bar-card">
+            <div class="fbc-header">
+              <span class="fbc-name">🛡️ DEFENSA</span>
+              <span class="fbc-val c-defensa" id="val-defensa">--</span>
+            </div>
+            <div class="fbc-bar-bg"><div class="fbc-bar-fill c-defensa" id="bar-defensa" style="width:0%"></div></div>
+            <div class="fbc-source" id="src-defensa">Basado en entrenamientos defensivos</div>
+            <input type="number" class="override-input" id="ov-defensa" min="1" max="99" placeholder="—" title="Override manual"/>
+          </div>
+          <div class="fifa-bar-card">
+            <div class="fbc-header">
+              <span class="fbc-name">💪 FÍSICO</span>
+              <span class="fbc-val c-fisico" id="val-fisico">--</span>
+            </div>
+            <div class="fbc-bar-bg"><div class="fbc-bar-fill c-fisico" id="bar-fisico" style="width:0%"></div></div>
+            <div class="fbc-source" id="src-fisico">Basado en nutrición + entrenamientos físicos</div>
+            <input type="number" class="override-input" id="ov-fisico" min="1" max="99" placeholder="—" title="Override manual"/>
+          </div>
+        </div>
+        <button class="btn-save-prof" id="btnApplyOverrides" style="background:rgba(255,215,0,0.15);color:var(--dorado);border:1px solid rgba(255,215,0,0.2)">
+          <i class="fas fa-sliders-h"></i> Aplicar Overrides Manuales
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRESS SECTION ═══ -->
+<section class="progress-section section-gap" id="progress-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-chart-line"></i> Factores de Crecimiento</span>
+      <h2 class="section-h2">Cómo Sube <span class="green">Tu Nivel</span></h2>
+      <p class="section-sub">Cada acción que realizás impacta directamente en tu rating. Así funciona el sistema.</p>
+    </div>
+    <div class="progress-grid reveal">
+      <div class="prog-factor-card">
+        <div class="pfc-icon green"><i class="fas fa-dumbbell"></i></div>
+        <div class="pfc-title">Entrenamientos</div>
+        <div class="pfc-desc">Cada sesión completada suma puntos. Mayor frecuencia e intensidad = mayor impacto en Ritmo, Regate y Físico.</div>
+        <div class="pfc-bar"><div class="pfc-fill green" id="pfcTraining" style="width:0%"></div></div>
+        <span class="pfc-pct green" id="pfcTrainingPct">0%</span>
+      </div>
+      <div class="prog-factor-card">
+        <div class="pfc-icon orange"><i class="fas fa-apple-alt"></i></div>
+        <div class="pfc-title">Nutrición</div>
+        <div class="pfc-desc">Días con buena alimentación aumentan el Físico. Cumplir la meta calórica y proteica es clave para el rendimiento.</div>
+        <div class="pfc-bar"><div class="pfc-fill orange" id="pfcNutrition" style="width:0%"></div></div>
+        <span class="pfc-pct orange" id="pfcNutritionPct">0%</span>
+      </div>
+      <div class="prog-factor-card">
+        <div class="pfc-icon gold"><i class="fas fa-futbol"></i></div>
+        <div class="pfc-title">Rendimiento en Partidos</div>
+        <div class="pfc-desc">Goles, asistencias y actuaciones destacadas mejoran directamente Tiro, Pase y el Rating Global.</div>
+        <div class="pfc-bar"><div class="pfc-fill gold" id="pfcMatch" style="width:0%"></div></div>
+        <span class="pfc-pct gold" id="pfcMatchPct">0%</span>
+      </div>
+      <div class="prog-factor-card">
+        <div class="pfc-icon blue"><i class="fas fa-cross"></i></div>
+        <div class="pfc-title">Fe y Constancia</div>
+        <div class="pfc-desc">La consistencia en el tiempo es el factor más poderoso. Con Dios como base, cada día suma sin excepción.</div>
+        <div class="pfc-bar"><div class="pfc-fill blue" id="pfcFaith" style="width:0%"></div></div>
+        <span class="pfc-pct blue" id="pfcFaithPct">0%</span>
+      </div>
+    </div>
+    <div class="how-it-works reveal">
+      <div class="hiw-title"><i class="fas fa-cogs" style="color:var(--verde)"></i> Cómo se Calcula el Rating</div>
+      <div class="hiw-steps">
+        <div class="hiw-step">
+          <div class="hiw-step-num">1</div>
+          <div class="hiw-step-text"><strong>Lee datos de entrenamiento.html:</strong> Cuenta sesiones, extrae intensidad y tipo de ejercicio. Entrens de velocidad → Ritmo. Técnica → Regate. Físico → Físico.</div>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-step-num">2</div>
+          <div class="hiw-step-text"><strong>Lee datos de nutricion.html:</strong> Días con calorías y proteínas en meta suben el factor Físico. Cada día registrado cuenta.</div>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-step-num">3</div>
+          <div class="hiw-step-text"><strong>Lee datos de estadisticas.html:</strong> Goles impactan Tiro. Asistencias impactan Pase. Minutos jugados impactan Físico y Ritmo.</div>
+        </div>
+        <div class="hiw-step">
+          <div class="hiw-step-num">4</div>
+          <div class="hiw-step-text"><strong>Rating Global:</strong> Promedio ponderado de las 6 estadísticas. El sistema tiene un base mínima de 40 para jugadores que empiezan. Máximo: 99.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OBJETIVOS SECTION ═══ -->
+<section class="objetivos-section section-gap" id="objetivos-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-bullseye"></i> Metas del Jugador</span>
+      <h2 class="section-h2">Mis <span class="green">Objetivos</span></h2>
+      <p class="section-sub">Sistema completo de seguimiento de metas. Corto, mediano y largo plazo.</p>
+    </div>
+    <div class="obj-tabs reveal">
+      <button class="obj-tab active" data-plazo="corto"><i class="fas fa-bolt"></i> Corto Plazo</button>
+      <button class="obj-tab" data-plazo="mediano"><i class="fas fa-road"></i> Mediano Plazo</button>
+      <button class="obj-tab" data-plazo="largo"><i class="fas fa-star"></i> Largo Plazo</button>
+    </div>
+    <div class="obj-list reveal" id="objList">
+      <!-- Rendered by JS -->
+    </div>
+    <!-- Add form -->
+    <div class="add-obj-form reveal">
+      <div class="aof-field" style="grid-column:1/-1">
+        <label>Nuevo Objetivo</label>
+        <input type="text" id="newObjDesc" placeholder="Ej: Completar 20 entrenamientos este mes"/>
+      </div>
+      <div class="aof-field">
+        <label>Plazo</label>
+        <select id="newObjPlazo">
+          <option value="corto">Corto Plazo</option>
+          <option value="mediano">Mediano Plazo</option>
+          <option value="largo">Largo Plazo</option>
+        </select>
+      </div>
+      <div class="aof-field">
+        <label>Fecha Límite</label>
+        <input type="date" id="newObjFecha"/>
+      </div>
+      <div class="aof-field">
+        <label>Estado Inicial</label>
+        <select id="newObjEstado">
+          <option value="pendiente">Pendiente</option>
+          <option value="en-progreso">En Progreso</option>
+          <option value="logrado">Logrado</option>
+        </select>
+      </div>
+      <div class="aof-field">
+        <label>Progreso %</label>
+        <input type="number" id="newObjPct" min="0" max="100" value="0" placeholder="0-100"/>
+      </div>
+      <button class="btn-add-obj" onclick="addObjetivo()">
+        <i class="fas fa-plus"></i> Agregar
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EVOLUTION SECTION ═══ -->
+<section class="evolution-section section-gap" id="evolution-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-chart-area"></i> Historial</span>
+      <h2 class="section-h2">Mi <span class="green">Evolución</span></h2>
+      <p class="section-sub">Registrá snapshots de tu progreso y visualizá cómo creció tu nivel en el tiempo.</p>
+    </div>
+    <div class="evo-charts-grid reveal">
+      <div class="evo-chart-card">
+        <div class="ecc-header">
+          <span class="ecc-title"><i class="fas fa-star" style="color:var(--dorado);margin-right:.4rem"></i> Evolución del Rating</span>
+          <span class="ecc-badge" id="latestRatingBadge">—</span>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="ratingChart"></canvas>
+        </div>
+        <button class="add-history-btn" onclick="openSnapshotModal()">
+          <i class="fas fa-plus-circle"></i> Registrar Snapshot de Hoy
+        </button>
+      </div>
+      <div class="evo-chart-card">
+        <div class="ecc-header">
+          <span class="ecc-title"><i class="fas fa-layer-group" style="color:var(--azul);margin-right:.4rem"></i> Stats en el Tiempo</span>
+          <span class="ecc-badge">Última sesión</span>
+        </div>
+        <div class="chart-canvas-wrap">
+          <canvas id="statsEvolutionChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCOUTING / RADAR SECTION ═══ -->
+<section class="scouting-section section-gap">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-search"></i> Informe de Scouting</span>
+      <h2 class="section-h2">Análisis <span class="green">Técnico</span></h2>
+      <p class="section-sub">Perfil completo estilo informe de un club europeo. Fortalezas, debilidades y radar de habilidades.</p>
+    </div>
+    <div class="scouting-inner reveal">
+      <div class="radar-wrap">
+        <div class="radar-title"><i class="fas fa-hexagon" style="color:var(--verde)"></i> Radar de Habilidades</div>
+        <canvas id="radarChart" style="max-width:300px;max-height:300px"></canvas>
+      </div>
+      <div class="profile-details-wrap">
+        <div class="pd-card">
+          <div class="pd-title"><i class="fas fa-check-circle"></i> Fortalezas</div>
+          <div class="pd-tags" id="strengthTags">
+            <span class="pd-tag green">Sin datos</span>
+          </div>
+        </div>
+        <div class="pd-card">
+          <div class="pd-title" style="color:var(--rojo)"><i class="fas fa-exclamation-circle"></i> Áreas de Mejora</div>
+          <div class="pd-tags" id="weaknessTags">
+            <span class="pd-tag red">Sin datos</span>
+          </div>
+        </div>
+        <div class="pd-card">
+          <div class="pd-title"><i class="fas fa-file-alt"></i> Observaciones del Analista</div>
+          <div class="pd-text" id="analystNotes">Completa tu perfil para ver las observaciones aquí.</div>
+        </div>
+        <div class="pd-card" style="background:rgba(0,200,83,0.04);border-color:rgba(0,200,83,0.15)">
+          <div class="pd-title"><i class="fas fa-trophy"></i> Proyección Profesional</div>
+          <div class="pd-text" id="projectionText">
+            Con constancia y fe, cada punto de rating acerca tu sueño profesional.
+            Seguí entrenando, comiendo bien y confiando en Dios. <strong>El talento se multiplica con disciplina.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPIRITUAL SECTION ═══ -->
+<section class="spiritual-section section-gap">
+  <div class="section-wrap">
+    <div class="spiritual-inner">
+      <div class="reveal">
+        <span class="section-eyebrow"><i class="fas fa-cross"></i> Fe & Propósito</span>
+        <h2 class="section-h2">Dios en el <span class="green">Centro</span></h2>
+        <p class="section-sub">Tu rendimiento no es solo físico. Es espiritual. Él es tu entrenador principal.</p>
+      </div>
+      <div class="spiritual-grid reveal">
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-running"></i></div>
+          <p class="vc-text">"Todo lo puedo en Cristo que me fortalece."</p>
+          <span class="vc-ref">— Filipenses 4:13</span>
+        </div>
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-dumbbell"></i></div>
+          <p class="vc-text">"Esfuérzate y sé valiente. No temas ni desmayes, porque Jehová tu Dios estará contigo."</p>
+          <span class="vc-ref">— Josué 1:9</span>
+        </div>
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-star"></i></div>
+          <p class="vc-text">"¿No saben que los que corren en el estadio, todos corren, pero uno solo obtiene el premio?"</p>
+          <span class="vc-ref">— 1 Corintios 9:24</span>
+        </div>
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-heart"></i></div>
+          <p class="vc-text">"Encomienda al Señor tus obras y tus planes tendrán éxito."</p>
+          <span class="vc-ref">— Proverbios 16:3</span>
+        </div>
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-shield-alt"></i></div>
+          <p class="vc-text">"El Señor es mi fuerza y mi escudo; en Él confió mi corazón."</p>
+          <span class="vc-ref">— Salmo 28:7</span>
+        </div>
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-fire"></i></div>
+          <p class="vc-text">"No os cansemos de hacer el bien, porque a su tiempo cosecharemos si no desmayamos."</p>
+          <span class="vc-ref">— Gálatas 6:9</span>
+        </div>
+        <div class="identity-card">
+          <div class="ic-title">✝ TU IDENTIDAD COMO JUGADOR</div>
+          <p class="ic-text">
+            No sos solo un número en un sistema de scouting. Sos un hijo de Dios con un propósito específico.
+            Tu fútbol es tu ministerio. Cada gol, cada pase, cada entrenamiento es una oración en movimiento.
+            <strong>Jugar al máximo nivel es honrar al que te dio el talento.</strong>
+            Que cada partido sea una declaración de fe.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SNAPSHOT MODAL -->
+<div class="snapshot-modal" id="snapshotModal">
+  <div class="snapshot-box">
+    <div class="snp-title"><i class="fas fa-camera" style="color:var(--verde);margin-right:.5rem"></i> Registrar Snapshot de Progreso</div>
+    <div class="snp-fields">
+      <div class="snp-field">
+        <label>Fecha</label>
+        <input type="date" id="snpDate"/>
+      </div>
+      <div class="snp-field">
+        <label>Rating Global (ej: 65)</label>
+        <input type="number" id="snpRating" min="1" max="99" placeholder="65"/>
+      </div>
+      <div class="snp-field">
+        <label>Nota / Comentario</label>
+        <input type="text" id="snpNote" placeholder="Ej: Semana muy productiva"/>
+      </div>
+    </div>
+    <div class="snp-btns">
+      <button class="snp-save" onclick="saveSnapshot()">Guardar Snapshot</button>
+      <button class="snp-cancel" onclick="closeSnapshotModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-cont" id="toastCont"></div>
+
+<!-- FOOTER -->
+<footer class="footer-prog">
+  <div class="footer-prog-inner">
+    <div class="fp-top">
+      <div class="fp-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-icon" style="width:40px;height:40px">
+            <svg viewBox="0 0 64 64" style="width:22px;height:22px;fill:white"><circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/><polygon points="32,8 40,20 24,20" fill="white"/><polygon points="50,26 58,38 44,42" fill="white"/><polygon points="44,52 32,58 20,52" fill="white"/><polygon points="20,42 6,38 14,26" fill="white"/></svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">EL CAMINO</span>
+            <span class="logo-tag">Fe · Fútbol · Gloria</span>
+          </div>
+        </a>
+        <p>Mi viaje hacia el fútbol profesional, documentado con fe, disciplina y la gracia de Dios en cada paso.</p>
+      </div>
+      <div class="fp-col">
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamientos</a></li>
+          <li><a href="estadisticas.html">Estadísticas</a></li>
+          <li><a href="progreso.html">Mi Progreso</a></li>
+        </ul>
+      </div>
+      <div class="fp-col">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="nutricion.html">Nutrición</a></li>
+          <li><a href="fe.html">Fe & Dios</a></li>
+          <li><a href="fotos.html">Galería</a></li>
+          <li><a href="frases.html">Frases</a></li>
+        </ul>
+      </div>
+      <div class="fp-col">
+        <h4>Versículo</h4>
+        <ul>
+          <li><a href="fe.html" style="color:var(--verde);font-style:italic;line-height:1.7">"Todo lo puedo en Cristo que me fortalece." — Fil. 4:13</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fp-bottom">
+      <p>© 2025 El Camino · Hecho con <span style="color:var(--verde)">♥</span> y mucha fe · Gloria a Dios</p>
+      <div class="fp-social">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT COMPLETO
+═══════════════════════════════════════ -->
+<script>
+/* ════════════════════════════════════════════
+   PERSISTENCIA: localStorage (bien estructurado)
+   
+   Claves usadas:
+   - progreso_profile      → Perfil del jugador
+   - progreso_overrides    → Overrides manuales de stats
+   - progreso_objetivos    → Array de objetivos
+   - progreso_snapshots    → Array de snapshots de rating
+   - progreso_photo        → Foto del jugador (base64)
+   
+   Las stats se calculan leyendo también:
+   - nutricion_dailyLog    → datos de nutricion.html
+   - training_sessions     → datos de entrenamiento.html
+   - estadisticas_data     → datos de estadisticas.html
+════════════════════════════════════════════ */
+
+const KEYS = {
+  profile:    'progreso_profile',
+  overrides:  'progreso_overrides',
+  objetivos:  'progreso_objetivos',
+  snapshots:  'progreso_snapshots',
+  photo:      'progreso_photo',
+  // Cross-page reads
+  nutricion:  'nutricion_dailyLog',
+  training:   'training_sessions',
+  stats:      'estadisticas_data',
+  nutriLogs:  'nutricion_weekly',
+};
+
+function LS(key){ try{ return JSON.parse(localStorage.getItem(key)) }catch(e){ return null } }
+function LSset(key,val){ try{ localStorage.setItem(key, JSON.stringify(val)) }catch(e){ showToast('Error al guardar','error') } }
+
+/* ════════ STATS CALCULATOR ════════
+   Lee datos de otras páginas y calcula cada stat.
+   Fórmulas reales basadas en actividad registrada.
+════════════════════════════════════ */
+function calcStats(){
+  const overrides = LS(KEYS.overrides) || {};
+  
+  // --- Leer datos de entrenamiento ---
+  const sessions = LS(KEYS.training) || [];
+  const totalSessions = sessions.length;
+  // Clasificar por tipo de entrenamiento si existe keyword
+  let velSessions=0, tecSessions=0, fisSessions=0, defSessions=0;
+  sessions.forEach(s => {
+    const name = (s.name||s.title||s.tipo||'').toLowerCase();
+    if(/veloc|sprint|carrera|rapidez/.test(name)) velSessions++;
+    if(/técni|regate|control|dribbl/.test(name)) tecSessions++;
+    if(/físic|fuerza|gym|muscu|resistencia/.test(name)) fisSessions++;
+    if(/defens|marca|presion/.test(name)) defSessions++;
+  });
+  
+  // --- Leer datos de nutrición ---
+  const nutriLogs = LS(KEYS.nutriLogs) || LS(KEYS.nutricion) || {};
+  const nutriDays = Object.keys(nutriLogs).length;
+  let daysOnTarget = 0;
+  Object.values(nutriLogs).forEach(day => {
+    if(day && day.calorias && day.calorias >= 2200) daysOnTarget++;
+  });
+  
+  // --- Leer datos de estadísticas ---
+  const statsData = LS(KEYS.stats) || {};
+  const goles = Number(statsData.goles||0);
+  const asistencias = Number(statsData.asistencias||0);
+  const partidos = Number(statsData.partidos||0);
+  const minutosJugados = Number(statsData.minutos||partidos*70||0);
+  
+  // --- Calcular cada stat ---
+  // Base: 40 (jugador que empieza) + bonificaciones por actividad
+  const BASE = 40;
+  const MAX_BONUS = 55; // máximo bonus = llega a 95
+  
+  // RITMO: velocidad training + minutos jugados
+  let ritmoRaw = BASE
+    + Math.min(15, velSessions * 1.5)
+    + Math.min(10, minutosJugados / 120)
+    + Math.min(10, totalSessions * 0.5);
+  
+  // TIRO: goles + partidos jugados
+  let tiroRaw = BASE
+    + Math.min(20, goles * 2.5)
+    + Math.min(10, partidos * 0.8)
+    + Math.min(5, tecSessions * 0.5);
+  
+  // PASE: asistencias + sesiones técnicas
+  let paseRaw = BASE
+    + Math.min(20, asistencias * 3)
+    + Math.min(15, tecSessions * 1.2)
+    + Math.min(5, partidos * 0.4);
+  
+  // REGATE: sesiones técnicas + total sessions
+  let regateRaw = BASE
+    + Math.min(20, tecSessions * 2)
+    + Math.min(10, totalSessions * 0.4)
+    + Math.min(5, velSessions * 0.5);
+  
+  // DEFENSA: sesiones defensivas + partidos
+  let defensaRaw = BASE
+    + Math.min(15, defSessions * 2)
+    + Math.min(10, partidos * 0.5)
+    + Math.min(5, totalSessions * 0.2);
+  
+  // FÍSICO: nutrición + sesiones físicas + minutos
+  let fisicoRaw = BASE
+    + Math.min(15, daysOnTarget * 0.8)
+    + Math.min(15, fisSessions * 1.5)
+    + Math.min(10, totalSessions * 0.3)
+    + Math.min(5, minutosJugados / 200);
+  
+  // Clamp a 99
+  const clamp = v => Math.min(99, Math.max(40, Math.round(v)));
+  
+  let stats = {
+    ritmo:   clamp(ritmoRaw),
+    tiro:    clamp(tiroRaw),
+    pase:    clamp(paseRaw),
+    regate:  clamp(regateRaw),
+    defensa: clamp(defensaRaw),
+    fisico:  clamp(fisicoRaw),
+  };
+  
+  // Aplicar overrides manuales si existen
+  Object.keys(overrides).forEach(k => {
+    if(overrides[k] && !isNaN(overrides[k])){
+      stats[k] = Math.min(99, Math.max(1, Number(overrides[k])));
+    }
+  });
+  
+  // Rating global: promedio ponderado (posición puede cambiar pesos)
+  const profile = LS(KEYS.profile) || {};
+  const pos = profile.posicion || 'MED';
+  let weights = { ritmo:1, tiro:1, pase:1, regate:1, defensa:1, fisico:1 };
+  if(pos==='DEL'){ weights.tiro=2; weights.ritmo=1.5 }
+  else if(pos==='DEF'){ weights.defensa=2; weights.fisico=1.5 }
+  else if(pos==='MED'||pos==='CAM'||pos==='VOL'){ weights.pase=1.5; weights.regate=1.2 }
+  else if(pos==='EXT'){ weights.ritmo=2; weights.regate=1.5 }
+  
+  const totalW = Object.values(weights).reduce((a,b)=>a+b,0);
+  const weightedSum = Object.keys(stats).reduce((s,k)=>s+stats[k]*(weights[k]||1),0);
+  const rating = Math.round(weightedSum / totalW);
+  
+  // Sources para mostrar en UI
+  const sources = {
+    ritmo:   `${velSessions} sesiones velocidad · ${Math.round(minutosJugados/60)}h jugadas`,
+    tiro:    `${goles} goles · ${partidos} partidos`,
+    pase:    `${asistencias} asistencias · ${tecSessions} sesiones técnicas`,
+    regate:  `${tecSessions} sesiones técnicas · ${totalSessions} total`,
+    defensa: `${defSessions} sesiones defensivas · ${partidos} partidos`,
+    fisico:  `${daysOnTarget}/${nutriDays} días con buena nutrición · ${fisSessions} sesiones físicas`,
+  };
+  
+  // Progress factors
+  const trainingPct = Math.min(100, Math.round(totalSessions / 50 * 100));
+  const nutritionPct = Math.min(100, Math.round(daysOnTarget / 30 * 100));
+  const matchPct = Math.min(100, Math.round(partidos / 20 * 100));
+  const faithPct = Math.min(100, Math.round((totalSessions + daysOnTarget) / 80 * 100));
+  
+  return { stats, rating, sources, trainingPct, nutritionPct, matchPct, faithPct,
+           goles, asistencias, partidos, totalSessions };
+}
+
+/* ════════ UI UPDATERS ════════ */
+function updateFifaCard(stats, rating, profile){
+  const nm = profile.nombre||'TU NOMBRE';
+  const pos = profile.posicion||'MED';
+  
+  document.getElementById('cardRating').textContent = rating;
+  document.getElementById('cardPos').textContent = pos;
+  document.getElementById('cardName').textContent = nm.toUpperCase().substring(0,14);
+  document.getElementById('cs-rit').textContent = stats.ritmo;
+  document.getElementById('cs-tir').textContent = stats.tiro;
+  document.getElementById('cs-pas').textContent = stats.pase;
+  document.getElementById('cs-reg').textContent = stats.regate;
+  document.getElementById('cs-def').textContent = stats.defensa;
+  document.getElementById('cs-fis').textContent = stats.fisico;
+}
+
+function updateStatBars(stats, sources){
+  const keys = ['ritmo','tiro','pase','regate','defensa','fisico'];
+  keys.forEach(k => {
+    const el = document.getElementById(`val-${k}`);
+    const bar = document.getElementById(`bar-${k}`);
+    const src = document.getElementById(`src-${k}`);
+    if(el) el.textContent = stats[k];
+    if(bar){ setTimeout(()=>{ bar.style.width = stats[k]+'%' }, 300) }
+    if(src && sources[k]) src.textContent = sources[k];
+  });
+}
+
+function updateHeroRating(rating){
+  document.getElementById('heroRatingNum').textContent = rating;
+  document.getElementById('cardRating').textContent = rating;
+  // Ring animation
+  const ring = document.getElementById('heroRatingRing');
+  if(ring){
+    const circumference = 703;
+    const offset = circumference - (rating/99)*circumference;
+    setTimeout(()=>{ ring.style.strokeDashoffset = offset; ring.style.transition='stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)'; }, 500);
+  }
+  // Badge
+  const badge = document.getElementById('latestRatingBadge');
+  if(badge) badge.textContent = rating;
+}
+
+function updateProgressFactors(data){
+  const factors = [
+    {id:'pfcTraining', pctId:'pfcTrainingPct', pct:data.trainingPct},
+    {id:'pfcNutrition', pctId:'pfcNutritionPct', pct:data.nutritionPct},
+    {id:'pfcMatch', pctId:'pfcMatchPct', pct:data.matchPct},
+    {id:'pfcFaith', pctId:'pfcFaithPct', pct:data.faithPct},
+  ];
+  factors.forEach(f => {
+    const bar = document.getElementById(f.id);
+    const pct = document.getElementById(f.pctId);
+    if(bar) setTimeout(()=>{ bar.style.width = f.pct+'%'; bar.style.transition='width 1.5s cubic-bezier(.22,1,.36,1)'; }, 400);
+    if(pct) pct.textContent = f.pct+'%';
+  });
+}
+
+function updateHeroMiniStats(data){
+  document.getElementById('hmsTrainings').textContent = data.totalSessions||0;
+  document.getElementById('hmsGoles').textContent = data.goles||0;
+  document.getElementById('hmsPartidos').textContent = data.partidos||0;
+}
+
+/* ════════ PROFILE ════════ */
+function loadProfile(){
+  const p = LS(KEYS.profile) || {};
+  if(p.nombre)    document.getElementById('pfName').value = p.nombre;
+  if(p.posicion)  document.getElementById('pfPos').value = p.posicion;
+  if(p.posicion2) document.getElementById('pfPos2').value = p.posicion2;
+  if(p.estilo)    document.getElementById('pfStyle').value = p.estilo;
+  if(p.fortalezas)  document.getElementById('pfStrengths').value = p.fortalezas;
+  if(p.debilidades) document.getElementById('pfWeaknesses').value = p.debilidades;
+  if(p.notas)     document.getElementById('pfNotes').value = p.notas;
+}
+
+function saveProfile(){
+  const p = {
+    nombre:      document.getElementById('pfName').value,
+    posicion:    document.getElementById('pfPos').value,
+    posicion2:   document.getElementById('pfPos2').value,
+    estilo:      document.getElementById('pfStyle').value,
+    fortalezas:  document.getElementById('pfStrengths').value,
+    debilidades: document.getElementById('pfWeaknesses').value,
+    notas:       document.getElementById('pfNotes').value,
+  };
+  LSset(KEYS.profile, p);
+  updateScoutingProfile(p);
+  refreshAll();
+  showToast('Perfil guardado ✓','success');
+}
+
+function updateScoutingProfile(p){
+  // Fortalezas
+  const strEl = document.getElementById('strengthTags');
+  if(strEl && p.fortalezas){
+    const tags = p.fortalezas.split(',').map(s=>s.trim()).filter(Boolean);
+    strEl.innerHTML = tags.length ? tags.map(t=>`<span class="pd-tag green">${t}</span>`).join('') : '<span class="pd-tag">Sin datos</span>';
+  }
+  // Debilidades
+  const weakEl = document.getElementById('weaknessTags');
+  if(weakEl && p.debilidades){
+    const tags = p.debilidades.split(',').map(s=>s.trim()).filter(Boolean);
+    weakEl.innerHTML = tags.length ? tags.map(t=>`<span class="pd-tag red">${t}</span>`).join('') : '<span class="pd-tag">Sin datos</span>';
+  }
+  // Notas
+  const notesEl = document.getElementById('analystNotes');
+  if(notesEl) notesEl.textContent = p.notas || 'Completa tu perfil para ver las observaciones aquí.';
+  // Proyección
+  const projEl = document.getElementById('projectionText');
+  if(projEl && p.estilo){
+    projEl.innerHTML = `Estilo: <strong>${p.estilo}</strong>. ${p.posicion?'Posición principal: <strong>'+p.posicion+'</strong>.':''} Con constancia y fe, cada punto de rating acerca tu sueño profesional. <strong>El talento se multiplica con disciplina.</strong>`;
+  }
+}
+
+/* ════════ OVERRIDES ════════ */
+function loadOverrides(){
+  const ov = LS(KEYS.overrides) || {};
+  Object.keys(ov).forEach(k => {
+    const el = document.getElementById(`ov-${k}`);
+    if(el && ov[k]) el.value = ov[k];
+  });
+}
+
+function applyOverrides(){
+  const keys = ['ritmo','tiro','pase','regate','defensa','fisico'];
+  const ov = {};
+  keys.forEach(k => {
+    const val = document.getElementById(`ov-${k}`)?.value;
+    if(val && !isNaN(val)) ov[k] = Number(val);
+  });
+  LSset(KEYS.overrides, ov);
+  refreshAll();
+  showToast('Overrides aplicados ✓','success');
+}
+
+/* ════════ OBJETIVOS ════════ */
+let currentPlazo = 'corto';
+
+function loadObjetivos(){
+  const list = LS(KEYS.objetivos) || getDefaultObjetivos();
+  const filtered = list.filter(o=>o.plazo===currentPlazo);
+  const container = document.getElementById('objList');
+  if(!container) return;
+  if(!filtered.length){
+    container.innerHTML = `<div style="text-align:center;color:var(--texto3);padding:2rem;font-family:var(--font-ui);font-size:.85rem">
+      <i class="fas fa-bullseye" style="font-size:2rem;margin-bottom:.5rem;display:block;opacity:.3"></i>
+      No hay objetivos de ${currentPlazo} plazo aún. ¡Agregá uno!
+    </div>`;
+    return;
+  }
+  container.innerHTML = filtered.map((obj, idx) => {
+    const stClass = obj.estado==='logrado'?'logrado':obj.estado==='en-progreso'?'en-progreso':'';
+    const stLabel = obj.estado==='logrado'?'Logrado':obj.estado==='en-progreso'?'En Progreso':'Pendiente';
+    const stStyleClass = obj.estado==='logrado'?'st-logrado':obj.estado==='en-progreso'?'st-progreso':'st-pendiente';
+    const globalIdx = list.indexOf(obj);
+    return `<div class="obj-card ${stClass}">
+      <div class="obj-left">
+        <div class="obj-name">${obj.desc}</div>
+        <div class="obj-date"><i class="fas fa-calendar" style="margin-right:.3rem"></i>${obj.fecha||'Sin fecha'}</div>
+        <div class="obj-progress-bar"><div class="obj-progress-fill" style="width:${obj.pct||0}%"></div></div>
+        <div style="font-size:.72rem;color:var(--texto3)">${obj.pct||0}% completado</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;align-items:flex-end">
+        <span class="obj-status ${stStyleClass}">${stLabel}</span>
+        <select onchange="updateObjEstado(${globalIdx},this.value)" style="font-size:.72rem;background:var(--fondo2);border:1px solid var(--borde);color:var(--texto);border-radius:6px;padding:.3rem .5rem">
+          <option value="pendiente" ${obj.estado==='pendiente'?'selected':''}>Pendiente</option>
+          <option value="en-progreso" ${obj.estado==='en-progreso'?'selected':''}>En Progreso</option>
+          <option value="logrado" ${obj.estado==='logrado'?'selected':''}>Logrado</option>
+        </select>
+        <input type="range" min="0" max="100" value="${obj.pct||0}" style="width:80px" oninput="updateObjPct(${globalIdx},this.value)"/>
+        <button class="obj-delete" onclick="deleteObjetivo(${globalIdx})" title="Eliminar"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function getDefaultObjetivos(){
+  return [
+    {desc:'Completar 20 sesiones de entrenamiento',plazo:'corto',estado:'en-progreso',pct:40,fecha:'2025-03-31'},
+    {desc:'Mantener la dieta por 30 días seguidos',plazo:'corto',estado:'pendiente',pct:10,fecha:'2025-04-15'},
+    {desc:'Anotar 10 goles en la temporada',plazo:'mediano',estado:'en-progreso',pct:30,fecha:'2025-06-30'},
+    {desc:'Llegar a un rating de 70 en el sistema',plazo:'mediano',estado:'pendiente',pct:0,fecha:'2025-08-01'},
+    {desc:'Firmar primer contrato profesional',plazo:'largo',estado:'pendiente',pct:0,fecha:'2027-01-01'},
+    {desc:'Jugar en club de Primera División',plazo:'largo',estado:'pendiente',pct:0,fecha:'2028-01-01'},
+  ];
+}
+
+function addObjetivo(){
+  const desc = document.getElementById('newObjDesc').value.trim();
+  if(!desc){ showToast('Escribí un objetivo','error'); return; }
+  const list = LS(KEYS.objetivos) || getDefaultObjetivos();
+  list.push({
+    desc,
+    plazo:  document.getElementById('newObjPlazo').value,
+    fecha:  document.getElementById('newObjFecha').value,
+    estado: document.getElementById('newObjEstado').value,
+    pct:    Number(document.getElementById('newObjPct').value)||0,
+  });
+  LSset(KEYS.objetivos, list);
+  document.getElementById('newObjDesc').value='';
+  document.getElementById('newObjPct').value=0;
+  loadObjetivos();
+  showToast('Objetivo agregado ✓','success');
+}
+
+function deleteObjetivo(idx){
+  const list = LS(KEYS.objetivos) || [];
+  list.splice(idx,1);
+  LSset(KEYS.objetivos, list);
+  loadObjetivos();
+  showToast('Objetivo eliminado','success');
+}
+
+function updateObjEstado(idx, estado){
+  const list = LS(KEYS.objetivos) || [];
+  if(list[idx]){ list[idx].estado=estado; LSset(KEYS.objetivos,list); loadObjetivos(); }
+}
+
+function updateObjPct(idx, pct){
+  const list = LS(KEYS.objetivos) || [];
+  if(list[idx]){ list[idx].pct=Number(pct); LSset(KEYS.objetivos,list); loadObjetivos(); }
+}
+
+/* ════════ SNAPSHOTS / HISTORIAL ════════ */
+let ratingChartInstance = null;
+let statsEvoChartInstance = null;
+
+function openSnapshotModal(){
+  document.getElementById('snpDate').value = new Date().toISOString().split('T')[0];
+  const data = calcStats();
+  document.getElementById('snpRating').value = data.rating;
+  document.getElementById('snapshotModal').classList.add('open');
+}
+
+function closeSnapshotModal(){ document.getElementById('snapshotModal').classList.remove('open'); }
+
+function saveSnapshot(){
+  const date   = document.getElementById('snpDate').value;
+  const rating = Number(document.getElementById('snpRating').value);
+  const note   = document.getElementById('snpNote').value;
+  if(!date||isNaN(rating)){ showToast('Completa los campos','error'); return; }
+  const snaps = LS(KEYS.snapshots) || [];
+  // Evitar duplicados misma fecha
+  const existIdx = snaps.findIndex(s=>s.date===date);
+  if(existIdx>=0) snaps[existIdx]={date,rating,note};
+  else snaps.push({date,rating,note});
+  snaps.sort((a,b)=>a.date.localeCompare(b.date));
+  LSset(KEYS.snapshots, snaps);
+  closeSnapshotModal();
+  renderRatingChart();
+  showToast('Snapshot guardado ✓','success');
+}
+
+function renderRatingChart(){
+  const snaps = LS(KEYS.snapshots) || [];
+  const ctx = document.getElementById('ratingChart');
+  if(!ctx) return;
+  const labels = snaps.length ? snaps.map(s=>s.date.slice(5)) : ['Hoy'];
+  const data   = snaps.length ? snaps.map(s=>s.rating) : [calcStats().rating];
+  
+  if(ratingChartInstance) ratingChartInstance.destroy();
+  ratingChartInstance = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        label:'Rating',data,
+        borderColor:'#00c853',backgroundColor:'rgba(0,200,83,0.08)',
+        borderWidth:2,pointBackgroundColor:'#00c853',
+        pointRadius:5,pointHoverRadius:8,fill:true,tension:.4,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#00c853',bodyColor:'#e8e8f0',
+        borderColor:'rgba(0,200,83,0.2)',borderWidth:1,
+        callbacks:{label:ctx=>`Rating: ${ctx.raw}`}
+      }},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}}},
+        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}},min:40,max:99},
+      }
+    }
+  });
+}
+
+function renderStatsEvoChart(){
+  const ctx = document.getElementById('statsEvolutionChart');
+  if(!ctx) return;
+  const {stats} = calcStats();
+  if(statsEvoChartInstance) statsEvoChartInstance.destroy();
+  statsEvoChartInstance = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels:['Ritmo','Tiro','Pase','Regate','Defensa','Físico'],
+      datasets:[{
+        label:'Stats actuales',
+        data:[stats.ritmo,stats.tiro,stats.pase,stats.regate,stats.defensa,stats.fisico],
+        backgroundColor:['rgba(255,142,83,0.7)','rgba(255,215,0,0.7)','rgba(0,200,83,0.7)','rgba(168,85,247,0.7)','rgba(0,180,216,0.7)','rgba(34,197,94,0.7)'],
+        borderColor:['#ff8e53','#ffd700','#00c853','#a855f7','#00b4d8','#22c55e'],
+        borderWidth:2,borderRadius:6,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#fff',bodyColor:'#e8e8f0',
+        borderColor:'rgba(255,255,255,0.1)',borderWidth:1,
+      }},
+      scales:{
+        x:{grid:{display:false},ticks:{color:'#9090b0',font:{size:11}}},
+        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}},min:0,max:99},
+      }
+    }
+  });
+}
+
+/* ════════ RADAR CHART ════════ */
+let radarChartInstance = null;
+function renderRadarChart(stats){
+  const ctx = document.getElementById('radarChart');
+  if(!ctx) return;
+  if(radarChartInstance) radarChartInstance.destroy();
+  radarChartInstance = new Chart(ctx, {
+    type:'radar',
+    data:{
+      labels:['Ritmo','Tiro','Pase','Regate','Defensa','Físico'],
+      datasets:[{
+        label:'Mi nivel',
+        data:[stats.ritmo,stats.tiro,stats.pase,stats.regate,stats.defensa,stats.fisico],
+        borderColor:'#00c853',backgroundColor:'rgba(0,200,83,0.12)',
+        pointBackgroundColor:'#00c853',pointRadius:5,borderWidth:2,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:true,
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#00c853',bodyColor:'#e8e8f0',
+        borderColor:'rgba(0,200,83,0.2)',borderWidth:1,
+      }},
+      scales:{r:{
+        grid:{color:'rgba(255,255,255,0.08)'},
+        pointLabels:{color:'#9090b0',font:{size:12,family:"'Syne', sans-serif"}},
+        ticks:{display:false},angleLines:{color:'rgba(255,255,255,0.05)'},
+        min:0,max:99,
+      }}
+    }
+  });
+}
+
+/* ════════ FOTO JUGADOR ════════ */
+function initPhotoUpload(){
+  const input = document.getElementById('photoInput');
+  const img   = document.getElementById('playerPhotoImg');
+  const ph    = document.getElementById('photoPlaceholder');
+  
+  // Cargar foto guardada
+  const savedPhoto = localStorage.getItem(KEYS.photo);
+  if(savedPhoto){ img.src=savedPhoto; img.style.display='block'; ph.style.display='none'; }
+  
+  input.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const dataUrl = ev.target.result;
+      img.src = dataUrl;
+      img.style.display = 'block';
+      ph.style.display = 'none';
+      localStorage.setItem(KEYS.photo, dataUrl);
+      showToast('Foto actualizada ✓','success');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ════════ FIFA CARD 3D TILT ════════ */
+function initCardTilt(){
+  const card = document.getElementById('fifaCard');
+  if(!card) return;
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width/2, cy = rect.height/2;
+    const rotX = ((y-cy)/cy)*-12;
+    const rotY = ((x-cx)/cx)*12;
+    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+    const shine = card.querySelector('.fifa-card-shine');
+    if(shine) shine.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.12) 0%, transparent 60%)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+    const shine = card.querySelector('.fifa-card-shine');
+    if(shine) shine.style.background = 'linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 40%,rgba(255,215,0,0.04) 100%)';
+  });
+}
+
+/* ════════ REFRESH ALL ════════ */
+function refreshAll(){
+  const data = calcStats();
+  const profile = LS(KEYS.profile) || {};
+  updateFifaCard(data.stats, data.rating, profile);
+  updateStatBars(data.stats, data.sources);
+  updateHeroRating(data.rating);
+  updateProgressFactors(data);
+  updateHeroMiniStats(data);
+  renderRadarChart(data.stats);
+  renderStatsEvoChart();
+  updateScoutingProfile(profile);
+}
+
+/* ════════ TOAST ════════ */
+function showToast(msg, type='success'){
+  const cont = document.getElementById('toastCont');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+  cont.appendChild(toast);
+  setTimeout(()=>toast.remove(), 3200);
+}
+
+/* ════════ NAVBAR ════════ */
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
+});
+document.getElementById('hamburger').addEventListener('click',()=>{
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+document.getElementById('mobileClose').addEventListener('click',()=>{
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+});
+
+/* ════════ THEME ════════ */
+(function(){
+  const saved = localStorage.getItem('theme')||'dark';
+  document.documentElement.setAttribute('data-theme',saved);
+  document.getElementById('themeIcon').className = saved==='dark'?'fas fa-sun':'fas fa-moon';
+})();
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  localStorage.setItem('theme',next);
+  document.getElementById('themeIcon').className = next==='dark'?'fas fa-sun':'fas fa-moon';
+});
+
+/* ════════ REVEAL ════════ */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); observer.unobserve(e.target); } });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+/* ════════ CURSOR ════════ */
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  cx=e.clientX;cy=e.clientY;
+  cursor.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+});
+(function animateRing(){
+  rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;
+  cursorRing.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animateRing);
+})();
+document.querySelectorAll('a,button,.obj-card,.fifa-card,.prog-factor-card,.verse-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.background='var(--dorado)';
+    cursorRing.style.width='55px';cursorRing.style.height='55px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.background='var(--verde)';
+    cursorRing.style.width='38px';cursorRing.style.height='38px';
+  });
+});
+
+/* ════════ OBJ TABS ════════ */
+document.querySelectorAll('.obj-tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.obj-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentPlazo = btn.dataset.plazo;
+    loadObjetivos();
+  });
+});
+
+/* ════════ BUTTONS ════════ */
+document.getElementById('btnSaveProfile').addEventListener('click', saveProfile);
+document.getElementById('btnSaveProfileFull').addEventListener('click', saveProfile);
+document.getElementById('btnApplyOverrides').addEventListener('click', applyOverrides);
+
+/* ════════ PARALLAX HERO ════════ */
+window.addEventListener('scroll',()=>{
+  const bg = document.querySelector('.hero-bg-prog');
+  if(bg) bg.style.transform=`translateY(${window.scrollY*0.06}px)`;
+});
+
+/* ════════ INIT ════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  loadProfile();
+  loadOverrides();
+  loadObjetivos();
+  initPhotoUpload();
+  initCardTilt();
+  renderRatingChart();
+  setTimeout(refreshAll, 100);
+  console.log('⚽✝️ El Camino — Mi Progreso · Sistema de Scouting Personal · Con Dios todo es posible');
+});
+</script>
+</body>
+</html>

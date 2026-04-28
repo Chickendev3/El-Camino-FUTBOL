@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Camino al Fútbol | Con Fe en Dios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;700;900&family=Raleway:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<!-- NOISE OVERLAY -->
+<div class="noise"></div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ============================
+     MOBILE NAV
+============================ -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="index.html" onclick="closeMobile()"><i class="fas fa-home"></i> Inicio</a>
+  <a href="entrenamiento.html" onclick="closeMobile()"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+  <a href="fotos.html" onclick="closeMobile()"><i class="fas fa-camera"></i> Fotos</a>
+  <a href="estadisticas.html" onclick="closeMobile()"><i class="fas fa-chart-bar"></i> Estadísticas</a>
+  <a href="frases.html" onclick="closeMobile()"><i class="fas fa-quote-right"></i> Frases</a>
+  <a href="nutricion.html" onclick="closeMobile()"><i class="fas fa-apple-alt"></i> Nutrición</a>
+  <a href="fe.html" onclick="closeMobile()"><i class="fas fa-cross"></i> Fe & Dios</a>
+  <a href="progreso.html" onclick="closeMobile()"><i class="fas fa-trophy"></i> Mi Progreso</a>
+</nav>
+
+<!-- ============================
+     NAVBAR
+============================ -->
+<nav id="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <!-- Soccer ball SVG -->
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+        <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+        <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+        <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+        <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+        <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <span class="logo-cross"><i class="fas fa-cross"></i></span>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">EL CAMINO</span>
+      <span class="logo-tag">Fe · Fútbol · Gloria</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html" class="active"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+    <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivacion</a></li>
+    <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" onclick="toggleMobile()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ============================
+     HERO
+============================ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-lines"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fas fa-cross"></i>
+      Con Dios todo es posible · Mateo 19:26
+    </div>
+
+    <p class="hero-verse">
+      <i class="fas fa-bible"></i>
+      "Todo lo puedo en Cristo que me fortalece." — Filipenses 4:13
+    </p>
+
+    <h1 class="hero-title">
+      <span class="line-white">MI</span><br>
+      <span class="line-green">CAMINO</span><br>
+      <span class="line-gold">AL CIELO</span><br>
+      <span class="line-white">Y AL GOOL</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Un futbolista profesional no nace, <strong>se forja</strong> con entrenamiento,
+      disciplina, fe y la gracia de Dios. Este es mi portfolio, mi diario,
+      mi camino hacia la gloria del fútbol profesional.
+    </p>
+
+    <div class="hero-btns">
+      <a href="entrenamiento.html" class="btn-primary">
+        <i class="fas fa-dumbbell"></i>
+        Mis Entrenamientos
+      </a>
+      <a href="estadisticas.html" class="btn-secondary">
+        <i class="fas fa-chart-line"></i>
+        Ver Estadísticas
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" id="cnt1">0</span>
+        <span class="stat-label">Días entrenados</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="cnt2">0</span>
+        <span class="stat-label">Goles anotados</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="cnt3">0</span>
+        <span class="stat-label">Versículos memorizados</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator" onclick="document.querySelector('.verse-ribbon').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-mouse"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ============================
+     VERSE RIBBON
+============================ -->
+<div class="verse-ribbon reveal">
+  <p>"No te dejes vencer por el mal, sino vence el mal con el bien." — <strong>Romanos 12:21</strong> &nbsp;|&nbsp; Entrena como si todo dependiera de ti. Ora como si todo dependiera de Dios.</p>
+</div>
+
+<!-- ============================
+     JOURNEY / ABOUT
+============================ -->
+<div style="max-width:1200px;margin:0 auto;overflow:visible;">
+<section class="journey reveal">
+  <div class="journey-img-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=700&q=80"
+      alt="Jugador de fútbol entrenando"
+      class="journey-img-main"
+    />
+    <div class="journey-img-badge">
+      <span class="big">∞</span>
+      <span class="small">Con Dios</span>
+    </div>
+    <div class="journey-img-tag">
+      <i class="fas fa-star"></i>
+      <div class="tag-text">
+        <strong>Posición Principal</strong>
+        <span>Mediocampista / Delantero</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="journey-text">
+    <span class="section-label"><i class="fas fa-futbol"></i> Mi Historia</span>
+    <h2 class="section-title">El Camino<br><span>Empieza Hoy</span></h2>
+    <p class="section-desc">
+      Cada gran futbolista tuvo un primer entrenamiento. Este es mi viaje
+      documentado, con fe en Dios como base, disciplina como motor,
+      y la gloria como destino. Aquí registro cada paso, cada gol, cada caída y cada levantada.
+    </p>
+
+    <div class="journey-qualities">
+      <div class="quality-card">
+        <div class="quality-icon">⚽</div>
+        <div class="quality-title">Técnica Individual</div>
+        <div class="quality-text">Control, regate, pase y definición. Trabajo diario para perfeccionar cada fundamento.</div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-icon">🏃</div>
+        <div class="quality-title">Preparación Física</div>
+        <div class="quality-text">Velocidad, resistencia, fuerza y agilidad. El cuerpo es el templo del Espíritu Santo.</div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-icon">🧠</div>
+        <div class="quality-title">Visión Táctica</div>
+        <div class="quality-text">Lectura del juego, posicionamiento y toma de decisiones bajo presión.</div>
+      </div>
+      <div class="quality-card">
+        <div class="quality-icon">✝️</div>
+        <div class="quality-title">Fe Inquebrantable</div>
+        <div class="quality-text">Dios es mi entrenador principal. Con Él, ningún sueño es imposible.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ============================
+     TICKER
+============================ -->
+<section class="ticker-section">
+  <div class="ticker-track">
+    <div class="ticker-item highlight"><span class="dot"></span> ENTRENAMIENTO DIARIO</div>
+    <div class="ticker-item gold"><span class="dot"></span> CON DIOS TODO ES POSIBLE</div>
+    <div class="ticker-item"><span class="dot"></span> DISCIPLINA · FE · GLORIA</div>
+    <div class="ticker-item highlight"><span class="dot"></span> GOLES Y ORACIONES</div>
+    <div class="ticker-item"><span class="dot"></span> DEL POTRERO AL PROFESIONAL</div>
+    <div class="ticker-item gold"><span class="dot"></span> FILIPENSES 4:13</div>
+    <div class="ticker-item"><span class="dot"></span> MI CAMINO AL SUEÑO</div>
+    <div class="ticker-item highlight"><span class="dot"></span> TRABAJO · SACRIFICIO · PASIÓN</div>
+    <!-- Duplicar para loop infinito -->
+    <div class="ticker-item highlight"><span class="dot"></span> ENTRENAMIENTO DIARIO</div>
+    <div class="ticker-item gold"><span class="dot"></span> CON DIOS TODO ES POSIBLE</div>
+    <div class="ticker-item"><span class="dot"></span> DISCIPLINA · FE · GLORIA</div>
+    <div class="ticker-item highlight"><span class="dot"></span> GOLES Y ORACIONES</div>
+    <div class="ticker-item"><span class="dot"></span> DEL POTRERO AL PROFESIONAL</div>
+    <div class="ticker-item gold"><span class="dot"></span> FILIPENSES 4:13</div>
+    <div class="ticker-item"><span class="dot"></span> MI CAMINO AL SUEÑO</div>
+    <div class="ticker-item highlight"><span class="dot"></span> TRABAJO · SACRIFICIO · PASIÓN</div>
+  </div>
+</section>
+
+<!-- ============================
+     FEATURES
+============================ -->
+<section class="features-section">
+  <div class="features-inner">
+    <div class="features-header reveal">
+      <span class="section-label"><i class="fas fa-star"></i> Herramientas del Campeón</span>
+      <h2 class="section-title">Todo Lo Que Necesitás<br>Para Llegar</h2>
+      <p class="section-desc">Este sitio es tu compañero de camino. Cada sección fue pensada para potenciar tu crecimiento futbolístico y espiritual.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card featured reveal">
+        <div class="feature-num">01</div>
+        <div class="feature-icon"><i class="fas fa-dumbbell"></i></div>
+        <div class="feature-title">Planes de Entrenamiento</div>
+        <div class="feature-text">Rutinas semanales personalizadas para mejorar técnica, físico y mentalidad. Cada sesión documentada y medida.</div>
+        <span class="feature-tag"><i class="fas fa-arrow-right"></i> Ver entrenamientos</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">02</div>
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="feature-title">Estadísticas en Tiempo Real</div>
+        <div class="feature-text">Goles, asistencias, distancia recorrida, velocidad máxima. Seguí tu evolución con datos concretos.</div>
+        <span class="feature-tag"><i class="fas fa-arrow-right"></i> Ver estadísticas</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">03</div>
+        <div class="feature-icon"><i class="fas fa-camera"></i></div>
+        <div class="feature-title">Portfolio Fotográfico</div>
+        <div class="feature-text">Subí tus fotos de entrenamiento y partidos. Construí un portfolio visual profesional para mostrar a scouts.</div>
+        <span class="feature-tag"><i class="fas fa-arrow-right"></i> Ver galería</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">04</div>
+        <div class="feature-icon"><i class="fas fa-cross"></i></div>
+        <div class="feature-title">Fe & Espiritualidad</div>
+        <div class="feature-text">Versículos diarios, oraciones para antes del partido y reflexiones que conectan la fe con el fútbol.</div>
+        <span class="feature-tag"><i class="fas fa-arrow-right"></i> Sección de Fe</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">05</div>
+        <div class="feature-icon"><i class="fas fa-apple-alt"></i></div>
+        <div class="feature-title">Nutrición del Atleta</div>
+        <div class="feature-text">Planes de alimentación, hidratación y suplementación pensados para el rendimiento futbolístico óptimo.</div>
+        <span class="feature-tag"><i class="fas fa-arrow-right"></i> Ver nutrición</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">06</div>
+        <div class="feature-icon"><i class="fas fa-quote-right"></i></div>
+        <div class="feature-title">Frases Motivacionales</div>
+        <div class="feature-text">Las mejores frases de Messi, Ronaldo, Klopp y leyendas del fútbol para mantener la motivación alta.</div>
+        <span class="feature-tag"><i class="fas fa-arrow-right"></i> Ver frases</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     VERSE SECTION
+============================ -->
+<section class="verse-section">
+  <div class="verse-inner reveal">
+    <i class="fas fa-cross verse-cross"></i>
+    <p class="verse-text">
+      "Porque yo sé los planes que tengo para ustedes,
+      planes de bienestar y no de calamidad,
+      para darles un futuro y una esperanza."
+    </p>
+    <p class="verse-ref">Jeremías 29:11</p>
+  </div>
+</section>
+
+<!-- ============================
+     POSICIONES
+============================ -->
+<section class="positions-section">
+  <div class="positions-header reveal">
+    <span class="section-label"><i class="fas fa-futbol"></i> En el Campo</span>
+    <h2 class="section-title">Mis Posiciones<br>Naturales</h2>
+    <p class="section-desc">Donde Dios me puso. Donde entrego el alma en cada partido.</p>
+  </div>
+
+  <div class="positions-grid reveal">
+    <div class="pos-card main">
+      <div class="pos-num">10</div>
+      <div class="pos-name">Enganche</div>
+      <div class="pos-desc">El creador del juego. Visión, creatividad y el último pase que define.</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-num">9</div>
+      <div class="pos-name">Delantero Centro</div>
+      <div class="pos-desc">El goleador. Posicionamiento, definición y mentalidad de área.</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-num">11</div>
+      <div class="pos-name">Extremo Izquierdo</div>
+      <div class="pos-desc">Velocidad, desborde y centros precisos desde la banda.</div>
+    </div>
+    <div class="pos-card">
+      <div class="pos-num">8</div>
+      <div class="pos-name">Mediocampista</div>
+      <div class="pos-desc">El motor del equipo. Corre, conecta y equilibra el juego.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     GALLERY PREVIEW
+============================ -->
+<section class="gallery-section">
+  <div class="gallery-inner">
+    <div class="gallery-header reveal">
+      <div>
+        <span class="section-label"><i class="fas fa-camera"></i> Mis Momentos</span>
+        <h2 class="section-title">Galería<br>de Recuerdos</h2>
+      </div>
+      <a href="fotos.html" class="btn-secondary" style="align-self:flex-end;">Ver todas las fotos <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=600&q=80" alt="Entrenamiento"/>
+        <div class="gallery-item-overlay"><span>Entrenamiento intensivo</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&q=80" alt="Partido"/>
+        <div class="gallery-item-overlay"><span>Partido de competición</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&q=80" alt="Gol"/>
+        <div class="gallery-item-overlay"><span>Momento de gol</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&q=80" alt="Físico"/>
+        <div class="gallery-item-overlay"><span>Preparación física</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&q=80" alt="Estadio"/>
+        <div class="gallery-item-overlay"><span>Mi estadio soñado</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     PLAN SEMANAL
+============================ -->
+<section class="plan-section">
+  <div class="plan-header reveal">
+    <span class="section-label"><i class="fas fa-calendar-alt"></i> Rutina Semanal</span>
+    <h2 class="section-title">Mi Semana<br>de Entrenamiento</h2>
+    <p class="section-desc">La constancia vence al talento cuando el talento no es constante. Esta es mi semana tipo.</p>
+  </div>
+
+  <div class="plan-grid reveal">
+    <div class="plan-day">
+      <div class="day-name">Lun</div>
+      <div class="day-num">L</div>
+      <div class="day-tag">Técnica</div>
+    </div>
+    <div class="plan-day">
+      <div class="day-name">Mar</div>
+      <div class="day-num">M</div>
+      <div class="day-tag">Físico</div>
+    </div>
+    <div class="plan-day">
+      <div class="day-name">Mié</div>
+      <div class="day-num">M</div>
+      <div class="day-tag">Táctica</div>
+    </div>
+    <div class="plan-day today">
+      <div class="day-name">Jue</div>
+      <div class="day-num">J</div>
+      <div class="day-tag">⚡ HOY</div>
+    </div>
+    <div class="plan-day">
+      <div class="day-name">Vie</div>
+      <div class="day-num">V</div>
+      <div class="day-tag">Partido</div>
+    </div>
+    <div class="plan-day">
+      <div class="day-name">Sáb</div>
+      <div class="day-num">S</div>
+      <div class="day-tag">Fuerza</div>
+    </div>
+    <div class="plan-day rest">
+      <div class="day-name">Dom</div>
+      <div class="day-num">D</div>
+      <div class="day-tag">Descanso ✝</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     FE & DIOS
+============================ -->
+<section class="god-section">
+  <div class="god-inner">
+    <div class="god-text reveal">
+      <span class="section-label"><i class="fas fa-cross"></i> Fe & Fútbol</span>
+      <h2 class="section-title">Dios Es Mi<br><span>Entrenador</span></h2>
+      <p class="section-desc">Antes de cada entrenamiento, una oración. Después de cada gol, una alabanza. Dios en todo momento.</p>
+
+      <div class="god-verses">
+        <div class="god-verse-card">
+          <p>"Todo lo puedo en Cristo que me fortalece."</p>
+          <cite>Filipenses 4:13</cite>
+        </div>
+        <div class="god-verse-card">
+          <p>"El Señor es mi fortaleza y mi escudo; en él confía mi corazón. Me da su ayuda y mi corazón se alegra."</p>
+          <cite>Salmos 28:7</cite>
+        </div>
+        <div class="god-verse-card">
+          <p>"¿No saben que en una carrera todos los corredores compiten, pero solo uno recibe el premio? Corran de tal manera que lo obtengan."</p>
+          <cite>1 Corintios 9:24</cite>
+        </div>
+      </div>
+    </div>
+
+    <div class="god-image-wrap reveal">
+      <img
+        src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=80"
+        alt="Fe y fútbol"
+        class="god-image-main"
+      />
+      <div class="god-cross-overlay"><i class="fas fa-cross"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     CTA FINAL
+============================ -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <span class="section-label"><i class="fas fa-rocket"></i> Empieza Ya</span>
+    <h2 class="section-title">Tu Sueño No<br><span>Espera</span></h2>
+    <p>Cada día que no entrenás, alguien más lo hace. Cada día que entrenás con fe y disciplina, te acercás un paso más a tu sueño profesional. ¿Empezamos hoy?</p>
+    <div class="cta-btns">
+      <a href="entrenamiento.html" class="btn-primary"><i class="fas fa-dumbbell"></i> Comenzar Entrenamiento</a>
+      <a href="fe.html" class="btn-secondary"><i class="fas fa-cross"></i> Oración del Día</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     FOOTER
+============================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="text-decoration:none;">
+          <div class="logo-icon" style="width:40px;height:40px;">
+            <svg viewBox="0 0 64 64" style="width:22px;height:22px;fill:white;"><circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/><polygon points="32,8 40,20 24,20" fill="white"/><polygon points="50,26 58,38 44,42" fill="white"/><polygon points="44,52 32,58 20,52" fill="white"/><polygon points="20,42 6,38 14,26" fill="white"/></svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">EL CAMINO</span>
+            <span class="logo-tag">Fe · Fútbol · Gloria</span>
+          </div>
+        </a>
+        <p>Mi viaje hacia el fútbol profesional, documentado con fe, disciplina y la gracia de Dios en cada paso del camino.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="entrenamiento.html">Entrenamientos</a></li>
+          <li><a href="fotos.html">Galería de Fotos</a></li>
+          <li><a href="estadisticas.html">Estadísticas</a></li>
+          <li><a href="progreso.html">Mi Progreso</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="frases.html">Frases Motivacionales</a></li>
+          <li><a href="dieta.html">Nutrición</a></li>
+          <li><a href="fe.html">Fe & Dios</a></li>
+          <li><a href="entrenamiento.html">Plan Semanal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Versículo del Día</h4>
+        <ul>
+          <li><a href="fe.html" style="color:var(--dorado);font-style:italic;line-height:1.6;">"Esfuérzate y sé valiente, porque el Señor tu Dios estará contigo." — Josué 1:9</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 El Camino · Hecho con <span class="heart">♥</span> y mucha fe · Gloria a Dios</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================
+     JAVASCRIPT
+============================ -->
+<script>
+  /* --- Cursor personalizado --- */
+  const cursor     = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let cx = 0, cy = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    cx = e.clientX; cy = e.clientY;
+    cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+  });
+
+  function animateRing() {
+    rx += (cx - rx) * 0.12;
+    ry += (cy - ry) * 0.12;
+    cursorRing.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .feature-card, .gallery-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform += ' scale(1.8)';
+      cursor.style.background = 'var(--dorado)';
+      cursorRing.style.width = '55px';
+      cursorRing.style.height = '55px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.background = 'var(--verde)';
+      cursorRing.style.width = '38px';
+      cursorRing.style.height = '38px';
+    });
+  });
+
+  /* --- Navbar scroll --- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* --- Mobile nav --- */
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function toggleMobile() {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* --- Intersection Observer para reveal --- */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  /* --- Contador animado --- */
+  function animateCount(el, target, duration = 2000) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { el.textContent = target; clearInterval(timer); }
+      else el.textContent = Math.floor(start);
+    }, 16);
+  }
+
+  // Dispara cuando el hero stats es visible
+  const heroStats = document.querySelector('.hero-stats');
+  const statsObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCount(document.getElementById('cnt1'), 47);
+      animateCount(document.getElementById('cnt2'), 23);
+      animateCount(document.getElementById('cnt3'), 12);
+      statsObserver.disconnect();
+    }
+  }, { threshold: 0.5 });
+  if (heroStats) statsObserver.observe(heroStats);
+
+  /* --- Día actual --- */
+  const days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const today = new Date().getDay();
+  const planDays = document.querySelectorAll('.plan-day');
+  planDays.forEach((d, i) => {
+    // i: 0=Lun,1=Mar,...,6=Dom → day: 1=Lun,...,0=Dom
+    const jsDay = i === 6 ? 0 : i + 1;
+    if (jsDay === today) {
+      d.classList.add('today');
+    }
+  });
+
+  /* --- Parallax hero bg sutil --- */
+  window.addEventListener('scroll', () => {
+    const heroBg = document.querySelector('.hero-bg');
+    if (heroBg) {
+      heroBg.style.transform = `scale(1.05) translateY(${window.scrollY * 0.08}px)`;
+    }
+  });
+
+  console.log('⚽ El Camino - Mi portfolio futbolístico · Con Dios todo es posible · Filipenses 4:13');
+</script>
+
+</body>
+</html>

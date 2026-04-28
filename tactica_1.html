@@ -1,0 +1,3251 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Táctica | El Camino al Fútbol Profesional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+/* ══════════════════════════════════════════════
+   VARIABLES & RESET
+══════════════════════════════════════════════ */
+:root {
+  --verde: #00e676;
+  --verde-dark: #00b84c;
+  --negro: #080c0a;
+  --negro2: #0f1410;
+  --negro3: #141c17;
+  --naranja: #ff6b35;
+  --dorado: #ffc107;
+  --azul: #2979ff;
+  --azul-light: #448aff;
+  --blanco: #f0f4f0;
+  --gris: #8a9e8e;
+  --gris-dark: #1e2b22;
+  --card-bg: rgba(20, 30, 24, 0.85);
+  --border: rgba(0, 230, 118, 0.12);
+  --border-bright: rgba(0, 230, 118, 0.35);
+  --shadow-green: 0 0 30px rgba(0, 230, 118, 0.15);
+  --shadow-gold: 0 0 30px rgba(255, 193, 7, 0.2);
+  --radius: 14px;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-ui: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--negro);
+  color: var(--blanco);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--negro2); }
+::-webkit-scrollbar-thumb { background: var(--verde-dark); border-radius: 3px; }
+
+/* ── Selection ── */
+::selection { background: var(--verde); color: var(--negro); }
+
+/* ══════════════════════════════════════════════
+   NOISE + CURSOR
+══════════════════════════════════════════════ */
+.noise {
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: .4;
+}
+.cursor {
+  position: fixed; width: 10px; height: 10px;
+  background: var(--verde); border-radius: 50%;
+  pointer-events: none; z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: background .2s, transform .1s;
+}
+.cursor-ring {
+  position: fixed; width: 38px; height: 38px;
+  border: 2px solid rgba(0,230,118,.5);
+  border-radius: 50%; pointer-events: none; z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, border-color .2s;
+}
+
+/* ══════════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════════ */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  height: 70px;
+  background: rgba(8, 12, 10, 0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background .3s, box-shadow .3s;
+}
+#navbar.scrolled {
+  background: rgba(8,12,10,.98);
+  box-shadow: 0 4px 30px rgba(0,230,118,.08);
+}
+.logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+.logo-icon {
+  width: 44px; height: 44px; background: rgba(0,230,118,.12);
+  border: 1px solid var(--border-bright); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.logo-icon svg { width: 24px; height: 24px; }
+.logo-cross {
+  position: absolute; bottom: -4px; right: -4px;
+  font-size: .55rem; color: var(--dorado);
+  background: var(--negro); border-radius: 50%;
+  width: 14px; height: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-name { font-family: var(--font-display); font-size: 1.2rem; color: #fff; letter-spacing: .1em; }
+.logo-tag { font-size: .62rem; color: var(--verde); letter-spacing: .12em; }
+
+.nav-links { display: flex; align-items: center; gap: .2rem; list-style: none; }
+.nav-links a {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .45rem .9rem; border-radius: 8px;
+  color: var(--gris); text-decoration: none; font-size: .84rem;
+  font-family: var(--font-ui); font-weight: 600;
+  transition: color .2s, background .2s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--verde); background: rgba(0,230,118,.08);
+}
+.nav-links .nav-cta {
+  background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+  color: var(--negro) !important;
+  padding: .45rem 1.1rem;
+}
+.nav-links .nav-cta:hover { opacity: .85; background: linear-gradient(135deg, var(--verde), var(--verde-dark)); }
+.nav-icon { font-size: .75rem; opacity: .7; }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+}
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; transition: .3s; }
+
+/* mobile nav */
+.mobile-nav {
+  display: none; position: fixed; top: 70px; left: 0; right: 0; z-index: 999;
+  background: rgba(8,12,10,.98); backdrop-filter: blur(20px);
+  flex-direction: column; padding: 1rem 2rem 2rem;
+  border-bottom: 1px solid var(--border);
+  transform: translateY(-10px); opacity: 0;
+  transition: transform .3s, opacity .3s;
+}
+.mobile-nav.open { transform: translateY(0); opacity: 1; }
+.mobile-nav a {
+  padding: .85rem 0; color: var(--gris); text-decoration: none;
+  font-family: var(--font-ui); font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: .75rem;
+  transition: color .2s;
+}
+.mobile-nav a:hover { color: var(--verde); }
+
+@media(max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-nav { display: flex; }
+}
+
+/* ══════════════════════════════════════════════
+   HERO TÁCTICA
+══════════════════════════════════════════════ */
+.hero-tac {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 70px 2rem 0;
+  overflow: hidden;
+}
+.hero-tac-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(41,121,255,.08) 0%, transparent 60%),
+    linear-gradient(170deg, #080c0a 0%, #0a1a10 50%, #080c0a 100%);
+}
+/* Campo de fútbol decorativo */
+.field-deco {
+  position: absolute; bottom: -10%; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 480px; z-index: 0;
+  border: 2px solid rgba(0,230,118,.08);
+  border-radius: 12px;
+  opacity: .35;
+}
+.field-deco::before {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 160px; height: 160px; border: 2px solid rgba(0,230,118,.15); border-radius: 50%;
+}
+.field-deco::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 2px; background: rgba(0,230,118,.08);
+}
+
+.hero-tac-content {
+  position: relative; z-index: 1; text-align: center; max-width: 900px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--font-ui); font-size: .8rem; font-weight: 700;
+  color: var(--verde); letter-spacing: .15em; text-transform: uppercase;
+  background: rgba(0,230,118,.08); border: 1px solid var(--border-bright);
+  padding: .4rem 1.2rem; border-radius: 20px; margin-bottom: 1.5rem;
+}
+.hero-tac-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  line-height: .95;
+  letter-spacing: .03em;
+  margin-bottom: 1.5rem;
+}
+.ht-white { color: #fff; }
+.ht-green { color: var(--verde); }
+.ht-gold  { color: var(--dorado); }
+.ht-orange { color: var(--naranja); }
+
+.hero-tac-desc {
+  font-size: 1.1rem; color: var(--gris); max-width: 640px; margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+.hero-tac-desc strong { color: var(--blanco); }
+
+.hero-tac-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+  color: var(--negro); font-family: var(--font-ui); font-weight: 700;
+  font-size: .9rem; padding: .85rem 2rem; border-radius: 10px;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+  border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,230,118,.35); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: transparent; color: var(--verde);
+  border: 1px solid var(--border-bright);
+  font-family: var(--font-ui); font-weight: 700;
+  font-size: .9rem; padding: .85rem 2rem; border-radius: 10px;
+  text-decoration: none; transition: background .2s, transform .2s;
+  cursor: pointer;
+}
+.btn-secondary:hover { background: rgba(0,230,118,.08); transform: translateY(-2px); }
+
+.hero-stats-row {
+  display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;
+}
+.hsr-item {
+  display: flex; flex-direction: column; align-items: center;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.8rem;
+}
+.hsr-num { font-family: var(--font-display); font-size: 2.2rem; color: var(--verde); }
+.hsr-label { font-size: .75rem; color: var(--gris); font-family: var(--font-ui); letter-spacing: .1em; }
+
+/* ══════════════════════════════════════════════
+   SIDEBAR NAV
+══════════════════════════════════════════════ */
+.tac-sidebar {
+  position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+  z-index: 500; display: flex; flex-direction: column; gap: .5rem;
+}
+.sidebar-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--gris-dark); border: 2px solid var(--border-bright);
+  cursor: pointer; transition: background .2s, transform .2s;
+  position: relative;
+}
+.sidebar-dot:hover, .sidebar-dot.active { background: var(--verde); transform: scale(1.4); }
+.sidebar-dot::before {
+  content: attr(data-label);
+  position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  background: var(--negro3); color: var(--verde);
+  font-family: var(--font-ui); font-size: .7rem; font-weight: 700;
+  padding: .3rem .7rem; border-radius: 6px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+  border: 1px solid var(--border);
+}
+.sidebar-dot:hover::before { opacity: 1; }
+
+@media(max-width:768px) { .tac-sidebar { display: none; } }
+
+/* ══════════════════════════════════════════════
+   SECCIÓN GENÉRICA
+══════════════════════════════════════════════ */
+.tac-section {
+  padding: 6rem 2rem;
+  max-width: 1200px; margin: 0 auto;
+}
+.tac-section-full {
+  padding: 6rem 2rem;
+  background: var(--negro2);
+  position: relative;
+}
+.tac-section-full .inner { max-width: 1200px; margin: 0 auto; }
+
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--font-ui); font-size: .78rem; font-weight: 700;
+  color: var(--verde); letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: .75rem;
+}
+.section-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1; margin-bottom: 1rem;
+}
+.section-h2 .green { color: var(--verde); }
+.section-h2 .gold  { color: var(--dorado); }
+.section-h2 .orange { color: var(--naranja); }
+.section-sub { color: var(--gris); font-size: .95rem; line-height: 1.7; max-width: 600px; }
+
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════════════════════
+   CARDS
+══════════════════════════════════════════════ */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+  position: relative; overflow: hidden;
+}
+.card:hover {
+  border-color: var(--border-bright);
+  box-shadow: var(--shadow-green);
+  transform: translateY(-4px);
+}
+.card-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 1rem;
+  background: rgba(0,230,118,.1); color: var(--verde);
+}
+.card-icon.orange { background: rgba(255,107,53,.1); color: var(--naranja); }
+.card-icon.gold   { background: rgba(255,193,7,.1);  color: var(--dorado); }
+.card-icon.blue   { background: rgba(41,121,255,.1); color: var(--azul-light); }
+.card-title { font-family: var(--font-ui); font-weight: 700; font-size: 1.05rem; margin-bottom: .5rem; }
+.card-text  { color: var(--gris); font-size: .88rem; line-height: 1.7; }
+
+/* ══════════════════════════════════════════════
+   1. FUNDAMENTOS TÁCTICOS
+══════════════════════════════════════════════ */
+.fundamentos-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+
+/* Diagrama mini de triangulación */
+.mini-diagram {
+  background: #0a1a10; border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem; margin-top: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.mini-diagram svg { max-width: 100%; }
+
+/* ══════════════════════════════════════════════
+   2. MOVIMIENTOS SIN BALÓN - Animaciones
+══════════════════════════════════════════════ */
+.movimiento-showcase {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.mov-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: border-color .25s, box-shadow .25s;
+}
+.mov-card:hover { border-color: var(--border-bright); box-shadow: var(--shadow-green); }
+
+.mov-canvas-wrap {
+  position: relative; background: #071210;
+  height: 200px; overflow: hidden;
+}
+.mov-canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+.mov-body { padding: 1.25rem; }
+.mov-title { font-family: var(--font-ui); font-weight: 700; font-size: 1rem; margin-bottom: .4rem; }
+.mov-desc  { color: var(--gris); font-size: .83rem; line-height: 1.6; margin-bottom: .85rem; }
+.mov-btns  { display: flex; gap: .6rem; }
+.btn-small {
+  font-family: var(--font-ui); font-size: .78rem; font-weight: 700;
+  padding: .4rem .9rem; border-radius: 7px; border: none; cursor: pointer;
+  transition: opacity .2s, transform .1s;
+}
+.btn-small:hover { opacity: .85; transform: translateY(-1px); }
+.btn-ver { background: var(--verde); color: var(--negro); }
+.btn-rep { background: rgba(255,255,255,.08); color: var(--blanco); }
+
+/* ══════════════════════════════════════════════
+   3. LECTURA DE JUEGO — Quiz interactivo
+══════════════════════════════════════════════ */
+.lectura-wrap {
+  margin-top: 3rem;
+}
+.situacion-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+.sit-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.sit-num {
+  font-family: var(--font-display); font-size: 2rem; color: var(--verde);
+  min-width: 50px;
+}
+.sit-context { font-family: var(--font-ui); font-weight: 700; font-size: 1rem; }
+.sit-pregunta { color: var(--gris); font-size: .88rem; margin-top: .2rem; }
+
+.sit-field {
+  background: #071210; border: 1px solid var(--border);
+  border-radius: 10px; height: 160px; position: relative;
+  margin-bottom: 1.25rem; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.sit-field canvas { display: block; }
+
+.sit-opciones { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.sit-opcion {
+  flex: 1; min-width: 120px;
+  font-family: var(--font-ui); font-size: .85rem; font-weight: 700;
+  padding: .75rem 1rem; border-radius: 10px; border: 1px solid var(--border);
+  background: transparent; color: var(--blanco); cursor: pointer;
+  transition: background .2s, border-color .2s, transform .15s;
+  text-align: center;
+}
+.sit-opcion:hover { border-color: var(--border-bright); background: rgba(0,230,118,.06); transform: translateY(-2px); }
+.sit-opcion.correcto { background: rgba(0,230,118,.2); border-color: var(--verde); color: var(--verde); }
+.sit-opcion.incorrecto { background: rgba(255,107,53,.15); border-color: var(--naranja); color: var(--naranja); }
+.sit-opcion:disabled { cursor: default; transform: none; }
+
+.sit-feedback {
+  padding: 1rem 1.25rem; border-radius: 10px;
+  font-size: .88rem; line-height: 1.6;
+  display: none;
+}
+.sit-feedback.correcto {
+  background: rgba(0,230,118,.08); border: 1px solid rgba(0,230,118,.3);
+  color: var(--verde); display: block;
+}
+.sit-feedback.incorrecto {
+  background: rgba(255,107,53,.08); border: 1px solid rgba(255,107,53,.3);
+  color: var(--naranja); display: block;
+}
+
+/* Puntuación */
+.quiz-score-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem 2rem; margin-bottom: 2rem;
+}
+.qs-label { font-family: var(--font-ui); font-size: .85rem; color: var(--gris); }
+.qs-score { font-family: var(--font-display); font-size: 2.5rem; color: var(--dorado); }
+
+/* ══════════════════════════════════════════════
+   4. FORMACIONES
+══════════════════════════════════════════════ */
+.formaciones-wrap { margin-top: 3rem; }
+.formacion-tabs {
+  display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem;
+}
+.form-tab {
+  font-family: var(--font-ui); font-weight: 700; font-size: .85rem;
+  padding: .55rem 1.3rem; border-radius: 8px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--gris); cursor: pointer; transition: .2s;
+}
+.form-tab:hover, .form-tab.active {
+  background: var(--verde); color: var(--negro); border-color: var(--verde);
+}
+.formacion-content {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2rem; align-items: start;
+}
+@media(max-width: 768px) { .formacion-content { grid-template-columns: 1fr; } }
+
+.campo-container {
+  background: #071a0e;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden; position: relative;
+}
+#campo-canvas { display: block; width: 100%; }
+
+.formacion-info { }
+.fi-nombre {
+  font-family: var(--font-display); font-size: 3rem; color: var(--verde); margin-bottom: .5rem;
+}
+.fi-desc { color: var(--gris); font-size: .88rem; line-height: 1.7; margin-bottom: 1.5rem; }
+
+.fi-lista { list-style: none; margin-bottom: 1.5rem; }
+.fi-lista li {
+  display: flex; align-items: flex-start; gap: .75rem;
+  padding: .6rem 0; border-bottom: 1px solid var(--border);
+  font-size: .87rem; color: var(--gris);
+}
+.fi-lista li:last-child { border: none; }
+.fi-lista li i { color: var(--verde); margin-top: .15rem; flex-shrink: 0; }
+.fi-lista li strong { color: var(--blanco); }
+
+.fi-badges { display: flex; flex-wrap: wrap; gap: .5rem; }
+.fi-badge {
+  font-family: var(--font-ui); font-size: .72rem; font-weight: 700;
+  padding: .3rem .8rem; border-radius: 20px;
+  letter-spacing: .05em;
+}
+.fi-badge.v { background: rgba(0,230,118,.1); color: var(--verde); border: 1px solid rgba(0,230,118,.25); }
+.fi-badge.d { background: rgba(255,107,53,.1); color: var(--naranja); border: 1px solid rgba(255,107,53,.25); }
+.fi-badge.u { background: rgba(255,193,7,.1);  color: var(--dorado);  border: 1px solid rgba(255,193,7,.25); }
+
+/* ══════════════════════════════════════════════
+   5. FILOSOFÍAS
+══════════════════════════════════════════════ */
+.filosofias-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.fil-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: .25s;
+}
+.fil-card:hover { border-color: var(--border-bright); box-shadow: var(--shadow-green); transform: translateY(-4px); }
+.fil-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.fil-card.pos::before { background: linear-gradient(90deg, var(--verde), var(--verde-dark)); }
+.fil-card.pre::before { background: linear-gradient(90deg, var(--naranja), #ff9800); }
+.fil-card.cnt::before { background: linear-gradient(90deg, var(--azul), var(--azul-light)); }
+.fil-card.mix::before { background: linear-gradient(90deg, var(--dorado), #ff9800); }
+
+.fil-icon { font-size: 2rem; margin-bottom: 1rem; }
+.fil-nombre { font-family: var(--font-ui); font-weight: 800; font-size: 1.1rem; margin-bottom: .5rem; }
+.fil-tag {
+  display: inline-block; font-size: .7rem; font-family: var(--font-ui); font-weight: 700;
+  padding: .2rem .7rem; border-radius: 12px; margin-bottom: 1rem;
+}
+.pos .fil-tag { background: rgba(0,230,118,.12); color: var(--verde); }
+.pre .fil-tag { background: rgba(255,107,53,.12); color: var(--naranja); }
+.cnt .fil-tag { background: rgba(41,121,255,.12); color: var(--azul-light); }
+.mix .fil-tag { background: rgba(255,193,7,.12); color: var(--dorado); }
+.fil-desc { color: var(--gris); font-size: .86rem; line-height: 1.7; }
+.fil-claves { margin-top: 1rem; }
+.fil-claves strong { display: block; font-family: var(--font-ui); font-size: .8rem; color: var(--blanco); margin-bottom: .5rem; }
+.fil-clave-item {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .82rem; color: var(--gris); padding: .3rem 0;
+}
+.fil-clave-item i { font-size: .65rem; color: var(--verde); }
+
+/* ══════════════════════════════════════════════
+   6. ANÁLISIS DE JUGADORES
+══════════════════════════════════════════════ */
+.analisis-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.jugador-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: .25s;
+}
+.jugador-card:hover { border-color: var(--border-bright); box-shadow: var(--shadow-green); transform: translateY(-4px); }
+.jc-top {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(0,230,118,.06), rgba(0,0,0,0));
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 1rem;
+}
+.jc-avatar {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(0,230,118,.12); border: 2px solid var(--border-bright);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+}
+.jc-name { font-family: var(--font-ui); font-weight: 800; font-size: 1rem; margin-bottom: .2rem; }
+.jc-pos { font-size: .78rem; color: var(--verde); font-family: var(--font-ui); font-weight: 600; }
+.jc-body { padding: 1.25rem; }
+.jc-stat-row { display: flex; justify-content: space-between; gap: .5rem; margin-bottom: .85rem; }
+.jc-stat { text-align: center; flex: 1; }
+.jc-stat-val { font-family: var(--font-display); font-size: 1.6rem; }
+.jc-stat-val.green { color: var(--verde); }
+.jc-stat-val.gold  { color: var(--dorado); }
+.jc-stat-val.orange { color: var(--naranja); }
+.jc-stat-label { font-size: .7rem; color: var(--gris); font-family: var(--font-ui); }
+.jc-desc { color: var(--gris); font-size: .83rem; line-height: 1.65; margin-bottom: 1rem; }
+.jc-tips { }
+.jc-tip {
+  display: flex; align-items: flex-start; gap: .6rem;
+  font-size: .82rem; color: var(--blanco); padding: .4rem 0;
+  border-top: 1px solid var(--border);
+}
+.jc-tip i { color: var(--dorado); font-size: .7rem; margin-top: .15rem; }
+
+/* ══════════════════════════════════════════════
+   7. DECISION MAKING
+══════════════════════════════════════════════ */
+.dm-score-wrap {
+  display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;
+}
+.dm-score-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.5rem;
+  flex: 1; min-width: 130px; text-align: center;
+}
+.dm-sc-val { font-family: var(--font-display); font-size: 2.2rem; }
+.dm-sc-val.g { color: var(--verde); }
+.dm-sc-val.r { color: var(--naranja); }
+.dm-sc-val.b { color: var(--dorado); }
+.dm-sc-label { font-size: .75rem; color: var(--gris); font-family: var(--font-ui); }
+
+.dm-container {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem;
+}
+.dm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: .75rem; }
+.dm-dificultad {
+  font-family: var(--font-ui); font-size: .75rem; font-weight: 700;
+  padding: .3rem .8rem; border-radius: 12px; letter-spacing: .08em;
+}
+.dm-dificultad.facil   { background: rgba(0,230,118,.12); color: var(--verde); }
+.dm-dificultad.media   { background: rgba(255,193,7,.12);  color: var(--dorado); }
+.dm-dificultad.dificil { background: rgba(255,107,53,.12); color: var(--naranja); }
+
+.dm-situacion { font-family: var(--font-ui); font-weight: 700; font-size: 1.05rem; margin-bottom: .4rem; }
+.dm-contexto  { color: var(--gris); font-size: .87rem; line-height: 1.6; margin-bottom: 1.5rem; }
+
+.dm-campo { height: 240px; background: #071a0e; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+#dm-canvas { display: block; width: 100%; height: 100%; }
+
+.dm-opciones { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+.dm-opcion {
+  background: transparent; border: 1px solid var(--border);
+  border-radius: 10px; padding: .85rem 1rem;
+  font-family: var(--font-ui); font-weight: 700; font-size: .85rem;
+  color: var(--blanco); cursor: pointer; text-align: center;
+  transition: .2s;
+}
+.dm-opcion:hover { background: rgba(0,230,118,.06); border-color: var(--border-bright); }
+.dm-opcion.ok  { background: rgba(0,230,118,.15); border-color: var(--verde); color: var(--verde); }
+.dm-opcion.bad { background: rgba(255,107,53,.15); border-color: var(--naranja); color: var(--naranja); }
+.dm-opcion:disabled { cursor: default; }
+
+.dm-resultado {
+  padding: 1.25rem; border-radius: 10px; display: none;
+  font-size: .88rem; line-height: 1.65;
+}
+.dm-resultado.ok  { background: rgba(0,230,118,.07); border: 1px solid rgba(0,230,118,.3); color: var(--verde); display: block; }
+.dm-resultado.bad { background: rgba(255,107,53,.07); border: 1px solid rgba(255,107,53,.3); color: var(--naranja); display: block; }
+
+.dm-next-btn {
+  display: none; margin-top: 1rem;
+  background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+  color: var(--negro); font-family: var(--font-ui); font-weight: 700;
+  font-size: .88rem; padding: .75rem 2rem; border-radius: 10px;
+  border: none; cursor: pointer; transition: opacity .2s;
+}
+.dm-next-btn:hover { opacity: .85; }
+
+.dm-dificultad-selector { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.dif-btn {
+  font-family: var(--font-ui); font-weight: 700; font-size: .82rem;
+  padding: .5rem 1.2rem; border-radius: 8px; border: 1px solid var(--border);
+  background: transparent; color: var(--gris); cursor: pointer; transition: .2s;
+}
+.dif-btn:hover { border-color: var(--border-bright); color: var(--blanco); }
+.dif-btn.active { background: var(--verde); color: var(--negro); border-color: var(--verde); }
+
+/* ══════════════════════════════════════════════
+   8. PROGRESO
+══════════════════════════════════════════════ */
+.progreso-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem; margin-top: 3rem;
+}
+.progreso-tema {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+  cursor: pointer; transition: .2s; user-select: none;
+}
+.progreso-tema:hover { border-color: var(--border-bright); }
+.progreso-tema.aprendido {
+  border-color: rgba(0,230,118,.4);
+  background: rgba(0,230,118,.06);
+}
+.pt-check {
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 2px solid var(--border-bright);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--verde); font-size: 1.1rem; flex-shrink: 0;
+  transition: .2s;
+}
+.progreso-tema.aprendido .pt-check {
+  background: var(--verde); color: var(--negro); border-color: var(--verde);
+}
+.pt-info { flex: 1; }
+.pt-nombre { font-family: var(--font-ui); font-weight: 700; font-size: .9rem; margin-bottom: .15rem; }
+.pt-cat { font-size: .75rem; color: var(--gris); }
+
+.progreso-barra-wrap {
+  margin-bottom: 2rem; background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem 2rem;
+}
+.pb-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.pb-label { font-family: var(--font-ui); font-weight: 700; }
+.pb-pct { font-family: var(--font-display); font-size: 1.5rem; color: var(--verde); }
+.pb-bar { height: 8px; background: var(--gris-dark); border-radius: 4px; overflow: hidden; }
+.pb-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--verde), var(--dorado));
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+}
+
+/* ══════════════════════════════════════════════
+   9. FRASES Y MENTALIDAD
+══════════════════════════════════════════════ */
+.frases-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem; margin-top: 3rem;
+}
+.frase-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.75rem;
+  position: relative; overflow: hidden;
+  transition: .25s;
+}
+.frase-card:hover { border-color: var(--border-bright); transform: translateY(-3px); }
+.frase-card::before {
+  content: '"'; position: absolute; top: -.5rem; left: 1rem;
+  font-family: var(--font-display); font-size: 6rem; color: rgba(0,230,118,.05);
+  line-height: 1;
+}
+.frase-text { font-size: .95rem; line-height: 1.75; margin-bottom: 1rem; font-style: italic; }
+.frase-autor { font-family: var(--font-ui); font-weight: 700; font-size: .78rem; color: var(--verde); }
+.frase-concepto {
+  display: inline-block; margin-top: .75rem;
+  font-size: .72rem; font-family: var(--font-ui); font-weight: 700;
+  background: rgba(255,193,7,.1); color: var(--dorado);
+  padding: .25rem .7rem; border-radius: 12px;
+}
+
+/* ══════════════════════════════════════════════
+   PIZARRA TÁCTICA — LA JOYA
+══════════════════════════════════════════════ */
+.pizarra-section {
+  padding: 6rem 2rem;
+  background: var(--negro2);
+  position: relative;
+}
+.pizarra-section .inner { max-width: 1400px; margin: 0 auto; }
+
+.pizarra-header {
+  text-align: center; margin-bottom: 2.5rem;
+}
+
+.pizarra-toolbar {
+  display: flex; gap: .75rem; flex-wrap: wrap;
+  align-items: center; margin-bottom: 1rem;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.25rem;
+}
+.pizarra-toolbar-label {
+  font-family: var(--font-ui); font-size: .72rem; font-weight: 700;
+  color: var(--gris); text-transform: uppercase; letter-spacing: .1em;
+  margin-right: .25rem;
+}
+.piz-btn {
+  font-family: var(--font-ui); font-size: .78rem; font-weight: 700;
+  padding: .45rem 1rem; border-radius: 8px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--blanco); cursor: pointer; transition: .2s;
+  display: flex; align-items: center; gap: .4rem;
+}
+.piz-btn:hover { background: rgba(0,230,118,.08); border-color: var(--border-bright); }
+.piz-btn.active { background: var(--verde); color: var(--negro); border-color: var(--verde); }
+.piz-sep { width: 1px; height: 28px; background: var(--border); margin: 0 .25rem; }
+
+.color-picker-wrap { display: flex; gap: .4rem; align-items: center; }
+.color-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  cursor: pointer; border: 2px solid transparent;
+  transition: transform .15s, border-color .15s;
+}
+.color-dot:hover { transform: scale(1.2); }
+.color-dot.active { border-color: #fff; }
+
+.pizarra-canvas-wrap {
+  position: relative; border-radius: var(--radius);
+  overflow: hidden; border: 2px solid var(--border);
+  background: #071a0e;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  cursor: crosshair;
+}
+#pizarraCanvas { display: block; width: 100%; touch-action: none; }
+
+.pizarra-legend {
+  display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;
+  font-family: var(--font-ui); font-size: .78rem; color: var(--gris);
+  align-items: center;
+}
+.piz-legend-item { display: flex; align-items: center; gap: .4rem; }
+.piz-legend-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+
+/* ══════════════════════════════════════════════
+   ERRORES COMUNES
+══════════════════════════════════════════════ */
+.errores-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem; margin-top: 3rem;
+}
+.error-card {
+  background: var(--card-bg); border: 1px solid rgba(255,107,53,.15);
+  border-radius: var(--radius); padding: 1.5rem;
+  transition: .25s;
+}
+.error-card:hover { border-color: rgba(255,107,53,.4); transform: translateY(-3px); }
+.ec-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .75rem; }
+.ec-icon { font-size: 1.4rem; }
+.ec-titulo { font-family: var(--font-ui); font-weight: 700; font-size: .95rem; }
+.ec-error { color: var(--naranja); font-size: .84rem; margin-bottom: .5rem; }
+.ec-solucion { color: var(--verde); font-size: .84rem; display: flex; align-items: flex-start; gap: .5rem; }
+.ec-solucion i { margin-top: .15rem; flex-shrink: 0; }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+.footer-tac {
+  background: var(--negro); border-top: 1px solid var(--border);
+  padding: 3rem 2rem 2rem;
+}
+.footer-tac-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.ft-brand .logo-name { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: .1em; }
+.ft-brand p { color: var(--gris); font-size: .82rem; margin-top: .25rem; }
+.ft-verse { color: var(--gris); font-size: .85rem; font-style: italic; text-align: center; max-width: 340px; }
+.ft-verse cite { display: block; color: var(--verde); font-style: normal; font-size: .75rem; margin-top: .3rem; }
+.ft-bottom { text-align: center; padding-top: 2rem; color: var(--gris); font-size: .8rem; }
+
+/* ══════════════════════════════════════════════
+   RIBBON
+══════════════════════════════════════════════ */
+.verse-ribbon {
+  background: linear-gradient(90deg, var(--negro2), rgba(0,230,118,.06), var(--negro2));
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem; text-align: center;
+  font-size: .85rem; color: var(--gris);
+}
+.verse-ribbon strong { color: var(--verde); }
+
+/* ══════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════ */
+.toast-cont {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 9000;
+  display: flex; flex-direction: column; gap: .5rem; pointer-events: none;
+}
+.toast {
+  background: var(--negro3); border: 1px solid var(--border-bright);
+  border-radius: 10px; padding: .85rem 1.25rem;
+  font-family: var(--font-ui); font-size: .85rem; color: var(--blanco);
+  display: flex; align-items: center; gap: .6rem;
+  animation: toastIn .3s ease; pointer-events: all;
+  box-shadow: 0 8px 30px rgba(0,0,0,.4);
+}
+.toast i { color: var(--verde); }
+.toast.gold i { color: var(--dorado); }
+@keyframes toastIn { from { transform: translateX(100%); opacity:0; } to { transform: translateX(0); opacity:1; } }
+
+/* ══════════════════════════════════════════════
+   MISC UTILS
+══════════════════════════════════════════════ */
+.divider {
+  height: 1px; background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+  margin: 0 2rem;
+}
+
+.section-grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  margin-top: 3rem;
+}
+@media(max-width: 768px) { .section-grid-2 { grid-template-columns: 1fr; } }
+
+/* Pattern de campo */
+.campo-pattern {
+  position: absolute; inset: 0; pointer-events: none; opacity: .03;
+  background-image: repeating-linear-gradient(0deg, #fff, #fff 1px, transparent 1px, transparent 60px),
+                    repeating-linear-gradient(90deg, #fff, #fff 1px, transparent 1px, transparent 60px);
+}
+</style>
+</head>
+<body>
+
+<!-- NOISE -->
+<div class="noise"></div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- SIDEBAR NAV -->
+<nav class="tac-sidebar" id="tacSidebar">
+  <div class="sidebar-dot active" data-label="Inicio" data-target="hero-tac" onclick="scrollToSection('hero-tac')"></div>
+  <div class="sidebar-dot" data-label="Fundamentos" data-target="sec-fundamentos" onclick="scrollToSection('sec-fundamentos')"></div>
+  <div class="sidebar-dot" data-label="Sin Balón" data-target="sec-movimientos" onclick="scrollToSection('sec-movimientos')"></div>
+  <div class="sidebar-dot" data-label="Lectura" data-target="sec-lectura" onclick="scrollToSection('sec-lectura')"></div>
+  <div class="sidebar-dot" data-label="Formaciones" data-target="sec-formaciones" onclick="scrollToSection('sec-formaciones')"></div>
+  <div class="sidebar-dot" data-label="Filosofías" data-target="sec-filosofias" onclick="scrollToSection('sec-filosofias')"></div>
+  <div class="sidebar-dot" data-label="Jugadores" data-target="sec-jugadores" onclick="scrollToSection('sec-jugadores')"></div>
+  <div class="sidebar-dot" data-label="Decisiones" data-target="sec-dm" onclick="scrollToSection('sec-dm')"></div>
+  <div class="sidebar-dot" data-label="Progreso" data-target="sec-progreso" onclick="scrollToSection('sec-progreso')"></div>
+  <div class="sidebar-dot" data-label="Pizarra" data-target="sec-pizarra" onclick="scrollToSection('sec-pizarra')"></div>
+</nav>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <a href="index.html" class="logo" aria-label="El Camino - Inicio">
+    <div class="logo-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+        <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+        <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+        <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+        <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+        <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <span class="logo-cross"><i class="fas fa-cross"></i></span>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">EL CAMINO</span>
+      <span class="logo-tag">Fe · Fútbol · Gloria</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+    <li><a href="tactica.html" class="active"><i class="fas fa-chess nav-icon"></i>Táctica</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
+    <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" aria-label="Abrir menú" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" onclick="closeMobile()"><i class="fas fa-home"></i> Inicio</a>
+  <a href="entrenamiento.html" onclick="closeMobile()"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+  <a href="tactica.html" onclick="closeMobile()"><i class="fas fa-chess"></i> Táctica</a>
+  <a href="nutricion.html" onclick="closeMobile()"><i class="fas fa-apple-alt"></i> Nutrición</a>
+  <a href="fe.html" onclick="closeMobile()"><i class="fas fa-cross"></i> Fe & Motivación</a>
+  <a href="progreso.html" onclick="closeMobile()"><i class="fas fa-trophy"></i> Mi Progreso</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero-tac" id="hero-tac">
+  <div class="hero-tac-bg"></div>
+  <div class="field-deco"></div>
+
+  <div class="hero-tac-content">
+    <div class="hero-eyebrow">
+      <i class="fas fa-chess"></i>
+      Academia Táctica Digital · El Camino
+    </div>
+    <h1 class="hero-tac-title">
+      <span class="ht-white">PENSÁ</span><br>
+      <span class="ht-green">COMO</span><br>
+      <span class="ht-gold">PRO</span>
+    </h1>
+    <p class="hero-tac-desc">
+      No alcanza con correr y patear. Los grandes futbolistas piensan <strong>antes de recibir el balón</strong>.
+      Esta academia te entrena la mente táctica que separa al amateur del profesional.
+    </p>
+    <div class="hero-tac-btns">
+      <button class="btn-primary" onclick="scrollToSection('sec-fundamentos')">
+        <i class="fas fa-play"></i> Empezar a aprender
+      </button>
+      <button class="btn-secondary" onclick="scrollToSection('sec-pizarra')">
+        <i class="fas fa-drafting-compass"></i> Ir a la Pizarra
+      </button>
+    </div>
+    <div class="hero-stats-row">
+      <div class="hsr-item">
+        <span class="hsr-num" id="hsr1">0</span>
+        <span class="hsr-label">Temas</span>
+      </div>
+      <div class="hsr-item">
+        <span class="hsr-num" id="hsr2">0</span>
+        <span class="hsr-label">Formaciones</span>
+      </div>
+      <div class="hsr-item">
+        <span class="hsr-num" id="hsr3">0</span>
+        <span class="hsr-label">Decisiones</span>
+      </div>
+      <div class="hsr-item">
+        <span class="hsr-num" id="hsr4">0</span>
+        <span class="hsr-label">% Completado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIBBON -->
+<div class="verse-ribbon">
+  "El equipo que piensa más rápido siempre gana al equipo que corre más." &nbsp;|&nbsp;
+  <strong>La táctica no es complicar el fútbol, es simplificar el caos.</strong>
+</div>
+
+<!-- ═══════════════════ 1. FUNDAMENTOS ═══════════════════ -->
+<section class="tac-section" id="sec-fundamentos">
+  <div class="reveal">
+    <span class="section-eyebrow"><i class="fas fa-book-open"></i> Módulo 1</span>
+    <h2 class="section-h2">Fundamentos <span class="green">Tácticos</span></h2>
+    <p class="section-sub">Los pilares que todo jugador profesional maneja automáticamente. Sin estos, el talento no alcanza.</p>
+  </div>
+
+  <div class="fundamentos-grid">
+
+    <!-- Ocupación de espacios -->
+    <div class="card reveal">
+      <div class="card-icon"><i class="fas fa-border-all"></i></div>
+      <div class="card-title">Ocupación de Espacios</div>
+      <div class="card-text">El fútbol es una guerra de espacios. Tu posición sin balón determina si el equipo puede progresar o queda estancado. Un profesional <strong>nunca está parado</strong>: siempre ocupa un espacio que abre opciones.</div>
+      <div class="mini-diagram">
+        <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+          <rect width="220" height="130" fill="#071a0e" rx="6"/>
+          <!-- zonas de campo -->
+          <rect x="10" y="10" width="60" height="110" fill="rgba(0,230,118,.04)" stroke="rgba(0,230,118,.1)" stroke-width="1" rx="4"/>
+          <rect x="80" y="10" width="60" height="110" fill="rgba(255,193,7,.06)" stroke="rgba(255,193,7,.15)" stroke-width="1" rx="4"/>
+          <rect x="150" y="10" width="60" height="110" fill="rgba(255,107,53,.04)" stroke="rgba(255,107,53,.1)" stroke-width="1" rx="4"/>
+          <!-- jugadores -->
+          <circle cx="30" cy="65" r="10" fill="#00e676" opacity=".9"/>
+          <text x="30" y="69" text-anchor="middle" fill="#000" font-size="8" font-weight="bold">C</text>
+          <circle cx="110" cy="40" r="10" fill="#00e676" opacity=".9"/>
+          <text x="110" y="44" text-anchor="middle" fill="#000" font-size="8" font-weight="bold">M</text>
+          <circle cx="110" cy="90" r="10" fill="#00e676" opacity=".9"/>
+          <text x="110" y="94" text-anchor="middle" fill="#000" font-size="8" font-weight="bold">M</text>
+          <circle cx="185" cy="65" r="10" fill="#ffc107" opacity=".9"/>
+          <text x="185" y="69" text-anchor="middle" fill="#000" font-size="8" font-weight="bold">9</text>
+          <!-- flechas -->
+          <line x1="40" y1="60" x2="95" y2="44" stroke="rgba(0,230,118,.5)" stroke-width="1.5" stroke-dasharray="4"/>
+          <line x1="40" y1="70" x2="95" y2="86" stroke="rgba(0,230,118,.5)" stroke-width="1.5" stroke-dasharray="4"/>
+          <line x1="120" y1="40" x2="170" y2="60" stroke="rgba(255,193,7,.5)" stroke-width="1.5" stroke-dasharray="4"/>
+          <line x1="120" y1="90" x2="170" y2="70" stroke="rgba(255,193,7,.5)" stroke-width="1.5" stroke-dasharray="4"/>
+          <!-- labels zonas -->
+          <text x="40" y="125" text-anchor="middle" fill="rgba(0,230,118,.5)" font-size="7">Defensa</text>
+          <text x="110" y="125" text-anchor="middle" fill="rgba(255,193,7,.5)" font-size="7">Medio</text>
+          <text x="180" y="125" text-anchor="middle" fill="rgba(255,107,53,.5)" font-size="7">Ataque</text>
+        </svg>
+      </div>
+      <div style="margin-top:.75rem;font-size:.78rem;color:var(--verde);font-family:var(--font-ui);font-weight:700;">
+        💡 Clave: Antes de recibir, mirá el campo. Antes de pasar, decidiste dónde ir.
+      </div>
+    </div>
+
+    <!-- Triangulación -->
+    <div class="card reveal">
+      <div class="card-icon orange"><i class="fas fa-draw-polygon"></i></div>
+      <div class="card-title">Triangulación</div>
+      <div class="card-text">El triángulo es la figura geométrica del fútbol. Tres jugadores bien posicionados crean siempre una salida. Si solo formás líneas rectas, el rival te corta fácil.</div>
+      <div class="mini-diagram">
+        <svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">
+          <rect width="220" height="130" fill="#071a0e" rx="6"/>
+          <!-- triángulo -->
+          <polygon points="110,15 40,110 180,110" fill="rgba(0,230,118,.04)" stroke="rgba(0,230,118,.3)" stroke-width="1.5" stroke-dasharray="5"/>
+          <!-- jugadores -->
+          <circle cx="110" cy="20" r="12" fill="#00e676"/>
+          <text x="110" y="25" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">10</text>
+          <circle cx="40" cy="110" r="12" fill="#ff6b35"/>
+          <text x="40" y="115" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">7</text>
+          <circle cx="180" cy="110" r="12" fill="#2979ff"/>
+          <text x="180" y="115" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold">11</text>
+          <!-- líneas de pase -->
+          <line x1="110" y1="32" x2="52" y2="100" stroke="rgba(0,230,118,.6)" stroke-width="2"/>
+          <line x1="110" y1="32" x2="168" y2="100" stroke="rgba(0,230,118,.6)" stroke-width="2"/>
+          <line x1="52" y1="110" x2="168" y2="110" stroke="rgba(0,230,118,.6)" stroke-width="2"/>
+          <!-- punto de balón -->
+          <circle cx="110" cy="20" r="4" fill="#ffc107"/>
+          <text x="110" y="80" text-anchor="middle" fill="rgba(255,255,255,.2)" font-size="28">△</text>
+        </svg>
+      </div>
+      <div style="margin-top:.75rem;font-size:.78rem;color:var(--naranja);font-family:var(--font-ui);font-weight:700;">
+        💡 Siempre ofrecé 2 opciones de pase. Nunca dejes al que tiene la pelota sin salida.
+      </div>
+    </div>
+
+    <!-- Amplitud y profundidad -->
+    <div class="card reveal">
+      <div class="card-icon gold"><i class="fas fa-expand-arrows-alt"></i></div>
+      <div class="card-title">Amplitud y Profundidad</div>
+      <div class="card-text">
+        <strong>Amplitud</strong>: Estirá el juego hacia las bandas para abrir espacios centrales.<br><br>
+        <strong>Profundidad</strong>: Amenazá el espacio a las espaldas del rival para que no pueda presionar.<br><br>
+        Sin amplitud ni profundidad, el equipo juega comprimido y fácil de defender.
+      </div>
+      <div style="margin-top:.75rem;font-size:.78rem;color:var(--dorado);font-family:var(--font-ui);font-weight:700;">
+        💡 El extremo que se cierra, le quita espacio al mediocampista. ¡Abrí la cancha!
+      </div>
+    </div>
+
+    <!-- Líneas de pase -->
+    <div class="card reveal">
+      <div class="card-icon blue"><i class="fas fa-project-diagram"></i></div>
+      <div class="card-title">Líneas de Pase</div>
+      <div class="card-text">Una línea de pase es la conexión visual que existe entre vos y un compañero. Tu trabajo es <em>crear</em> esas líneas con tu movimiento. El rival trabaja para <em>cortarlas</em>. Quien controla más líneas, controla el partido.</div>
+      <div style="margin-top:.75rem;font-size:.78rem;color:var(--azul-light);font-family:var(--font-ui);font-weight:700;">
+        💡 Antes de recibir: identificá 3 líneas posibles. Elegí la que duele más al rival.
+      </div>
+    </div>
+
+    <!-- Temporización -->
+    <div class="card reveal">
+      <div class="card-icon"><i class="fas fa-clock"></i></div>
+      <div class="card-title">Temporización</div>
+      <div class="card-text">Saber cuándo acelerar y cuándo frenar el juego es arte puro. No todo es velocidad. El jugador que temporiza bien obliga al rival a reorganizarse, agotarlo, y luego atacar cuando hay espacio.</div>
+      <div style="margin-top:.75rem;font-size:.78rem;color:var(--verde);font-family:var(--font-ui);font-weight:700;">
+        💡 "Apurate despacio." — Cuando el rival presiona, controlá. Cuando el rival retrocede, acelerá.
+      </div>
+    </div>
+
+    <!-- Compacidad -->
+    <div class="card reveal">
+      <div class="card-icon orange"><i class="fas fa-compress"></i></div>
+      <div class="card-title">Compacidad Defensiva</div>
+      <div class="card-text">Cuando el rival tiene la pelota, el equipo debe reducir espacios entre líneas. Un equipo compacto es casi imposible de penetrar. No se trata de correr al balón, sino de <em>cerrar el espacio interior</em>.</div>
+      <div style="margin-top:.75rem;font-size:.78rem;color:var(--naranja);font-family:var(--font-ui);font-weight:700;">
+        💡 Líneas de 5 metros entre cada línea. El rival nunca debe tener espacio entre vos y tu compañero.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 2. MOVIMIENTOS SIN BALÓN ═══════════════════ -->
+<section class="tac-section-full" id="sec-movimientos">
+  <div class="inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-running"></i> Módulo 2</span>
+      <h2 class="section-h2">Movimientos <span class="green">Sin Balón</span></h2>
+      <p class="section-sub">El 90% del partido jugás sin la pelota. Lo que hacés en esos momentos define si sos un profesional o no.</p>
+    </div>
+
+    <div class="movimiento-showcase">
+
+      <!-- Desmarque de ruptura -->
+      <div class="mov-card reveal">
+        <div class="mov-canvas-wrap">
+          <canvas id="mov1" width="400" height="200"></canvas>
+        </div>
+        <div class="mov-body">
+          <div class="mov-title">⚡ Desmarque de Ruptura</div>
+          <div class="mov-desc">Movimiento explosivo hacia el espacio a las espaldas del defensor. Se usa cuando el compañero tiene la pelota y el defensor está de espaldas o distraído. El timing es todo: salir en el momento exacto.</div>
+          <div class="mov-btns">
+            <button class="btn-small btn-ver" onclick="playMovimiento(1)"><i class="fas fa-play"></i> Ver movimiento</button>
+            <button class="btn-small btn-rep" onclick="resetMovimiento(1)"><i class="fas fa-redo"></i> Repetir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desmarque de apoyo -->
+      <div class="mov-card reveal">
+        <div class="mov-canvas-wrap">
+          <canvas id="mov2" width="400" height="200"></canvas>
+        </div>
+        <div class="mov-body">
+          <div class="mov-title">🤝 Desmarque de Apoyo</div>
+          <div class="mov-desc">Te acercás al compañero para ofrecerle un pase corto y seguro cuando está presionado. Es el movimiento más altruista del fútbol: sacrificás tu posición para ayudar al equipo a mantener la pelota.</div>
+          <div class="mov-btns">
+            <button class="btn-small btn-ver" onclick="playMovimiento(2)"><i class="fas fa-play"></i> Ver movimiento</button>
+            <button class="btn-small btn-rep" onclick="resetMovimiento(2)"><i class="fas fa-redo"></i> Repetir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrastre -->
+      <div class="mov-card reveal">
+        <div class="mov-canvas-wrap">
+          <canvas id="mov3" width="400" height="200"></canvas>
+        </div>
+        <div class="mov-body">
+          <div class="mov-title">🎯 Arrastre y Creación</div>
+          <div class="mov-desc">Te movés hacia una zona para llevarte al defensor contigo, creando espacio para un compañero. El delantero que arrastra al central abre el espacio para el mediocampista. El sacrificio invisible.</div>
+          <div class="mov-btns">
+            <button class="btn-small btn-ver" onclick="playMovimiento(3)"><i class="fas fa-play"></i> Ver movimiento</button>
+            <button class="btn-small btn-rep" onclick="resetMovimiento(3)"><i class="fas fa-redo"></i> Repetir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diagonal -->
+      <div class="mov-card reveal">
+        <div class="mov-canvas-wrap">
+          <canvas id="mov4" width="400" height="200"></canvas>
+        </div>
+        <div class="mov-body">
+          <div class="mov-title">↗ Movimiento Diagonal</div>
+          <div class="mov-desc">Las diagonales son los movimientos más difíciles de defender. Un movimiento recto es fácil de seguir. Una diagonal rompe la línea defensiva y obliga al defensor a decidir si sigue o no, creando confusión.</div>
+          <div class="mov-btns">
+            <button class="btn-small btn-ver" onclick="playMovimiento(4)"><i class="fas fa-play"></i> Ver movimiento</button>
+            <button class="btn-small btn-rep" onclick="resetMovimiento(4)"><i class="fas fa-redo"></i> Repetir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doblar -->
+      <div class="mov-card reveal">
+        <div class="mov-canvas-wrap">
+          <canvas id="mov5" width="400" height="200"></canvas>
+        </div>
+        <div class="mov-body">
+          <div class="mov-title">🔄 Dar y Ir (1-2)</div>
+          <div class="mov-desc">Pasás la pelota y arrancás inmediatamente a buscar la devolución. El movimiento más simple y efectivo del fútbol. Rompe líneas en un toque. Requiere comunicación y timing perfecto con el compañero.</div>
+          <div class="mov-btns">
+            <button class="btn-small btn-ver" onclick="playMovimiento(5)"><i class="fas fa-play"></i> Ver movimiento</button>
+            <button class="btn-small btn-rep" onclick="resetMovimiento(5)"><i class="fas fa-redo"></i> Repetir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overlap -->
+      <div class="mov-card reveal">
+        <div class="mov-canvas-wrap">
+          <canvas id="mov6" width="400" height="200"></canvas>
+        </div>
+        <div class="mov-body">
+          <div class="mov-title">🏃 Desborde (Overlap)</div>
+          <div class="mov-desc">El lateral o compañero corre por detrás del extremo para desbordarlo en profundidad. Crea una situación de 2v1 en banda. El rival no sabe a quién marcar: el que tiene la pelota o el que desdobla.</div>
+          <div class="mov-btns">
+            <button class="btn-small btn-ver" onclick="playMovimiento(6)"><i class="fas fa-play"></i> Ver movimiento</button>
+            <button class="btn-small btn-rep" onclick="resetMovimiento(6)"><i class="fas fa-redo"></i> Repetir</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Errores comunes movimiento -->
+    <div style="margin-top:3rem;" class="reveal">
+      <h3 style="font-family:var(--font-ui);font-weight:800;font-size:1.2rem;margin-bottom:1.5rem;">
+        <i class="fas fa-exclamation-triangle" style="color:var(--naranja)"></i>
+        Errores Más Comunes Sin Balón
+      </h3>
+      <div class="errores-grid">
+        <div class="error-card">
+          <div class="ec-header">
+            <span class="ec-icon">😴</span>
+            <div class="ec-titulo">Quedarse quieto esperando la pelota</div>
+          </div>
+          <div class="ec-error"><i class="fas fa-times" style="color:var(--naranja)"></i> El jugador se para y espera que le pasen.</div>
+          <div class="ec-solucion"><i class="fas fa-check"></i> Siempre estar en movimiento. Si no podés recibir, creá espacio para otro.</div>
+        </div>
+        <div class="error-card">
+          <div class="ec-header">
+            <span class="ec-icon">👁️</span>
+            <div class="ec-titulo">No mirar antes de recibir</div>
+          </div>
+          <div class="ec-error"><i class="fas fa-times" style="color:var(--naranja)"></i> Recibir y recién mirar qué hay alrededor.</div>
+          <div class="ec-solucion"><i class="fas fa-check"></i> Escanear el campo 2 segundos antes de recibir. Ya sabés tu próxima jugada.</div>
+        </div>
+        <div class="error-card">
+          <div class="ec-header">
+            <span class="ec-icon">📍</span>
+            <div class="ec-titulo">Siempre pedir el balón en la misma posición</div>
+          </div>
+          <div class="ec-error"><i class="fas fa-times" style="color:var(--naranja)"></i> El rival aprende tus patrones y te anticipa.</div>
+          <div class="ec-solucion"><i class="fas fa-check"></i> Varía las posiciones de recepción. Falseá movimientos para confundir al defensor.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 3. LECTURA DE JUEGO ═══════════════════ -->
+<section class="tac-section" id="sec-lectura">
+  <div class="reveal">
+    <span class="section-eyebrow"><i class="fas fa-brain"></i> Módulo 3</span>
+    <h2 class="section-h2">Lectura de <span class="green">Juego</span></h2>
+    <p class="section-sub">Tomá las decisiones correctas. Las situaciones de abajo simulan momentos reales de partido. ¿Qué harías?</p>
+  </div>
+
+  <!-- Score -->
+  <div class="quiz-score-bar reveal" style="margin-top:2rem;">
+    <div>
+      <div class="qs-label">Puntuación Lectura</div>
+      <div style="font-size:.78rem;color:var(--gris);font-family:var(--font-ui);">Respondé correctamente para sumar puntos</div>
+    </div>
+    <div class="qs-score" id="lecturaScore">0 pts</div>
+  </div>
+
+  <div class="lectura-wrap" id="lecturaWrap">
+    <!-- Generado por JS -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 4. FORMACIONES ═══════════════════ -->
+<section class="tac-section-full" id="sec-formaciones">
+  <div class="inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-th-large"></i> Módulo 4</span>
+      <h2 class="section-h2">Sistemas <span class="green">Tácticos</span></h2>
+      <p class="section-sub">Cada formación tiene su lógica, sus fortalezas y debilidades. Conocerlas te permite leer el partido antes de que empiece.</p>
+    </div>
+
+    <div class="formaciones-wrap">
+      <div class="formacion-tabs" id="formacionTabs">
+        <button class="form-tab active" data-forma="442" onclick="setFormacion('442')">4-4-2</button>
+        <button class="form-tab" data-forma="433" onclick="setFormacion('433')">4-3-3</button>
+        <button class="form-tab" data-forma="352" onclick="setFormacion('352')">3-5-2</button>
+        <button class="form-tab" data-forma="4231" onclick="setFormacion('4231')">4-2-3-1</button>
+        <button class="form-tab" data-forma="532" onclick="setFormacion('532')">5-3-2</button>
+        <button class="form-tab" data-forma="343" onclick="setFormacion('343')">3-4-3</button>
+      </div>
+
+      <div class="formacion-content reveal">
+        <div class="campo-container">
+          <canvas id="campo-canvas" width="380" height="560"></canvas>
+        </div>
+        <div class="formacion-info" id="formacionInfo">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 5. FILOSOFÍAS ═══════════════════ -->
+<section class="tac-section" id="sec-filosofias">
+  <div class="reveal">
+    <span class="section-eyebrow"><i class="fas fa-chess-king"></i> Módulo 5</span>
+    <h2 class="section-h2">Filosofías de <span class="gold">Juego</span></h2>
+    <p class="section-sub">Más allá de las formaciones, está la mentalidad. El estilo de juego define el ADN de un equipo.</p>
+  </div>
+
+  <div class="filosofias-grid">
+
+    <div class="fil-card pos reveal">
+      <div class="fil-icon">🎭</div>
+      <div class="fil-nombre">Juego Posicional</div>
+      <span class="fil-tag">Dominio del Balón</span>
+      <div class="fil-desc">Control absoluto del balón y del espacio. El equipo se organiza en una estructura rígida donde cada jugador ocupa una zona específica. Se busca agotar al rival mediante circulación inteligente y aceleración repentina.</div>
+      <div class="fil-claves">
+        <strong>Principios clave:</strong>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Superioridad numérica en cada zona</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Posicionamiento antes que correr</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Circulación hasta que aparezca el espacio</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Presión tras pérdida inmediata</div>
+      </div>
+    </div>
+
+    <div class="fil-card pre reveal">
+      <div class="fil-icon">🔥</div>
+      <div class="fil-nombre">Presión Alta</div>
+      <span class="fil-tag">Agresividad Organizada</span>
+      <div class="fil-desc">El equipo presiona al rival desde el inicio, evitando que construya desde atrás. No es salir corriendo al balón: es presionar de manera organizada y colectiva, cortando las salidas del rival desde la salida.</div>
+      <div class="fil-claves">
+        <strong>Principios clave:</strong>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Presionar en bloque, no individualmente</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Cortar las líneas de pase primero</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Recuperar alto para atacar rápido</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Requiere alto nivel físico</div>
+      </div>
+    </div>
+
+    <div class="fil-card cnt reveal">
+      <div class="fil-icon">⚡</div>
+      <div class="fil-nombre">Contraataque</div>
+      <span class="fil-tag">Velocidad y Verticalidad</span>
+      <div class="fil-desc">Defender profundo y atacar en velocidad cuando se recupera la pelota. El caos del rival al perder el balón se convierte en oportunidad. Necesita jugadores muy rápidos y la disciplina de no adelantarse.</div>
+      <div class="fil-claves">
+        <strong>Principios clave:</strong>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Bloque defensivo bajo y compacto</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Transición ataque ultra rápida</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Pases verticales, pocos toques</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Delanteros muy rápidos y profundos</div>
+      </div>
+    </div>
+
+    <div class="fil-card mix reveal">
+      <div class="fil-icon">⚖️</div>
+      <div class="fil-nombre">Juego Mixto / Pragmático</div>
+      <span class="fil-tag">Adaptación Táctica</span>
+      <div class="fil-desc">El equipo adapta su estilo según el partido, el rival y el marcador. Cuando gana, juega posicional y conserva. Cuando pierde, presiona alto. El más inteligente tacticamente, no tiene un estilo fijo.</div>
+      <div class="fil-claves">
+        <strong>Principios clave:</strong>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Leer el partido y cambiar el chip</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Jugadores versátiles en múltiples roles</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> Inteligencia colectiva alta</div>
+        <div class="fil-clave-item"><i class="fas fa-circle"></i> El marcador dicta el estilo</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 6. ANÁLISIS JUGADORES ═══════════════════ -->
+<section class="tac-section-full" id="sec-jugadores">
+  <div class="inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-user-check"></i> Módulo 6</span>
+      <h2 class="section-h2">Análisis por <span class="orange">Posición</span></h2>
+      <p class="section-sub">Cada posición tiene un arte. Entendé qué hace grande a un jugador en cada rol y aplicalo.</p>
+    </div>
+
+    <div class="analisis-grid">
+
+      <div class="jugador-card reveal">
+        <div class="jc-top">
+          <div class="jc-avatar">🥅</div>
+          <div>
+            <div class="jc-name">El Arquero</div>
+            <div class="jc-pos">Portero / GK</div>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-stat-row">
+            <div class="jc-stat"><div class="jc-stat-val green">93%</div><div class="jc-stat-label">Comunicación</div></div>
+            <div class="jc-stat"><div class="jc-stat-val gold">88%</div><div class="jc-stat-label">Lectura</div></div>
+            <div class="jc-stat"><div class="jc-stat-val orange">95%</div><div class="jc-stat-label">Liderazgo</div></div>
+          </div>
+          <div class="jc-desc">El primer jugador que construye desde atrás. Hoy el arquero moderno no solo ataja: organiza la defensa, inicia jugadas y toma decisiones bajo presión constante.</div>
+          <div class="jc-tips">
+            <div class="jc-tip"><i class="fas fa-star"></i> Salí a interceptar antes de que llegue al área</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Siempre comunicá a la defensa: ¡marca! ¡suelta! ¡mía!</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Estudiá al delantero rival antes del partido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jugador-card reveal">
+        <div class="jc-top">
+          <div class="jc-avatar">🛡️</div>
+          <div>
+            <div class="jc-name">El Defensor Central</div>
+            <div class="jc-pos">Central / CB</div>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-stat-row">
+            <div class="jc-stat"><div class="jc-stat-val green">91%</div><div class="jc-stat-label">Posicionamiento</div></div>
+            <div class="jc-stat"><div class="jc-stat-val gold">85%</div><div class="jc-stat-label">Anticipación</div></div>
+            <div class="jc-stat"><div class="jc-stat-val orange">89%</div><div class="jc-stat-label">Salida</div></div>
+          </div>
+          <div class="jc-desc">El central moderno sabe cuándo salir a cortar y cuándo esperar. Anticipar es mejor que tacklear. La inteligencia posicional hace al gran defensor, no la fuerza bruta.</div>
+          <div class="jc-tips">
+            <div class="jc-tip"><i class="fas fa-star"></i> Nunca te tirés si no estás seguro de ganar</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Mirá los pies del delantero, te dicen dónde va</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> En 1v1, ganá tiempo hasta que llegue ayuda</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jugador-card reveal">
+        <div class="jc-top">
+          <div class="jc-avatar">🏃</div>
+          <div>
+            <div class="jc-name">El Lateral</div>
+            <div class="jc-pos">Lateral / FB</div>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-stat-row">
+            <div class="jc-stat"><div class="jc-stat-val green">90%</div><div class="jc-stat-label">Desborde</div></div>
+            <div class="jc-stat"><div class="jc-stat-val gold">86%</div><div class="jc-stat-label">Resistencia</div></div>
+            <div class="jc-stat"><div class="jc-stat-val orange">82%</div><div class="jc-stat-label">Centros</div></div>
+          </div>
+          <div class="jc-desc">El lateral moderno es un carrilero: defensa, sube, ataca, centra y regresa. La posición que más km recorre en el partido. Su timing de subida determina si el equipo tiene superioridad en banda.</div>
+          <div class="jc-tips">
+            <div class="jc-tip"><i class="fas fa-star"></i> Subí cuando el extremo se cierra al interior</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Antes de desbordar, mirá si hay centro posible</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Al perder la pelota, regresá inmediatamente</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jugador-card reveal">
+        <div class="jc-top">
+          <div class="jc-avatar">⚙️</div>
+          <div>
+            <div class="jc-name">El Mediocampista</div>
+            <div class="jc-pos">Medio / MF</div>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-stat-row">
+            <div class="jc-stat"><div class="jc-stat-val green">94%</div><div class="jc-stat-label">Visión</div></div>
+            <div class="jc-stat"><div class="jc-stat-val gold">91%</div><div class="jc-stat-label">Técnica</div></div>
+            <div class="jc-stat"><div class="jc-stat-val orange">88%</div><div class="jc-stat-label">Trabajo</div></div>
+          </div>
+          <div class="jc-desc">El cerebro del equipo. Conecta la defensa con el ataque. El gran mediocampista siempre recibe en una posición donde puede progresar. Nunca recibe de espaldas al juego si puede evitarlo.</div>
+          <div class="jc-tips">
+            <div class="jc-tip"><i class="fas fa-star"></i> Mostrarte siempre en el ángulo correcto del pase</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Antes de recibir: escaneaste 2 veces el campo</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> El pase hacia atrás a veces es el mejor avance</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jugador-card reveal">
+        <div class="jc-top">
+          <div class="jc-avatar">⚡</div>
+          <div>
+            <div class="jc-name">El Extremo</div>
+            <div class="jc-pos">Extremo / Winger</div>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-stat-row">
+            <div class="jc-stat"><div class="jc-stat-val green">93%</div><div class="jc-stat-label">Regate</div></div>
+            <div class="jc-stat"><div class="jc-stat-val gold">89%</div><div class="jc-stat-label">Velocidad</div></div>
+            <div class="jc-stat"><div class="jc-stat-val orange">87%</div><div class="jc-stat-label">Desequilibrio</div></div>
+          </div>
+          <div class="jc-desc">El extremo moderno no solo desborda: sabe cuándo quedarse en banda y cuándo cortarse al interior. El que siempre desdobla es predecible. El que varía sus movimientos es imposible de marcar.</div>
+          <div class="jc-tips">
+            <div class="jc-tip"><i class="fas fa-star"></i> Varío: a veces desbordo, a veces corto al interior</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Cuando tengo marca, el lateral tiene espacio. ¡Decíselo!</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> El regate se hace cuando hay espacio detrás</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jugador-card reveal">
+        <div class="jc-top">
+          <div class="jc-avatar">🎯</div>
+          <div>
+            <div class="jc-name">El Delantero</div>
+            <div class="jc-pos">Delantero Centro / ST</div>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-stat-row">
+            <div class="jc-stat"><div class="jc-stat-val green">95%</div><div class="jc-stat-label">Definición</div></div>
+            <div class="jc-stat"><div class="jc-stat-val gold">90%</div><div class="jc-stat-label">Movimiento</div></div>
+            <div class="jc-stat"><div class="jc-stat-val orange">88%</div><div class="jc-stat-label">Juego aéreo</div></div>
+          </div>
+          <div class="jc-desc">El delantero vive del último metro. Pero su trabajo empieza mucho antes: el movimiento para desmarcarse, la presión al central rival, la pantalla para el mediocampista. El 9 trabaja todo el partido.</div>
+          <div class="jc-tips">
+            <div class="jc-tip"><i class="fas fa-star"></i> En el área, ya decidiste antes de recibir</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> El arrastre del central abre espacio para el 10</div>
+            <div class="jc-tip"><i class="fas fa-star"></i> Si no vas a definir, asociate y moví</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 7. DECISION MAKING ═══════════════════ -->
+<section class="tac-section" id="sec-dm">
+  <div class="reveal">
+    <span class="section-eyebrow"><i class="fas fa-bolt"></i> Módulo 7</span>
+    <h2 class="section-h2">Decisiones <span class="orange">En Partido</span></h2>
+    <p class="section-sub">El fútbol profesional se decide en fracciones de segundo. Entrenate para pensar más rápido que el rival.</p>
+  </div>
+
+  <!-- Selector de dificultad -->
+  <div class="dm-dificultad-selector reveal" style="margin-top:2rem;">
+    <span style="font-family:var(--font-ui);font-size:.8rem;color:var(--gris);align-self:center;">Dificultad:</span>
+    <button class="dif-btn active" onclick="setDificultad('facil')">🟢 Fácil</button>
+    <button class="dif-btn" onclick="setDificultad('media')">🟡 Media</button>
+    <button class="dif-btn" onclick="setDificultad('dificil')">🔴 Difícil</button>
+  </div>
+
+  <!-- Puntuación DM -->
+  <div class="dm-score-wrap reveal">
+    <div class="dm-score-card">
+      <div class="dm-sc-val g" id="dm-ok">0</div>
+      <div class="dm-sc-label">✅ Correctas</div>
+    </div>
+    <div class="dm-score-card">
+      <div class="dm-sc-val r" id="dm-bad">0</div>
+      <div class="dm-sc-label">❌ Incorrectas</div>
+    </div>
+    <div class="dm-score-card">
+      <div class="dm-sc-val b" id="dm-pts">0</div>
+      <div class="dm-sc-label">🏆 Puntos</div>
+    </div>
+    <div class="dm-score-card">
+      <div class="dm-sc-val" id="dm-racha" style="color:var(--dorado)">0</div>
+      <div class="dm-sc-label">🔥 Racha</div>
+    </div>
+  </div>
+
+  <div id="dm-container" class="reveal">
+    <!-- Generado por JS -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 8. PROGRESO ═══════════════════ -->
+<section class="tac-section-full" id="sec-progreso">
+  <div class="inner">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-tasks"></i> Módulo 8</span>
+      <h2 class="section-h2">Tu <span class="green">Progreso</span></h2>
+      <p class="section-sub">Marcá los conceptos que ya aprendiste. Tu progreso se guarda automáticamente.</p>
+    </div>
+
+    <div class="progreso-barra-wrap reveal" style="margin-top:2rem;">
+      <div class="pb-top">
+        <span class="pb-label"><i class="fas fa-graduation-cap" style="color:var(--verde)"></i> Inteligencia Táctica</span>
+        <span class="pb-pct" id="progresoNum">0%</span>
+      </div>
+      <div class="pb-bar">
+        <div class="pb-fill" id="progresoBarra" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="progreso-grid" id="progresoGrid">
+      <!-- Generado por JS -->
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 9. FRASES Y MENTALIDAD ═══════════════════ -->
+<section class="tac-section" id="sec-frases">
+  <div class="reveal">
+    <span class="section-eyebrow"><i class="fas fa-quote-left"></i> Mentalidad</span>
+    <h2 class="section-h2">Inteligencia <span class="gold">Futbolística</span></h2>
+    <p class="section-sub">El jugador que entiende estos conceptos ve el juego diferente. Para siempre.</p>
+  </div>
+
+  <div class="frases-grid">
+    <div class="frase-card reveal">
+      <div class="frase-text">"El fútbol se juega con la cabeza. Tus pies son solo las herramientas."</div>
+      <div class="frase-autor">Johan Cruyff</div>
+      <div class="frase-concepto">Inteligencia táctica</div>
+    </div>
+    <div class="frase-card reveal">
+      <div class="frase-text">"Cuando tengo el balón, necesito saber qué voy a hacer antes de recibirlo. Uno, dos opciones siempre."</div>
+      <div class="frase-autor">Xavi Hernández</div>
+      <div class="frase-concepto">Anticipación mental</div>
+    </div>
+    <div class="frase-card reveal">
+      <div class="frase-text">"La velocidad de piernas sin velocidad de mente no es nada en el fútbol moderno."</div>
+      <div class="frase-autor">Pep Guardiola</div>
+      <div class="frase-concepto">Velocidad mental</div>
+    </div>
+    <div class="frase-card reveal">
+      <div class="frase-text">"Defender bien es atacar mejor. El equipo que recupera rápido gana el partido antes de atacar."</div>
+      <div class="frase-autor">Filosofía del pressing moderno</div>
+      <div class="frase-concepto">Transición defensiva</div>
+    </div>
+    <div class="frase-card reveal">
+      <div class="frase-text">"El espacio no se ocupa corriendo. Se ocupa pensando hacia dónde correr antes de hacerlo."</div>
+      <div class="frase-autor">Concepto posicional</div>
+      <div class="frase-concepto">Movimiento inteligente</div>
+    </div>
+    <div class="frase-card reveal">
+      <div class="frase-text">"Todo lo puedo en Cristo que me fortalece. Primero la fe, después el talento."</div>
+      <div class="frase-autor">Filipenses 4:13</div>
+      <div class="frase-concepto">Fe y Mentalidad</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ 🏆 PIZARRA TÁCTICA ═══════════════════ -->
+<section class="pizarra-section" id="sec-pizarra">
+  <div class="inner">
+    <div class="pizarra-header reveal">
+      <span class="section-eyebrow"><i class="fas fa-drafting-compass"></i> Pizarra Interactiva</span>
+      <h2 class="section-h2">Pizarra <span class="green">Táctica</span></h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center;">
+        Simulá jugadas en tiempo real. Arrastrá jugadores, dibujá flechas, tirá la pelota. Tu campo, tus reglas.
+      </p>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="pizarra-toolbar reveal">
+      <span class="pizarra-toolbar-label">Herramienta:</span>
+      <button class="piz-btn active" id="tool-select" onclick="setTool('select')"><i class="fas fa-mouse-pointer"></i> Mover</button>
+      <button class="piz-btn" id="tool-arrow" onclick="setTool('arrow')"><i class="fas fa-long-arrow-alt-right"></i> Flecha</button>
+      <button class="piz-btn" id="tool-curved" onclick="setTool('curved')"><i class="fas fa-bezier-curve"></i> Curva</button>
+      <button class="piz-btn" id="tool-line" onclick="setTool('line')"><i class="fas fa-minus"></i> Línea</button>
+      <button class="piz-btn" id="tool-circle" onclick="setTool('circle')"><i class="fas fa-circle"></i> Zona</button>
+      <button class="piz-btn" id="tool-erase" onclick="setTool('erase')"><i class="fas fa-eraser"></i> Borrar</button>
+
+      <div class="piz-sep"></div>
+
+      <span class="pizarra-toolbar-label">Jugadores:</span>
+      <button class="piz-btn" onclick="addJugador('equipo1')"><i class="fas fa-plus"></i> ⬤ Local</button>
+      <button class="piz-btn" onclick="addJugador('equipo2')"><i class="fas fa-plus"></i> ⬤ Rival</button>
+      <button class="piz-btn" onclick="addPelota()"><i class="fas fa-futbol"></i> Pelota</button>
+      <button class="piz-btn" onclick="addCono()"><i class="fas fa-map-marker-alt"></i> Cono</button>
+
+      <div class="piz-sep"></div>
+
+      <span class="pizarra-toolbar-label">Color:</span>
+      <div class="color-picker-wrap" id="colorPicker">
+        <div class="color-dot active" data-color="#00e676" style="background:#00e676" onclick="setColor('#00e676')"></div>
+        <div class="color-dot" data-color="#ff6b35" style="background:#ff6b35" onclick="setColor('#ff6b35')"></div>
+        <div class="color-dot" data-color="#ffc107" style="background:#ffc107" onclick="setColor('#ffc107')"></div>
+        <div class="color-dot" data-color="#2979ff" style="background:#2979ff" onclick="setColor('#2979ff')"></div>
+        <div class="color-dot" data-color="#ff1744" style="background:#ff1744" onclick="setColor('#ff1744')"></div>
+        <div class="color-dot" data-color="#ffffff" style="background:#fff" onclick="setColor('#ffffff')"></div>
+      </div>
+
+      <div class="piz-sep"></div>
+
+      <span class="pizarra-toolbar-label">Formación:</span>
+      <button class="piz-btn" onclick="loadFormacionPizarra('442')">4-4-2</button>
+      <button class="piz-btn" onclick="loadFormacionPizarra('433')">4-3-3</button>
+      <button class="piz-btn" onclick="loadFormacionPizarra('352')">3-5-2</button>
+      <button class="piz-btn" onclick="loadFormacionPizarra('4231')">4-2-3-1</button>
+
+      <div class="piz-sep"></div>
+
+      <button class="piz-btn" onclick="limpiarPizarra()" style="color:var(--naranja)"><i class="fas fa-trash"></i> Limpiar</button>
+      <button class="piz-btn" onclick="undoPizarra()"><i class="fas fa-undo"></i> Deshacer</button>
+      <button class="piz-btn" onclick="guardarPizarra()" style="color:var(--dorado)"><i class="fas fa-save"></i> Guardar</button>
+      <button class="piz-btn" onclick="exportarPizarra()" style="color:var(--azul-light)"><i class="fas fa-download"></i> Exportar</button>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="pizarra-canvas-wrap reveal" id="pizarraWrap">
+      <canvas id="pizarraCanvas"></canvas>
+    </div>
+
+    <!-- Leyenda -->
+    <div class="pizarra-legend reveal">
+      <div class="piz-legend-item"><div class="piz-legend-dot" style="background:#00e676"></div> Equipo local</div>
+      <div class="piz-legend-item"><div class="piz-legend-dot" style="background:#ff1744"></div> Equipo rival</div>
+      <div class="piz-legend-item"><div class="piz-legend-dot" style="background:#fff"></div> Pelota</div>
+      <div class="piz-legend-item"><div class="piz-legend-dot" style="background:#ffc107"></div> Conos</div>
+      <span style="margin-left:auto;color:var(--gris)"><i class="fas fa-info-circle"></i> Arrastrá jugadores con el mouse · Doble clic para eliminar elemento</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOAST -->
+<div class="toast-cont" id="toastCont"></div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer-tac">
+  <div class="footer-tac-inner">
+    <div class="ft-brand">
+      <div class="logo-name">EL CAMINO</div>
+      <p>Táctica · Mente · Profesionalismo</p>
+    </div>
+    <div class="ft-verse">
+      <i class="fas fa-cross" style="color:var(--verde)"></i>
+      <em>"Esfuérzate y sé valiente, porque el Señor tu Dios estará contigo."</em>
+      <cite>— Josué 1:9</cite>
+    </div>
+    <div>
+      <a href="#" style="color:var(--gris);margin:0 .5rem;font-size:1.1rem;"><i class="fab fa-instagram"></i></a>
+      <a href="#" style="color:var(--gris);margin:0 .5rem;font-size:1.1rem;"><i class="fab fa-tiktok"></i></a>
+      <a href="#" style="color:var(--gris);margin:0 .5rem;font-size:1.1rem;"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2025 El Camino · Hecho con <span style="color:var(--verde)">♥</span> y mucha fe · Gloria a Dios</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT COMPLETO
+═══════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════
+   CURSOR
+══════════════════════════════════════════════ */
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cursor.style.transform = `translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+});
+(function animRing() {
+  rx += (cx - rx) * .12; ry += (cy - ry) * .12;
+  cursorRing.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.card,.mov-card,.jugador-card,.frase-card,.fil-card').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.background = 'var(--dorado)'; cursorRing.style.width = '55px'; cursorRing.style.height = '55px'; });
+  el.addEventListener('mouseleave', () => { cursor.style.background = 'var(--verde)'; cursorRing.style.width = '38px'; cursorRing.style.height = '38px'; });
+});
+
+/* ══════════════════════════════════════════════
+   NAVBAR + MOBILE
+══════════════════════════════════════════════ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 50));
+function toggleMobile() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+function closeMobile() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+/* ══════════════════════════════════════════════
+   REVEAL ON SCROLL
+══════════════════════════════════════════════ */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ══════════════════════════════════════════════
+   SIDEBAR + SCROLL
+══════════════════════════════════════════════ */
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const sections = ['hero-tac','sec-fundamentos','sec-movimientos','sec-lectura','sec-formaciones','sec-filosofias','sec-jugadores','sec-dm','sec-progreso','sec-pizarra'];
+const dots = document.querySelectorAll('.sidebar-dot');
+window.addEventListener('scroll', () => {
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top <= 200 && rect.bottom >= 200) {
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[i]) dots[i].classList.add('active');
+    }
+  });
+});
+
+/* ══════════════════════════════════════════════
+   CONTADOR ANIMADO HERO
+══════════════════════════════════════════════ */
+function countUp(el, target, dur = 1500) {
+  let s = 0, step = target / (dur / 16);
+  const t = setInterval(() => {
+    s += step; if (s >= target) { el.textContent = target; clearInterval(t); }
+    else el.textContent = Math.floor(s);
+  }, 16);
+}
+setTimeout(() => {
+  countUp(document.getElementById('hsr1'), 10);
+  countUp(document.getElementById('hsr2'), 6);
+  countUp(document.getElementById('hsr3'), 15);
+  countUp(document.getElementById('hsr4'), parseInt(localStorage.getItem('tacProgreso') || 0));
+}, 600);
+
+/* ══════════════════════════════════════════════
+   ANIMACIONES MOVIMIENTOS (Canvas)
+══════════════════════════════════════════════ */
+const movStates = {};
+
+function drawField(ctx, w, h) {
+  ctx.fillStyle = '#071a0e';
+  ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = 'rgba(0,230,118,0.12)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(8, 8, w - 16, h - 16);
+  ctx.beginPath(); ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2);
+  ctx.strokeStyle = 'rgba(0,230,118,0.07)'; ctx.stroke();
+}
+
+function drawPlayer(ctx, x, y, color, label, r = 14) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = color; ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.font = `bold ${r * 0.7}px sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(label, x, y);
+}
+
+function drawBall(ctx, x, y, r = 8) {
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff'; ctx.fill();
+  ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5; ctx.stroke();
+}
+
+function drawArrow(ctx, x1, y1, x2, y2, color = '#00e676', dashed = false) {
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = 2;
+  if (dashed) ctx.setLineDash([5, 4]);
+  else ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  // cabeza flecha
+  const hLen = 10;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - hLen * Math.cos(angle - 0.4), y2 - hLen * Math.sin(angle - 0.4));
+  ctx.lineTo(x2 - hLen * Math.cos(angle + 0.4), y2 - hLen * Math.sin(angle + 0.4));
+  ctx.closePath(); ctx.fill();
+  ctx.setLineDash([]);
+}
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+// Animaciones definidas
+const movAnimations = {
+  1: { // Desmarque de ruptura
+    frames: 90,
+    draw(ctx, t, w, h) {
+      drawField(ctx, w, h);
+      // Defensor rival
+      const defX = w * 0.6, defY = h * 0.5;
+      drawPlayer(ctx, defX, defY, '#ff1744', 'DEF');
+      // Poseedor de balón
+      drawPlayer(ctx, w * 0.25, h * 0.5, '#00e676', '10');
+      drawBall(ctx, w * 0.25 + 18, h * 0.5);
+      // Atacante que rompe
+      const atStartX = w * 0.5, atStartY = h * 0.5;
+      const atEndX = w * 0.85, atEndY = h * 0.2;
+      const atX = lerp(atStartX, atEndX, Math.min(t * 2, 1));
+      const atY = lerp(atStartY, atEndY, Math.min(t * 2, 1));
+      drawPlayer(ctx, atX, atY, '#00e676', '9');
+      if (t > 0.05) drawArrow(ctx, atStartX, atStartY, atX, atY, '#00e676', true);
+      if (t > 0.5) {
+        // pase
+        const bx = lerp(w * 0.25 + 18, atX, Math.min((t - 0.5) * 2, 1));
+        const by = lerp(h * 0.5, atY, Math.min((t - 0.5) * 2, 1));
+        drawBall(ctx, bx, by);
+        drawArrow(ctx, w * 0.25 + 18, h * 0.5, bx, by, '#ffc107');
+      }
+      ctx.fillStyle = 'rgba(0,230,118,.6)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('¡Corte en profundidad!', 12, 20);
+    }
+  },
+  2: { // Desmarque de apoyo
+    frames: 80,
+    draw(ctx, t, w, h) {
+      drawField(ctx, w, h);
+      drawPlayer(ctx, w * 0.25, h * 0.5, '#00e676', '8');
+      drawBall(ctx, w * 0.25 + 18, h * 0.5);
+      drawPlayer(ctx, w * 0.55, h * 0.3, '#ff1744', 'DEF');
+      const supStartX = w * 0.5, supStartY = h * 0.3;
+      const supEndX = w * 0.38, supEndY = h * 0.5;
+      const sx = lerp(supStartX, supEndX, Math.min(t * 1.5, 1));
+      const sy = lerp(supStartY, supEndY, Math.min(t * 1.5, 1));
+      drawPlayer(ctx, sx, sy, '#00e676', '10');
+      if (t > 0.05) drawArrow(ctx, supStartX, supStartY, sx, sy, '#00e676', true);
+      if (t > 0.6) {
+        const bx = lerp(w * 0.25 + 18, sx, Math.min((t - 0.6) * 2.5, 1));
+        const by = lerp(h * 0.5, sy, Math.min((t - 0.6) * 2.5, 1));
+        drawBall(ctx, bx, by);
+        drawArrow(ctx, w * 0.25 + 18, h * 0.5, bx, by, '#ffc107');
+      }
+      ctx.fillStyle = 'rgba(0,230,118,.6)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('¡Apoyo corto, salida segura!', 12, 20);
+    }
+  },
+  3: { // Arrastre
+    frames: 100,
+    draw(ctx, t, w, h) {
+      drawField(ctx, w, h);
+      drawPlayer(ctx, w * 0.2, h * 0.5, '#00e676', '6');
+      drawBall(ctx, w * 0.2 + 18, h * 0.5);
+      const def1StartX = w * 0.6, def1StartY = h * 0.5;
+      const def1EndX = w * 0.72, def1EndY = h * 0.28;
+      const d1x = lerp(def1StartX, def1EndX, Math.min(t * 1.5, 1));
+      const d1y = lerp(def1StartY, def1EndY, Math.min(t * 1.5, 1));
+      drawPlayer(ctx, d1x, d1y, '#ff1744', 'CB');
+      const atStartX = w * 0.55, atStartY = h * 0.5;
+      const atEndX = w * 0.7, atEndY = h * 0.25;
+      const ax = lerp(atStartX, atEndX, Math.min(t * 1.2, 1));
+      const ay = lerp(atStartY, atEndY, Math.min(t * 1.2, 1));
+      drawPlayer(ctx, ax, ay, '#00e676', '9');
+      if (t > 0.05) drawArrow(ctx, atStartX, atStartY, ax, ay, '#ffc107', true);
+      // Mediocampista libre
+      const medX = w * 0.55, medY = h * 0.55;
+      drawPlayer(ctx, medX, medY, '#00e676', '8');
+      if (t > 0.5) {
+        ctx.beginPath(); ctx.arc(medX, medY, 22, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(0,230,118,0.4)'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.fillStyle = 'rgba(0,230,118,.5)'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText('LIBRE', medX, medY + 30);
+      }
+      ctx.fillStyle = 'rgba(255,193,7,.7)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('¡Arrastre crea espacio!', 12, 20);
+    }
+  },
+  4: { // Diagonal
+    frames: 80,
+    draw(ctx, t, w, h) {
+      drawField(ctx, w, h);
+      drawPlayer(ctx, w * 0.3, h * 0.2, '#ff1744', 'LAT');
+      drawPlayer(ctx, w * 0.6, h * 0.5, '#00e676', '10');
+      drawBall(ctx, w * 0.6 + 18, h * 0.5);
+      const startX = w * 0.82, startY = h * 0.2;
+      const endX = w * 0.6, endY = h * 0.65;
+      const ex = lerp(startX, endX, Math.min(t * 1.3, 1));
+      const ey = lerp(startY, endY, Math.min(t * 1.3, 1));
+      drawPlayer(ctx, ex, ey, '#00e676', '7');
+      if (t > 0.05) drawArrow(ctx, startX, startY, ex, ey, '#2979ff', true);
+      if (t > 0.7) {
+        const bx = lerp(w * 0.6 + 18, ex, Math.min((t - 0.7) * 3, 1));
+        const by = lerp(h * 0.5, ey, Math.min((t - 0.7) * 3, 1));
+        drawBall(ctx, bx, by);
+        drawArrow(ctx, w * 0.6 + 18, h * 0.5, bx, by, '#ffc107');
+      }
+      ctx.fillStyle = 'rgba(41,121,255,.7)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('¡Diagonal rompe la línea!', 12, 20);
+    }
+  },
+  5: { // Dar y ir
+    frames: 120,
+    draw(ctx, t, w, h) {
+      drawField(ctx, w, h);
+      drawPlayer(ctx, w * 0.55, h * 0.5, '#ff1744', 'DEF');
+      const p1StartX = w * 0.25, p1StartY = h * 0.5;
+      const p1AfterX = w * 0.5, p1AfterY = h * 0.25;
+      const p2X = w * 0.45, p2Y = h * 0.5;
+      // fase 1: pase de 1 a 2
+      if (t < 0.4) {
+        drawPlayer(ctx, p1StartX, p1StartY, '#00e676', '10');
+        drawPlayer(ctx, p2X, p2Y, '#00e676', '8');
+        const bx = lerp(p1StartX + 18, p2X - 14, Math.min(t / 0.4, 1));
+        const by = lerp(p1StartY, p2Y, Math.min(t / 0.4, 1));
+        drawBall(ctx, bx, by);
+        if (t > 0.02) drawArrow(ctx, p1StartX + 18, p1StartY, bx, by, '#ffc107');
+      } else {
+        // fase 2: movimiento del que pasa
+        const p1x = lerp(p1StartX, p1AfterX, Math.min((t - 0.4) / 0.6, 1));
+        const p1y = lerp(p1StartY, p1AfterY, Math.min((t - 0.4) / 0.6, 1));
+        drawPlayer(ctx, p1x, p1y, '#00e676', '10');
+        drawPlayer(ctx, p2X, p2Y, '#00e676', '8');
+        drawBall(ctx, p2X, p2Y);
+        if (t > 0.42) drawArrow(ctx, p1StartX, p1StartY, p1x, p1y, '#00e676', true);
+        // devolución
+        if (t > 0.75) {
+          const bx = lerp(p2X + 14, p1x - 14, Math.min((t - 0.75) / 0.25, 1));
+          const by = lerp(p2Y, p1y, Math.min((t - 0.75) / 0.25, 1));
+          drawBall(ctx, bx, by);
+          drawArrow(ctx, p2X + 14, p2Y, bx, by, '#ffc107');
+        }
+      }
+      ctx.fillStyle = 'rgba(0,230,118,.6)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('¡Dar y ir — combinación perfecta!', 12, 20);
+    }
+  },
+  6: { // Overlap
+    frames: 100,
+    draw(ctx, t, w, h) {
+      drawField(ctx, w, h);
+      drawPlayer(ctx, w * 0.65, h * 0.35, '#ff1744', 'LAT');
+      drawPlayer(ctx, w * 0.55, h * 0.5, '#00e676', '11');
+      drawBall(ctx, w * 0.55 + 18, h * 0.5);
+      // lateral sube por detrás
+      const latStartX = w * 0.3, latStartY = h * 0.7;
+      const latEndX = w * 0.75, latEndY = h * 0.25;
+      const lx = lerp(latStartX, latEndX, Math.min(t * 1.3, 1));
+      const ly = lerp(latStartY, latEndY, Math.min(t * 1.3, 1));
+      drawPlayer(ctx, lx, ly, '#00e676', 'LAT');
+      if (t > 0.05) {
+        ctx.beginPath(); ctx.setLineDash([6,4]);
+        ctx.moveTo(latStartX, latStartY); ctx.quadraticCurveTo(w * 0.3, h * 0.35, lx, ly);
+        ctx.strokeStyle = '#2979ff'; ctx.lineWidth = 2; ctx.stroke(); ctx.setLineDash([]);
+      }
+      if (t > 0.7) {
+        const bx = lerp(w * 0.55 + 18, lx, Math.min((t - 0.7) * 3, 1));
+        const by = lerp(h * 0.5, ly, Math.min((t - 0.7) * 3, 1));
+        drawBall(ctx, bx, by);
+        drawArrow(ctx, w * 0.55 + 18, h * 0.5, bx, by, '#ffc107');
+      }
+      ctx.fillStyle = 'rgba(41,121,255,.7)'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText('¡Desborde crea 2v1!', 12, 20);
+    }
+  }
+};
+
+// Inicializar canvases de movimiento
+const movCanvases = {};
+const movAnims = {};
+
+function initMovCanvas(id) {
+  const c = document.getElementById(`mov${id}`);
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const w = c.offsetWidth, h = c.offsetHeight;
+  c.width = w; c.height = h;
+  movCanvases[id] = { ctx, w, h };
+  const anim = movAnimations[id];
+  if (!anim) return;
+  anim.draw(ctx, 0, w, h);
+}
+for (let i = 1; i <= 6; i++) setTimeout(() => initMovCanvas(i), 500);
+
+function playMovimiento(id) {
+  if (movAnims[id]) cancelAnimationFrame(movAnims[id]);
+  const { ctx, w, h } = movCanvases[id] || {};
+  if (!ctx) return;
+  const anim = movAnimations[id];
+  let frame = 0;
+  function step() {
+    const t = frame / anim.frames;
+    anim.draw(ctx, t, w, h);
+    frame++;
+    if (frame <= anim.frames) movAnims[id] = requestAnimationFrame(step);
+  }
+  step();
+}
+
+function resetMovimiento(id) {
+  if (movAnims[id]) cancelAnimationFrame(movAnims[id]);
+  const { ctx, w, h } = movCanvases[id] || {};
+  if (!ctx) return;
+  movAnimations[id].draw(ctx, 0, w, h);
+}
+
+/* ══════════════════════════════════════════════
+   LECTURA DE JUEGO — Quiz
+══════════════════════════════════════════════ */
+const situaciones = [
+  {
+    titulo: 'Tenés la pelota presionado',
+    context: 'Estás en la mitad de cancha con dos rivales encima. Tenés un compañero a la izquierda en banda y uno detrás libre.',
+    opciones: [
+      { texto: '⚡ Encarar al rival', correcto: false, feedback: 'Con dos rivales encima el regate es arriesgado. Podés perder la pelota en zona media. Reservá el regate para cuando tenés espacio y velocidad.' },
+      { texto: '⬅️ Pase al compañero libre', correcto: true, feedback: '¡Perfecto! Al compañero libre atrás es siempre la opción más segura. Mantené la pelota y reorganizá el equipo. El pase hacia atrás no es retroceder, es avanzar con seguridad.' },
+      { texto: '🦶 Proteger y esperar', correcto: false, feedback: 'Esperar con dos rivales encima es peligroso. Rápidamente te rodearán y perderás la pelota. Usá el compañero libre enseguida.' },
+      { texto: '⬆️ Despejar hacia adelante', correcto: false, feedback: 'Despejar sin criterio entrega la posesión. Con un compañero libre disponible, siempre jugá con calidad.' }
+    ]
+  },
+  {
+    titulo: 'Transición contraataque 3v2',
+    context: 'Recuperaste la pelota en el mediocampo. Tenés dos compañeros adelante contra dos defensores. El lateral rival viene corriendo.',
+    opciones: [
+      { texto: '🏃 Correr y encarar solo', correcto: false, feedback: 'Atacar solo en un contraataque desperdicia la superioridad numérica. Llevá la defensa hacia vos y pasá en el momento justo.' },
+      { texto: '⚽ Llevar y pasar al momento correcto', correcto: true, feedback: '¡Excelente lectura! En un 3v2 siempre llevás la pelota hacia un defensor para que salga a presionarte, y luego pasás al compañero libre. Nunca uses más toques de los necesarios.' },
+      { texto: '📢 Esperar que los compañeros lleguen', correcto: false, feedback: 'El contraataque necesita velocidad. Esperar le da tiempo al rival de reorganizarse. Actuá antes de que los defensores lleguen.' },
+      { texto: '⬅️ Devolver al arquero', correcto: false, feedback: 'Devolver al arquero en un contraataque desperdicia la ventaja numérica y la velocidad del contragolpe. Solo usalo si estás completamente bloqueado.' }
+    ]
+  },
+  {
+    titulo: '1v1 con el portero',
+    context: 'Quedaste mano a mano con el arquero. Estás a 16 metros. El arquero sale a achicarte.',
+    opciones: [
+      { texto: '💥 Pegar de lejos antes de que salga', correcto: false, feedback: 'A 16 metros con el arquero saliendo, el remate de lejos reduce el ángulo. Es mejor esperar a que salga y definir con sutileza.' },
+      { texto: '🎯 Esperar que salga y picar o definir al palo', correcto: true, feedback: '¡La decisión de élite! Cuando el arquero sale, perderá su ángulo. Esperá el momento justo y picá por encima o definí al palo. Mantené la calma y el equilibrio.' },
+      { texto: '🏃 Intentar gambetarlo completamente', correcto: false, feedback: 'Gambetear al arquero es el recurso de último momento. Sale la pelota larga o el arquero gana el mano a mano. Define directamente.' },
+      { texto: '🤝 Asociarme con compañero', correcto: false, feedback: 'En un mano a mano puro, la asociación tarda más que definir. Si estás solo frente al arco, defin.' }
+    ]
+  },
+  {
+    titulo: 'Perdiste la pelota en campo rival',
+    context: 'Tu equipo acaba de perder la pelota cerca del área rival. El rival quiere salir rápido al contraataque. Estás a 5 metros de quien tiene la pelota.',
+    opciones: [
+      { texto: '🔙 Volver corriendo a defender', correcto: false, feedback: 'La presión inmediata (5 segundos) es más efectiva que volver a defender. Si recuperás la pelota arriba, ya estás en posición de atacar.' },
+      { texto: '⚡ Presionar inmediatamente para recuperar', correcto: true, feedback: '¡Reacción profesional! Los 5 segundos después de perder la pelota son cruciales. El rival no está organizado aún. Una presión inteligente puede recuperar la pelota antes de que el contraataque empiece.' },
+      { texto: '📍 Quedarme en posición', correcto: false, feedback: 'Quedarte quieto permite que el rival organice el contraataque cómodamente. La presión inmediata evita eso.' },
+      { texto: '🗣️ Gritar a los compañeros que presionen', correcto: false, feedback: 'Las palabras sin acción no defienden. Vos tenés que ser el primero en presionar. El ejemplo arrastra al equipo.' }
+    ]
+  },
+  {
+    titulo: 'Corner rival en tiro de esquina',
+    context: 'El rival va a tirar un córner. Sos el delantero del equipo. No tenés obligación defensiva específica asignada.',
+    opciones: [
+      { texto: '🛋️ Quedarme en el centro esperando', correcto: false, feedback: 'Quedarte estático en un córner rival no aporta. El contraataque es tu trabajo: si el equipo rechaza, vos ya estás posicionado para salir.' },
+      { texto: '⚡ Ir al primer palo a "espantar"', correcto: false, feedback: 'El "espantar" al primer palo es riesgoso y poco efectivo. Los defensores especializados deberían hacerlo.' },
+      { texto: '🏃 Posicionarme para el contraataque', correcto: true, feedback: '¡Pensás como profesional! Tu misión en un córner rival es ser la amenaza del contragolpe. Si el equipo rechaza, necesitás ser el primero en arrancar. Tu posicionamiento previo vale más que cualquier movimiento posterior.' },
+      { texto: '📍 Marcar al lanzador del córner', correcto: false, feedback: 'El lanzador del córner no puede marcar gol desde ahí. Desperdiciás tu función principal que es el contraataque.' }
+    ]
+  }
+];
+
+let lecturaScore = 0;
+let lecturaAprendidas = new Set(JSON.parse(localStorage.getItem('lecturaAprendidas') || '[]'));
+
+function renderLectura() {
+  const wrap = document.getElementById('lecturaWrap');
+  wrap.innerHTML = '';
+
+  situaciones.forEach((sit, si) => {
+    const card = document.createElement('div');
+    card.className = 'situacion-card reveal';
+    const yaRespondida = lecturaAprendidas.has(si);
+
+    card.innerHTML = `
+      <div class="sit-header">
+        <div class="sit-num">0${si + 1}</div>
+        <div>
+          <div class="sit-context">${sit.titulo}</div>
+          <div class="sit-pregunta">${sit.context}</div>
+        </div>
+      </div>
+      <div class="sit-opciones">
+        ${sit.opciones.map((op, oi) => `
+          <button class="sit-opcion${yaRespondida && op.correcto ? ' correcto' : ''}" 
+            data-sit="${si}" data-op="${oi}" 
+            ${yaRespondida ? 'disabled' : ''}>
+            ${op.texto}
+          </button>
+        `).join('')}
+      </div>
+      <div class="sit-feedback${yaRespondida ? ' correcto' : ''}" id="fb${si}">
+        ${yaRespondida ? '✅ ' + sit.opciones.find(o => o.correcto).feedback : ''}
+      </div>
+    `;
+    wrap.appendChild(card);
+    revealObs.observe(card);
+  });
+
+  document.getElementById('lecturaScore').textContent = `${lecturaScore} pts`;
+
+  wrap.addEventListener('click', e => {
+    const btn = e.target.closest('.sit-opcion');
+    if (!btn || btn.disabled) return;
+    const si = parseInt(btn.dataset.sit);
+    const oi = parseInt(btn.dataset.op);
+    const op = situaciones[si].opciones[oi];
+    const allBtns = wrap.querySelectorAll(`.sit-opcion[data-sit="${si}"]`);
+    allBtns.forEach(b => {
+      b.disabled = true;
+      const bOi = parseInt(b.dataset.op);
+      if (situaciones[si].opciones[bOi].correcto) b.classList.add('correcto');
+      else if (bOi === oi) b.classList.add('incorrecto');
+    });
+    const fb = document.getElementById(`fb${si}`);
+    fb.className = `sit-feedback ${op.correcto ? 'correcto' : 'incorrecto'}`;
+    fb.textContent = (op.correcto ? '✅ ' : '❌ ') + op.feedback;
+    if (op.correcto) {
+      lecturaScore += 20;
+      lecturaAprendidas.add(si);
+      localStorage.setItem('lecturaAprendidas', JSON.stringify([...lecturaAprendidas]));
+      showToast('¡Decisión correcta! +20 pts', 'fas fa-check');
+    } else {
+      showToast('Decisión incorrecta. Lee el feedback.', 'fas fa-times', true);
+    }
+    document.getElementById('lecturaScore').textContent = `${lecturaScore} pts`;
+    updateProgreso();
+  });
+}
+
+renderLectura();
+
+/* ══════════════════════════════════════════════
+   FORMACIONES
+══════════════════════════════════════════════ */
+const formacionesData = {
+  '442': {
+    nombre: '4-4-2',
+    desc: 'El sistema más tradicional del fútbol moderno. Dos líneas de cuatro perfectamente organizadas y dos delanteros que trabajan en pareja. Equilibrio entre defensa y ataque.',
+    posiciones: [
+      { x: 0.5, y: 0.93, label: '1', nombre: 'Arquero' },
+      { x: 0.15, y: 0.75, label: '2', nombre: 'Lat. Der.' },
+      { x: 0.38, y: 0.78, label: '4', nombre: 'Central' },
+      { x: 0.62, y: 0.78, label: '5', nombre: 'Central' },
+      { x: 0.85, y: 0.75, label: '3', nombre: 'Lat. Izq.' },
+      { x: 0.15, y: 0.52, label: '7', nombre: 'Ext. Der.' },
+      { x: 0.38, y: 0.52, label: '8', nombre: 'MC' },
+      { x: 0.62, y: 0.52, label: '6', nombre: 'MC' },
+      { x: 0.85, y: 0.52, label: '11', nombre: 'Ext. Izq.' },
+      { x: 0.35, y: 0.28, label: '10', nombre: 'Del.' },
+      { x: 0.65, y: 0.28, label: '9', nombre: 'Del.' }
+    ],
+    ventajas: ['Equilibrio defensivo-ofensivo','Dos referencias arriba','Amplitud de campo','Fácil de entender'],
+    debilidades: ['Puede quedar apretado en el centro','Los laterales quedan expuestos en banda'],
+    cuando: 'Ideal cuando querés un sistema estable, seguro y fácil de comprender por el equipo.'
+  },
+  '433': {
+    nombre: '4-3-3',
+    desc: 'La formación del fútbol de ataque moderno. Tres delanteros que presionan constantemente y tres mediocampistas que controlan el juego.',
+    posiciones: [
+      { x: 0.5, y: 0.93, label: '1', nombre: 'Arquero' },
+      { x: 0.15, y: 0.75, label: '2', nombre: 'Lat. Der.' },
+      { x: 0.38, y: 0.78, label: '4', nombre: 'Central' },
+      { x: 0.62, y: 0.78, label: '5', nombre: 'Central' },
+      { x: 0.85, y: 0.75, label: '3', nombre: 'Lat. Izq.' },
+      { x: 0.25, y: 0.52, label: '8', nombre: 'MC' },
+      { x: 0.5, y: 0.55, label: '6', nombre: 'MCD' },
+      { x: 0.75, y: 0.52, label: '10', nombre: 'MCO' },
+      { x: 0.15, y: 0.28, label: '7', nombre: 'Ext. Der.' },
+      { x: 0.5, y: 0.22, label: '9', nombre: 'Del.' },
+      { x: 0.85, y: 0.28, label: '11', nombre: 'Ext. Izq.' }
+    ],
+    ventajas: ['Presión alta muy efectiva','Amplitud con extremos','Muchas opciones de ataque','Ideal para juego posicional'],
+    debilidades: ['Vulnerable al contraataque','Laterales expuestos cuando extremos atacan'],
+    cuando: 'Cuando tenés extremos rápidos y un mediocampo que puede controlar el partido.'
+  },
+  '352': {
+    nombre: '3-5-2',
+    desc: 'Sistema con tres centrales y carrileros muy activos que funcionan como laterales y extremos a la vez. Control total del mediocampo.',
+    posiciones: [
+      { x: 0.5, y: 0.93, label: '1', nombre: 'Arquero' },
+      { x: 0.25, y: 0.78, label: '4', nombre: 'Central' },
+      { x: 0.5, y: 0.82, label: '5', nombre: 'Central' },
+      { x: 0.75, y: 0.78, label: '3', nombre: 'Central' },
+      { x: 0.1, y: 0.55, label: '2', nombre: 'Carrilero Der.' },
+      { x: 0.3, y: 0.52, label: '8', nombre: 'MC' },
+      { x: 0.5, y: 0.56, label: '6', nombre: 'MCD' },
+      { x: 0.7, y: 0.52, label: '10', nombre: 'MC' },
+      { x: 0.9, y: 0.55, label: '7', nombre: 'Carrilero Izq.' },
+      { x: 0.35, y: 0.25, label: '9', nombre: 'Del.' },
+      { x: 0.65, y: 0.25, label: '11', nombre: 'Del.' }
+    ],
+    ventajas: ['Superioridad numérica en el centro','Carrileros dominan las bandas','Dos delanteros complementarios'],
+    debilidades: ['Las bandas quedan expuestas si los carrileros suben','Necesita carrileros muy físicos'],
+    cuando: 'Con carrileros atléticos y tres centrales de calidad. Ideal contra equipos con amplitud.'
+  },
+  '4231': {
+    nombre: '4-2-3-1',
+    desc: 'El sistema más utilizado en el fútbol moderno europeo. Dos mediocampistas defensivos protegen la defensa mientras tres creativos alimentan al único delantero.',
+    posiciones: [
+      { x: 0.5, y: 0.93, label: '1', nombre: 'Arquero' },
+      { x: 0.15, y: 0.75, label: '2', nombre: 'Lat. Der.' },
+      { x: 0.38, y: 0.78, label: '4', nombre: 'Central' },
+      { x: 0.62, y: 0.78, label: '5', nombre: 'Central' },
+      { x: 0.85, y: 0.75, label: '3', nombre: 'Lat. Izq.' },
+      { x: 0.35, y: 0.58, label: '6', nombre: 'MCD' },
+      { x: 0.65, y: 0.58, label: '8', nombre: 'MCD' },
+      { x: 0.18, y: 0.38, label: '7', nombre: 'Ext. Der.' },
+      { x: 0.5, y: 0.35, label: '10', nombre: 'Enganche' },
+      { x: 0.82, y: 0.38, label: '11', nombre: 'Ext. Izq.' },
+      { x: 0.5, y: 0.2, label: '9', nombre: 'Del.' }
+    ],
+    ventajas: ['Equilibrio defensivo superior','Protección ante pérdidas','Enganche con libertad creativa','Muy versátil'],
+    debilidades: ['Un solo delantero puede aislarse','Necesita el 10 en gran nivel'],
+    cuando: 'El sistema más versátil. Ideal para controlar partidos y aprovechar las transiciones.'
+  },
+  '532': {
+    nombre: '5-3-2',
+    desc: 'Formación muy defensiva con cinco defensores. Los carrileros son la clave: deben subir para dar amplitud cuando el equipo ataca y bajar para reforzar la defensa.',
+    posiciones: [
+      { x: 0.5, y: 0.93, label: '1', nombre: 'Arquero' },
+      { x: 0.1, y: 0.72, label: '2', nombre: 'Carrilero Der.' },
+      { x: 0.3, y: 0.78, label: '4', nombre: 'Central' },
+      { x: 0.5, y: 0.82, label: '5', nombre: 'Líbero' },
+      { x: 0.7, y: 0.78, label: '3', nombre: 'Central' },
+      { x: 0.9, y: 0.72, label: '6', nombre: 'Carrilero Izq.' },
+      { x: 0.25, y: 0.52, label: '8', nombre: 'MC' },
+      { x: 0.5, y: 0.55, label: '7', nombre: 'MC' },
+      { x: 0.75, y: 0.52, label: '10', nombre: 'MC' },
+      { x: 0.35, y: 0.28, label: '9', nombre: 'Del.' },
+      { x: 0.65, y: 0.28, label: '11', nombre: 'Del.' }
+    ],
+    ventajas: ['Muy difícil de penetrar','5 atrás protegen de los extremos','Solidez defensiva alta'],
+    debilidades: ['Fácil de atacar en las bandas cuando carrileros suben','Puede resultar muy defensivo en partidos equilibrados'],
+    cuando: 'Cuando necesitás ganar tiempo, defender una ventaja, o jugar contra un rival superior.'
+  },
+  '343': {
+    nombre: '3-4-3',
+    desc: 'Sistema ofensivo y arriesgado. Tres defensores centrales, cuatro mediocampistas y tres delanteros que presionan constantemente desde arriba.',
+    posiciones: [
+      { x: 0.5, y: 0.93, label: '1', nombre: 'Arquero' },
+      { x: 0.25, y: 0.78, label: '4', nombre: 'Central' },
+      { x: 0.5, y: 0.82, label: '5', nombre: 'Central' },
+      { x: 0.75, y: 0.78, label: '3', nombre: 'Central' },
+      { x: 0.15, y: 0.56, label: '2', nombre: 'Carrilero' },
+      { x: 0.38, y: 0.54, label: '8', nombre: 'MC' },
+      { x: 0.62, y: 0.54, label: '6', nombre: 'MC' },
+      { x: 0.85, y: 0.56, label: '7', nombre: 'Carrilero' },
+      { x: 0.2, y: 0.25, label: '11', nombre: 'Ext. Izq.' },
+      { x: 0.5, y: 0.2, label: '9', nombre: 'Del. Centro' },
+      { x: 0.8, y: 0.25, label: '10', nombre: 'Ext. Der.' }
+    ],
+    ventajas: ['Presión muy alta','Amplitud con carrileros','Muchas opciones de ataque'],
+    debilidades: ['Muy vulnerable al contraataque','Necesita defensa central de élite'],
+    cuando: 'Cuando necesitás remontar un partido o dominar totalmente a un rival inferior.'
+  }
+};
+
+let formacionActual = '442';
+
+function setFormacion(forma) {
+  formacionActual = forma;
+  document.querySelectorAll('.form-tab').forEach(t => t.classList.toggle('active', t.dataset.forma === forma));
+  renderFormacion(forma);
+}
+
+function renderFormacion(forma) {
+  const data = formacionesData[forma];
+  if (!data) return;
+  const canvas = document.getElementById('campo-canvas');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  // Campo
+  ctx.fillStyle = '#071a0e'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = 'rgba(0,230,118,0.18)'; ctx.lineWidth = 1.5;
+  const m = 18;
+  ctx.strokeRect(m, m, w - m * 2, h - m * 2);
+  // línea media
+  ctx.beginPath(); ctx.moveTo(m, h / 2); ctx.lineTo(w - m, h / 2); ctx.stroke();
+  // círculo central
+  ctx.beginPath(); ctx.arc(w / 2, h / 2, 40, 0, Math.PI * 2); ctx.stroke();
+  // áreas
+  ctx.strokeRect(m + 40, m, w - m * 2 - 80, 70); // área arr
+  ctx.strokeRect(m + 40, h - m - 70, w - m * 2 - 80, 70); // área ab
+  // pequeñas
+  ctx.strokeRect(m + 80, m, w - m * 2 - 160, 30);
+  ctx.strokeRect(m + 80, h - m - 30, w - m * 2 - 160, 30);
+  // punto central
+  ctx.beginPath(); ctx.arc(w / 2, h / 2, 3, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(0,230,118,0.3)'; ctx.fill();
+
+  // Jugadores
+  data.posiciones.forEach((pos, i) => {
+    const px = m + (w - m * 2) * pos.x;
+    const py = m + (h - m * 2) * pos.y;
+    // sombra
+    ctx.beginPath(); ctx.arc(px, py + 2, 17, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.fill();
+    // jugador
+    ctx.beginPath(); ctx.arc(px, py, 16, 0, Math.PI * 2);
+    const grad = ctx.createRadialGradient(px - 4, py - 4, 2, px, py, 16);
+    grad.addColorStop(0, '#00e676');
+    grad.addColorStop(1, '#00b84c');
+    ctx.fillStyle = grad; ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1.5; ctx.stroke();
+    // número
+    ctx.fillStyle = '#000'; ctx.font = 'bold 10px sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(pos.label, px, py);
+    // nombre
+    ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.font = '8px sans-serif';
+    ctx.fillText(pos.nombre, px, py + 25);
+  });
+
+  // Info panel
+  const info = document.getElementById('formacionInfo');
+  info.innerHTML = `
+    <div class="fi-nombre">${data.nombre}</div>
+    <div class="fi-desc">${data.desc}</div>
+    <ul class="fi-lista">
+      <li><i class="fas fa-check-circle"></i><div><strong>Ventajas:</strong> ${data.ventajas.join(' · ')}</div></li>
+      <li><i class="fas fa-exclamation-circle" style="color:var(--naranja)"></i><div><strong>Debilidades:</strong> ${data.debilidades.join(' · ')}</div></li>
+      <li><i class="fas fa-calendar-check" style="color:var(--dorado)"></i><div><strong>¿Cuándo usarla?</strong> ${data.cuando}</div></li>
+    </ul>
+    <div class="fi-badges">
+      ${data.ventajas.slice(0, 2).map(v => `<span class="fi-badge v">✓ ${v}</span>`).join('')}
+      ${data.debilidades.slice(0, 1).map(d => `<span class="fi-badge d">⚠ ${d.split(' ').slice(0,3).join(' ')}</span>`).join('')}
+    </div>
+  `;
+}
+
+setTimeout(() => renderFormacion('442'), 400);
+
+/* ══════════════════════════════════════════════
+   DECISION MAKING
+══════════════════════════════════════════════ */
+const dmData = {
+  facil: [
+    {
+      titulo: '1v1 con el arquero',
+      contexto: 'Quedaste solo frente al arco, a 12 metros. El arquero sale a cubrirte. Tus compañeros están a 30 metros.',
+      opciones: [
+        { texto: '🦵 Pegar de lejos', correcto: false },
+        { texto: '🎯 Esperar y definir con calma', correcto: true },
+        { texto: '🤸 Gambetear al arquero', correcto: false },
+        { texto: '🤝 Pasar a un compañero lejano', correcto: false }
+      ],
+      feedback_ok: '¡Correcto! En un mano a mano, la calma es tu mejor arma. Esperás que el arquero comprometa su posición y definís al palo contrario.',
+      feedback_bad: 'En un mano a mano tenés ventaja. La calma y la decisión correcta te dan el gol. Esperá que el arquero salga y definí.',
+      dramaLevel: 'facil'
+    },
+    {
+      titulo: '2v1 en contraataque',
+      contexto: 'Vas 2 contra 1 con el defensor. Tenés al compañero a la derecha. El defensor cubre el espacio entre los dos.',
+      opciones: [
+        { texto: '⚽ Encarar al defensor y decidir', correcto: true },
+        { texto: '🏃 Correr directo y rematar', correcto: false },
+        { texto: '📢 Esperar refuerzos', correcto: false },
+        { texto: '🔙 Volver atrás', correcto: false }
+      ],
+      feedback_ok: '¡Perfecto! En 2v1 llevás la pelota hacia el defensor para que salga, y en el momento exacto pasás al compañero libre. Simple y efectivo.',
+      feedback_bad: 'En un 2v1 nunca usás más de 2-3 toques. Llevá la pelota hacia el defensor, obligalo a decidir, y pasá al compañero.',
+      dramaLevel: 'facil'
+    }
+  ],
+  media: [
+    {
+      titulo: 'Presión en salida propia',
+      contexto: 'El rival presiona alto. Tu defensor tiene la pelota. El arquero está libre. Los mediocampistas están marcados. El lateral derecho tiene un pequeño espacio.',
+      opciones: [
+        { texto: '🦵 Despejar largo', correcto: false },
+        { texto: '🥅 Volver al arquero', correcto: true },
+        { texto: '⚡ Forzar el pase al mediocampista', correcto: false },
+        { texto: '🏃 Salir driblando', correcto: false }
+      ],
+      feedback_ok: '¡Excelente! Cuando todo está marcado, el arquero es la opción más segura. Resetea la jugada desde el portero que tiene más visión del campo.',
+      feedback_bad: 'Bajo presión, el pase seguro manda. El arquero siempre debe ser una opción segura de salida.',
+      dramaLevel: 'media'
+    },
+    {
+      titulo: '3v2 — Momento del pase',
+      contexto: 'Vas en contraataque 3v2. Llevás la pelota. Un defensor sale a presionarte. El compañero izquierdo está libre pero lejos. El derecho está marcado.',
+      opciones: [
+        { texto: '⬅️ Pase largo al compañero izquierdo libre', correcto: true },
+        { texto: '➡️ Pase al compañero derecho marcado', correcto: false },
+        { texto: '💥 Rematar desde lejos', correcto: false },
+        { texto: '⏸️ Esperar a que el defensor llegue', correcto: false }
+      ],
+      feedback_ok: '¡Correcto! El pase al jugador libre aunque esté lejos es la opción ganadora. El espacio es más valioso que la distancia.',
+      feedback_bad: 'En un contraataque siempre buscás al jugador libre, no al marcado. El espacio libre vence a la cercanía.',
+      dramaLevel: 'media'
+    },
+    {
+      titulo: 'Recepción bajo presión',
+      contexto: 'Recibís de espaldas al arco en el mediocampo con un rival pegado. Tenés un compañero a la izquierda y otro adelante.',
+      opciones: [
+        { texto: '🔄 Controlar y girar', correcto: false },
+        { texto: '⬅️ Pasar directo de primera', correcto: true },
+        { texto: '🛑 Proteger y esperar', correcto: false },
+        { texto: '⬆️ Ceder al compañero adelante', correcto: false }
+      ],
+      feedback_ok: '¡Bien! De primera al compañero izquierdo evita que el rival te gane la pelota. Cuando estás presionado, jugá rápido.',
+      feedback_bad: 'Bajo presión de espaldas al arco, lo más rápido y simple es la mejor solución. Un toque y salí.',
+      dramaLevel: 'media'
+    }
+  ],
+  dificil: [
+    {
+      titulo: 'Decisión en fracción de segundo',
+      contexto: 'Recibís en el área con dos defensores. Compañero a la izquierda, compañero a la derecha más adelante. Arquero levantado. 1 segundo para decidir.',
+      opciones: [
+        { texto: '💥 Definir de primera', correcto: true },
+        { texto: '⬅️ Asociar izquierda', correcto: false },
+        { texto: '➡️ Asociar derecha adelantada', correcto: false },
+        { texto: '🔄 Controlar y ver', correcto: false }
+      ],
+      feedback_ok: '¡ÉLITE! En el área, ya debías haber decidido antes de recibir. Primera intención cuando el arquero está adelantado es lo correcto.',
+      feedback_bad: 'En el área profesional no tenés tiempo. Ya decidiste antes de recibir. Definición de primera cuando el arquero está levantado.',
+      dramaLevel: 'dificil'
+    },
+    {
+      titulo: 'Trampa del offside',
+      contexto: 'Tu equipo intenta una trampa de offside. El delantero rival está adelantado. El extremo con pelota viene por banda. Vos sos central. Tu compañero ya avanzó.',
+      opciones: [
+        { texto: '🚶 Mantenerme en mi línea', correcto: true },
+        { texto: '⬆️ Avanzar para cerrar al extremo', correcto: false },
+        { texto: '🏃 Perseguir al delantero', correcto: false },
+        { texto: '📢 Esperar instrucción del arquero', correcto: false }
+      ],
+      feedback_ok: '¡Defensivamente perfecto! La trampa del offside requiere que todos mantengan la línea al mismo tiempo. Avanzar de más rompe la trampa.',
+      feedback_bad: 'En una trampa de offside, todos deben avanzar juntos y al mismo tiempo. Si uno se queda o persigue al delantero, la trampa se rompe.',
+      dramaLevel: 'dificil'
+    },
+    {
+      titulo: 'Penal o continuación',
+      contexto: 'Estás en el área rival con la pelota. El defensor te toca pero seguís de pie. Podés caer y pedir penal o continuar con ventaja hacia el arco.',
+      opciones: [
+        { texto: '🏃 Continuá la jugada', correcto: true },
+        { texto: '🎭 Caer y pedir penal', correcto: false },
+        { texto: '⏸️ Parar y mirar al árbitro', correcto: false },
+        { texto: '🔙 Volver y pedir protección', correcto: false }
+      ],
+      feedback_ok: '¡Correcto y ético! Continuar cuando tenés ventaja es lo profesional y lo correcto. El fair play construye tu reputación como jugador.',
+      feedback_bad: 'La ventaja siempre es mejor que el penal. Y el fair play es lo que define al futbolista completo. Continuar es siempre la opción pro.',
+      dramaLevel: 'dificil'
+    }
+  ]
+};
+
+let dmDificultad = 'facil';
+let dmScenarioIndex = 0;
+let dmOk = 0, dmBad = 0, dmPts = 0, dmRacha = 0;
+let dmScenarios = [...dmData.facil];
+let dmAnswered = false;
+
+function setDificultad(d) {
+  dmDificultad = d;
+  document.querySelectorAll('.dif-btn').forEach(b => b.classList.toggle('active', b.onclick.toString().includes(d)));
+  dmScenarioIndex = 0;
+  dmScenarios = [...dmData[d]];
+  dmAnswered = false;
+  renderDM();
+  showToast(`Dificultad: ${d.charAt(0).toUpperCase() + d.slice(1)}`, 'fas fa-bolt');
+}
+
+function renderDM() {
+  const container = document.getElementById('dm-container');
+  if (dmScenarioIndex >= dmScenarios.length) {
+    container.innerHTML = `
+      <div class="dm-container" style="text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem">🏆</div>
+        <h3 style="font-family:var(--font-display);font-size:2rem;color:var(--dorado);margin-bottom:1rem">¡Completaste todos los escenarios!</h3>
+        <p style="color:var(--gris);margin-bottom:2rem">Puntuación: ${dmPts} puntos · ${dmOk} correctas · ${dmBad} incorrectas</p>
+        <button class="btn-primary" onclick="resetDM()">🔄 Reiniciar</button>
+      </div>`;
+    return;
+  }
+
+  const sc = dmScenarios[dmScenarioIndex];
+  container.innerHTML = `
+    <div class="dm-container">
+      <div class="dm-header">
+        <div>
+          <div class="dm-situacion">${sc.titulo}</div>
+          <div class="dm-contexto">${sc.contexto}</div>
+        </div>
+        <span class="dm-dificultad ${dmDificultad}">${dmDificultad.toUpperCase()}</span>
+      </div>
+      <div class="dm-campo">
+        <canvas id="dm-canvas"></canvas>
+      </div>
+      <div class="dm-opciones">
+        ${sc.opciones.map((op, i) => `
+          <button class="dm-opcion" onclick="responderDM(${i})">${op.texto}</button>
+        `).join('')}
+      </div>
+      <div class="dm-resultado" id="dm-res"></div>
+      <button class="dm-next-btn" id="dm-next" onclick="nextDM()">Siguiente situación →</button>
+    </div>
+  `;
+
+  dmAnswered = false;
+  setTimeout(() => drawDMCampo(sc), 100);
+  updateDMScore();
+}
+
+function drawDMCampo(sc) {
+  const canvas = document.getElementById('dm-canvas');
+  if (!canvas) return;
+  const w = canvas.offsetWidth, h = canvas.offsetHeight;
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = '#071a0e'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = 'rgba(0,230,118,0.15)'; ctx.lineWidth = 1.5;
+  const m = 12;
+  ctx.strokeRect(m, m, w - m * 2, h - m * 2);
+  ctx.beginPath(); ctx.moveTo(m, h / 2); ctx.lineTo(w - m, h / 2);
+  ctx.strokeStyle = 'rgba(0,230,118,0.08)'; ctx.stroke();
+
+  // Representación visual según título
+  const title = sc.titulo.toLowerCase();
+  if (title.includes('1v1')) {
+    drawPlayer(ctx, w * 0.45, h * 0.5, '#00e676', 'VOS', 15);
+    drawBall(ctx, w * 0.45 + 18, h * 0.5);
+    drawPlayer(ctx, w * 0.7, h * 0.5, '#ff9800', 'ARQ', 15);
+    drawArrow(ctx, w * 0.45, h * 0.5, w * 0.7, h * 0.5, 'rgba(255,193,7,.3)');
+    ctx.fillStyle = 'rgba(0,230,118,.5)'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('¿Qué hacés?', w / 2, h * 0.2);
+  } else if (title.includes('2v1')) {
+    drawPlayer(ctx, w * 0.3, h * 0.5, '#00e676', 'VOS', 14);
+    drawBall(ctx, w * 0.3 + 16, h * 0.5);
+    drawPlayer(ctx, w * 0.3, h * 0.2, '#00e676', 'CP', 14);
+    drawPlayer(ctx, w * 0.65, h * 0.45, '#ff1744', 'DEF', 14);
+    drawArrow(ctx, w * 0.3, h * 0.5, w * 0.65, h * 0.45, 'rgba(255,193,7,.2)');
+  } else if (title.includes('3v2')) {
+    drawPlayer(ctx, w * 0.25, h * 0.5, '#00e676', 'VOS', 14);
+    drawBall(ctx, w * 0.25 + 16, h * 0.5);
+    drawPlayer(ctx, w * 0.4, h * 0.25, '#00e676', 'CP1', 13);
+    drawPlayer(ctx, w * 0.4, h * 0.75, '#00e676', 'CP2', 13);
+    drawPlayer(ctx, w * 0.65, h * 0.35, '#ff1744', 'D1', 14);
+    drawPlayer(ctx, w * 0.65, h * 0.65, '#ff1744', 'D2', 14);
+  } else {
+    // escenario genérico
+    drawPlayer(ctx, w * 0.4, h * 0.5, '#00e676', 'VOS', 14);
+    drawBall(ctx, w * 0.4 + 16, h * 0.5);
+    drawPlayer(ctx, w * 0.65, h * 0.4, '#ff1744', 'RIV', 14);
+    ctx.fillStyle = 'rgba(0,230,118,.4)'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('Analizá la situación', w / 2, h * 0.15);
+  }
+}
+
+function responderDM(opIndex) {
+  if (dmAnswered) return;
+  dmAnswered = true;
+  const sc = dmScenarios[dmScenarioIndex];
+  const op = sc.opciones[opIndex];
+  const btns = document.querySelectorAll('.dm-opcion');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (sc.opciones[i].correcto) b.classList.add('ok');
+    else if (i === opIndex) b.classList.add('bad');
+  });
+  const res = document.getElementById('dm-res');
+  const next = document.getElementById('dm-next');
+  if (op.correcto) {
+    dmOk++; dmRacha++; dmPts += (dmDificultad === 'facil' ? 10 : dmDificultad === 'media' ? 20 : 30);
+    res.className = 'dm-resultado ok';
+    res.innerHTML = `✅ <strong>¡Decisión correcta!</strong><br>${sc.feedback_ok}`;
+    showToast(`¡Correcto! +${dmDificultad === 'facil' ? 10 : dmDificultad === 'media' ? 20 : 30} pts 🔥`, 'fas fa-fire');
+  } else {
+    dmBad++; dmRacha = 0;
+    res.className = 'dm-resultado bad';
+    res.innerHTML = `❌ <strong>Decisión incorrecta.</strong><br>${sc.feedback_bad}`;
+    showToast('Decisión incorrecta. Lee el análisis.', 'fas fa-book', true);
+  }
+  next.style.display = 'block';
+  updateDMScore();
+  updateProgreso();
+}
+
+function nextDM() {
+  dmScenarioIndex++;
+  renderDM();
+}
+
+function resetDM() {
+  dmScenarioIndex = 0; dmOk = 0; dmBad = 0; dmPts = 0; dmRacha = 0;
+  dmScenarios = [...dmData[dmDificultad]];
+  renderDM();
+}
+
+function updateDMScore() {
+  document.getElementById('dm-ok').textContent = dmOk;
+  document.getElementById('dm-bad').textContent = dmBad;
+  document.getElementById('dm-pts').textContent = dmPts;
+  document.getElementById('dm-racha').textContent = dmRacha;
+}
+
+renderDM();
+
+/* ══════════════════════════════════════════════
+   PROGRESO
+══════════════════════════════════════════════ */
+const temas = [
+  { id: 'espacios',     nombre: 'Ocupación de Espacios',  cat: 'Fundamentos' },
+  { id: 'triangulacion',nombre: 'Triangulación',           cat: 'Fundamentos' },
+  { id: 'amplitud',     nombre: 'Amplitud y Profundidad',  cat: 'Fundamentos' },
+  { id: 'lineasPase',   nombre: 'Líneas de Pase',          cat: 'Fundamentos' },
+  { id: 'temporizacion',nombre: 'Temporización',           cat: 'Fundamentos' },
+  { id: 'compacidad',   nombre: 'Compacidad Defensiva',    cat: 'Fundamentos' },
+  { id: 'ruptura',      nombre: 'Desmarque de Ruptura',    cat: 'Movimientos' },
+  { id: 'apoyo',        nombre: 'Desmarque de Apoyo',      cat: 'Movimientos' },
+  { id: 'arrastre',     nombre: 'Arrastre y Creación',     cat: 'Movimientos' },
+  { id: 'diagonal',     nombre: 'Movimiento Diagonal',     cat: 'Movimientos' },
+  { id: 'daryir',       nombre: 'Dar y Ir',                cat: 'Movimientos' },
+  { id: 'overlap',      nombre: 'Desborde (Overlap)',      cat: 'Movimientos' },
+  { id: '442',          nombre: 'Formación 4-4-2',         cat: 'Formaciones' },
+  { id: '433',          nombre: 'Formación 4-3-3',         cat: 'Formaciones' },
+  { id: '352',          nombre: 'Formación 3-5-2',         cat: 'Formaciones' },
+  { id: '4231',         nombre: 'Formación 4-2-3-1',       cat: 'Formaciones' },
+  { id: 'posicional',   nombre: 'Juego Posicional',        cat: 'Filosofías' },
+  { id: 'presionAlta',  nombre: 'Presión Alta',            cat: 'Filosofías' },
+  { id: 'contraataque', nombre: 'Contraataque',            cat: 'Filosofías' },
+  { id: 'pragmatico',   nombre: 'Juego Pragmático',        cat: 'Filosofías' },
+];
+
+let progresoAprendido = new Set(JSON.parse(localStorage.getItem('tacProgresoSet') || '[]'));
+
+function renderProgreso() {
+  const grid = document.getElementById('progresoGrid');
+  grid.innerHTML = '';
+  temas.forEach(t => {
+    const el = document.createElement('div');
+    el.className = `progreso-tema reveal${progresoAprendido.has(t.id) ? ' aprendido' : ''}`;
+    el.innerHTML = `
+      <div class="pt-check"><i class="fas fa-check"></i></div>
+      <div class="pt-info">
+        <div class="pt-nombre">${t.nombre}</div>
+        <div class="pt-cat">${t.cat}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => {
+      if (progresoAprendido.has(t.id)) progresoAprendido.delete(t.id);
+      else { progresoAprendido.add(t.id); showToast(`✅ "${t.nombre}" marcado como aprendido`, 'fas fa-graduation-cap'); }
+      el.classList.toggle('aprendido', progresoAprendido.has(t.id));
+      saveProgreso();
+      updateProgreso();
+    });
+    revealObs.observe(el);
+    grid.appendChild(el);
+  });
+  updateProgreso();
+}
+
+function saveProgreso() {
+  localStorage.setItem('tacProgresoSet', JSON.stringify([...progresoAprendido]));
+}
+
+function updateProgreso() {
+  const pct = Math.round((progresoAprendido.size / temas.length) * 100);
+  const numEl = document.getElementById('progresoNum');
+  const barEl = document.getElementById('progresoBarra');
+  if (numEl) numEl.textContent = pct + '%';
+  if (barEl) barEl.style.width = pct + '%';
+  localStorage.setItem('tacProgreso', pct);
+  document.getElementById('hsr4').textContent = pct;
+}
+
+renderProgreso();
+
+/* ══════════════════════════════════════════════
+   PIZARRA TÁCTICA — COMPLETA
+══════════════════════════════════════════════ */
+const piz = {
+  canvas: null,
+  ctx: null,
+  W: 0, H: 0,
+  tool: 'select',
+  color: '#00e676',
+  elements: [], // jugadores, pelota, conos
+  drawings: [], // flechas, líneas, círculos
+  history: [],
+  isDragging: false,
+  dragEl: null,
+  dragOffX: 0, dragOffY: 0,
+  isDrawing: false,
+  drawStart: null,
+  drawCurrent: null,
+  drawCurveControl: null,
+  nextId: 1,
+};
+
+function initPizarra() {
+  const canvas = document.getElementById('pizarraCanvas');
+  piz.canvas = canvas;
+  piz.ctx = canvas.getContext('2d');
+  const wrap = document.getElementById('pizarraWrap');
+  const setSize = () => {
+    piz.W = wrap.offsetWidth;
+    piz.H = Math.round(piz.W * 0.65);
+    canvas.width = piz.W;
+    canvas.height = piz.H;
+    drawPizarra();
+  };
+  setSize();
+  window.addEventListener('resize', setSize);
+
+  // Cargar estado guardado
+  const saved = localStorage.getItem('pizarraState');
+  if (saved) {
+    try {
+      const s = JSON.parse(saved);
+      piz.elements = s.elements || [];
+      piz.drawings = s.drawings || [];
+      piz.nextId = s.nextId || 1;
+    } catch(e) {}
+  }
+
+  // Eventos mouse
+  canvas.addEventListener('mousedown', onPizDown);
+  canvas.addEventListener('mousemove', onPizMove);
+  canvas.addEventListener('mouseup', onPizUp);
+  canvas.addEventListener('dblclick', onPizDblClick);
+
+  // Touch
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); const t = e.touches[0]; onPizDown({ clientX: t.clientX, clientY: t.clientY, button: 0 }); }, { passive: false });
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); const t = e.touches[0]; onPizMove({ clientX: t.clientX, clientY: t.clientY }); }, { passive: false });
+  canvas.addEventListener('touchend', e => { e.preventDefault(); onPizUp({}); }, { passive: false });
+
+  drawPizarra();
+  loadFormacionPizarra('442');
+}
+
+function getCanvasPos(e) {
+  const rect = piz.canvas.getBoundingClientRect();
+  const scaleX = piz.W / rect.width;
+  const scaleY = piz.H / rect.height;
+  return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY };
+}
+
+function findElementAt(x, y) {
+  for (let i = piz.elements.length - 1; i >= 0; i--) {
+    const el = piz.elements[i];
+    const dx = x - el.x, dy = y - el.y;
+    if (Math.sqrt(dx * dx + dy * dy) <= (el.r || 18)) return el;
+  }
+  return null;
+}
+
+function onPizDown(e) {
+  const { x, y } = getCanvasPos(e);
+  if (piz.tool === 'select') {
+    const el = findElementAt(x, y);
+    if (el) {
+      piz.isDragging = true;
+      piz.dragEl = el;
+      piz.dragOffX = x - el.x;
+      piz.dragOffY = y - el.y;
+    }
+  } else if (['arrow','curved','line','circle'].includes(piz.tool)) {
+    piz.isDrawing = true;
+    piz.drawStart = { x, y };
+    piz.drawCurrent = { x, y };
+    piz.drawCurveControl = { x: (x + x) / 2, y: y - 40 };
+  } else if (piz.tool === 'erase') {
+    eraseAt(x, y);
+  }
+}
+
+function onPizMove(e) {
+  const { x, y } = getCanvasPos(e);
+  if (piz.isDragging && piz.dragEl) {
+    piz.dragEl.x = x - piz.dragOffX;
+    piz.dragEl.y = y - piz.dragOffY;
+    drawPizarra();
+  } else if (piz.isDrawing) {
+    piz.drawCurrent = { x, y };
+    piz.drawCurveControl = {
+      x: (piz.drawStart.x + x) / 2,
+      y: Math.min(piz.drawStart.y, y) - 50
+    };
+    drawPizarra();
+    drawPreview(x, y);
+  }
+  // cursor
+  const el = findElementAt(x, y);
+  piz.canvas.style.cursor = piz.tool === 'select'
+    ? (el ? 'grab' : 'default')
+    : piz.tool === 'erase' ? 'cell' : 'crosshair';
+}
+
+function onPizUp(e) {
+  if (piz.isDragging) {
+    piz.isDragging = false;
+    piz.dragEl = null;
+    saveHistory();
+  }
+  if (piz.isDrawing && piz.drawStart && piz.drawCurrent) {
+    const dx = piz.drawCurrent.x - piz.drawStart.x;
+    const dy = piz.drawCurrent.y - piz.drawStart.y;
+    if (Math.sqrt(dx * dx + dy * dy) > 10) {
+      piz.drawings.push({
+        id: piz.nextId++,
+        type: piz.tool,
+        x1: piz.drawStart.x, y1: piz.drawStart.y,
+        x2: piz.drawCurrent.x, y2: piz.drawCurrent.y,
+        cx: piz.drawCurveControl.x, cy: piz.drawCurveControl.y,
+        color: piz.color
+      });
+      saveHistory();
+    }
+    piz.isDrawing = false;
+    piz.drawStart = null;
+    drawPizarra();
+  }
+}
+
+function onPizDblClick(e) {
+  const { x, y } = getCanvasPos(e);
+  const el = findElementAt(x, y);
+  if (el) {
+    piz.elements = piz.elements.filter(e => e.id !== el.id);
+    drawPizarra();
+    saveHistory();
+    showToast('Elemento eliminado', 'fas fa-trash');
+    return;
+  }
+  // Eliminar dibujo cercano
+  for (let i = piz.drawings.length - 1; i >= 0; i--) {
+    const d = piz.drawings[i];
+    const midX = (d.x1 + d.x2) / 2, midY = (d.y1 + d.y2) / 2;
+    if (Math.sqrt((x - midX) ** 2 + (y - midY) ** 2) < 30) {
+      piz.drawings.splice(i, 1);
+      drawPizarra();
+      saveHistory();
+      break;
+    }
+  }
+}
+
+function eraseAt(x, y) {
+  piz.elements = piz.elements.filter(el => {
+    const dx = x - el.x, dy = y - el.y;
+    return Math.sqrt(dx * dx + dy * dy) > (el.r || 18) + 5;
+  });
+  piz.drawings = piz.drawings.filter(d => {
+    const midX = (d.x1 + d.x2) / 2, midY = (d.y1 + d.y2) / 2;
+    return Math.sqrt((x - midX) ** 2 + (y - midY) ** 2) > 30;
+  });
+  drawPizarra();
+}
+
+function drawPizarra() {
+  const ctx = piz.ctx, w = piz.W, h = piz.H;
+  ctx.clearRect(0, 0, w, h);
+
+  // Campo de fútbol
+  const fieldColor = '#0d3320';
+  ctx.fillStyle = fieldColor;
+  ctx.fillRect(0, 0, w, h);
+
+  // Rayas del campo
+  const stripeW = w / 10;
+  for (let i = 0; i < 10; i++) {
+    ctx.fillStyle = i % 2 === 0 ? 'rgba(0,0,0,0.08)' : 'transparent';
+    ctx.fillRect(i * stripeW, 0, stripeW, h);
+  }
+
+  // Líneas del campo
+  const lc = 'rgba(255,255,255,0.25)';
+  const m = Math.min(w, h) * 0.04;
+  ctx.strokeStyle = lc; ctx.lineWidth = 2; ctx.setLineDash([]);
+  // borde
+  ctx.strokeRect(m, m, w - m * 2, h - m * 2);
+  // línea media
+  ctx.beginPath(); ctx.moveTo(m, h / 2); ctx.lineTo(w - m, h / 2); ctx.stroke();
+  // círculo central
+  ctx.beginPath(); ctx.arc(w / 2, h / 2, h * 0.12, 0, Math.PI * 2); ctx.stroke();
+  // punto central
+  ctx.beginPath(); ctx.arc(w / 2, h / 2, 4, 0, Math.PI * 2);
+  ctx.fillStyle = lc; ctx.fill();
+  // áreas grandes
+  const aW = w * 0.36, aH = h * 0.2;
+  ctx.strokeRect((w - aW) / 2, m, aW, aH);
+  ctx.strokeRect((w - aW) / 2, h - m - aH, aW, aH);
+  // áreas chicas
+  const saW = w * 0.16, saH = h * 0.1;
+  ctx.strokeRect((w - saW) / 2, m, saW, saH);
+  ctx.strokeRect((w - saW) / 2, h - m - saH, saW, saH);
+  // arcos de esquina
+  const corners = [[m, m], [w - m, m], [m, h - m], [w - m, h - m]];
+  corners.forEach(([cx, cy]) => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, m * 0.8, 0, Math.PI * 2);
+    ctx.stroke();
+  });
+  // puntos de penal
+  ctx.beginPath(); ctx.arc(w / 2, m + aH + h * 0.05, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(w / 2, h - m - aH - h * 0.05, 4, 0, Math.PI * 2); ctx.fill();
+
+  // Dibujos guardados
+  piz.drawings.forEach(d => drawElement(ctx, d));
+
+  // Jugadores
+  piz.elements.forEach(el => drawPizarraElement(ctx, el));
+}
+
+function drawElement(ctx, d) {
+  ctx.strokeStyle = d.color; ctx.fillStyle = d.color;
+  ctx.lineWidth = 2.5; ctx.setLineDash([]);
+
+  if (d.type === 'line') {
+    ctx.beginPath(); ctx.moveTo(d.x1, d.y1); ctx.lineTo(d.x2, d.y2); ctx.stroke();
+  } else if (d.type === 'arrow') {
+    ctx.beginPath(); ctx.moveTo(d.x1, d.y1); ctx.lineTo(d.x2, d.y2); ctx.stroke();
+    const angle = Math.atan2(d.y2 - d.y1, d.x2 - d.x1);
+    const hs = 12;
+    ctx.beginPath();
+    ctx.moveTo(d.x2, d.y2);
+    ctx.lineTo(d.x2 - hs * Math.cos(angle - 0.45), d.y2 - hs * Math.sin(angle - 0.45));
+    ctx.lineTo(d.x2 - hs * Math.cos(angle + 0.45), d.y2 - hs * Math.sin(angle + 0.45));
+    ctx.closePath(); ctx.fill();
+  } else if (d.type === 'curved') {
+    ctx.beginPath(); ctx.moveTo(d.x1, d.y1);
+    ctx.quadraticCurveTo(d.cx, d.cy, d.x2, d.y2); ctx.stroke();
+    const angle = Math.atan2(d.y2 - d.cy, d.x2 - d.cx);
+    const hs = 12;
+    ctx.beginPath();
+    ctx.moveTo(d.x2, d.y2);
+    ctx.lineTo(d.x2 - hs * Math.cos(angle - 0.45), d.y2 - hs * Math.sin(angle - 0.45));
+    ctx.lineTo(d.x2 - hs * Math.cos(angle + 0.45), d.y2 - hs * Math.sin(angle + 0.45));
+    ctx.closePath(); ctx.fill();
+  } else if (d.type === 'circle') {
+    const rx = Math.abs(d.x2 - d.x1) / 2, ry = Math.abs(d.y2 - d.y1) / 2;
+    const cx = (d.x1 + d.x2) / 2, cy = (d.y1 + d.y2) / 2;
+    ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+    ctx.fillStyle = d.color + '22'; ctx.fill();
+    ctx.strokeStyle = d.color; ctx.stroke();
+  }
+}
+
+function drawPreview(x, y) {
+  if (!piz.drawStart) return;
+  const ctx = piz.ctx;
+  const d = { type: piz.tool, x1: piz.drawStart.x, y1: piz.drawStart.y, x2: x, y2: y, cx: piz.drawCurveControl.x, cy: piz.drawCurveControl.y, color: piz.color + 'aa' };
+  drawElement(ctx, d);
+}
+
+function drawPizarraElement(ctx, el) {
+  const x = el.x, y = el.y;
+  if (el.type === 'equipo1') {
+    ctx.beginPath(); ctx.arc(x, y + 2, el.r || 18, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y, el.r || 18, 0, Math.PI * 2);
+    const g = ctx.createRadialGradient(x - 4, y - 4, 2, x, y, el.r || 18);
+    g.addColorStop(0, '#00e676'); g.addColorStop(1, '#00b84c');
+    ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = '#000'; ctx.font = `bold ${(el.r || 18) * 0.65}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(el.num || '', x, y);
+  } else if (el.type === 'equipo2') {
+    ctx.beginPath(); ctx.arc(x, y + 2, el.r || 18, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y, el.r || 18, 0, Math.PI * 2);
+    const g = ctx.createRadialGradient(x - 4, y - 4, 2, x, y, el.r || 18);
+    g.addColorStop(0, '#ff4444'); g.addColorStop(1, '#cc0000');
+    ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.font = `bold ${(el.r || 18) * 0.65}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(el.num || '', x, y);
+  } else if (el.type === 'pelota') {
+    ctx.beginPath(); ctx.arc(x, y + 2, el.r || 12, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.3)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y, el.r || 12, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff'; ctx.fill();
+    ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5; ctx.stroke();
+    // pattern hexagonal simple
+    ctx.beginPath(); ctx.arc(x, y, (el.r || 12) * 0.45, 0, Math.PI * 2);
+    ctx.fillStyle = '#222'; ctx.fill();
+  } else if (el.type === 'cono') {
+    ctx.beginPath();
+    ctx.moveTo(x, y - (el.r || 14));
+    ctx.lineTo(x - (el.r || 14) * 0.7, y + (el.r || 14) * 0.5);
+    ctx.lineTo(x + (el.r || 14) * 0.7, y + (el.r || 14) * 0.5);
+    ctx.closePath();
+    ctx.fillStyle = '#ffc107'; ctx.fill();
+    ctx.strokeStyle = '#e65100'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+}
+
+// Contadores por tipo
+const counters = { equipo1: 1, equipo2: 1 };
+
+function addJugador(tipo) {
+  const num = counters[tipo]++;
+  piz.elements.push({
+    id: piz.nextId++, type: tipo,
+    x: piz.W * 0.3 + Math.random() * piz.W * 0.4,
+    y: piz.H * 0.3 + Math.random() * piz.H * 0.4,
+    num: String(num), r: 18
+  });
+  drawPizarra();
+  saveHistory();
+  showToast(`Jugador ${tipo === 'equipo1' ? 'local' : 'rival'} #${num} agregado`, 'fas fa-user');
+}
+
+function addPelota() {
+  piz.elements.push({ id: piz.nextId++, type: 'pelota', x: piz.W / 2, y: piz.H / 2, r: 12 });
+  drawPizarra(); saveHistory();
+  showToast('Pelota agregada', 'fas fa-futbol');
+}
+
+function addCono() {
+  piz.elements.push({
+    id: piz.nextId++, type: 'cono',
+    x: piz.W * 0.3 + Math.random() * piz.W * 0.4,
+    y: piz.H * 0.3 + Math.random() * piz.H * 0.4,
+    r: 14
+  });
+  drawPizarra(); saveHistory();
+  showToast('Cono agregado', 'fas fa-map-marker-alt');
+}
+
+function setTool(t) {
+  piz.tool = t;
+  document.querySelectorAll('[id^="tool-"]').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`tool-${t}`);
+  if (btn) btn.classList.add('active');
+}
+
+function setColor(c) {
+  piz.color = c;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.toggle('active', d.dataset.color === c));
+}
+
+function limpiarPizarra() {
+  if (!confirm('¿Limpiar toda la pizarra?')) return;
+  piz.elements = []; piz.drawings = [];
+  counters.equipo1 = 1; counters.equipo2 = 1;
+  drawPizarra(); saveHistory();
+  showToast('Pizarra limpiada', 'fas fa-broom');
+}
+
+function saveHistory() {
+  piz.history.push(JSON.stringify({ elements: piz.elements, drawings: piz.drawings, nextId: piz.nextId }));
+  if (piz.history.length > 30) piz.history.shift();
+}
+
+function undoPizarra() {
+  if (piz.history.length < 2) { showToast('No hay más acciones para deshacer', 'fas fa-info'); return; }
+  piz.history.pop();
+  const prev = JSON.parse(piz.history[piz.history.length - 1]);
+  piz.elements = prev.elements; piz.drawings = prev.drawings; piz.nextId = prev.nextId;
+  drawPizarra();
+}
+
+function guardarPizarra() {
+  localStorage.setItem('pizarraState', JSON.stringify({ elements: piz.elements, drawings: piz.drawings, nextId: piz.nextId }));
+  showToast('¡Pizarra guardada! 💾', 'fas fa-check');
+}
+
+function exportarPizarra() {
+  drawPizarra();
+  const link = document.createElement('a');
+  link.download = 'pizarra_tactica.png';
+  link.href = piz.canvas.toDataURL('image/png');
+  link.click();
+  showToast('¡Imagen descargada!', 'fas fa-download');
+}
+
+function loadFormacionPizarra(forma) {
+  const data = formacionesData[forma];
+  if (!data) return;
+  piz.elements = piz.elements.filter(e => e.type !== 'equipo1');
+  counters.equipo1 = 1;
+  data.posiciones.forEach(pos => {
+    piz.elements.push({
+      id: piz.nextId++, type: 'equipo1',
+      x: piz.W * (0.08 + pos.x * 0.84),
+      y: piz.H * (0.04 + pos.y * 0.92),
+      num: pos.label, r: 18
+    });
+    counters.equipo1++;
+  });
+  drawPizarra(); saveHistory();
+  showToast(`Formación ${forma} cargada en pizarra`, 'fas fa-chess');
+}
+
+setTimeout(initPizarra, 300);
+
+/* ══════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════ */
+function showToast(msg, icon = 'fas fa-info-circle', isError = false) {
+  const cont = document.getElementById('toastCont');
+  const t = document.createElement('div');
+  t.className = `toast${isError ? '' : ' gold'}`;
+  t.innerHTML = `<i class="${icon}"></i> ${msg}`;
+  cont.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+/* ══════════════════════════════════════════════
+   INIT FINAL
+══════════════════════════════════════════════ */
+console.log('⚽ El Camino — Academia Táctica · Con Dios todo es posible · Filipenses 4:13');
+</script>
+</body>
+</html>

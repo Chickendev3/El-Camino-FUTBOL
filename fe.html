@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Fe y Motivación - Mi camino al fútbol profesional con Dios"/>
+  <title>Fe & Motivación | El Camino</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600;900&family=Raleway:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet"/>
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="./css/fe.css"/>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       CURSOR PERSONALIZADO
+  ═══════════════════════════════════════════ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ═══════════════════════════════════════════
+       PARTÍCULAS DE FONDO
+  ═══════════════════════════════════════════ -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR (consistente con index)
+  ═══════════════════════════════════════════ -->
+  <nav id="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+          <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+          <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+          <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+          <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+          <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+        </svg>
+        <span class="logo-cross"><i class="fas fa-cross"></i></span>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">EL CAMINO</span>
+        <span class="logo-tag">Fe · Fútbol · Gloria</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+      <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+      <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+      <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
+      <li><a href="fe.html" class="active"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
+      <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+      <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <!-- Toggle modo claro/oscuro -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">
+        <i class="fas fa-sun" id="themeIcon"></i>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" id="mobileClose"><i class="fas fa-times"></i></button>
+    <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="entrenamiento.html"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+    <a href="estadisticas.html"><i class="fas fa-chart-bar"></i> Estadísticas</a>
+    <a href="fotos.html"><i class="fas fa-camera"></i> Fotos</a>
+    <a href="fe.html" class="mobile-active"><i class="fas fa-cross"></i> Fe & Motivación</a>
+    <a href="dieta.html"><i class="fas fa-apple-alt"></i> Nutrición</a>
+    <a href="progreso.html"><i class="fas fa-trophy"></i> Mi Progreso</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO DE LA PÁGINA
+  ═══════════════════════════════════════════ -->
+  <header class="page-hero">
+    <div class="hero-bg-fe"></div>
+    <div class="hero-overlay-fe"></div>
+    <div class="hero-content-fe">
+      <div class="hero-badge-fe">
+        <i class="fas fa-cross"></i>
+        Sección Espiritual & Motivacional
+      </div>
+      <h1 class="hero-title-fe">
+        <span class="line-gold">FE</span>
+        <span class="line-white">&amp;</span>
+        <span class="line-green">MOTIVACIÓN</span>
+      </h1>
+      <p class="hero-sub-fe">
+        Cada día, una nueva frase. Cada versículo, un paso más cerca de tu sueño.<br>
+        <strong>Dios camina contigo en cada entrenamiento.</strong>
+      </p>
+      <!-- Stats rápidas -->
+      <div class="hero-quick-stats">
+        <div class="qs-item">
+          <span class="qs-num" id="totalCards">0</span>
+          <span class="qs-label">Tarjetas guardadas</span>
+        </div>
+        <div class="qs-item">
+          <span class="qs-num" id="totalFavs">0</span>
+          <span class="qs-label">Favoritos</span>
+        </div>
+        <div class="qs-item">
+          <span class="qs-num" id="streakDays">0</span>
+          <span class="qs-label">Días seguidos</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-mouse-fe"></div>
+      <span>Explorar</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       VERSÍCULO DESTACADO DEL DÍA
+  ═══════════════════════════════════════════ -->
+  <section class="verse-of-day" id="verseOfDay">
+    <div class="vod-inner">
+      <div class="vod-badge"><i class="fas fa-star"></i> Versículo del Día</div>
+      <blockquote class="vod-text" id="vodText">Cargando...</blockquote>
+      <cite class="vod-ref" id="vodRef"></cite>
+      <button class="vod-share" id="vodShare" title="Compartir versículo">
+        <i class="fas fa-share-alt"></i> Compartir
+      </button>
+    </div>
+    <div class="vod-bg-cross"><i class="fas fa-cross"></i></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       BARRA DE CONTROLES
+  ═══════════════════════════════════════════ -->
+  <section class="controls-bar">
+    <div class="controls-inner">
+
+      <!-- Botón generar -->
+      <button class="btn-generate" id="btnGenerate">
+        <span class="btn-gen-icon"><i class="fas fa-bolt"></i></span>
+        <span class="btn-gen-text">Generar Tarjeta de Hoy</span>
+        <span class="btn-gen-sub" id="genSubText">Nueva inspiración</span>
+      </button>
+
+      <!-- Filtros -->
+      <div class="filter-group">
+        <span class="filter-label"><i class="fas fa-filter"></i> Filtrar:</span>
+        <button class="filter-btn active" data-filter="all">
+          <i class="fas fa-th"></i> Todos
+        </button>
+        <button class="filter-btn" data-filter="versiculo">
+          <i class="fas fa-cross"></i> Versículos
+        </button>
+        <button class="filter-btn" data-filter="frase">
+          <i class="fas fa-futbol"></i> Frases
+        </button>
+        <button class="filter-btn" data-filter="reflexion">
+          <i class="fas fa-brain"></i> Reflexiones
+        </button>
+        <button class="filter-btn" data-filter="favorito">
+          <i class="fas fa-heart"></i> Favoritos
+        </button>
+      </div>
+
+      <!-- Búsqueda -->
+      <div class="search-wrap">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Buscar en tus tarjetas..." class="search-input"/>
+        <button class="search-clear" id="searchClear"><i class="fas fa-times"></i></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ÁREA DE TARJETAS
+  ═══════════════════════════════════════════ -->
+  <main class="cards-main">
+    <div class="cards-container">
+
+      <!-- Header del grid -->
+      <div class="cards-header">
+        <div class="cards-title-group">
+          <span class="section-label-fe"><i class="fas fa-layer-group"></i> Tu Colección</span>
+          <h2 class="cards-title">Mis Tarjetas de <span>Inspiración</span></h2>
+        </div>
+        <div class="cards-meta">
+          <span id="cardsCount">0 tarjetas</span>
+          <button class="btn-export" id="btnExport" title="Exportar tarjetas">
+            <i class="fas fa-download"></i> Exportar
+          </button>
+          <button class="btn-clear-all" id="btnClearAll" title="Limpiar todo">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid de tarjetas (se llena con JS) -->
+      <div class="cards-grid" id="cardsGrid">
+        <!-- Estado vacío -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">
+            <i class="fas fa-cross"></i>
+            <i class="fas fa-futbol empty-ball"></i>
+          </div>
+          <h3>Tu viaje comienza aquí</h3>
+          <p>Generá tu primera tarjeta de inspiración.<br>Cada día suma a tu camino con Dios y el fútbol.</p>
+          <button class="btn-generate-empty" id="btnGenerateEmpty">
+            <i class="fas fa-plus"></i> Crear primera tarjeta
+          </button>
+        </div>
+      </div>
+
+      <!-- Paginación / Load more -->
+      <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+        <button class="btn-load-more" id="btnLoadMore">
+          <i class="fas fa-chevron-down"></i> Ver más tarjetas
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: ORACIÓN DEL DÍA
+  ═══════════════════════════════════════════ -->
+  <section class="prayer-section">
+    <div class="prayer-inner">
+      <div class="prayer-text-col">
+        <span class="section-label-fe"><i class="fas fa-hands"></i> Oración Diaria</span>
+        <h2 class="prayer-title">Oración del<br><span>Futbolista</span></h2>
+        <div class="prayer-body" id="prayerBody">
+          <!-- Llenado por JS -->
+        </div>
+        <button class="btn-new-prayer" id="btnNewPrayer">
+          <i class="fas fa-redo"></i> Nueva Oración
+        </button>
+      </div>
+      <div class="prayer-img-col">
+        <img
+          src="https://wallpapers.com/images/hd/lionel-messi-facing-the-sky-pgn72dqrbgyrxrjb.jpg"
+          alt="Futbolista orando"
+          class="prayer-img"
+          loading="lazy"
+        />
+        <div class="prayer-img-overlay">
+          <i class="fas fa-cross prayer-cross-icon"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: RACHA / STREAK
+  ═══════════════════════════════════════════ -->
+  <section class="streak-section">
+    <div class="streak-inner">
+      <span class="section-label-fe"><i class="fas fa-fire"></i> Tu Racha</span>
+      <h2 class="streak-title">Constancia = <span>Éxito</span></h2>
+      <p class="streak-desc">Cada día que revisás esta sección, tu racha crece. La disciplina espiritual es tan importante como la física.</p>
+      <div class="streak-calendar" id="streakCalendar">
+        <!-- Llenado por JS -->
+      </div>
+      <div class="streak-stats-row">
+        <div class="ss-item">
+          <i class="fas fa-fire ss-icon gold"></i>
+          <span class="ss-num" id="currentStreak">0</span>
+          <span class="ss-label">Racha actual</span>
+        </div>
+        <div class="ss-item">
+          <i class="fas fa-trophy ss-icon green"></i>
+          <span class="ss-num" id="bestStreak">0</span>
+          <span class="ss-label">Mejor racha</span>
+        </div>
+        <div class="ss-item">
+          <i class="fas fa-calendar-check ss-icon"></i>
+          <span class="ss-num" id="totalVisits">0</span>
+          <span class="ss-label">Visitas totales</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: FUTBOLISTAS CON FE
+  ═══════════════════════════════════════════ -->
+  <section class="athletes-section">
+    <div class="athletes-inner">
+      <div class="athletes-header">
+        <span class="section-label-fe"><i class="fas fa-star"></i> Referentes de Fe</span>
+        <h2 class="athletes-title">Futbolistas que<br><span>Honran a Dios</span></h2>
+      </div>
+      <div class="athletes-grid" id="athletesGrid">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MODAL: VER TARJETA COMPLETA
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="cardModal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+      <div class="modal-content" id="modalContent">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TOAST NOTIFICACIONES
+  ═══════════════════════════════════════════ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer-fe">
+    <div class="footer-fe-inner">
+      <div class="footer-top-fe">
+        <div class="footer-brand-fe">
+          <span class="logo-name" style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--blanco);letter-spacing:2px;">EL CAMINO</span>
+          <p>Fe · Fútbol · Gloria. Mi viaje hacia el profesionalismo con Dios como guía.</p>
+        </div>
+        <div class="footer-verse-fe">
+          <i class="fas fa-cross footer-cross"></i>
+          <p><em>"No te dejes vencer por el mal, sino vence el mal con el bien."</em></p>
+          <cite>— Romanos 12:21</cite>
+        </div>
+      </div>
+      <div class="footer-bottom-fe">
+        <p>© 2025 El Camino · Hecho con <span class="heart">♥</span> y mucha fe · Gloria a Dios</p>
+        <div class="social-links-fe">
+          <a href="#" class="social-link-fe"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link-fe"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="social-link-fe"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="./js/fe.js"></script>
+</body>
+</html>
