@@ -51,7 +51,28 @@ const CONTENT_DB = {
     { texto: "Deléitate en el Señor, y él te concederá los deseos de tu corazón.", ref: "Salmos 37:4" },
     { texto: "Porque nada hay imposible para Dios.", ref: "Lucas 1:37" },
     { texto: "Dios es nuestro refugio y nuestra fortaleza, nuestra ayuda en momentos de angustia.", ref: "Salmos 46:1" },
-    { texto: "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.", ref: "Mateo 6:33" }
+    { texto: "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.", ref: "Mateo 6:33" },
+    { texto: "El Señor es mi pastor; nada me faltará.", ref: "Salmos 23:1" },
+    { texto: "Bienaventurado el hombre que persevera bajo la prueba.", ref: "Santiago 1:12" },
+    { texto: "Todo lo que hagan, háganlo de corazón, como para el Señor.", ref: "Colosenses 3:23" },
+    { texto: "El que es fiel en lo poco, también en lo mucho es fiel.", ref: "Lucas 16:10" },
+    { texto: "Corramos con paciencia la carrera que tenemos por delante.", ref: "Hebreos 12:1" },
+    { texto: "El Señor da esfuerzo al cansado y multiplica las fuerzas al que no tiene.", ref: "Isaías 40:29" },
+    { texto: "Sean fuertes en el Señor y en el poder de su fuerza.", ref: "Efesios 6:10" },
+    { texto: "El corazón del hombre piensa su camino, pero el Señor dirige sus pasos.", ref: "Proverbios 16:9" },
+    { texto: "Me mostrarás la senda de la vida.", ref: "Salmos 16:11" },
+    { texto: "El justo caerá siete veces, pero se levantará.", ref: "Proverbios 24:16" },
+    { texto: "Guarda tu corazón, porque de él mana la vida.", ref: "Proverbios 4:23" },
+    { texto: "Clama a mí y yo te responderé.", ref: "Jeremías 33:3" },
+    { texto: "El Señor es bueno, fortaleza en el día de la angustia.", ref: "Nahúm 1:7" },
+    { texto: "Sean hacedores de la palabra y no solo oidores.", ref: "Santiago 1:22" },
+    { texto: "El Señor afirmará tus pasos.", ref: "Salmos 37:23" },
+    { texto: "Todo tiene su tiempo.", ref: "Eclesiastés 3:1" },
+    { texto: "Si Dios es por nosotros, ¿quién contra nosotros?", ref: "Romanos 8:31" },
+    { texto: "El que confía en el Señor será prosperado.", ref: "Proverbios 28:25" },
+    { texto: "Mi gracia es suficiente para ti.", ref: "2 Corintios 12:9" },
+    { texto: "El Señor es mi luz y mi salvación; ¿de quién temeré?", ref: "Salmos 27:1" }, 
+
   ],
 
   /**
@@ -158,25 +179,25 @@ const CONTENT_DB = {
     {
       nombre: "Kaká",
       pais: "Brasil 🇧🇷",
-      imagen: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80",
+      imagen: "https://assets.goal.com/images/v3/blt3ac4fd3241c7a7dc/4587caf178e1f9ceaa38acf1e64176098543a49c.jpg?auto=webp&format=pjpg&width=3840&quality=60",
       frase: "Dios es el primero en todo. Antes que el fútbol, antes que la fama. Sin Él no soy nada."
     },
     {
       nombre: "Benzema",
       pais: "Francia 🇫🇷",
-      imagen: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&q=80",
+      imagen: "https://colimdo.org/wp-content/uploads/2023/01/20d86d25-karim-benzema.jpeg",
       frase: "La fe me da fuerza cuando el cuerpo quiere rendirse."
     },
     {
       nombre: "Vinicius Jr.",
       pais: "Brasil 🇧🇷",
-      imagen: "https://images.unsplash.com/photo-1552667466-07770ae110d0?w=400&q=80",
+      imagen: "https://www.planetsport.com/image-library/land/1600/1564940_vinicius-junior-29-jun-202416.webp",
       frase: "Dios siempre me dio fuerzas para superar las adversidades y seguir soñando."
     },
     {
       nombre: "C. Ronaldo",
       pais: "Portugal 🇵🇹",
-      imagen: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=400&q=80",
+      imagen: "https://editorial.uefa.com/resources/027b-16a6f83fcf8f-179708787343-1000/cristiano_ronaldo_of_portugal_celebrates_after_scoring_a.jpeg",
       frase: "El talento sin trabajo no es nada. Trabajo todos los días porque sé que Dios me dio este don."
     }
   ],
@@ -194,6 +215,8 @@ const CONTENT_DB = {
     { texto: "Los que esperan al Señor renovarán sus fuerzas.", ref: "Isaías 40:31" }
   ]
 };
+
+
 
 /* ═══════════════════════════════════════════════════════════════
    2. STORAGE MODULE
