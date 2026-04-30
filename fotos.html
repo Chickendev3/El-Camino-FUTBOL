@@ -1,257 +1,462 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fotos | El Camino</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="./css/fotos.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Galería visual de El Camino — El diario visual de un futuro futbolista profesional"/>
+  <title>Galería | El Camino al Fútbol Profesional</title>
+
+  <!-- Tipografías (igual que nutricion.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="./css/fotos.css"/>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════ NAVBAR ══════════════════════════════════════ -->
-  <nav id="navbar">
-    <a href="index.html" class="logo" aria-label="El Camino - Inicio">
-      <div class="logo-icon">
-        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
-          <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
-          <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
-          <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
-          <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
-          <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
-        </svg>
-        <span class="logo-cross"><i class="fas fa-cross"></i></span>
-      </div>
-      <div class="logo-text">
-        <span class="logo-name">EL CAMINO</span>
-        <span class="logo-tag">Fe · Fútbol · Gloria</span>
-      </div>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
-      <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
-      <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
-      <li><a href="fotos.html" class="active"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
-      <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
-      <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
-      <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-        <i class="fas fa-sun" id="themeIcon"></i>
-      </button>
-      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
+<!-- ═══════════════════ CURSOR ═══════════════════ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <a href="index.html" class="logo" aria-label="El Camino - Inicio">
+    <div class="logo-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/>
+        <polygon points="32,8 40,20 24,20" fill="white" opacity="0.9"/>
+        <polygon points="50,26 58,38 44,42" fill="white" opacity="0.9"/>
+        <polygon points="44,52 32,58 20,52" fill="white" opacity="0.9"/>
+        <polygon points="20,42 6,38 14,26" fill="white" opacity="0.9"/>
+        <polygon points="32,20 44,28 40,42 24,42 20,28" fill="none" stroke="white" stroke-width="2" opacity="0.5"/>
+      </svg>
+      <span class="logo-cross"><i class="fas fa-cross"></i></span>
     </div>
-  </nav>
+    <div class="logo-text">
+      <span class="logo-name">EL CAMINO</span>
+      <span class="logo-tag">Fe · Fútbol · Gloria</span>
+    </div>
+  </a>
 
-  <!-- ══════════════════════════════════════ HERO ══════════════════════════════════════ -->
-  <section class="fotos-hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-orb hero-orb--1"></div>
-    <div class="hero-orb hero-orb--2"></div>
-    <div class="hero-content">
-      <span class="hero-eyebrow"><i class="fas fa-camera-retro"></i> GALERÍA PERSONAL</span>
-      <h1 class="hero-title">MI <span class="hero-title--accent">HISTORIA</span><br/>EN IMÁGENES</h1>
-      <p class="hero-sub">Cada foto es un paso en el camino. Cada momento, una prueba de lo que construyo día a día.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><span id="statTotal">0</span><small>Archivos</small></div>
-        <div class="hero-stat"><span id="statFotos">0</span><small>Fotos</small></div>
-        <div class="hero-stat"><span id="statVideos">0</span><small>Videos</small></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
+    <li><a href="fotos.html" class="active"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
+    <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+      <i class="fas fa-sun" id="themeIcon"></i>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true">
+  <button class="mobile-close" id="mobileClose" aria-label="Cerrar menú"><i class="fas fa-times"></i></button>
+  <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+  <a href="entrenamiento.html"><i class="fas fa-dumbbell"></i> Entrenamientos</a>
+  <a href="fotos.html" class="mob-active"><i class="fas fa-camera"></i> Fotos</a>
+  <a href="estadisticas.html"><i class="fas fa-chart-bar"></i> Estadísticas</a>
+  <a href="fe.html"><i class="fas fa-cross"></i> Fe & Motivación</a>
+  <a href="nutricion.html"><i class="fas fa-apple-alt"></i> Nutrición</a>
+  <a href="progreso.html"><i class="fas fa-trophy"></i> Mi Progreso</a>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero-fotos">
+  <div class="hero-bg-fotos"></div>
+  <div class="hero-overlay-fotos"></div>
+  <div class="hero-content-fotos">
+    <span class="hero-eyebrow-f"><i class="fas fa-camera-retro"></i> Galería Personal</span>
+    <h1 class="hero-title-fotos">
+      <span class="htf-white">MI</span>
+      <span class="htf-accent">HISTORIA</span>
+      <br>
+      <span class="htf-white">EN</span>
+      <span class="htf-dim">IMÁGENES</span>
+    </h1>
+    <p class="hero-desc-fotos">
+      Cada foto es un paso en el camino. Cada momento, una prueba de lo que construyo día a día.<br>
+      <strong>El diario visual de un futuro futbolista profesional.</strong>
+    </p>
+
+    <!-- Stats bar -->
+    <div class="hero-stats-bar">
+      <div class="hsb-item">
+        <i class="fas fa-images hsb-icon"></i>
+        <span class="hsb-num" id="statTotal">0</span>
+        <span class="hsb-label">Archivos</span>
+      </div>
+      <div class="hsb-divider"></div>
+      <div class="hsb-item">
+        <i class="fas fa-camera hsb-icon green"></i>
+        <span class="hsb-num" id="statFotos">0</span>
+        <span class="hsb-label">Fotos</span>
+      </div>
+      <div class="hsb-divider"></div>
+      <div class="hsb-item">
+        <i class="fas fa-video hsb-icon orange"></i>
+        <span class="hsb-num" id="statVideos">0</span>
+        <span class="hsb-label">Videos</span>
+      </div>
+      <div class="hsb-divider"></div>
+      <div class="hsb-item">
+        <i class="fas fa-star hsb-icon accent"></i>
+        <span class="hsb-num" id="statHighlights">0</span>
+        <span class="hsb-label">Highlights</span>
       </div>
     </div>
-    <div class="hero-scroll-hint"><i class="fas fa-chevron-down"></i></div>
-  </section>
+  </div>
+  <div class="hero-scroll-fotos" id="heroScroll">
+    <div class="scroll-dot-fotos"></div>
+    <span>Explorar</span>
+  </div>
+</header>
 
-  <!-- ══════════════════════════════════════ UPLOAD ══════════════════════════════════════ -->
-  <section class="upload-section" id="uploadSection">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><i class="fas fa-plus-circle"></i> Agregar Nuevo Contenido</h2>
-        <p class="section-sub">Sube fotos o videos de tu camino al profesionalismo</p>
-      </div>
+<!-- ═══════════════════ UPLOAD ═══════════════════ -->
+<section class="upload-section" id="uploadSection">
+  <div class="upload-inner">
 
-      <div class="upload-wrapper">
-        <!-- Drop Zone -->
-        <div class="drop-zone" id="dropZone">
-          <div class="drop-zone__inner">
-            <div class="drop-zone__icon">
-              <i class="fas fa-cloud-upload-alt"></i>
-            </div>
-            <p class="drop-zone__title">Arrastrá tu archivo aquí</p>
-            <p class="drop-zone__sub">o hacé clic para seleccionar</p>
-            <span class="drop-zone__formats">JPG · PNG · GIF · MP4 · MOV · WEBM</span>
-            <input type="file" id="fileInput" accept="image/*,video/*" hidden />
-            <button class="btn-select" onclick="document.getElementById('fileInput').click()">
-              <i class="fas fa-folder-open"></i> Seleccionar archivo
-            </button>
+    <div class="upload-header">
+      <span class="section-eyebrow"><i class="fas fa-plus-circle"></i> Nuevo Contenido</span>
+      <h2 class="section-h2">Agregar a <span class="green">Mi Galería</span></h2>
+      <p class="section-sub">Subí fotos o videos de tu camino al profesionalismo</p>
+    </div>
+
+    <div class="upload-wrapper">
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Zona de carga de archivos">
+        <div class="dz-inner">
+          <div class="dz-icon-wrap">
+            <i class="fas fa-cloud-upload-alt dz-icon"></i>
           </div>
-        </div>
-
-        <!-- Preview -->
-        <div class="upload-preview" id="uploadPreview" style="display:none;">
-          <div class="preview-media" id="previewMedia"></div>
-          <div class="preview-form">
-            <div class="form-group">
-              <label for="mediaTitle"><i class="fas fa-tag"></i> Título</label>
-              <input type="text" id="mediaTitle" placeholder="Dale un nombre a este momento..." maxlength="60" />
-            </div>
-            <div class="form-group">
-              <label for="mediaDesc"><i class="fas fa-align-left"></i> Descripción</label>
-              <textarea id="mediaDesc" placeholder="¿Qué significa este momento para vos?" rows="3" maxlength="200"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="mediaCategory"><i class="fas fa-layer-group"></i> Categoría</label>
-              <select id="mediaCategory">
-                <option value="destacadas">⭐ Destacadas</option>
-                <option value="partidos">⚽ Partidos</option>
-                <option value="entrenamientos">💪 Entrenamientos</option>
-                <option value="progreso">📈 Progreso</option>
-                <option value="recuerdos">❤️ Recuerdos</option>
-              </select>
-            </div>
-            <div class="preview-actions">
-              <button class="btn-cancel" id="btnCancel"><i class="fas fa-times"></i> Cancelar</button>
-              <button class="btn-upload" id="btnUpload"><i class="fas fa-check"></i> Guardar</button>
-            </div>
+          <p class="dz-title">Arrastrá tu archivo aquí</p>
+          <p class="dz-sub">o hacé clic para seleccionar</p>
+          <div class="dz-formats">
+            <span>JPG</span><span>PNG</span><span>GIF</span><span>MP4</span><span>MOV</span><span>WEBM</span>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════ GALERÍA ══════════════════════════════════════ -->
-  <section class="gallery-section" id="gallerySection">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><i class="fas fa-images"></i> Mi Galería</h2>
-        <p class="section-sub">Todo lo que construye el camino</p>
-      </div>
-
-      <!-- Filtros -->
-      <div class="filter-bar">
-        <button class="filter-btn active" data-filter="all"><i class="fas fa-th"></i> Todos</button>
-        <button class="filter-btn" data-filter="destacadas"><i class="fas fa-star"></i> Destacadas</button>
-        <button class="filter-btn" data-filter="partidos"><i class="fas fa-futbol"></i> Partidos</button>
-        <button class="filter-btn" data-filter="entrenamientos"><i class="fas fa-dumbbell"></i> Entrenamientos</button>
-        <button class="filter-btn" data-filter="progreso"><i class="fas fa-chart-line"></i> Progreso</button>
-        <button class="filter-btn" data-filter="recuerdos"><i class="fas fa-heart"></i> Recuerdos</button>
-      </div>
-
-      <!-- Grid -->
-      <div class="gallery-grid" id="galleryGrid">
-        <!-- Empty state -->
-        <div class="gallery-empty" id="galleryEmpty">
-          <div class="empty-icon"><i class="fas fa-camera-retro"></i></div>
-          <h3>Todavía no hay contenido</h3>
-          <p>Subí tu primera foto o video y empezá a construir tu historia visual.</p>
-          <button class="btn-upload-first" onclick="document.getElementById('uploadSection').scrollIntoView({behavior:'smooth'})">
-            <i class="fas fa-plus"></i> Subir primer archivo
+          <div class="dz-limits">
+            <small><i class="fas fa-info-circle"></i> Imágenes: máx 5MB · Videos: máx 50MB</small>
+          </div>
+          <input type="file" id="fileInput" accept="image/*,video/*" hidden aria-label="Seleccionar archivo"/>
+          <button class="btn-select-file" id="btnSelectFile" type="button">
+            <i class="fas fa-folder-open"></i> Seleccionar archivo
           </button>
         </div>
+        <!-- Progress bar (oculto) -->
+        <div class="dz-progress" id="dzProgress" style="display:none">
+          <div class="dz-progress-bar" id="dzProgressBar"></div>
+          <span class="dz-progress-label" id="dzProgressLabel">Procesando...</span>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ══════════════════════════════════════ INSPIRACIÓN ══════════════════════════════════════ -->
-  <section class="inspo-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title"><i class="fas fa-fire"></i> Momentos de Inspiración</h2>
-        <p class="section-sub">Las palabras que encienden el fuego cuando más lo necesito</p>
-      </div>
-      <div class="inspo-grid">
+      <!-- Preview panel (oculto hasta seleccionar) -->
+      <div class="upload-preview-panel" id="uploadPreviewPanel" style="display:none">
+        <div class="upp-media" id="uppMedia"></div>
+        <div class="upp-form">
 
-        <div class="inspo-card inspo-card--large">
-          <div class="inspo-card__bg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
-            <div class="inspo-card__pattern"></div>
+          <div class="upp-form-group">
+            <label for="mediaTitle"><i class="fas fa-tag"></i> Título *</label>
+            <input type="text" id="mediaTitle" placeholder="Dale un nombre a este momento..." maxlength="60" autocomplete="off"/>
           </div>
-          <div class="inspo-card__content">
-            <div class="inspo-icon"><i class="fas fa-quote-left"></i></div>
-            <blockquote>"El talento gana partidos, pero el trabajo en equipo y la inteligencia ganan campeonatos."</blockquote>
-            <cite>— Michael Jordan</cite>
-          </div>
-          <div class="inspo-card__number">01</div>
-        </div>
 
-        <div class="inspo-card">
-          <div class="inspo-card__bg" style="background: linear-gradient(135deg, #0d0d0d 0%, #1a0a00 100%);">
-            <div class="inspo-card__pattern"></div>
+          <div class="upp-form-group">
+            <label for="mediaDesc"><i class="fas fa-align-left"></i> Descripción</label>
+            <textarea id="mediaDesc" placeholder="¿Qué significa este momento para vos?" rows="3" maxlength="200"></textarea>
           </div>
-          <div class="inspo-card__content">
-            <div class="inspo-badge"><i class="fas fa-futbol"></i></div>
-            <blockquote>"No soy el mejor, soy el que más trabaja."</blockquote>
-            <cite>— Cristiano Ronaldo</cite>
-          </div>
-          <div class="inspo-card__number">02</div>
-        </div>
 
-        <div class="inspo-card">
-          <div class="inspo-card__bg" style="background: linear-gradient(135deg, #050510 0%, #0a1628 100%);">
-            <div class="inspo-card__pattern"></div>
-          </div>
-          <div class="inspo-card__content">
-            <div class="inspo-badge"><i class="fas fa-star"></i></div>
-            <blockquote>"Cuando era niño quería ser el mejor jugador del mundo. Eso nunca cambió."</blockquote>
-            <cite>— Lionel Messi</cite>
-          </div>
-          <div class="inspo-card__number">03</div>
-        </div>
+          <div class="upp-form-row">
+            <div class="upp-form-group">
+              <label for="mediaCategory"><i class="fas fa-layer-group"></i> Categoría</label>
+              <select id="mediaCategory">
+                <option value="entrenamiento">💪 Entrenamiento</option>
+                <option value="partido">⚽ Partido</option>
+                <option value="fisico">🏃 Físico</option>
+                <option value="tecnica">🎯 Técnica</option>
+                <option value="mentalidad">🧠 Mentalidad</option>
+                <option value="progreso">📈 Progreso</option>
+              </select>
+            </div>
 
-        <div class="inspo-card inspo-card--wide">
-          <div class="inspo-card__bg" style="background: linear-gradient(135deg, #0a0500 0%, #1a0f00 100%);">
-            <div class="inspo-card__pattern"></div>
+            <div class="upp-form-group">
+              <label><i class="fas fa-star"></i> Highlight</label>
+              <label class="toggle-switch" title="Marcar como contenido destacado">
+                <input type="checkbox" id="mediaHighlight"/>
+                <span class="toggle-track">
+                  <span class="toggle-thumb"></span>
+                </span>
+                <span class="toggle-label">Destacar este contenido</span>
+              </label>
+            </div>
           </div>
-          <div class="inspo-card__content">
-            <div class="inspo-icon"><i class="fas fa-cross"></i></div>
-            <blockquote>"Todo lo puedo en Cristo que me fortalece."</blockquote>
-            <cite>— Filipenses 4:13</cite>
-          </div>
-          <div class="inspo-card__number">04</div>
-        </div>
 
-        <div class="inspo-card">
-          <div class="inspo-card__bg" style="background: linear-gradient(135deg, #080808 0%, #0f1a10 100%);">
-            <div class="inspo-card__pattern"></div>
+          <div class="upp-form-group">
+            <label for="mediaTags"><i class="fas fa-hashtag"></i> Tags</label>
+            <div class="tags-input-wrap" id="tagsInputWrap">
+              <div class="tags-list" id="tagsList"></div>
+              <input type="text" id="mediaTags" placeholder="#velocidad, #gol..." maxlength="30" autocomplete="off"/>
+            </div>
+            <small class="tags-hint">Presioná Enter o coma para agregar</small>
           </div>
-          <div class="inspo-card__content">
-            <div class="inspo-badge"><i class="fas fa-trophy"></i></div>
-            <blockquote>"El éxito no tiene atajos. Solo hay trabajo, sacrificio y disciplina."</blockquote>
-            <cite>— Kylian Mbappé</cite>
+
+          <div class="upp-actions">
+            <button class="btn-cancel-upload" id="btnCancelUpload" type="button">
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button class="btn-save-upload" id="btnSaveUpload" type="button">
+              <i class="fas fa-check"></i> Guardar en Galería
+            </button>
           </div>
-          <div class="inspo-card__number">05</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════ LIGHTBOX ══════════════════════════════════════ -->
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox__overlay" id="lightboxOverlay"></div>
-    <div class="lightbox__container">
-      <button class="lightbox__close" id="lightboxClose"><i class="fas fa-times"></i></button>
-      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
-      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
-      <div class="lightbox__media" id="lightboxMedia"></div>
-      <div class="lightbox__info">
-        <div class="lightbox__meta">
-          <span class="lightbox__category" id="lightboxCategory"></span>
-          <h3 class="lightbox__title" id="lightboxTitle"></h3>
-          <p class="lightbox__desc" id="lightboxDesc"></p>
-        </div>
-        <div class="lightbox__actions">
-          <button class="lb-btn lb-btn--delete" id="lightboxDelete"><i class="fas fa-trash"></i> Eliminar</button>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ══════════════════════════════════════ TOAST ══════════════════════════════════════ -->
-  <div class="toast-container" id="toastContainer"></div>
+<!-- ═══════════════════ GALERÍA ═══════════════════ -->
+<section class="gallery-section" id="gallerySection">
+  <div class="gallery-inner">
 
-  <script src="./js/fotos.js"></script>
+    <div class="gallery-header">
+      <div>
+        <span class="section-eyebrow"><i class="fas fa-images"></i> Archivo Visual</span>
+        <h2 class="section-h2">Mi <span class="green">Galería</span></h2>
+        <p class="section-sub">Todo lo que construye el camino</p>
+      </div>
+
+      <!-- Filtros avanzados -->
+      <div class="gallery-controls">
+        <div class="filter-type-group">
+          <button class="ftype-btn active" data-type="all"><i class="fas fa-th"></i> Todo</button>
+          <button class="ftype-btn" data-type="image"><i class="fas fa-camera"></i> Fotos</button>
+          <button class="ftype-btn" data-type="video"><i class="fas fa-video"></i> Videos</button>
+        </div>
+        <div class="filter-sort-group">
+          <select id="sortSelect" class="sort-select" aria-label="Ordenar por">
+            <option value="newest">Más reciente</option>
+            <option value="oldest">Más antiguo</option>
+            <option value="highlights">Highlights primero</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtros por categoría -->
+    <div class="cat-filter-bar" id="catFilterBar" role="tablist">
+      <button class="cat-fbtn active" data-cat="all" role="tab" aria-selected="true">
+        <i class="fas fa-th"></i> Todos
+      </button>
+      <button class="cat-fbtn" data-cat="entrenamiento" role="tab">
+        <i class="fas fa-dumbbell"></i> Entrenamiento
+      </button>
+      <button class="cat-fbtn" data-cat="partido" role="tab">
+        <i class="fas fa-futbol"></i> Partido
+      </button>
+      <button class="cat-fbtn" data-cat="fisico" role="tab">
+        <i class="fas fa-running"></i> Físico
+      </button>
+      <button class="cat-fbtn" data-cat="tecnica" role="tab">
+        <i class="fas fa-crosshairs"></i> Técnica
+      </button>
+      <button class="cat-fbtn" data-cat="mentalidad" role="tab">
+        <i class="fas fa-brain"></i> Mentalidad
+      </button>
+      <button class="cat-fbtn" data-cat="progreso" role="tab">
+        <i class="fas fa-chart-line"></i> Progreso
+      </button>
+    </div>
+
+    <!-- Grid de galería -->
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Cards generadas por JS -->
+    </div>
+
+    <!-- Estado vacío -->
+    <div class="gallery-empty" id="galleryEmpty" style="display:none">
+      <div class="empty-icon-wrap"><i class="fas fa-camera-retro"></i></div>
+      <h3>Todavía no hay contenido</h3>
+      <p>Subí tu primera foto o video y empezá a construir tu historia visual.</p>
+      <button class="btn-upload-first" id="btnUploadFirst">
+        <i class="fas fa-plus"></i> Subir primer archivo
+      </button>
+    </div>
+
+    <!-- Paginación / Load more -->
+    <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+      <button class="btn-load-more" id="btnLoadMore">
+        <i class="fas fa-chevron-down"></i> Cargar más
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════ PROGRESO MENSUAL ═══════════════════ -->
+<section class="progress-section">
+  <div class="progress-inner">
+    <div class="progress-header">
+      <span class="section-eyebrow"><i class="fas fa-chart-bar"></i> Actividad</span>
+      <h2 class="section-h2">Indicadores de <span class="green">Progreso</span></h2>
+      <p class="section-sub">Tu evolución registrada mes a mes</p>
+    </div>
+
+    <div class="progress-stats-grid" id="progressStatsGrid">
+      <!-- Generado por JS -->
+    </div>
+
+    <!-- Meses timeline -->
+    <div class="monthly-timeline" id="monthlyTimeline">
+      <!-- Generado por JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ INSPIRACIÓN ═══════════════════ -->
+<section class="inspo-section-fotos">
+  <div class="inspo-inner-fotos">
+    <div class="inspo-header-fotos">
+      <span class="section-eyebrow"><i class="fas fa-fire"></i> Combustible</span>
+      <h2 class="section-h2">Momentos de <span class="green">Inspiración</span></h2>
+      <p class="section-sub">Las palabras que encienden el fuego cuando más lo necesito</p>
+    </div>
+
+    <div class="inspo-grid-fotos">
+
+      <div class="inspo-card-f inspo-card-f--large">
+        <div class="icf-bg" style="background:linear-gradient(135deg,#080808 0%,#0a0a1a 100%)">
+          <div class="icf-pattern"></div>
+        </div>
+        <div class="icf-content">
+          <div class="icf-icon"><i class="fas fa-quote-left"></i></div>
+          <blockquote>"El talento gana partidos, pero el trabajo en equipo y la inteligencia ganan campeonatos."</blockquote>
+          <cite>— Michael Jordan</cite>
+        </div>
+        <span class="icf-num">01</span>
+      </div>
+
+      <div class="inspo-card-f">
+        <div class="icf-bg" style="background:linear-gradient(135deg,#0a0a0a 0%,#0d1a00 100%)">
+          <div class="icf-pattern"></div>
+        </div>
+        <div class="icf-content">
+          <div class="icf-badge"><i class="fas fa-futbol"></i></div>
+          <blockquote>"No soy el mejor, soy el que más trabaja."</blockquote>
+          <cite>— Cristiano Ronaldo</cite>
+        </div>
+        <span class="icf-num">02</span>
+      </div>
+
+      <div class="inspo-card-f">
+        <div class="icf-bg" style="background:linear-gradient(135deg,#050510 0%,#001020 100%)">
+          <div class="icf-pattern"></div>
+        </div>
+        <div class="icf-content">
+          <div class="icf-badge"><i class="fas fa-star"></i></div>
+          <blockquote>"Cuando era niño quería ser el mejor jugador del mundo. Eso nunca cambió."</blockquote>
+          <cite>— Lionel Messi</cite>
+        </div>
+        <span class="icf-num">03</span>
+      </div>
+
+      <div class="inspo-card-f inspo-card-f--wide">
+        <div class="icf-bg" style="background:linear-gradient(135deg,#0a0500 0%,#100800 100%)">
+          <div class="icf-pattern"></div>
+        </div>
+        <div class="icf-content">
+          <div class="icf-icon icf-icon--cross"><i class="fas fa-cross"></i></div>
+          <blockquote>"Todo lo puedo en Cristo que me fortalece."</blockquote>
+          <cite>— Filipenses 4:13</cite>
+        </div>
+        <span class="icf-num">04</span>
+      </div>
+
+      <div class="inspo-card-f">
+        <div class="icf-bg" style="background:linear-gradient(135deg,#080808 0%,#001a0a 100%)">
+          <div class="icf-pattern"></div>
+        </div>
+        <div class="icf-content">
+          <div class="icf-badge icf-badge--orange"><i class="fas fa-trophy"></i></div>
+          <blockquote>"El éxito no tiene atajos. Solo hay trabajo, sacrificio y disciplina."</blockquote>
+          <cite>— Kylian Mbappé</cite>
+        </div>
+        <span class="icf-num">05</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ LIGHTBOX ═══════════════════ -->
+<div class="lightbox-overlay" id="lightboxOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visor de galería">
+  <div class="lb-backdrop" id="lbBackdrop"></div>
+  <div class="lb-container" id="lbContainer">
+    <button class="lb-close" id="lbClose" aria-label="Cerrar visor"><i class="fas fa-times"></i></button>
+    <button class="lb-nav lb-nav--prev" id="lbPrev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+    <button class="lb-nav lb-nav--next" id="lbNext" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
+
+    <div class="lb-media-wrap" id="lbMediaWrap">
+      <!-- Media inyectada por JS -->
+    </div>
+
+    <div class="lb-sidebar">
+      <div class="lb-meta">
+        <div class="lb-top-badges" id="lbTopBadges"></div>
+        <h3 class="lb-title" id="lbTitle"></h3>
+        <p class="lb-desc" id="lbDesc"></p>
+        <div class="lb-tags" id="lbTags"></div>
+        <div class="lb-date" id="lbDate"></div>
+      </div>
+      <div class="lb-actions">
+        <button class="lb-action-btn lb-action-highlight" id="lbHighlight">
+          <i class="fas fa-star"></i> <span id="lbHighlightLabel">Destacar</span>
+        </button>
+        <button class="lb-action-btn lb-action-delete" id="lbDelete">
+          <i class="fas fa-trash"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOAST ═══════════════════ -->
+<div class="toast-cont" id="toastCont" aria-live="polite"></div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer-fotos">
+  <div class="footer-fotos-inner">
+    <div class="ff-brand">
+      <span class="logo-name-footer">EL CAMINO</span>
+      <p>Galería · Progreso · Historia</p>
+    </div>
+    <div class="ff-verse">
+      <i class="fas fa-cross ff-cross"></i>
+      <em>"Todo lo puedo en Cristo que me fortalece."</em>
+      <cite>— Filipenses 4:13</cite>
+    </div>
+    <div class="ff-social">
+      <a href="#" class="ff-link"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="ff-link"><i class="fab fa-tiktok"></i></a>
+      <a href="#" class="ff-link"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+  <div class="ff-bottom">
+    <p>© 2025 El Camino · Hecho con <span style="color:var(--verde)">♥</span> y mucha fe</p>
+  </div>
+</footer>
+
+<script src="./js/fotos.js"></script>
 </body>
 </html>
