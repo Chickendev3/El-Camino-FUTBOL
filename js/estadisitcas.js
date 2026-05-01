@@ -631,6 +631,10 @@ function renderAll() {
   renderInsights();
   renderMentalAverages();
   setTimeout(initCharts, 50);
+  // ── PRO modules (stats.pro.js) ──
+  setTimeout(function() {
+    if (typeof ProStats !== 'undefined') ProStats.renderAll();
+  }, 100);
 }
 
 /* ═══════════════════════════════════════════════════════

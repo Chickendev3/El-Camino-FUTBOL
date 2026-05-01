@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <link rel="stylesheet" href="./css/estadisticas.css">
+  <link rel="stylesheet" href="./css/stats.pro.css">
 </head>
 <body>
 
@@ -335,6 +336,223 @@
   </div>
 </section>
 
+
+<!-- PERFIL AVANZADO -->
+<section class="adv-profile-section" id="advancedProfileSection">
+  <div class="adv-profile-inner">
+    <span class="section-eyebrow"><i class="fas fa-id-card"></i> FIFA Style</span>
+    <h2 class="section-h2">Perfil <span class="green">Avanzado</span></h2>
+    <div class="adv-profile-grid reveal">
+      <div class="adv-ovr-card">
+        <div class="ovr-header">
+          <div>
+            <div class="ovr-title">Overall Rating</div>
+            <div class="ovr-sub">Calculado de tus partidos y entrenos</div>
+          </div>
+          <div class="ovr-badge">
+            <span class="ovr-num" id="advOVR">--</span>
+            <span class="ovr-label">OVR</span>
+          </div>
+        </div>
+        <div class="attr-bars">
+          <div class="attr-row">
+            <div class="attr-icon"><i class="fas fa-bolt"></i></div>
+            <div class="attr-bar-wrap">
+              <span class="attr-name">Velocidad</span>
+              <div class="attr-bar"><div class="attr-bar-fill" id="attrVelocidadFill" style="width:0%"></div></div>
+            </div>
+            <span class="attr-num" id="attrVelocidadNum">0</span>
+          </div>
+          <div class="attr-row">
+            <div class="attr-icon"><i class="fas fa-dumbbell"></i></div>
+            <div class="attr-bar-wrap">
+              <span class="attr-name">Fisico</span>
+              <div class="attr-bar"><div class="attr-bar-fill" id="attrFisicoFill" style="width:0%"></div></div>
+            </div>
+            <span class="attr-num" id="attrFisicoNum">0</span>
+          </div>
+          <div class="attr-row">
+            <div class="attr-icon"><i class="fas fa-crosshairs"></i></div>
+            <div class="attr-bar-wrap">
+              <span class="attr-name">Definicion</span>
+              <div class="attr-bar"><div class="attr-bar-fill" id="attrDefinicionFill" style="width:0%"></div></div>
+            </div>
+            <span class="attr-num" id="attrDefinicionNum">0</span>
+          </div>
+          <div class="attr-row">
+            <div class="attr-icon"><i class="fas fa-futbol"></i></div>
+            <div class="attr-bar-wrap">
+              <span class="attr-name">Tecnica</span>
+              <div class="attr-bar"><div class="attr-bar-fill" id="attrTecnicaFill" style="width:0%"></div></div>
+            </div>
+            <span class="attr-num" id="attrTecnicaNum">0</span>
+          </div>
+          <div class="attr-row">
+            <div class="attr-icon"><i class="fas fa-brain"></i></div>
+            <div class="attr-bar-wrap">
+              <span class="attr-name">IQ Futbolistico</span>
+              <div class="attr-bar"><div class="attr-bar-fill" id="attrIQFill" style="width:0%"></div></div>
+            </div>
+            <span class="attr-num" id="attrIQNum">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="adv-radar-card">
+        <span class="section-eyebrow" style="margin-bottom:4px"><i class="fas fa-spider"></i> Radar de Atributos</span>
+        <div class="radar-canvas-wrap"><canvas id="chartRadar"></canvas></div>
+        <p class="radar-note">Calculado automaticamente de tus registros.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCIPLINA -->
+<section class="discipline-section">
+  <div class="discipline-inner">
+    <span class="section-eyebrow"><i class="fas fa-calendar-check"></i> Constancia</span>
+    <h2 class="section-h2">Sistema de <span class="gold">Disciplina</span></h2>
+    <div class="discipline-grid reveal">
+      <div class="disc-kpi">
+        <div class="disc-kpi-icon">&#128202;</div>
+        <div class="disc-kpi-num" id="discConsistency">--</div>
+        <div class="disc-kpi-label">Consistencia (8 sem.)</div>
+        <div id="discBadge" class="disc-badge gray">--</div>
+      </div>
+      <div class="disc-kpi">
+        <div class="disc-kpi-icon">&#128197;</div>
+        <div class="disc-kpi-num" id="discAvgDays">--</div>
+        <div class="disc-kpi-label">Dias/semana prom.</div>
+      </div>
+      <div class="disc-kpi">
+        <div class="disc-kpi-icon">&#128564;</div>
+        <div class="disc-kpi-num" id="discInactive">--</div>
+        <div class="disc-kpi-label">Sin actividad</div>
+      </div>
+    </div>
+    <div class="disc-heatmap-wrap reveal">
+      <div class="disc-heatmap-title"><i class="fas fa-fire"></i> Actividad — Ultimas 8 semanas</div>
+      <div id="discHeatmap"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RENDIMIENTO AVANZADO -->
+<section class="adv-performance-section">
+  <div class="adv-performance-inner">
+    <span class="section-eyebrow"><i class="fas fa-chart-line"></i> Metricas Pro</span>
+    <h2 class="section-h2">Rendimiento <span class="orange">Avanzado</span></h2>
+    <div class="perf-kpis reveal">
+      <div class="perf-kpi">
+        <div class="perf-kpi-icon">&#9917;</div>
+        <div class="perf-kpi-num" id="perfGPP">--</div>
+        <div class="perf-kpi-label">Goles / partido</div>
+      </div>
+      <div class="perf-kpi orange">
+        <div class="perf-kpi-icon">&#127370;</div>
+        <div class="perf-kpi-num" id="perfAPP">--</div>
+        <div class="perf-kpi-label">Asistencias / partido</div>
+      </div>
+      <div class="perf-kpi gold">
+        <div class="perf-kpi-icon">&#128293;</div>
+        <div class="perf-kpi-num" id="perfOF">--</div>
+        <div class="perf-kpi-label">Participacion ofensiva</div>
+      </div>
+      <div class="perf-kpi blue">
+        <div class="perf-kpi-icon">&#11088;</div>
+        <div class="perf-kpi-num" id="perfL5R">--</div>
+        <div class="perf-kpi-label">Rating ultimos 5</div>
+      </div>
+      <div class="perf-kpi purple">
+        <div class="perf-kpi-icon">&#127919;</div>
+        <div class="perf-kpi-num" id="perfL5G">--</div>
+        <div class="perf-kpi-label">Goles ultimos 5</div>
+      </div>
+    </div>
+    <div class="type-stats-wrap reveal">
+      <div class="type-stats-header"><i class="fas fa-futbol"></i> Rendimiento por Tipo de Partido</div>
+      <table class="type-stats-table">
+        <thead><tr><th>Formato</th><th>Partidos</th><th>Goles</th><th>Winrate</th><th>Rating</th></tr></thead>
+        <tbody id="typeStatsBody"><tr><td colspan="5" style="text-align:center;color:var(--gris);padding:20px">Sin partidos registrados</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- EVOLUCION TEMPORAL -->
+<section class="evolution-section">
+  <div class="evolution-inner">
+    <span class="section-eyebrow"><i class="fas fa-chart-area"></i> Progresion</span>
+    <h2 class="section-h2">Evolucion <span class="blue" style="color:var(--azul-mid)">Semanal</span></h2>
+    <div class="evolution-grid reveal">
+      <div class="evo-chart-card evolution-chart-full">
+        <h3><i class="fas fa-futbol"></i> Goles por Semana — ultimas 8 semanas</h3>
+        <div class="evo-canvas-wrap"><canvas id="chartEvoGoles"></canvas></div>
+      </div>
+      <div class="evo-chart-card">
+        <h3><i class="fas fa-star" style="color:var(--dorado)"></i> Evolucion del Rating</h3>
+        <div class="evo-canvas-wrap"><canvas id="chartEvoRating"></canvas></div>
+      </div>
+      <div class="evo-chart-card">
+        <h3><i class="fas fa-brain" style="color:var(--morado)"></i> Estado Mental</h3>
+        <div class="evo-canvas-wrap"><canvas id="chartEvoMental"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCOUT MODE -->
+<section class="scout-section" id="scoutSection">
+  <div class="scout-inner">
+    <span class="section-eyebrow"><i class="fas fa-clipboard-list"></i> Scout Mode</span>
+    <h2 class="section-h2">Informe de <span class="gold">Jugador</span></h2>
+    <div class="scout-grid reveal">
+      <div class="scout-rating-wrap">
+        <div class="scout-rating-inner">
+          <svg class="scout-rating-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle class="scout-rating-track" cx="60" cy="60" r="45"/>
+            <circle class="scout-rating-ring" id="scoutRatingRing" cx="60" cy="60" r="45"/>
+          </svg>
+          <div class="scout-rating-text">
+            <div class="scout-rating-num" id="scoutRating">--</div>
+          </div>
+        </div>
+        <div class="scout-rating-label">Scout<br>Rating</div>
+      </div>
+      <div class="scout-content">
+        <div>
+          <div class="scout-perfil-label" id="scoutPerfil">Cargando...</div>
+          <p class="scout-desc" id="scoutDesc"></p>
+          <div class="scout-tags" id="scoutTags"></div>
+        </div>
+        <div class="scout-ff-grid">
+          <div class="scout-ff-block">
+            <div class="scout-ff-title fort"><i class="fas fa-arrow-up"></i> Fortalezas</div>
+            <div id="scoutFortalezas"></div>
+          </div>
+          <div class="scout-ff-block">
+            <div class="scout-ff-title mej"><i class="fas fa-tools"></i> A Mejorar</div>
+            <div id="scoutMejoras"></div>
+          </div>
+        </div>
+        <div class="scout-recom-card">
+          <i class="fas fa-lightbulb"></i>
+          <span id="scoutRecom">Generando...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN SEMANAL -->
+<section class="recs-section">
+  <div class="recs-inner">
+    <span class="section-eyebrow"><i class="fas fa-calendar-alt"></i> IA Deportiva</span>
+    <h2 class="section-h2">Plan <span class="green">Semanal</span> Automatico</h2>
+    <div class="recs-mensaje reveal" id="recsMensaje">Analizando tus datos...</div>
+    <div class="recs-grid reveal" id="recsGrid"></div>
+  </div>
+</section>
+
 <!-- ═══════════════ MODALES ═══════════════ -->
 
 <!-- Modal: Agregar Partido -->
@@ -530,5 +748,6 @@
 </footer>
 
   <script src="./js/estadisitcas.js"></script>
+  <script src="./js/stats.pro.js"></script>
 </body>
 </html>
