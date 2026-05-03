@@ -327,6 +327,186 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- ═══════════════════════════════════════════
+       MODO REFLEXIÓN (overlay)
+  ═══════════════════════════════════════════ -->
+  <div class="reflection-mode-overlay" id="reflectionMode">
+    <div class="reflection-mode-inner">
+      <button class="reflection-close" id="reflectionClose"><i class="fas fa-times"></i></button>
+      <div class="reflection-cross"><i class="fas fa-cross"></i></div>
+      <blockquote class="reflection-verse" id="reflectionVerse"></blockquote>
+      <cite class="reflection-ref" id="reflectionRef"></cite>
+      <p class="reflection-hint">Cerrá los ojos. Respirá. Dejá que Dios hable.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: PLAN ESPIRITUAL SEMANAL
+  ═══════════════════════════════════════════ -->
+  <section class="weekly-plan-section" id="weeklyPlanSection">
+    <div class="weekly-plan-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-calendar-week"></i> Crecimiento Espiritual</span>
+        <h2 class="section-title-new">Plan Espiritual <span>Semanal</span></h2>
+        <p class="section-desc-new">7 días, 7 pilares para ser el atleta que Dios diseñó.</p>
+      </div>
+      <div class="weekly-plan-grid" id="weeklyPlanGrid">
+        <!-- Llenado por JS -->
+      </div>
+      <div class="weekly-plan-progress-wrap">
+        <div class="wpp-label">
+          <span>Progreso semanal</span>
+          <span id="weeklyProgressText">0 / 7 días</span>
+        </div>
+        <div class="wpp-bar"><div class="wpp-fill" id="weeklyProgressFill"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: DIARIO PERSONAL
+  ═══════════════════════════════════════════ -->
+  <section class="journal-section" id="journalSection">
+    <div class="journal-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-book-open"></i> Mi Diario</span>
+        <h2 class="section-title-new">Diario <span>Personal</span></h2>
+        <p class="section-desc-new">Escribí tu camino. Cada día es una página de tu historia con Dios.</p>
+      </div>
+      <div class="journal-form">
+        <div class="journal-date-header" id="journalDateHeader"></div>
+        <div class="journal-questions">
+          <div class="journal-q">
+            <label><i class="fas fa-lightbulb"></i> ¿Qué aprendí hoy?</label>
+            <textarea id="journalQ1" placeholder="Hoy aprendí que..." rows="3"></textarea>
+          </div>
+          <div class="journal-q">
+            <label><i class="fas fa-eye"></i> ¿Cómo vi a Dios en mi día?</label>
+            <textarea id="journalQ2" placeholder="Vi a Dios cuando..." rows="3"></textarea>
+          </div>
+          <div class="journal-q">
+            <label><i class="fas fa-arrow-up"></i> ¿Qué puedo mejorar mañana?</label>
+            <textarea id="journalQ3" placeholder="Mañana voy a mejorar..." rows="3"></textarea>
+          </div>
+        </div>
+        <div class="journal-form-actions">
+          <button class="btn-journal-save" id="btnJournalSave">
+            <i class="fas fa-save"></i> Guardar entrada
+          </button>
+        </div>
+      </div>
+      <div class="journal-history" id="journalHistory">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: OBJETIVOS CON DIOS
+  ═══════════════════════════════════════════ -->
+  <section class="goals-section" id="goalsSection">
+    <div class="goals-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-bullseye"></i> Mis Metas</span>
+        <h2 class="section-title-new">Objetivos <span>con Dios</span></h2>
+        <p class="section-desc-new">Cada check es un paso más cerca. La constancia mueve montañas.</p>
+      </div>
+      <div class="goals-grid" id="goalsGrid">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: BIBLIA RÁPIDA
+  ═══════════════════════════════════════════ -->
+  <section class="bible-section" id="bibleSection">
+    <div class="bible-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-bible"></i> Palabra de Dios</span>
+        <h2 class="section-title-new">Biblia <span>Rápida</span></h2>
+        <p class="section-desc-new">Buscá el versículo que necesitás hoy.</p>
+      </div>
+      <div class="bible-search-bar">
+        <div class="bible-filters">
+          <button class="bible-filter active" data-topic="all">Todos</button>
+          <button class="bible-filter" data-topic="fe">Fe</button>
+          <button class="bible-filter" data-topic="fortaleza">Fortaleza</button>
+          <button class="bible-filter" data-topic="disciplina">Disciplina</button>
+          <button class="bible-filter" data-topic="miedo">Sin Miedo</button>
+          <button class="bible-filter" data-topic="futbol">Fútbol</button>
+        </div>
+        <div class="bible-search-wrap">
+          <i class="fas fa-search"></i>
+          <input type="text" id="bibleSearchInput" placeholder="Buscar en la Palabra..."/>
+        </div>
+      </div>
+      <div class="bible-results" id="bibleResults">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: FRASES FÚTBOL + FE
+  ═══════════════════════════════════════════ -->
+  <section class="quotes-fe-section" id="quotesFeSect">
+    <div class="quotes-fe-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-futbol"></i> Fútbol & Fe</span>
+        <h2 class="section-title-new">Frases que <span>Elevan</span></h2>
+        <p class="section-desc-new">Cuando el fútbol y la fe se encuentran, nace el campeón.</p>
+      </div>
+      <div class="quotes-fe-filters">
+        <button class="qfe-filter active" data-cat="all">Todas</button>
+        <button class="qfe-filter" data-cat="motivacion">Motivación</button>
+        <button class="qfe-filter" data-cat="disciplina">Disciplina</button>
+        <button class="qfe-filter" data-cat="fracaso">Fracaso & Resiliencia</button>
+      </div>
+      <div class="quotes-fe-grid" id="quotesFEGrid">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: LOGROS (GAMIFICACIÓN)
+  ═══════════════════════════════════════════ -->
+  <section class="achievements-section" id="achievementsSection">
+    <div class="achievements-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-medal"></i> Mi Progreso</span>
+        <h2 class="section-title-new">Mis <span>Logros</span></h2>
+        <p class="section-desc-new">Cada logro desbloqueado es la gracia de Dios manifestada en tu constancia.</p>
+      </div>
+      <div class="achievements-grid" id="achievementsGrid">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECCIÓN: RECORDATORIOS
+  ═══════════════════════════════════════════ -->
+  <section class="reminders-section" id="remindersSection">
+    <div class="reminders-inner">
+      <div class="section-header-new">
+        <span class="section-label-fe"><i class="fas fa-bell"></i> Recordatorios</span>
+        <h2 class="section-title-new">Mis <span>Alarmas Espirituales</span></h2>
+        <p class="section-desc-new">Que ningún día pase sin orar, sin reflexionar, sin agradecer.</p>
+      </div>
+      <div class="reminders-grid" id="remindersGrid">
+        <!-- Llenado por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Botón Modo Reflexión flotante -->
+  <button class="btn-reflection-float" id="btnReflectionFloat" title="Modo Reflexión">
+    <i class="fas fa-moon"></i>
+    <span>Modo Reflexión</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->
   <footer class="footer-fe">

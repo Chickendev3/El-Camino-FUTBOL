@@ -1305,6 +1305,732 @@ const NavModule = (() => {
    ─ Orquesta la inicialización de todos los módulos en orden.
 ═══════════════════════════════════════════════════════════════ */
 
+/* ════════════════════════════════════════════════════════════════
+   CORRECCIÓN BUG: TARJETA DEL DÍA INDEPENDIENTE
+   La tarjeta diaria se genera por fecha y es completamente
+   independiente del historial de tarjetas guardadas/favoritas.
+════════════════════════════════════════════════════════════════ */
+const DailyCard = (() => {
+  function todayKey() {
+    return `dailyCard_${new Date().toISOString().slice(0, 10)}`; // dailyCard_YYYY-MM-DD
+  }
+
+  /** Obtiene la tarjeta del día (la crea si no existe aún hoy) */
+  function getTodayCard() {
+    const key = todayKey();
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) return JSON.parse(saved);
+    } catch {}
+    // No existe → generarla con seed de la fecha
+    const card = Engine.generateCard('auto', true);
+    try { localStorage.setItem(key, JSON.stringify(card)); } catch {}
+    return card;
+  }
+
+  /** Limpia claves antiguas de tarjetas diarias (mantiene solo 30 días) */
+  function cleanup() {
+    try {
+      const keys = Object.keys(localStorage).filter(k => k.startsWith('dailyCard_'));
+      if (keys.length > 30) {
+        keys.sort().slice(0, keys.length - 30).forEach(k => localStorage.removeItem(k));
+      }
+    } catch {}
+  }
+
+  return { getTodayCard, cleanup };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   11. PLAN ESPIRITUAL SEMANAL
+════════════════════════════════════════════════════════════════ */
+const WeeklyPlan = (() => {
+  const KEY = 'elcamino_weekly_plan_v1';
+
+  const PLAN = [
+    {
+      day: 1, theme: 'Fe', color: '#f5c518',
+      verse: '"La fe es la certeza de lo que se espera, la convicción de lo que no se ve."',
+      ref: 'Hebreos 11:1',
+      reflection: 'Hoy entrená creyendo que el profesionalismo ya está escrito para vos. Aunque no lo veas, actúa como si ya lo tuvieras.'
+    },
+    {
+      day: 2, theme: 'Disciplina', color: '#00c853',
+      verse: '"Todo atleta se abstiene de todo. Ellos lo hacen para recibir una corona corruptible, pero nosotros una incorruptible."',
+      ref: '1 Corintios 9:25',
+      reflection: 'La disciplina no es castigo, es el lenguaje en que le hablas a tu sueño. Hoy hacé lo que tenés que hacer aunque no tengas ganas.'
+    },
+    {
+      day: 3, theme: 'Humildad', color: '#5c8dff',
+      verse: '"Dios resiste a los soberbios pero da gracia a los humildes."',
+      ref: 'Santiago 4:6',
+      reflection: 'El mejor en el campo muchas veces no es el más talentoso, sino el más entrenable. Hoy escuchá más, hablá menos y aprendé todo lo que puedas.'
+    },
+    {
+      day: 4, theme: 'Esfuerzo', color: '#ff6b6b',
+      verse: '"Sé fuerte y muy valiente. No te desanimes ni tengas miedo."',
+      ref: 'Josué 1:9',
+      reflection: 'El esfuerzo honesto nunca se pierde. Dios ve cada sprint, cada caída y cada vez que te levantaste. Tu sudor es una ofrenda.'
+    },
+    {
+      day: 5, theme: 'Perseverancia', color: '#a78bfa',
+      verse: '"El justo caerá siete veces, pero siete veces se levantará."',
+      ref: 'Proverbios 24:16',
+      reflection: 'No es el que tiene más talento sino el que se levanta más veces. Hoy, sin importar cómo salió el entrenamiento, prometé volver mañana.'
+    },
+    {
+      day: 6, theme: 'Gratitud', color: '#f59e0b',
+      verse: '"Estén siempre alegres, oren sin cesar, den gracias en todo."',
+      ref: '1 Tesalonicenses 5:16-18',
+      reflection: 'Agradecer transforma la perspectiva. Hoy escribí 3 cosas por las que estás agradecido en tu camino al fútbol profesional.'
+    },
+    {
+      day: 7, theme: 'Descanso en Dios', color: '#34d399',
+      verse: '"Vengan a mí todos los que están cansados y agobiados, y yo les daré descanso."',
+      ref: 'Mateo 11:28',
+      reflection: 'El descanso es parte del plan. Hoy suelta el control. Confía en que Dios trabaja incluso cuando vos descansás. Recarga cuerpo y espíritu.'
+    }
+  ];
+
+  function getProgress() {
+    try {
+      const data = JSON.parse(localStorage.getItem(KEY)) || {};
+      // Resetear si la semana cambió
+      const weekKey = getWeekKey();
+      if (data.weekKey !== weekKey) return { weekKey, completed: {} };
+      return data;
+    } catch { return { weekKey: getWeekKey(), completed: {} }; }
+  }
+
+  function getWeekKey() {
+    const d = new Date();
+    const startOfYear = new Date(d.getFullYear(), 0, 1);
+    const week = Math.ceil(((d - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+    return `${d.getFullYear()}_W${week}`;
+  }
+
+  function saveProgress(data) {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {}
+  }
+
+  function render() {
+    const grid = document.getElementById('weeklyPlanGrid');
+    if (!grid) return;
+    const progress = getProgress();
+    const completedCount = Object.keys(progress.completed).length;
+
+    grid.innerHTML = PLAN.map(day => {
+      const done = !!progress.completed[day.day];
+      return `
+        <div class="weekly-day-card ${done ? 'completed' : ''}" style="--day-color:${day.color}">
+          <div class="weekly-day-num">0${day.day}</div>
+          <div class="weekly-day-theme">${day.theme}</div>
+          <div class="weekly-day-verse">${day.verse}</div>
+          <cite class="weekly-day-ref">${day.ref}</cite>
+          <p class="weekly-day-reflection">${day.reflection}</p>
+          <button class="weekly-day-btn" data-day="${day.day}">
+            ${done ? '✅ Completado' : 'Marcar como completado'}
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    // Bind botones
+    grid.querySelectorAll('.weekly-day-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dayNum = parseInt(btn.dataset.day);
+        const prog = getProgress();
+        if (prog.completed[dayNum]) {
+          delete prog.completed[dayNum];
+        } else {
+          prog.completed[dayNum] = new Date().toISOString();
+        }
+        saveProgress(prog);
+        render();
+        updateProgress();
+        UI.showToast(
+          prog.completed ? '🙏 ¡Día completado!' : 'Desmarcado',
+          PLAN.find(p => p.day === dayNum).theme,
+          'success'
+        );
+        AchievementsModule.check();
+      });
+    });
+
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const progress = getProgress();
+    const count = Object.keys(progress.completed).length;
+    const pct = (count / 7) * 100;
+    const fill = document.getElementById('weeklyProgressFill');
+    const text = document.getElementById('weeklyProgressText');
+    if (fill) fill.style.width = pct + '%';
+    if (text) text.textContent = `${count} / 7 días`;
+  }
+
+  function getCompletedCount() {
+    return Object.keys(getProgress().completed).length;
+  }
+
+  return { render, getCompletedCount };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   12. DIARIO PERSONAL (JOURNAL)
+════════════════════════════════════════════════════════════════ */
+const Journal = (() => {
+  const KEY = 'elcamino_journal_v1';
+
+  function getEntries() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
+  }
+
+  function saveEntries(entries) {
+    try { localStorage.setItem(KEY, JSON.stringify(entries)); } catch {}
+  }
+
+  function getTodayStr() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function formatDateNice(str) {
+    return new Date(str + 'T12:00:00').toLocaleDateString('es-AR', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+
+  function render() {
+    // Header con fecha
+    const header = document.getElementById('journalDateHeader');
+    if (header) {
+      header.textContent = `📅 ${formatDateNice(getTodayStr())}`;
+    }
+
+    // Preload si hay entrada de hoy
+    const entries = getEntries();
+    const todayEntry = entries.find(e => e.date === getTodayStr());
+    if (todayEntry) {
+      const q1 = document.getElementById('journalQ1');
+      const q2 = document.getElementById('journalQ2');
+      const q3 = document.getElementById('journalQ3');
+      if (q1) q1.value = todayEntry.q1 || '';
+      if (q2) q2.value = todayEntry.q2 || '';
+      if (q3) q3.value = todayEntry.q3 || '';
+    }
+
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('journalHistory');
+    if (!container) return;
+    const entries = getEntries();
+
+    if (entries.length === 0) {
+      container.innerHTML = `<p style="text-align:center;color:var(--gris);padding:20px;">
+        Todavía no hay entradas. ¡Escribí tu primer día!
+      </p>`;
+      return;
+    }
+
+    container.innerHTML = entries.slice(0, 10).map(entry => `
+      <div class="journal-entry" data-date="${entry.date}">
+        <div class="journal-entry-date">
+          <i class="fas fa-calendar-alt"></i>
+          ${formatDateNice(entry.date)}
+        </div>
+        ${entry.q1 ? `<div class="journal-entry-q">
+          <div class="journal-entry-q-label">💡 Qué aprendí</div>
+          <div class="journal-entry-q-text">${entry.q1}</div>
+        </div>` : ''}
+        ${entry.q2 ? `<div class="journal-entry-q">
+          <div class="journal-entry-q-label">👁 Cómo vi a Dios</div>
+          <div class="journal-entry-q-text">${entry.q2}</div>
+        </div>` : ''}
+        ${entry.q3 ? `<div class="journal-entry-q">
+          <div class="journal-entry-q-label">⬆️ Qué mejorar</div>
+          <div class="journal-entry-q-text">${entry.q3}</div>
+        </div>` : ''}
+        <div class="journal-entry-actions">
+          <button class="journal-entry-btn danger" data-delete="${entry.date}">
+            <i class="fas fa-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    // Bind delete
+    container.querySelectorAll('[data-delete]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (confirm('¿Eliminar esta entrada del diario?')) {
+          const entries = getEntries().filter(e => e.date !== btn.dataset.delete);
+          saveEntries(entries);
+          renderHistory();
+          UI.showToast('Entrada eliminada', '', 'warning');
+        }
+      });
+    });
+  }
+
+  function save() {
+    const q1 = document.getElementById('journalQ1').value.trim();
+    const q2 = document.getElementById('journalQ2').value.trim();
+    const q3 = document.getElementById('journalQ3').value.trim();
+
+    if (!q1 && !q2 && !q3) {
+      UI.showToast('Escribí algo primero', 'Las tres preguntas están vacías', 'warning');
+      return;
+    }
+
+    const entries = getEntries().filter(e => e.date !== getTodayStr());
+    entries.unshift({ date: getTodayStr(), q1, q2, q3, savedAt: new Date().toISOString() });
+    saveEntries(entries);
+    renderHistory();
+    UI.showToast('✍️ Entrada guardada', 'Tu día quedó registrado', 'success');
+    AchievementsModule.check();
+  }
+
+  function getEntryCount() { return getEntries().length; }
+
+  function init() {
+    render();
+    const saveBtn = document.getElementById('btnJournalSave');
+    if (saveBtn) saveBtn.addEventListener('click', save);
+  }
+
+  return { init, getEntryCount };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   13. OBJETIVOS CON DIOS
+════════════════════════════════════════════════════════════════ */
+const GoalsModule = (() => {
+  const KEY = 'elcamino_goals_v1';
+
+  const DEFAULT_GOALS = [
+    { id: 'pray', icon: '🙏', title: 'Orar todos los días', desc: 'Un mínimo de 5 minutos en comunión con Dios.' },
+    { id: 'bible', icon: '📖', title: 'Leer la Biblia', desc: 'Al menos un capítulo o versículo meditado.' },
+    { id: 'trust', icon: '⚽', title: 'Confiar en Dios en partidos', desc: 'Antes de cada entrenamiento o partido, entregar el resultado a Él.' },
+    { id: 'gratitude', icon: '✨', title: 'Practicar gratitud', desc: 'Escribir o pensar 3 cosas por las que estar agradecido.' },
+    { id: 'rest', icon: '😴', title: 'Descansar bien', desc: 'Dormir 7-8 horas. El cuerpo es templo de Dios.' },
+    { id: 'noexcuse', icon: '🔥', title: 'Sin excusas hoy', desc: 'Entrenar con la máxima intensidad sin buscar salidas fáciles.' },
+  ];
+
+  function getData() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
+  }
+  function saveData(data) { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch {} }
+
+  function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+  function render() {
+    const grid = document.getElementById('goalsGrid');
+    if (!grid) return;
+    const data = getData();
+    const today = todayStr();
+
+    grid.innerHTML = DEFAULT_GOALS.map(goal => {
+      const goalData = data[goal.id] || { streak: 0, total: 0, lastChecked: null };
+      const doneToday = goalData.lastChecked === today;
+      const pct = Math.min(100, (goalData.streak / 30) * 100);
+
+      return `
+        <div class="goal-card">
+          <span class="goal-streak-badge">🔥 ${goalData.streak} días</span>
+          <span class="goal-icon">${goal.icon}</span>
+          <div class="goal-title">${goal.title}</div>
+          <p class="goal-desc">${goal.desc}</p>
+          <div class="goal-progress-wrap">
+            <div class="goal-progress-label">
+              <span>Progreso mensual</span>
+              <span>${goalData.streak}/30</span>
+            </div>
+            <div class="goal-progress-bar">
+              <div class="goal-progress-fill" style="width:${pct}%"></div>
+            </div>
+          </div>
+          <button class="goal-check-btn ${doneToday ? 'done-today' : ''}" data-goal="${goal.id}">
+            <i class="fas ${doneToday ? 'fa-check-circle' : 'fa-circle'}"></i>
+            ${doneToday ? '¡Cumplido hoy!' : 'Marcar cumplido'}
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('.goal-check-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const goalId = btn.dataset.goal;
+        const data = getData();
+        const today = todayStr();
+        const gd = data[goalId] || { streak: 0, total: 0, lastChecked: null };
+
+        if (gd.lastChecked === today) {
+          UI.showToast('Ya lo marcaste hoy', '', 'info'); return;
+        }
+
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yStr = yesterday.toISOString().slice(0, 10);
+        gd.streak = (gd.lastChecked === yStr) ? gd.streak + 1 : 1;
+        gd.total++;
+        gd.lastChecked = today;
+        data[goalId] = gd;
+        saveData(data);
+        render();
+        UI.showToast('✅ ¡Meta cumplida!', DEFAULT_GOALS.find(g => g.id === goalId).title, 'success');
+        AchievementsModule.check();
+      });
+    });
+  }
+
+  function getTotalGoalsCompleted() {
+    const data = getData();
+    return Object.values(data).reduce((sum, g) => sum + (g.total || 0), 0);
+  }
+
+  function getPrayStreak() {
+    const data = getData();
+    return (data['pray'] || {}).streak || 0;
+  }
+
+  function getBibleReadings() {
+    const data = getData();
+    return (data['bible'] || {}).total || 0;
+  }
+
+  return { render, getTotalGoalsCompleted, getPrayStreak, getBibleReadings };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   14. BIBLIA RÁPIDA
+════════════════════════════════════════════════════════════════ */
+const BibleModule = (() => {
+
+  const VERSES = [
+    { text: 'Todo lo puedo en Cristo que me fortalece.', ref: 'Filipenses 4:13', topics: ['fe', 'fortaleza', 'futbol'] },
+    { text: 'Esfuérzate y sé valiente, porque el Señor tu Dios estará contigo dondequiera que vayas.', ref: 'Josué 1:9', topics: ['fortaleza', 'disciplina', 'miedo'] },
+    { text: 'Porque yo sé los planes que tengo para ustedes, planes de bienestar y no de calamidad.', ref: 'Jeremías 29:11', topics: ['fe'] },
+    { text: 'No te dejes vencer por el mal, sino vence el mal con el bien.', ref: 'Romanos 12:21', topics: ['disciplina', 'futbol'] },
+    { text: 'El Señor es mi fortaleza y mi escudo.', ref: 'Salmos 28:7', topics: ['fortaleza', 'miedo'] },
+    { text: 'Confía en el Señor de todo tu corazón y no te apoyes en tu propio entendimiento.', ref: 'Proverbios 3:5', topics: ['fe'] },
+    { text: 'Pero los que esperan al Señor renovarán sus fuerzas; volarán como las águilas.', ref: 'Isaías 40:31', topics: ['fortaleza', 'disciplina'] },
+    { text: 'No temas, porque yo estoy contigo; no te angusties, porque yo soy tu Dios.', ref: 'Isaías 41:10', topics: ['miedo', 'fe'] },
+    { text: 'Si Dios es por nosotros, ¿quién contra nosotros?', ref: 'Romanos 8:31', topics: ['fe', 'miedo'] },
+    { text: 'Todo lo que hagan, háganlo de corazón, como para el Señor.', ref: 'Colosenses 3:23', topics: ['disciplina', 'futbol'] },
+    { text: 'Corramos con paciencia la carrera que tenemos por delante.', ref: 'Hebreos 12:1', topics: ['disciplina', 'futbol'] },
+    { text: 'El justo caerá siete veces, pero se levantará.', ref: 'Proverbios 24:16', topics: ['fortaleza', 'futbol'] },
+    { text: 'Sé fuerte y no te desanimes. Tu trabajo tendrá recompensa.', ref: '2 Crónicas 15:7', topics: ['disciplina', 'fortaleza'] },
+    { text: 'Deléitate en el Señor, y él te concederá los deseos de tu corazón.', ref: 'Salmos 37:4', topics: ['fe'] },
+    { text: 'Porque nada hay imposible para Dios.', ref: 'Lucas 1:37', topics: ['fe', 'miedo'] },
+    { text: 'Mi gracia es suficiente para ti, porque mi poder se perfecciona en la debilidad.', ref: '2 Corintios 12:9', topics: ['miedo', 'fortaleza'] },
+    { text: 'Encomienda al Señor tus obras y tus planes se cumplirán.', ref: 'Proverbios 16:3', topics: ['fe', 'futbol'] },
+    { text: 'Bienaventurado el hombre que persevera bajo la prueba.', ref: 'Santiago 1:12', topics: ['disciplina'] },
+    { text: 'El Señor peleará por ustedes; ustedes quédense quietos.', ref: 'Éxodo 14:14', topics: ['fe', 'miedo'] },
+    { text: 'Dios es nuestro refugio y nuestra fortaleza, nuestra ayuda en momentos de angustia.', ref: 'Salmos 46:1', topics: ['fortaleza', 'miedo'] },
+    { text: 'Guarda tu corazón, porque de él mana la vida.', ref: 'Proverbios 4:23', topics: ['disciplina', 'futbol'] },
+    { text: 'El que es fiel en lo poco, también en lo mucho es fiel.', ref: 'Lucas 16:10', topics: ['disciplina'] },
+    { text: 'Sean fuertes en el Señor y en el poder de su fuerza.', ref: 'Efesios 6:10', topics: ['fortaleza'] },
+    { text: 'Busca primeramente el reino de Dios y su justicia, y lo demás te será añadido.', ref: 'Mateo 6:33', topics: ['fe', 'futbol'] },
+  ];
+
+  let activeTopic = 'all';
+  let searchTerm = '';
+
+  function getFiltered() {
+    return VERSES.filter(v => {
+      const topicMatch = activeTopic === 'all' || v.topics.includes(activeTopic);
+      const searchMatch = !searchTerm ||
+        v.text.toLowerCase().includes(searchTerm) ||
+        v.ref.toLowerCase().includes(searchTerm);
+      return topicMatch && searchMatch;
+    });
+  }
+
+  const TOPIC_LABELS = {
+    all: 'Todos', fe: 'Fe', fortaleza: 'Fortaleza',
+    disciplina: 'Disciplina', miedo: 'Sin Miedo', futbol: 'Fútbol'
+  };
+
+  function render() {
+    const container = document.getElementById('bibleResults');
+    if (!container) return;
+    const verses = getFiltered();
+
+    if (verses.length === 0) {
+      container.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--gris);padding:20px;">
+        No encontramos versículos con ese criterio.
+      </p>`;
+      return;
+    }
+
+    container.innerHTML = verses.map(v => `
+      <div class="bible-card">
+        <div class="bible-card-topic">${v.topics.map(t => TOPIC_LABELS[t] || t).join(' · ')}</div>
+        <p class="bible-card-text">"${v.text}"</p>
+        <span class="bible-card-ref">${v.ref}</span>
+      </div>
+    `).join('');
+  }
+
+  function init() {
+    render();
+
+    document.querySelectorAll('.bible-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bible-filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeTopic = btn.dataset.topic;
+        render();
+      });
+    });
+
+    const input = document.getElementById('bibleSearchInput');
+    if (input) {
+      input.addEventListener('input', () => {
+        searchTerm = input.value.toLowerCase().trim();
+        render();
+      });
+    }
+  }
+
+  return { init };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   15. FRASES FÚTBOL + FE
+════════════════════════════════════════════════════════════════ */
+const QuotesFE = (() => {
+
+  const QUOTES = [
+    { text: 'Entrená como si todo dependiera de vos, pero confiá como si todo dependiera de Dios.', source: '— Mentalidad del Campeón', cat: 'motivacion' },
+    { text: 'No te levantás porque sos el mejor. Te levantás porque Dios todavía tiene planes para vos en este campo.', source: '— El Camino', cat: 'motivacion' },
+    { text: 'El partido más importante de tu vida no es el que jugás hoy. Es el que seguís preparando mañana.', source: '— Anónimo', cat: 'motivacion' },
+    { text: 'La disciplina es elegir entre lo que querés ahora y lo que querés más. Yo elijo el profesionalismo.', source: '— Mentalidad Atleta', cat: 'disciplina' },
+    { text: 'El talento abre puertas, el carácter las mantiene abiertas. Dios nos da los dos.', source: '— Anónimo', cat: 'disciplina' },
+    { text: 'Cuando otros descansan, yo entreno. Pero siempre con Dios al centro, no con el ego.', source: '— El Camino', cat: 'disciplina' },
+    { text: 'No hay entrenamiento perdido si tu corazón está alineado con el propósito de Dios.', source: '— El Camino', cat: 'disciplina' },
+    { text: 'El fracaso no es caer. Es quedarse en el suelo cuando Dios ya te tendió la mano para levantarte.', source: '— El Camino', cat: 'fracaso' },
+    { text: 'Cada "no" de un scout es Dios diciendo: todavía no estás donde quiero que llegues. Seguí trabajando.', source: '— Fe Deportiva', cat: 'fracaso' },
+    { text: 'No te rompas por las críticas. Usalas como combustible. El fuego refina el oro.', source: '— Anónimo', cat: 'fracaso' },
+    { text: 'La derrota de hoy es el capítulo más importante de la historia que Dios está escribiendo sobre tu vida.', source: '— El Camino', cat: 'fracaso' },
+    { text: 'Jugá para la gloria de Dios, no para los aplausos del estadio. Los aplausos pasan, la gloria permanece.', source: '— Mentalidad Cristiana', cat: 'motivacion' },
+    { text: 'Si Dios te dio el sueño, también te dio lo necesario para alcanzarlo. Confiá.', source: '— El Camino', cat: 'fe' },
+  ];
+
+  let activeCat = 'all';
+
+  function render() {
+    const grid = document.getElementById('quotesFEGrid');
+    if (!grid) return;
+    const filtered = activeCat === 'all' ? QUOTES : QUOTES.filter(q => q.cat === activeCat);
+
+    grid.innerHTML = filtered.map(q => `
+      <div class="qfe-card">
+        <span class="qfe-cat-badge ${q.cat}">${q.cat === 'fracaso' ? 'Resiliencia' : q.cat.charAt(0).toUpperCase() + q.cat.slice(1)}</span>
+        <p class="qfe-text">"${q.text}"</p>
+        <span class="qfe-source"><i class="fas fa-quote-right"></i> ${q.source}</span>
+      </div>
+    `).join('');
+  }
+
+  function init() {
+    render();
+    document.querySelectorAll('.qfe-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.qfe-filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCat = btn.dataset.cat;
+        render();
+      });
+    });
+  }
+
+  return { init };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   16. LOGROS (GAMIFICACIÓN)
+════════════════════════════════════════════════════════════════ */
+const AchievementsModule = (() => {
+  const KEY = 'elcamino_achievements_v1';
+
+  const ACHIEVEMENTS = [
+    { id: 'first_card', medal: '⭐', title: 'Primer Paso', desc: 'Guardaste tu primera tarjeta de inspiración.', condition: () => Storage.getCards().length >= 1 },
+    { id: 'streak_3', medal: '🔥', title: 'Constante', desc: '3 días seguidos visitando la sección.', condition: () => Storage.getStreakData().currentStreak >= 3 },
+    { id: 'streak_7', medal: '⚡', title: 'Fuego Vivo', desc: '7 días seguidos de constancia espiritual.', condition: () => Storage.getStreakData().currentStreak >= 7 },
+    { id: 'bible_7', medal: '📖', title: 'Discípulo', desc: 'Marcaste "Leer la Biblia" 7 veces.', condition: () => GoalsModule.getBibleReadings() >= 7 },
+    { id: 'pray_10', medal: '🙏', title: 'Hombre de Fe', desc: 'Cumpliste el objetivo de orar 10 días.', condition: () => GoalsModule.getPrayStreak() >= 10 },
+    { id: 'journal_5', medal: '✍️', title: 'Cronista del Alma', desc: 'Escribiste 5 entradas en tu diario.', condition: () => Journal.getEntryCount() >= 5 },
+    { id: 'weekly_complete', medal: '🏆', title: 'Semana Santa', desc: 'Completaste los 7 días del plan espiritual.', condition: () => WeeklyPlan.getCompletedCount() >= 7 },
+    { id: 'cards_10', medal: '🌟', title: 'Coleccionista', desc: '10 tarjetas de inspiración guardadas.', condition: () => Storage.getCards().length >= 10 },
+    { id: 'favs_5', medal: '❤️', title: 'Corazón Pleno', desc: '5 tarjetas marcadas como favoritas.', condition: () => Storage.getCards().filter(c => c.favorito).length >= 5 },
+    { id: 'goals_30', medal: '👑', title: 'Campeón con Dios', desc: '30 objetivos completados en total.', condition: () => GoalsModule.getTotalGoalsCompleted() >= 30 },
+  ];
+
+  function getUnlocked() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; }
+  }
+
+  function saveUnlocked(list) {
+    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch {}
+  }
+
+  function check() {
+    const unlocked = getUnlocked();
+    let newUnlock = false;
+
+    ACHIEVEMENTS.forEach(ach => {
+      if (!unlocked.includes(ach.id) && ach.condition()) {
+        unlocked.push(ach.id);
+        newUnlock = true;
+        setTimeout(() => {
+          UI.showToast(`${ach.medal} ¡Logro desbloqueado!`, ach.title, 'success', 5000);
+        }, 500);
+      }
+    });
+
+    if (newUnlock) { saveUnlocked(unlocked); render(); }
+  }
+
+  function render() {
+    const grid = document.getElementById('achievementsGrid');
+    if (!grid) return;
+    const unlocked = getUnlocked();
+
+    grid.innerHTML = ACHIEVEMENTS.map(ach => {
+      const isUnlocked = unlocked.includes(ach.id);
+      return `
+        <div class="achievement-card ${isUnlocked ? 'unlocked' : ''}">
+          <span class="achievement-medal">${ach.medal}</span>
+          <div class="achievement-title">${ach.title}</div>
+          <p class="achievement-desc">${ach.desc}</p>
+          <span class="achievement-status">${isUnlocked ? '✅ Desbloqueado' : '🔒 Pendiente'}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  return { render, check };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   17. RECORDATORIOS
+════════════════════════════════════════════════════════════════ */
+const RemindersModule = (() => {
+  const KEY = 'elcamino_reminders_v1';
+
+  const DEFAULT_REMINDERS = [
+    { id: 'prayer', icon: 'fa-hands', title: 'Hora de Orar', defaultTime: '07:00' },
+    { id: 'reflection', icon: 'fa-brain', title: 'Hora de Reflexionar', defaultTime: '21:00' },
+    { id: 'training', icon: 'fa-futbol', title: 'Recordatorio de Entreno', defaultTime: '09:00' },
+    { id: 'gratitude', icon: 'fa-heart', title: 'Momento de Gratitud', defaultTime: '20:00' },
+  ];
+
+  function getData() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
+  }
+  function saveData(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch {} }
+
+  function render() {
+    const grid = document.getElementById('remindersGrid');
+    if (!grid) return;
+    const data = getData();
+
+    grid.innerHTML = DEFAULT_REMINDERS.map(rem => {
+      const saved = data[rem.id] || { time: rem.defaultTime, active: false };
+      return `
+        <div class="reminder-card">
+          <div class="reminder-icon"><i class="fas ${rem.icon}"></i></div>
+          <div class="reminder-info">
+            <div class="reminder-title">${rem.title}</div>
+            <input type="time" class="reminder-time-input" data-rem="${rem.id}" value="${saved.time}"/>
+          </div>
+          <button class="reminder-toggle ${saved.active ? 'on' : ''}" data-rem-toggle="${rem.id}" title="${saved.active ? 'Desactivar' : 'Activar'}"></button>
+        </div>
+      `;
+    }).join('');
+
+    // Bind time change
+    grid.querySelectorAll('.reminder-time-input').forEach(input => {
+      input.addEventListener('change', () => {
+        const data = getData();
+        const remId = input.dataset.rem;
+        if (!data[remId]) data[remId] = { time: input.value, active: false };
+        data[remId].time = input.value;
+        saveData(data);
+        UI.showToast('⏰ Recordatorio actualizado', input.value, 'info');
+      });
+    });
+
+    // Bind toggle
+    grid.querySelectorAll('[data-rem-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const data = getData();
+        const remId = btn.dataset.remToggle;
+        if (!data[remId]) data[remId] = { time: '08:00', active: false };
+        data[remId].active = !data[remId].active;
+        saveData(data);
+        btn.classList.toggle('on', data[remId].active);
+        UI.showToast(
+          data[remId].active ? '🔔 Recordatorio activado' : '🔕 Recordatorio desactivado',
+          DEFAULT_REMINDERS.find(r => r.id === remId).title,
+          data[remId].active ? 'success' : 'info'
+        );
+      });
+    });
+  }
+
+  return { render };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   18. MODO REFLEXIÓN
+════════════════════════════════════════════════════════════════ */
+const ReflectionMode = (() => {
+  function open() {
+    const overlay = document.getElementById('reflectionMode');
+    if (!overlay) return;
+    // Usar versículo del día
+    const v = Engine.getVersiculoDelDia();
+    const verseEl = document.getElementById('reflectionVerse');
+    const refEl   = document.getElementById('reflectionRef');
+    if (verseEl) verseEl.textContent = `"${v.texto}"`;
+    if (refEl)   refEl.textContent   = `— ${v.ref}`;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    const overlay = document.getElementById('reflectionMode');
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function init() {
+    const floatBtn = document.getElementById('btnReflectionFloat');
+    const closeBtn = document.getElementById('reflectionClose');
+    const overlay  = document.getElementById('reflectionMode');
+    if (floatBtn) floatBtn.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (overlay) overlay.addEventListener('click', e => {
+      if (e.target === overlay) close();
+    });
+    // ESC key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') close();
+    });
+  }
+
+  return { init };
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   INIT PRINCIPAL — actualizado con todos los nuevos módulos
+════════════════════════════════════════════════════════════════ */
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log('%c⚽ El Camino — Fe & Motivación ✝️', 'color:#00c853;font-size:1.2rem;font-weight:bold;');
   console.log('%cFue diseñado para tu camino al fútbol profesional con Dios.', 'color:#f5c518;');
@@ -1317,7 +2043,21 @@ document.addEventListener('DOMContentLoaded', () => {
   Streak.init();
   UI.init();
 
-  // Actualizar sub-texto del botón generar con total
+  // ── CORRECCIÓN BUG TARJETA DEL DÍA ──
+  // La tarjeta del día es INDEPENDIENTE del historial de guardadas
+  DailyCard.cleanup();
+  const todayCard = DailyCard.getTodayCard();
+  // Solo auto-guardar si el historial está completamente vacío (primera vez)
+  if (Storage.getCards().length === 0) {
+    Storage.addCard(todayCard);
+    UI.init(); // Re-render con la tarjeta inicial
+    setTimeout(() => {
+      UI.showToast('¡Bienvenido!', 'Tu tarjeta del día fue generada', 'success', 4000);
+    }, 1500);
+  }
+  // La tarjeta diaria existe independientemente de si fue guardada o no
+
+  // Actualizar sub-texto del botón generar
   const total = Storage.getCards().length;
   const genSub = document.getElementById('genSubText');
   if (genSub) {
@@ -1325,6 +2065,17 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `${total} tarjetas guardadas`
       : 'Tu primera inspiración del día';
   }
+
+  // ── INICIALIZAR NUEVOS MÓDULOS ──
+  WeeklyPlan.render();
+  Journal.init();
+  GoalsModule.render();
+  BibleModule.init();
+  QuotesFE.init();
+  AchievementsModule.render();
+  AchievementsModule.check();
+  RemindersModule.render();
+  ReflectionMode.init();
 
   // Re-observar elementos reveal dinámicos
   setTimeout(() => {
@@ -1338,18 +2089,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
   }, 100);
-
-  // Si no hay tarjetas, generar automáticamente la primera del día
-  const cards = Storage.getCards();
-  if (cards.length === 0) {
-    console.log('%c→ Primera visita detectada. Generando tarjeta inicial...', 'color:#8a9e8a;');
-    setTimeout(() => {
-      const card = Engine.generateCard('versiculo', true);
-      Storage.addCard(card);
-      UI.init(); // Re-render
-      UI.showToast('¡Bienvenido!', 'Tu primera tarjeta fue generada automáticamente', 'success', 4000);
-    }, 1500);
-  }
 
 });
 
