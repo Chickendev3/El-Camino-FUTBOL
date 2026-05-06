@@ -1231,6 +1231,79 @@ body::before {
 .ex-card[data-level="avanzado"] { --card-accent: var(--rojo); }
 .ex-card[data-level="intermedio"] { --card-accent: var(--dorado); }
 .ex-card[data-level="basico"] { --card-accent: var(--azul); }
+
+/* DROPDOWN */
+
+.dropdown {
+    position: relative;
+    list-style: none;
+}
+
+.dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+/* MENU OCULTO */
+
+.dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(255,255,255,0.03);
+
+    border-radius: 10px;
+
+    margin-top: 5px;
+    padding-left: 15px;
+
+    transition: max-height 0.4s ease;
+}
+
+/* LINKS */
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+
+    padding: 10px 15px;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: background 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+}
+
+/* ACTIVO */
+
+.dropdown.active .dropdown-menu {
+    max-height: 200px;
+}
+
+.dropdown.active .arrow {
+    transform: rotate(180deg);
+}
+
 </style>
 </head>
 <body>
@@ -1261,7 +1334,22 @@ body::before {
 
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
-    <li><a href="entrenamiento.html" class="active"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
+    <li class="dropdown">
+    <a href="#" class="dropdown-btn active">
+        <i class="fas fa-dumbbell nav-icon"></i>
+        Entrenamientos
+        <i class="fas fa-chevron-down arrow"></i>
+    </a>
+
+    <ul class="dropdown-menu">
+
+        <li>
+            <a href="entrenamiento2.html">
+                Entrenamiento 2
+            </a>
+        </li>
+    </ul>
+</li>
     <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
     <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
     <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
@@ -2855,6 +2943,16 @@ function animCount(el, target, dur=1200) {
     else el.textContent = Math.floor(s);
   }, 16);
 }
+
+
+    const dropdown = document.querySelector(".dropdown");
+    const button = document.querySelector(".dropdown-btn");
+
+    button.addEventListener("click", function(e) {
+        e.preventDefault();
+        dropdown.classList.toggle("active");
+    });
+
 
 /* ══════════════════════════════════════════════
    MODAL DE EJERCICIO
