@@ -1,84 +1,96 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Mi Progreso — Sistema de Scouting Personal Profesional"/>
-  <title>Mi Progreso | El Camino al Fútbol Profesional</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Mi Progreso — Sistema de Carrera Futbolística con Dios en el Centro"/>
+<title>Mi Progreso | El Camino al Fútbol Profesional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-/* ═══════════════════════════════════════════════════
-   ROOT VARIABLES — Consistencia con el proyecto
-═══════════════════════════════════════════════════ */
-:root {
-  --verde:    #00c853;
-  --verde-d:  #00a040;
-  --verde-g:  rgba(0,200,83,0.08);
-  --dorado:   #ffd700;
-  --dorado-d: #c8a800;
-  --naranja:  #ff6b00;
-  --azul:     #00b4d8;
-  --rojo:     #ff3b30;
-  --fondo:    #0a0a0f;
-  --fondo2:   #0f0f18;
-  --fondo3:   #141420;
-  --card:     #12121e;
-  --card2:    #181828;
-  --borde:    rgba(255,255,255,0.06);
-  --borde2:   rgba(0,200,83,0.2);
-  --texto:    #e8e8f0;
-  --texto2:   #9090b0;
-  --texto3:   #5a5a80;
-  --sombra:   0 8px 32px rgba(0,0,0,0.5);
-  --radius:   16px;
-  --radius-sm:8px;
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-  --font-ui:      'Syne', sans-serif;
+/* ══════════════════════════════════════════════
+   ROOT — Variables del sistema
+══════════════════════════════════════════════ */
+:root{
+  --verde:#00c853;--verde-d:#00a040;--verde-g:rgba(0,200,83,0.08);
+  --dorado:#ffd700;--dorado-d:#c8a800;--dorado-g:rgba(255,215,0,0.08);
+  --naranja:#ff6b00;--azul:#00b4d8;--rojo:#ff3b30;--morado:#a855f7;
+  --celeste:#38bdf8;
+  --fondo:#0a0a0f;--fondo2:#0f0f18;--fondo3:#141420;
+  --card:#12121e;--card2:#181828;
+  --borde:rgba(255,255,255,0.06);--borde2:rgba(0,200,83,0.2);
+  --texto:#e8e8f0;--texto2:#9090b0;--texto3:#5a5a80;
+  --sombra:0 8px 32px rgba(0,0,0,0.5);
+  --radius:16px;--radius-sm:8px;
+  --font-display:'Bebas Neue',sans-serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-ui:'Syne',sans-serif;
 }
-[data-theme="light"] {
-  --fondo:  #f0f0f8; --fondo2: #e8e8f4; --fondo3: #ffffff;
-  --card:   #ffffff; --card2:  #f5f5fc;
-  --borde:  rgba(0,0,0,0.07); --texto: #1a1a2e; --texto2: #555570; --texto3: #9090b0;
+[data-theme="light"]{
+  --fondo:#f0f0f8;--fondo2:#e8e8f4;--fondo3:#fff;
+  --card:#fff;--card2:#f5f5fc;
+  --borde:rgba(0,0,0,0.07);--texto:#1a1a2e;--texto2:#555570;--texto3:#9090b0;
 }
-
-/* ═══ RESET ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
-body{
-  background:var(--fondo);color:var(--texto);
-  font-family:var(--font-body);line-height:1.6;
-  overflow-x:hidden;transition:background .3s,color .3s;
-}
+body{background:var(--fondo);color:var(--texto);font-family:var(--font-body);line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
 img{max-width:100%;display:block}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 a{text-decoration:none;color:inherit}
 input,textarea,select{font-family:inherit}
-
-/* ═══ SCROLLBAR ═══ */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--fondo2)}
 ::-webkit-scrollbar-thumb{background:var(--verde);border-radius:3px}
 
-/* ═══ CURSOR ═══ */
-.cursor{
-  position:fixed;width:10px;height:10px;background:var(--verde);
-  border-radius:50%;pointer-events:none;z-index:9999;
-  transition:background .2s;mix-blend-mode:difference;
-}
-.cursor-ring{
-  position:fixed;width:38px;height:38px;border:2px solid var(--verde);
-  border-radius:50%;pointer-events:none;z-index:9998;opacity:.6;
-  transition:width .2s,height .2s,border-color .2s;
-}
+/* CURSOR */
+.cursor{position:fixed;width:10px;height:10px;background:var(--verde);border-radius:50%;pointer-events:none;z-index:9999;transition:background .2s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:38px;height:38px;border:2px solid var(--verde);border-radius:50%;pointer-events:none;z-index:9998;opacity:.6;transition:width .2s,height .2s,border-color .2s}
 
-/* ═══ NAVBAR ═══ */
+/* NOISE */
+.noise{position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")}
+
+/* ══ PARTICLES ══ */
+#particles-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+
+/* ══ LEVEL UP OVERLAY ══ */
+.levelup-overlay{
+  position:fixed;inset:0;z-index:9990;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(10px);
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+.levelup-overlay.show{opacity:1;pointer-events:all}
+.levelup-box{
+  text-align:center;padding:3rem;
+  background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(0,200,83,0.1));
+  border:2px solid var(--dorado);border-radius:24px;
+  animation:levelupPop .5s cubic-bezier(.22,1,.36,1);
+  max-width:480px;width:90%;
+}
+@keyframes levelupPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.lu-crown{font-size:4rem;margin-bottom:1rem;animation:bounce 1s ease infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.lu-title{font-family:var(--font-display);font-size:3rem;color:var(--dorado);letter-spacing:.1em;margin-bottom:.5rem}
+.lu-sub{color:var(--texto2);margin-bottom:1.5rem;font-size:1.1rem}
+.lu-verse{font-style:italic;color:var(--verde);font-size:.9rem;margin-bottom:1.5rem;padding:1rem;background:rgba(0,200,83,0.08);border-radius:10px;border-left:3px solid var(--verde)}
+.lu-close{background:var(--dorado);color:#000;font-family:var(--font-ui);font-weight:700;padding:.8rem 2rem;border-radius:10px;font-size:.85rem;transition:all .2s}
+.lu-close:hover{background:var(--dorado-d)}
+
+/* ══ STAT UP NOTIFICATION ══ */
+.statup-notif{
+  position:fixed;top:90px;right:1.5rem;z-index:8000;
+  background:var(--card);border:1px solid var(--verde);border-radius:12px;
+  padding:.8rem 1.2rem;display:flex;align-items:center;gap:.7rem;
+  font-family:var(--font-ui);font-size:.8rem;font-weight:700;color:var(--verde);
+  transform:translateX(120%);transition:transform .4s cubic-bezier(.22,1,.36,1);
+  max-width:280px;box-shadow:0 8px 30px rgba(0,200,83,0.2);
+}
+.statup-notif.show{transform:translateX(0)}
+.statup-arrow{font-size:1.2rem;color:var(--verde)}
+
+/* ══ NAVBAR ══ */
 #navbar{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
@@ -88,603 +100,451 @@ input,textarea,select{font-family:inherit}
 }
 #navbar.scrolled{background:rgba(10,10,15,0.97);box-shadow:var(--sombra)}
 .logo{display:flex;align-items:center;gap:.8rem}
-.logo-icon{
-  position:relative;width:44px;height:44px;
-  background:linear-gradient(135deg,var(--verde),var(--verde-d));
-  border-radius:10px;display:flex;align-items:center;justify-content:center;
-}
-.logo-cross{
-  position:absolute;top:-5px;right:-5px;font-size:.55rem;
-  background:var(--dorado);color:#000;width:14px;height:14px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-}
+.logo-icon{position:relative;width:44px;height:44px;background:linear-gradient(135deg,var(--verde),var(--verde-d));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-cross{position:absolute;top:-5px;right:-5px;font-size:.55rem;background:var(--dorado);color:#000;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .logo-name{display:block;font-family:var(--font-display);font-size:1.1rem;letter-spacing:.1em;color:#fff}
 .logo-tag{display:block;font-size:.6rem;color:var(--texto2);letter-spacing:.15em}
 .nav-links{display:flex;list-style:none;gap:.2rem}
-.nav-links a{
-  font-family:var(--font-ui);font-size:.78rem;font-weight:600;
-  letter-spacing:.05em;padding:.5rem .9rem;border-radius:8px;
-  transition:all .2s;color:var(--texto2);display:flex;align-items:center;gap:.4rem;
-}
+.nav-links a{font-family:var(--font-ui);font-size:.78rem;font-weight:600;letter-spacing:.05em;padding:.5rem .9rem;border-radius:8px;transition:all .2s;color:var(--texto2);display:flex;align-items:center;gap:.4rem}
 .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.06)}
-.nav-links a.nav-cta{background:var(--verde);color:#000 !important;font-weight:700}
+.nav-links a.nav-cta{background:var(--verde);color:#000!important;font-weight:700}
 .nav-links a.nav-cta:hover{background:var(--verde-d)}
-.nav-icon{font-size:.75rem;opacity:.7}
 .nav-actions{display:flex;align-items:center;gap:.8rem}
-.theme-toggle{
-  width:36px;height:36px;border-radius:50%;
-  background:rgba(255,255,255,0.06);color:var(--texto2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;transition:all .2s;
-}
+.theme-toggle{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);color:var(--texto2);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s}
 .theme-toggle:hover{background:var(--verde-g);color:var(--verde)}
-.hamburger{
-  display:none;flex-direction:column;gap:5px;
-  width:36px;height:36px;align-items:center;justify-content:center;
-  border-radius:8px;background:rgba(255,255,255,0.06);padding:0;
-}
-.hamburger span{
-  display:block;width:18px;height:2px;background:var(--texto);
-  border-radius:2px;transition:all .3s;
-}
+.hamburger{display:none;flex-direction:column;gap:5px;width:36px;height:36px;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,255,255,0.06);padding:0}
+.hamburger span{display:block;width:18px;height:2px;background:var(--texto);border-radius:2px;transition:all .3s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* ═══ MOBILE NAV ═══ */
-.mobile-nav{
-  position:fixed;inset:0;z-index:999;
-  background:rgba(10,10,15,.97);backdrop-filter:blur(30px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
-  transform:translateX(100%);transition:transform .4s cubic-bezier(.77,0,.18,1);
-}
+.mobile-nav{position:fixed;inset:0;z-index:999;background:rgba(10,10,15,.97);backdrop-filter:blur(30px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transform:translateX(100%);transition:transform .4s cubic-bezier(.77,0,.18,1)}
 .mobile-nav.open{transform:translateX(0)}
-.mobile-nav a{
-  font-family:var(--font-display);font-size:2rem;letter-spacing:.1em;
-  color:var(--texto2);transition:color .2s;display:flex;align-items:center;gap:1rem;
-}
+.mobile-nav a{font-family:var(--font-display);font-size:2rem;letter-spacing:.1em;color:var(--texto2);transition:color .2s;display:flex;align-items:center;gap:1rem}
 .mobile-nav a:hover,.mobile-nav a.mob-active{color:var(--verde)}
-.mobile-close{
-  position:absolute;top:1.5rem;right:1.5rem;
-  width:40px;height:40px;border-radius:50%;
-  background:rgba(255,255,255,0.06);color:var(--texto);font-size:1.1rem;
-  display:flex;align-items:center;justify-content:center;
-}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.06);color:var(--texto);font-size:1.1rem;display:flex;align-items:center;justify-content:center}
 
-/* ═══ HERO ═══ */
-.hero-prog{
-  position:relative;min-height:100vh;display:flex;align-items:center;
-  overflow:hidden;padding-top:70px;
-}
-.hero-bg-prog{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 80% at 60% 40%, rgba(0,200,83,0.12) 0%, transparent 60%),
-             radial-gradient(ellipse 60% 60% at 10% 80%, rgba(255,215,0,0.05) 0%, transparent 50%),
-             linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
-}
-.hero-grid-lines{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(0,200,83,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,200,83,0.04) 1px, transparent 1px);
-  background-size:60px 60px;
-}
-.hero-prog-inner{
-  position:relative;z-index:2;max-width:1200px;margin:0 auto;
-  padding:4rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:center;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--font-ui);font-size:.75rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--verde);
-  background:rgba(0,200,83,0.08);border:1px solid rgba(0,200,83,0.2);
-  padding:.4rem 1rem;border-radius:100px;margin-bottom:1.5rem;
-}
-.hero-title-prog{
-  font-family:var(--font-display);font-size:clamp(3.5rem,8vw,6rem);
-  line-height:.95;letter-spacing:.02em;margin-bottom:1.5rem;
-}
-.ht-w{color:#fff}
-.ht-g{color:var(--verde)}
-.ht-d{color:var(--dorado)}
-.hero-desc-prog{
-  font-size:1.05rem;color:var(--texto2);line-height:1.8;margin-bottom:2rem;max-width:480px;
-}
-.hero-btns-prog{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-prim{
-  display:inline-flex;align-items:center;gap:.6rem;
-  background:var(--verde);color:#000;font-family:var(--font-ui);
-  font-weight:700;font-size:.85rem;letter-spacing:.05em;
-  padding:.8rem 1.8rem;border-radius:10px;transition:all .25s;
-}
-.btn-prim:hover{background:var(--verde-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,83,0.3)}
-.btn-sec{
-  display:inline-flex;align-items:center;gap:.6rem;
-  background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.1);
-  font-family:var(--font-ui);font-weight:600;font-size:.85rem;
-  padding:.8rem 1.8rem;border-radius:10px;transition:all .25s;
-}
-.btn-sec:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px)}
-.hero-rating-display{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:1rem;
-}
-.rating-big-wrap{
-  position:relative;width:220px;height:220px;
-  background:linear-gradient(135deg,rgba(0,200,83,0.15),rgba(255,215,0,0.08));
-  border:2px solid rgba(0,200,83,0.3);border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 60px rgba(0,200,83,0.15),inset 0 0 60px rgba(0,0,0,0.3);
-  animation:pulseSlow 4s ease-in-out infinite;
-}
-@keyframes pulseSlow{0%,100%{box-shadow:0 0 60px rgba(0,200,83,0.15),inset 0 0 60px rgba(0,0,0,0.3)}50%{box-shadow:0 0 100px rgba(0,200,83,0.25),inset 0 0 60px rgba(0,0,0,0.3)}}
-.rating-big-inner{text-align:center}
-.rating-big-num{
-  font-family:var(--font-display);font-size:5rem;line-height:1;
-  background:linear-gradient(135deg,var(--verde),var(--dorado));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  display:block;
-}
-.rating-big-label{font-family:var(--font-ui);font-size:.7rem;letter-spacing:.2em;color:var(--texto2)}
-.rating-ring-svg{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px)}
-.hero-mini-stats{display:flex;gap:1.5rem}
-.hms-item{
-  text-align:center;padding:.8rem 1.2rem;
-  background:var(--card);border:1px solid var(--borde);border-radius:12px;
-  min-width:80px;
-}
-.hms-num{
-  display:block;font-family:var(--font-display);font-size:1.8rem;
-  color:var(--verde);line-height:1;
-}
-.hms-label{font-size:.7rem;color:var(--texto2);letter-spacing:.08em}
-
-/* ═══ NOISE ═══ */
-.noise{
-  position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-/* ═══ SECTIONS GENERALES ═══ */
-.section-wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
-.section-gap{padding:6rem 0}
-.section-eyebrow{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--font-ui);font-size:.72rem;font-weight:700;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--verde);margin-bottom:.8rem;
-}
-.section-h2{
-  font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);
-  letter-spacing:.03em;line-height:1.1;margin-bottom:1rem;
-}
-.section-h2 .green{color:var(--verde)}
-.section-h2 .gold{color:var(--dorado)}
-.section-sub{color:var(--texto2);font-size:.95rem;max-width:550px}
-
-/* ═══ REVEAL ═══ */
+/* ══ REVEAL ══ */
 .reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ═══ VERSE RIBBON ═══ */
-.verse-ribbon{
-  background:linear-gradient(90deg,var(--verde),var(--verde-d));
-  padding:1rem 2rem;text-align:center;font-size:.85rem;
-  font-family:var(--font-ui);font-weight:600;color:#000;letter-spacing:.03em;
+/* ══ SECTIONS ══ */
+.section-wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+.section-gap{padding:6rem 0}
+.section-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-ui);font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde);margin-bottom:.8rem}
+.section-h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.03em;line-height:1.1;margin-bottom:1rem}
+.section-h2 .green{color:var(--verde)}
+.section-h2 .gold{color:var(--dorado)}
+.section-h2 .blue{color:var(--azul)}
+.section-sub{color:var(--texto2);font-size:.95rem;max-width:550px}
+
+/* ══ VERSE RIBBON ══ */
+.verse-ribbon{background:linear-gradient(90deg,var(--verde),var(--verde-d));padding:1rem 2rem;text-align:center;font-size:.85rem;font-family:var(--font-ui);font-weight:600;color:#000;letter-spacing:.03em;position:relative;overflow:hidden}
+.verse-ribbon::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero-prog{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:70px}
+.hero-bg-prog{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 60% 40%,rgba(0,200,83,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 10% 80%,rgba(255,215,0,0.05) 0%,transparent 50%),linear-gradient(135deg,#0a0a0f 0%,#0f0f1a 100%)}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,83,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,83,0.04) 1px,transparent 1px);background-size:60px 60px}
+.hero-prog-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:4rem 2rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-ui);font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--verde);background:rgba(0,200,83,0.08);border:1px solid rgba(0,200,83,0.2);padding:.4rem 1rem;border-radius:100px;margin-bottom:1.5rem}
+.hero-title-prog{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,6rem);line-height:.95;letter-spacing:.02em;margin-bottom:1.5rem}
+.ht-w{color:#fff}.ht-g{color:var(--verde)}.ht-d{color:var(--dorado)}
+.hero-desc-prog{font-size:1.05rem;color:var(--texto2);line-height:1.8;margin-bottom:2rem;max-width:480px}
+.hero-btns-prog{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-prim{display:inline-flex;align-items:center;gap:.6rem;background:var(--verde);color:#000;font-family:var(--font-ui);font-weight:700;font-size:.85rem;letter-spacing:.05em;padding:.8rem 1.8rem;border-radius:10px;transition:all .25s}
+.btn-prim:hover{background:var(--verde-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,83,0.3)}
+.btn-sec{display:inline-flex;align-items:center;gap:.6rem;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.1);font-family:var(--font-ui);font-weight:600;font-size:.85rem;padding:.8rem 1.8rem;border-radius:10px;transition:all .25s}
+.btn-sec:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px)}
+
+/* HERO RIGHT — OVR + Rang + XP */
+.hero-rating-display{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.rating-big-wrap{position:relative;width:220px;height:220px;background:linear-gradient(135deg,rgba(0,200,83,0.15),rgba(255,215,0,0.08));border:2px solid rgba(0,200,83,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(0,200,83,0.15),inset 0 0 60px rgba(0,0,0,0.3);animation:pulseSlow 4s ease-in-out infinite}
+@keyframes pulseSlow{0%,100%{box-shadow:0 0 60px rgba(0,200,83,0.15),inset 0 0 60px rgba(0,0,0,0.3)}50%{box-shadow:0 0 100px rgba(0,200,83,0.25),inset 0 0 60px rgba(0,0,0,0.3)}}
+.rating-big-inner{text-align:center}
+.rating-big-num{font-family:var(--font-display);font-size:5rem;line-height:1;background:linear-gradient(135deg,var(--verde),var(--dorado));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.rating-big-label{font-family:var(--font-ui);font-size:.7rem;letter-spacing:.2em;color:var(--texto2)}
+.rating-ring-svg{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px)}
+
+/* RANGO BADGE */
+.rango-badge{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.6rem 1.4rem;border-radius:100px;
+  font-family:var(--font-ui);font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+  border:2px solid;transition:all .3s;
 }
+.rango-amateur{background:rgba(120,100,80,0.15);border-color:rgba(150,120,90,0.4);color:#c8a878}
+.rango-promesa{background:rgba(192,192,192,0.1);border-color:rgba(192,192,192,0.4);color:#c0c0c0}
+.rango-semipro{background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.4);color:#ffd700}
+.rango-profesional{background:rgba(0,200,83,0.1);border-color:rgba(0,200,83,0.4);color:#00c853}
+.rango-elite{background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.4);color:#38bdf8}
+.rango-leyenda{background:rgba(168,85,247,0.15);border-color:rgba(168,85,247,0.5);color:#a855f7;animation:legendGlow 2s ease-in-out infinite}
+@keyframes legendGlow{0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,0)}50%{box-shadow:0 0 20px 4px rgba(168,85,247,0.3)}}
+
+/* XP BAR */
+.xp-bar-wrap{width:220px}
+.xp-bar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;font-family:var(--font-ui);font-size:.72rem;font-weight:700}
+.xp-bar-label{color:var(--texto2)}
+.xp-bar-val{color:var(--dorado)}
+.xp-bar-track{height:8px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--dorado),var(--naranja));border-radius:100px;transition:width 1.5s cubic-bezier(.22,1,.36,1);position:relative}
+.xp-bar-fill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 8px rgba(255,215,0,0.8)}
+
+.hero-mini-stats{display:flex;gap:1rem}
+.hms-item{text-align:center;padding:.7rem 1rem;background:var(--card);border:1px solid var(--borde);border-radius:12px;min-width:70px}
+.hms-num{display:block;font-family:var(--font-display);font-size:1.6rem;color:var(--verde);line-height:1}
+.hms-label{font-size:.65rem;color:var(--texto2);letter-spacing:.08em}
 
 /* ══════════════════════════════════════
    FIFA CARD SECTION
 ══════════════════════════════════════ */
-.fifa-section{
-  background:var(--fondo2);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);
-}
-.fifa-inner{
-  display:grid;grid-template-columns:400px 1fr;gap:4rem;align-items:start;
-}
+.fifa-section{background:var(--fondo2);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+.fifa-inner{display:grid;grid-template-columns:400px 1fr;gap:4rem;align-items:start}
+.fifa-card-wrap{display:flex;flex-direction:column;align-items:center;gap:1.5rem;position:sticky;top:90px}
 
-/* — CARD FIFA — */
-.fifa-card-wrap{
-  display:flex;flex-direction:column;align-items:center;gap:2rem;
-  position:sticky;top:90px;
-}
-.fifa-card{
-  position:relative;width:300px;height:450px;
-  border-radius:20px;overflow:hidden;cursor:default;
-  transform-style:preserve-3d;perspective:1000px;
-  transition:transform .1s;
-}
-.fifa-card-bg{
-  position:absolute;inset:0;
-  background:linear-gradient(145deg,#1a2a1a 0%,#0f1f0f 30%,#1a1500 60%,#0f1500 100%);
-}
-.fifa-card-shine{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 40%,rgba(255,215,0,0.04) 100%);
-  z-index:2;pointer-events:none;
-}
-.fifa-card-border{
-  position:absolute;inset:0;border-radius:20px;
-  border:1.5px solid rgba(255,215,0,0.25);z-index:3;pointer-events:none;
-}
+/* CARD RAREZA */
+.fifa-card{position:relative;width:300px;height:450px;border-radius:20px;overflow:hidden;cursor:default;transform-style:preserve-3d;perspective:1000px;transition:transform .1s}
+.card-rarity-bronze .fifa-card-bg{background:linear-gradient(145deg,#2a1a0f 0%,#1a0f08 40%,#2a1800 100%)}
+.card-rarity-bronze .fifa-card-border{border-color:rgba(205,127,50,0.5)}
+.card-rarity-bronze .fifa-rating{color:#cd7f32;text-shadow:0 0 20px rgba(205,127,50,0.5)}
+.card-rarity-silver .fifa-card-bg{background:linear-gradient(145deg,#1e1e1e 0%,#111 40%,#1a1a1a 100%)}
+.card-rarity-silver .fifa-card-border{border-color:rgba(192,192,192,0.5)}
+.card-rarity-silver .fifa-rating{color:#c0c0c0;text-shadow:0 0 20px rgba(192,192,192,0.4)}
+.card-rarity-gold .fifa-card-bg{background:linear-gradient(145deg,#1a2a1a 0%,#0f1f0f 30%,#1a1500 60%,#0f1500 100%)}
+.card-rarity-gold .fifa-card-border{border-color:rgba(255,215,0,0.35)}
+.card-rarity-gold .fifa-rating{color:var(--dorado);text-shadow:0 0 30px rgba(255,215,0,0.5)}
+.card-rarity-special .fifa-card-bg{background:linear-gradient(145deg,#0a1428 0%,#081022 40%,#130a28 100%)}
+.card-rarity-special .fifa-card-border{border-color:rgba(56,189,248,0.5)}
+.card-rarity-special .fifa-rating{color:#38bdf8;text-shadow:0 0 30px rgba(56,189,248,0.5)}
+.card-rarity-special{animation:specialPulse 3s ease-in-out infinite}
+@keyframes specialPulse{0%,100%{box-shadow:0 0 30px rgba(56,189,248,0.1)}50%{box-shadow:0 0 60px rgba(56,189,248,0.25)}}
+.card-rarity-icon .fifa-card-bg{background:linear-gradient(145deg,#150f28 0%,#0d0820 40%,#1a0828 100%)}
+.card-rarity-icon .fifa-card-border{border-color:rgba(168,85,247,0.6)}
+.card-rarity-icon .fifa-rating{color:#a855f7;text-shadow:0 0 40px rgba(168,85,247,0.7)}
+.card-rarity-icon{animation:iconGlow 2s ease-in-out infinite}
+@keyframes iconGlow{0%,100%{box-shadow:0 0 40px rgba(168,85,247,0.2)}50%{box-shadow:0 0 80px rgba(168,85,247,0.4)}}
+
+.fifa-card-bg{position:absolute;inset:0}
+.fifa-card-shine{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 40%,rgba(255,215,0,0.04) 100%);z-index:2;pointer-events:none}
+.fifa-card-border{position:absolute;inset:0;border-radius:20px;border:1.5px solid rgba(255,215,0,0.25);z-index:3;pointer-events:none}
 .fifa-card-content{position:relative;z-index:4;height:100%;display:flex;flex-direction:column}
 .fifa-top{padding:1.2rem 1.2rem .5rem;display:flex;justify-content:space-between;align-items:flex-start}
-.fifa-rating{
-  font-family:var(--font-display);font-size:3.5rem;line-height:1;
-  color:var(--dorado);text-shadow:0 0 30px rgba(255,215,0,0.5);
-}
+.fifa-rating{font-family:var(--font-display);font-size:3.5rem;line-height:1;color:var(--dorado);text-shadow:0 0 30px rgba(255,215,0,0.5)}
 .fifa-pos-country{text-align:right}
-.fifa-pos{
-  font-family:var(--font-display);font-size:1.2rem;letter-spacing:.1em;
-  color:rgba(255,215,0,.9);display:block;
-}
+.fifa-pos{font-family:var(--font-display);font-size:1.2rem;letter-spacing:.1em;color:rgba(255,215,0,.9);display:block}
 .fifa-flag{font-size:1.5rem}
-.fifa-photo-area{
-  flex:1;position:relative;display:flex;align-items:flex-end;justify-content:center;
-  overflow:hidden;
-}
-.fifa-player-img{
-  width:100%;height:100%;object-fit:cover;object-position:top;
-  filter:drop-shadow(0 -20px 40px rgba(0,0,0,0.5));
-}
-.fifa-player-placeholder{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  color:rgba(255,255,255,0.2);font-size:4rem;gap:.5rem;width:100%;height:100%;
-  cursor:pointer;transition:all .3s;
-}
+.fifa-photo-area{flex:1;position:relative;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.fifa-player-img{width:100%;height:100%;object-fit:cover;object-position:top;filter:drop-shadow(0 -20px 40px rgba(0,0,0,0.5))}
+.fifa-player-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:4rem;gap:.5rem;width:100%;height:100%;cursor:pointer;transition:all .3s}
 .fifa-player-placeholder:hover{color:rgba(255,255,255,0.4)}
 .fifa-player-placeholder span{font-size:.8rem;font-family:var(--font-ui);letter-spacing:.1em;font-weight:600}
 .fifa-upload-input{display:none}
-.fifa-gradient-overlay{
-  position:absolute;bottom:0;left:0;right:0;height:60%;
-  background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
-}
-.fifa-name-bar{
-  padding:.5rem 1rem;text-align:center;
-  border-top:1px solid rgba(255,215,0,0.15);
-}
-.fifa-name{
-  font-family:var(--font-display);font-size:1.4rem;letter-spacing:.15em;
-  color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.8);
-}
-.fifa-stats-row{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  border-top:1px solid rgba(255,215,0,0.1);
-}
-.fifa-stat-mini{
-  text-align:center;padding:.5rem .3rem;
-  border-right:1px solid rgba(255,215,0,0.08);
-}
+.fifa-gradient-overlay{position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,transparent 100%)}
+.fifa-name-bar{padding:.5rem 1rem;text-align:center;border-top:1px solid rgba(255,215,0,0.15)}
+.fifa-name{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.15em;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.8)}
+.fifa-stats-row{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,215,0,0.1)}
+.fifa-stat-mini{text-align:center;padding:.5rem .3rem;border-right:1px solid rgba(255,215,0,0.08)}
 .fifa-stat-mini:last-child{border-right:none}
-.fsm-val{
-  display:block;font-family:var(--font-display);font-size:1.2rem;
-  color:var(--dorado);line-height:1;
-}
+.fsm-val{display:block;font-family:var(--font-display);font-size:1.2rem;color:var(--dorado);line-height:1}
 .fsm-lbl{font-size:.55rem;color:rgba(255,255,255,0.5);letter-spacing:.1em;text-transform:uppercase}
 
-/* card glow */
-.fifa-card:hover .fifa-card-bg{
-  background:linear-gradient(145deg,#1f341f 0%,#122012 30%,#201900 60%,#121800 100%);
+/* RARITY LABEL */
+.rarity-label{
+  font-family:var(--font-ui);font-size:.65rem;font-weight:700;letter-spacing:.2em;
+  padding:.3rem .8rem;border-radius:100px;text-align:center;margin-top:.5rem;
 }
+.rl-bronze{background:rgba(205,127,50,0.15);color:#cd7f32;border:1px solid rgba(205,127,50,0.3)}
+.rl-silver{background:rgba(192,192,192,0.1);color:#c0c0c0;border:1px solid rgba(192,192,192,0.3)}
+.rl-gold{background:rgba(255,215,0,0.1);color:var(--dorado);border:1px solid rgba(255,215,0,0.3)}
+.rl-special{background:rgba(56,189,248,0.1);color:#38bdf8;border:1px solid rgba(56,189,248,0.3)}
+.rl-icon{background:rgba(168,85,247,0.1);color:#a855f7;border:1px solid rgba(168,85,247,0.3)}
 
-/* — STATS PANEL — */
+/* POTENCIAL */
+.potencial-bar{width:100%;margin-top:.3rem}
+.pot-row{display:flex;justify-content:space-between;font-family:var(--font-ui);font-size:.72rem;margin-bottom:.3rem}
+.pot-track{height:6px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.pot-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--azul),var(--morado));transition:width 1.5s cubic-bezier(.22,1,.36,1)}
+
+/* STATS PANEL */
 .stats-panel{padding:0}
-.profile-edit-section{
-  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
-  padding:2rem;margin-bottom:2rem;
-}
-.pf-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1.5rem;
-}
-.pf-title{font-family:var(--font-ui);font-size:1.1rem;font-weight:700;color:#fff}
-.btn-edit{
-  display:flex;align-items:center;gap:.4rem;
-  font-family:var(--font-ui);font-size:.75rem;font-weight:600;
-  color:var(--verde);background:rgba(0,200,83,0.08);
-  border:1px solid rgba(0,200,83,0.2);padding:.4rem .9rem;border-radius:8px;
-  transition:all .2s;
-}
-.btn-edit:hover{background:rgba(0,200,83,0.15)}
-.profile-fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.pf-field label{display:block;font-size:.72rem;font-family:var(--font-ui);font-weight:600;letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem;text-transform:uppercase}
-.pf-field input,.pf-field select,.pf-field textarea{
-  width:100%;background:var(--fondo2);border:1px solid var(--borde);
-  color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.9rem;
-  transition:border-color .2s;font-family:var(--font-body);
-}
-.pf-field input:focus,.pf-field select:focus,.pf-field textarea:focus{
-  outline:none;border-color:var(--verde);
-}
-.pf-field textarea{resize:vertical;min-height:70px}
+.profile-edit-section{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:2rem;margin-bottom:2rem}
+.pf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.pf-title{font-family:var(--font-ui);font-weight:700;font-size:.95rem;color:#fff}
+.btn-edit{display:flex;align-items:center;gap:.4rem;font-family:var(--font-ui);font-size:.78rem;font-weight:700;color:var(--verde);background:rgba(0,200,83,0.1);border:1px solid rgba(0,200,83,0.2);padding:.4rem .9rem;border-radius:7px;transition:all .2s}
+.btn-edit:hover{background:rgba(0,200,83,0.2)}
+.profile-fields{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.pf-field{display:flex;flex-direction:column;gap:.35rem}
 .pf-field.full{grid-column:1/-1}
-.btn-save-prof{
-  margin-top:1.2rem;width:100%;
-  background:linear-gradient(90deg,var(--verde),var(--verde-d));
-  color:#000;font-family:var(--font-ui);font-weight:700;font-size:.85rem;
-  letter-spacing:.05em;padding:.85rem;border-radius:10px;transition:all .25s;
-}
-.btn-save-prof:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,83,0.3)}
+.pf-field label{font-size:.72rem;font-family:var(--font-ui);font-weight:600;letter-spacing:.1em;color:var(--texto2);text-transform:uppercase}
+.pf-field input,.pf-field select,.pf-field textarea{background:var(--fondo2);border:1px solid var(--borde);color:var(--texto);border-radius:8px;padding:.65rem .9rem;font-size:.85rem;transition:border .2s}
+.pf-field input:focus,.pf-field select:focus,.pf-field textarea:focus{outline:none;border-color:var(--verde)}
+.pf-field textarea{height:80px;resize:vertical}
+.btn-save-prof{width:100%;background:linear-gradient(90deg,rgba(0,200,83,0.1),rgba(0,200,83,0.05));color:var(--verde);border:1px solid rgba(0,200,83,0.2);font-family:var(--font-ui);font-weight:700;font-size:.82rem;padding:.9rem;border-radius:10px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;letter-spacing:.05em}
+.btn-save-prof:hover{background:rgba(0,200,83,0.15)}
 
-/* FIFA Stats bars */
-.fifa-bars-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2rem;
-}
-.fifa-bar-card{
-  background:var(--card);border:1px solid var(--borde);border-radius:12px;
-  padding:1.2rem;transition:all .3s;
-}
-.fifa-bar-card:hover{border-color:rgba(0,200,83,0.2);transform:translateY(-2px)}
-.fbc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
-.fbc-name{font-family:var(--font-ui);font-size:.8rem;font-weight:700;letter-spacing:.05em;color:var(--texto2)}
-.fbc-val{font-family:var(--font-display);font-size:1.6rem;line-height:1}
-.fbc-bar-bg{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
-.fbc-bar-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
-.c-ritmo .fbc-bar-fill{background:linear-gradient(90deg,#ff6b6b,#ff8e53)}
-.c-tiro  .fbc-bar-fill{background:linear-gradient(90deg,#ffd700,#ff9f43)}
-.c-pase  .fbc-bar-fill{background:linear-gradient(90deg,#00c853,#00b4d8)}
-.c-regate.fbc-bar-fill{background:linear-gradient(90deg,#a855f7,#6366f1)}
-.c-defensa .fbc-bar-fill{background:linear-gradient(90deg,#00b4d8,#0077b6)}
-.c-fisico .fbc-bar-fill{background:linear-gradient(90deg,#22c55e,#16a34a)}
-.c-ritmo .fbc-val{color:#ff8e53}
-.c-tiro  .fbc-val{color:var(--dorado)}
-.c-pase  .fbc-val{color:var(--verde)}
-.c-regate .fbc-val{color:#a855f7}
-.c-defensa .fbc-val{color:var(--azul)}
-.c-fisico .fbc-val{color:#22c55e}
-.fbc-source{font-size:.65rem;color:var(--texto3);margin-top:.4rem;font-style:italic}
-.override-input{
-  width:60px;background:var(--fondo2);border:1px solid var(--borde);
-  color:var(--texto);border-radius:6px;padding:.25rem .5rem;
-  font-size:.85rem;text-align:center;
-}
+/* STAT BARS */
+.fifa-bars-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.fifa-bar-card{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1rem}
+.fbc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.fbc-name{font-family:var(--font-ui);font-size:.78rem;font-weight:700;color:#fff;letter-spacing:.05em}
+.fbc-val{font-family:var(--font-display);font-size:1.5rem;line-height:1}
+.fbc-bar-bg{height:5px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;margin-bottom:.4rem}
+.fbc-bar-fill{height:100%;border-radius:100px;transition:width 1.5s cubic-bezier(.22,1,.36,1);width:0}
+.fbc-source{font-size:.68rem;color:var(--texto3);margin-bottom:.5rem;line-height:1.4}
+.override-input{width:100%;background:transparent;border:1px dashed var(--borde);color:var(--texto3);border-radius:6px;padding:.35rem .6rem;font-size:.75rem;text-align:center;transition:all .2s}
+.override-input:focus{outline:none;border-color:var(--dorado);color:var(--dorado)}
+.c-ritmo{color:#ff8c42}
+.c-tiro{color:#ffd700}
+.c-pase{color:#00c853}
+.c-regate{color:#a855f7}
+.c-defensa{color:#38bdf8}
+.c-fisico{color:#22c55e}
+.c-ritmo.fbc-bar-fill{background:linear-gradient(90deg,#ff8c42,#ff6b00)}
+.c-tiro.fbc-bar-fill{background:linear-gradient(90deg,#ffd700,#ff8c00)}
+.c-pase.fbc-bar-fill{background:linear-gradient(90deg,#00c853,#00e676)}
+.c-regate.fbc-bar-fill{background:linear-gradient(90deg,#a855f7,#7c3aed)}
+.c-defensa.fbc-bar-fill{background:linear-gradient(90deg,#38bdf8,#0ea5e9)}
+.c-fisico.fbc-bar-fill{background:linear-gradient(90deg,#22c55e,#16a34a)}
 
 /* ══════════════════════════════════════
-   PROGRESS GLOBAL SECTION
+   PROGRESS FACTORS
 ══════════════════════════════════════ */
 .progress-section{background:var(--fondo)}
-.progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
-.prog-factor-card{
-  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
-  padding:1.8rem;transition:all .3s;
-}
-.prog-factor-card:hover{border-color:var(--borde2);transform:translateY(-2px)}
-.pfc-icon{
-  width:50px;height:50px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.3rem;margin-bottom:1rem;
-}
-.pfc-icon.green{background:rgba(0,200,83,0.12);color:var(--verde)}
-.pfc-icon.orange{background:rgba(255,107,0,0.12);color:var(--naranja)}
+.progress-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem}
+.prog-factor-card{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:1.5rem;transition:all .3s;position:relative;overflow:hidden}
+.prog-factor-card:hover{transform:translateY(-3px);border-color:var(--borde2)}
+.pfc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:1rem}
+.pfc-icon.green{background:rgba(0,200,83,0.15);color:var(--verde)}
+.pfc-icon.orange{background:rgba(255,107,0,0.15);color:var(--naranja)}
 .pfc-icon.gold{background:rgba(255,215,0,0.12);color:var(--dorado)}
 .pfc-icon.blue{background:rgba(0,180,216,0.12);color:var(--azul)}
-.pfc-title{font-family:var(--font-ui);font-weight:700;font-size:.95rem;margin-bottom:.4rem;color:#fff}
-.pfc-desc{font-size:.82rem;color:var(--texto2);margin-bottom:1rem;line-height:1.6}
-.pfc-bar{height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;margin-bottom:.4rem}
-.pfc-fill{height:100%;border-radius:4px;transition:width 1.5s cubic-bezier(.22,1,.36,1)}
-.pfc-fill.green{background:linear-gradient(90deg,var(--verde),var(--verde-d))}
-.pfc-fill.orange{background:linear-gradient(90deg,var(--naranja),#ff9f43)}
-.pfc-fill.gold{background:linear-gradient(90deg,var(--dorado),var(--dorado-d))}
-.pfc-fill.blue{background:linear-gradient(90deg,var(--azul),#0077b6)}
-.pfc-pct{font-family:var(--font-display);font-size:1.4rem}
-.pfc-pct.green{color:var(--verde)}
-.pfc-pct.orange{color:var(--naranja)}
-.pfc-pct.gold{color:var(--dorado)}
-.pfc-pct.blue{color:var(--azul)}
-.how-it-works{
-  margin-top:2.5rem;background:var(--card2);border:1px solid var(--borde);
-  border-radius:var(--radius);padding:2rem;
-}
-.hiw-title{font-family:var(--font-ui);font-weight:700;font-size:1rem;color:#fff;margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
-.hiw-steps{display:flex;flex-direction:column;gap:1rem}
-.hiw-step{display:flex;align-items:center;gap:1rem}
-.hiw-step-num{
-  width:32px;height:32px;min-width:32px;border-radius:50%;
-  background:var(--verde-g);border:1px solid rgba(0,200,83,0.3);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-size:.9rem;color:var(--verde);
-}
-.hiw-step-text{font-size:.85rem;color:var(--texto2);line-height:1.5}
-.hiw-step-text strong{color:#fff}
+.pfc-icon.morado{background:rgba(168,85,247,0.12);color:var(--morado)}
+.pfc-title{font-family:var(--font-ui);font-weight:700;font-size:.85rem;color:#fff;margin-bottom:.5rem}
+.pfc-desc{font-size:.78rem;color:var(--texto2);line-height:1.6;margin-bottom:1rem}
+.pfc-bar{height:4px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;margin-bottom:.4rem}
+.pfc-fill{height:100%;border-radius:100px;width:0;transition:width 1.5s cubic-bezier(.22,1,.36,1)}
+.pfc-fill.green{background:linear-gradient(90deg,var(--verde),#00e676)}
+.pfc-fill.orange{background:linear-gradient(90deg,var(--naranja),#ff9800)}
+.pfc-fill.gold{background:linear-gradient(90deg,var(--dorado),var(--naranja))}
+.pfc-fill.blue{background:linear-gradient(90deg,var(--azul),var(--celeste))}
+.pfc-fill.morado{background:linear-gradient(90deg,var(--morado),#7c3aed)}
+.pfc-pct{font-family:var(--font-display);font-size:1.2rem}
+.pfc-pct.green{color:var(--verde)}.pfc-pct.orange{color:var(--naranja)}.pfc-pct.gold{color:var(--dorado)}.pfc-pct.blue{color:var(--azul)}.pfc-pct.morado{color:var(--morado)}
+
+/* HOW IT WORKS */
+.how-it-works{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:2rem;margin-top:2.5rem}
+.hiw-title{font-family:var(--font-ui);font-weight:700;font-size:.95rem;color:#fff;margin-bottom:1.5rem}
+.hiw-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.hiw-step{display:flex;gap:.8rem;align-items:flex-start}
+.hiw-step-num{width:28px;height:28px;min-width:28px;border-radius:50%;background:var(--verde);color:#000;font-family:var(--font-ui);font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.hiw-step-text{font-size:.8rem;color:var(--texto2);line-height:1.6}
 
 /* ══════════════════════════════════════
-   OBJETIVOS
+   RPG MISSIONS SECTION
 ══════════════════════════════════════ */
-.objetivos-section{background:var(--fondo2);border-top:1px solid var(--borde)}
-.obj-tabs{display:flex;gap:.5rem;margin:2rem 0 1.5rem;flex-wrap:wrap}
-.obj-tab{
-  font-family:var(--font-ui);font-size:.78rem;font-weight:700;
-  letter-spacing:.08em;padding:.5rem 1.2rem;border-radius:100px;
-  background:rgba(255,255,255,0.04);color:var(--texto2);
-  border:1px solid var(--borde);transition:all .2s;
+.missions-section{background:var(--fondo2);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+.missions-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.mission-card{
+  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
+  padding:1.5rem;position:relative;overflow:hidden;transition:all .3s;
 }
-.obj-tab.active,.obj-tab:hover{background:var(--verde);color:#000;border-color:var(--verde)}
-.obj-list{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
-.obj-card{
-  background:var(--card);border:1px solid var(--borde);border-radius:12px;
-  padding:1.4rem;display:grid;grid-template-columns:1fr auto;gap:1rem;
-  align-items:start;transition:all .3s;
-}
-.obj-card:hover{border-color:var(--borde2)}
-.obj-card.logrado{border-color:rgba(0,200,83,0.3);background:rgba(0,200,83,0.04)}
-.obj-card.en-progreso{border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.03)}
-.obj-left{display:flex;flex-direction:column;gap:.6rem}
-.obj-name{font-family:var(--font-ui);font-weight:700;font-size:.95rem;color:#fff}
-.obj-date{font-size:.75rem;color:var(--texto3)}
-.obj-progress-bar{height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;width:100%;max-width:400px}
-.obj-progress-fill{height:100%;border-radius:3px;background:var(--verde);transition:width 1s}
-.obj-status{
-  font-family:var(--font-ui);font-size:.7rem;font-weight:700;letter-spacing:.08em;
-  padding:.3rem .8rem;border-radius:100px;white-space:nowrap;align-self:start;
-}
-.st-pendiente{background:rgba(255,255,255,0.06);color:var(--texto2)}
-.st-progreso{background:rgba(255,215,0,0.12);color:var(--dorado)}
-.st-logrado{background:rgba(0,200,83,0.12);color:var(--verde)}
-.add-obj-form{
-  background:var(--card);border:1px dashed rgba(0,200,83,0.2);border-radius:12px;
-  padding:1.5rem;display:grid;grid-template-columns:1fr 1fr auto;gap:1rem;align-items:end;
-}
-.aof-field label{display:block;font-size:.72rem;font-family:var(--font-ui);font-weight:600;letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem}
-.aof-field input,.aof-field select{
-  width:100%;background:var(--fondo2);border:1px solid var(--borde);
-  color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.85rem;
-}
-.aof-field input:focus,.aof-field select:focus{outline:none;border-color:var(--verde)}
-.btn-add-obj{
-  background:var(--verde);color:#000;font-family:var(--font-ui);font-weight:700;
-  font-size:.82rem;padding:.7rem 1.4rem;border-radius:8px;white-space:nowrap;
-  transition:all .2s;
-}
-.btn-add-obj:hover{background:var(--verde-d)}
-.obj-delete{
-  background:none;color:var(--texto3);font-size:.8rem;
-  padding:.2rem;border-radius:4px;transition:color .2s;
-  align-self:start;
-}
-.obj-delete:hover{color:var(--rojo)}
+.mission-card:hover{transform:translateY(-2px);border-color:var(--borde2)}
+.mission-card.completed{border-color:rgba(0,200,83,0.3);background:rgba(0,200,83,0.04)}
+.mission-card.completed::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--verde),transparent)}
+.mission-type{font-family:var(--font-ui);font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem}
+.mt-daily{color:#38bdf8}.mt-weekly{color:#a855f7}.mt-long{color:var(--dorado)}
+.mission-title{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff;margin-bottom:.4rem}
+.mission-desc{font-size:.78rem;color:var(--texto2);line-height:1.5;margin-bottom:1rem}
+.mission-reward{display:flex;align-items:center;gap:.4rem;font-family:var(--font-ui);font-size:.75rem;font-weight:700;color:var(--dorado);margin-bottom:1rem}
+.mission-progress-wrap{margin-bottom:.8rem}
+.mission-pct-row{display:flex;justify-content:space-between;font-size:.7rem;color:var(--texto3);margin-bottom:.3rem}
+.mission-bar{height:4px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.mission-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--verde),#00e676);transition:width 1s}
+.mission-complete-badge{display:inline-flex;align-items:center;gap:.3rem;background:rgba(0,200,83,0.15);color:var(--verde);font-family:var(--font-ui);font-size:.72rem;font-weight:700;padding:.3rem .8rem;border-radius:100px}
 
 /* ══════════════════════════════════════
-   HISTORIAL EVOLUCIÓN
+   MENTAL SYSTEM
 ══════════════════════════════════════ */
-.evolution-section{background:var(--fondo)}
-.evo-charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
-.evo-chart-card{
-  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
-  padding:1.5rem;
-}
-.ecc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
-.ecc-title{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff}
-.ecc-badge{
-  font-family:var(--font-ui);font-size:.7rem;font-weight:700;
-  background:rgba(0,200,83,0.1);color:var(--verde);
-  padding:.25rem .7rem;border-radius:100px;
-}
-.chart-canvas-wrap{position:relative;height:200px}
-.add-history-btn{
-  display:flex;align-items:center;gap:.5rem;
-  font-family:var(--font-ui);font-size:.8rem;font-weight:600;
-  color:var(--verde);background:rgba(0,200,83,0.08);
-  border:1px dashed rgba(0,200,83,0.25);border-radius:8px;
-  padding:.6rem 1.2rem;margin-top:1rem;transition:all .2s;width:100%;justify-content:center;
-}
-.add-history-btn:hover{background:rgba(0,200,83,0.15)}
+.mental-section{background:var(--fondo)}
+.mental-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
+.mental-dashboard{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:2rem}
+.mental-title{font-family:var(--font-ui);font-weight:700;font-size:.95rem;color:#fff;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.mental-attrs{display:flex;flex-direction:column;gap:1rem}
+.mental-attr{display:flex;flex-direction:column;gap:.4rem}
+.ma-row{display:flex;justify-content:space-between;align-items:center}
+.ma-label{font-family:var(--font-ui);font-size:.78rem;font-weight:600;color:var(--texto2)}
+.ma-val{font-family:var(--font-display);font-size:1.1rem;color:var(--verde)}
+.ma-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.ma-fill{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.ma-energia{background:linear-gradient(90deg,#ffd700,#ff8c00)}
+.ma-motivacion{background:linear-gradient(90deg,#00c853,#00e676)}
+.ma-enfoque{background:linear-gradient(90deg,#38bdf8,#818cf8)}
+.ma-disciplina{background:linear-gradient(90deg,#a855f7,#7c3aed)}
+.ma-confianza{background:linear-gradient(90deg,#fb923c,#f97316)}
+.ma-resistencia{background:linear-gradient(90deg,#22c55e,#15803d)}
 
-/* snapshot modal */
-.snapshot-modal{
-  position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.75);backdrop-filter:blur(10px);
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
-.snapshot-modal.open{opacity:1;pointer-events:all}
-.snapshot-box{
-  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
-  padding:2rem;width:90%;max-width:480px;
-}
-.snp-title{font-family:var(--font-ui);font-weight:700;font-size:1.1rem;margin-bottom:1.5rem;color:#fff}
-.snp-fields{display:grid;gap:1rem}
-.snp-field label{display:block;font-size:.72rem;font-family:var(--font-ui);letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem;text-transform:uppercase}
-.snp-field input{
-  width:100%;background:var(--fondo2);border:1px solid var(--borde);
-  color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.9rem;
-}
-.snp-field input:focus{outline:none;border-color:var(--verde)}
-.snp-btns{display:flex;gap:1rem;margin-top:1.5rem}
-.snp-save{
-  flex:1;background:var(--verde);color:#000;font-family:var(--font-ui);
-  font-weight:700;font-size:.85rem;padding:.8rem;border-radius:8px;transition:all .2s;
-}
-.snp-save:hover{background:var(--verde-d)}
-.snp-cancel{
-  flex:1;background:rgba(255,255,255,0.06);color:var(--texto);
-  font-family:var(--font-ui);font-weight:600;font-size:.85rem;
-  padding:.8rem;border-radius:8px;border:1px solid var(--borde);transition:all .2s;
-}
-.snp-cancel:hover{background:rgba(255,255,255,0.1)}
+.mental-insights{display:flex;flex-direction:column;gap:1rem}
+.mental-insight-card{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1.2rem;display:flex;gap:.8rem;align-items:flex-start;transition:all .3s}
+.mental-insight-card:hover{border-color:var(--borde2)}
+.mi-icon{width:36px;height:36px;min-width:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.mi-icon.positive{background:rgba(0,200,83,0.15);color:var(--verde)}
+.mi-icon.warning{background:rgba(255,107,0,0.15);color:var(--naranja)}
+.mi-icon.info{background:rgba(56,189,248,0.1);color:var(--celeste)}
+.mi-icon.faith{background:rgba(255,215,0,0.1);color:var(--dorado)}
+.mi-text strong{display:block;font-family:var(--font-ui);font-size:.8rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.mi-text span{font-size:.75rem;color:var(--texto2);line-height:1.5}
 
 /* ══════════════════════════════════════
-   RADAR / SCOUTING PROFILE
+   SCOUTING SECTION
 ══════════════════════════════════════ */
 .scouting-section{background:var(--fondo2);border-top:1px solid var(--borde)}
 .scouting-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
-.radar-wrap{
-  background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);
-  padding:2rem;display:flex;flex-direction:column;align-items:center;
-}
+.radar-wrap{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:2rem;display:flex;flex-direction:column;align-items:center}
 .radar-title{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff;margin-bottom:1.5rem;text-align:center}
 .profile-details-wrap{display:flex;flex-direction:column;gap:1.5rem}
-.pd-card{
-  background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1.4rem;
-}
+.pd-card{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1.4rem}
 .pd-title{font-family:var(--font-ui);font-weight:700;font-size:.85rem;color:var(--verde);letter-spacing:.05em;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
 .pd-tags{display:flex;flex-wrap:wrap;gap:.5rem}
-.pd-tag{
-  font-family:var(--font-ui);font-size:.75rem;font-weight:600;
-  padding:.3rem .8rem;border-radius:6px;
-  background:rgba(255,255,255,0.06);border:1px solid var(--borde);color:var(--texto2);
-}
+.pd-tag{font-family:var(--font-ui);font-size:.75rem;font-weight:600;padding:.3rem .8rem;border-radius:6px;background:rgba(255,255,255,0.06);border:1px solid var(--borde);color:var(--texto2)}
 .pd-tag.green{background:rgba(0,200,83,0.1);border-color:rgba(0,200,83,0.2);color:var(--verde)}
 .pd-tag.red{background:rgba(255,59,48,0.1);border-color:rgba(255,59,48,0.2);color:var(--rojo)}
 .pd-text{font-size:.85rem;color:var(--texto2);line-height:1.7}
 
+/* PLAYER COMPARISONS */
+.comparison-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
+.comp-card{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1.2rem;text-align:center;transition:all .3s}
+.comp-card:hover{border-color:var(--borde2);transform:translateY(-2px)}
+.comp-player-name{font-family:var(--font-display);font-size:1.1rem;letter-spacing:.05em;color:#fff;margin-bottom:.2rem}
+.comp-attribute{font-size:.72rem;color:var(--verde);font-family:var(--font-ui);font-weight:700;margin-bottom:.5rem}
+.comp-similarity{font-family:var(--font-display);font-size:2rem;color:var(--dorado)}
+.comp-label{font-size:.65rem;color:var(--texto3);letter-spacing:.1em}
+
+/* ══════════════════════════════════════
+   TIMELINE
+══════════════════════════════════════ */
+.timeline-section{background:var(--fondo)}
+.timeline-wrap{margin-top:2.5rem;position:relative;padding-left:2rem}
+.timeline-wrap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--verde),var(--dorado),rgba(0,200,83,0.1))}
+.timeline-item{position:relative;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--borde);border-radius:12px;transition:all .3s}
+.timeline-item:hover{border-color:var(--borde2)}
+.timeline-item::before{content:'';position:absolute;left:-2.35rem;top:1.2rem;width:12px;height:12px;background:var(--verde);border-radius:50%;border:2px solid var(--fondo2);box-shadow:0 0 0 3px rgba(0,200,83,0.2)}
+.tl-date{font-family:var(--font-ui);font-size:.68rem;font-weight:700;color:var(--texto3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.tl-text{font-size:.85rem;color:var(--texto2);line-height:1.5}
+.tl-milestone{font-family:var(--font-ui);font-size:.8rem;font-weight:700;color:var(--verde);display:flex;align-items:center;gap:.4rem;margin-top:.3rem}
+.tl-badge{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--font-ui);font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:100px;background:rgba(255,215,0,0.1);color:var(--dorado);border:1px solid rgba(255,215,0,0.2)}
+
+/* ══════════════════════════════════════
+   OBJETIVOS / MISIONES RPG
+══════════════════════════════════════ */
+.objetivos-section{background:var(--fondo2);border-top:1px solid var(--borde)}
+.obj-tabs{display:flex;gap:.5rem;margin:1.5rem 0;flex-wrap:wrap}
+.obj-tab{font-family:var(--font-ui);font-size:.78rem;font-weight:700;letter-spacing:.05em;padding:.5rem 1.2rem;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid var(--borde);color:var(--texto2);transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.obj-tab.active,.obj-tab:hover{background:var(--verde);color:#000;border-color:transparent}
+.obj-list{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem}
+.obj-card{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:1.4rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;transition:all .3s}
+.obj-card:hover{border-color:var(--borde2)}
+.obj-card.logrado{border-left:3px solid var(--verde);background:rgba(0,200,83,0.02)}
+.obj-card.en-progreso{border-left:3px solid var(--dorado)}
+.obj-left{flex:1}
+.obj-name{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff;margin-bottom:.4rem}
+.obj-date{font-size:.72rem;color:var(--texto3);margin-bottom:.8rem;display:flex;align-items:center;gap:.3rem}
+.obj-progress-bar{height:4px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;margin-bottom:.3rem}
+.obj-progress-fill{height:100%;background:linear-gradient(90deg,var(--verde),#00e676);border-radius:100px;transition:width 1s}
+.obj-status{font-family:var(--font-ui);font-size:.68rem;font-weight:700;letter-spacing:.1em;padding:.25rem .7rem;border-radius:100px}
+.st-logrado{background:rgba(0,200,83,0.15);color:var(--verde)}
+.st-progreso{background:rgba(255,215,0,0.1);color:var(--dorado)}
+.st-pendiente{background:rgba(255,255,255,0.05);color:var(--texto2)}
+.add-obj-form{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:1.5rem;display:grid;grid-template-columns:1fr 1fr auto;gap:1rem;align-items:end}
+.aof-field label{display:block;font-size:.72rem;font-family:var(--font-ui);font-weight:600;letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem}
+.aof-field input,.aof-field select{width:100%;background:var(--fondo2);border:1px solid var(--borde);color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.85rem}
+.aof-field input:focus,.aof-field select:focus{outline:none;border-color:var(--verde)}
+.btn-add-obj{background:var(--verde);color:#000;font-family:var(--font-ui);font-weight:700;font-size:.82rem;padding:.7rem 1.4rem;border-radius:8px;white-space:nowrap;transition:all .2s}
+.btn-add-obj:hover{background:var(--verde-d)}
+.obj-delete{background:none;color:var(--texto3);font-size:.8rem;padding:.2rem;border-radius:4px;transition:color .2s;align-self:start}
+.obj-delete:hover{color:var(--rojo)}
+
+/* ══════════════════════════════════════
+   EVOLUTION SECTION
+══════════════════════════════════════ */
+.evolution-section{background:var(--fondo)}
+.evo-charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+.evo-chart-card{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:1.5rem}
+.ecc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.ecc-title{font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:#fff}
+.ecc-badge{font-family:var(--font-ui);font-size:.7rem;font-weight:700;background:rgba(0,200,83,0.1);color:var(--verde);padding:.25rem .7rem;border-radius:100px}
+.chart-canvas-wrap{position:relative;height:200px}
+.add-history-btn{display:flex;align-items:center;gap:.5rem;font-family:var(--font-ui);font-size:.8rem;font-weight:600;color:var(--verde);background:rgba(0,200,83,0.08);border:1px dashed rgba(0,200,83,0.25);border-radius:8px;padding:.6rem 1.2rem;margin-top:1rem;transition:all .2s;width:100%;justify-content:center}
+.add-history-btn:hover{background:rgba(0,200,83,0.15)}
+
+/* ══════════════════════════════════════
+   HALL OF FAME
+══════════════════════════════════════ */
+.halloffame-section{background:linear-gradient(135deg,#0a0f14 0%,#0f0a18 50%,#0a0f0a 100%);border-top:1px solid rgba(255,215,0,0.1);position:relative;overflow:hidden}
+.halloffame-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(255,215,0,0.04) 0%,transparent 70%)}
+.hof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.hof-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,215,0,0.1);border-radius:var(--radius);padding:1.8rem;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.hof-card:hover{border-color:rgba(255,215,0,0.25);transform:translateY(-3px)}
+.hof-card::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--dorado),transparent)}
+.hof-icon{font-size:2.2rem;margin-bottom:.8rem}
+.hof-title{font-family:var(--font-display);font-size:1.1rem;letter-spacing:.05em;color:var(--dorado);margin-bottom:.4rem}
+.hof-val{font-family:var(--font-display);font-size:2.5rem;color:#fff;line-height:1;margin-bottom:.3rem}
+.hof-sub{font-size:.75rem;color:var(--texto3);letter-spacing:.08em}
+
 /* ══════════════════════════════════════
    SPIRITUAL SECTION
 ══════════════════════════════════════ */
-.spiritual-section{
-  background:linear-gradient(135deg,#0a0f0a 0%,#0f1a0a 50%,#0a0f12 100%);
-  border-top:1px solid rgba(0,200,83,0.1);
-  position:relative;overflow:hidden;
-}
-.spiritual-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,200,83,0.06) 0%, transparent 70%);
-}
+.spiritual-section{background:linear-gradient(135deg,#0a0f0a 0%,#0f1a0a 50%,#0a0f12 100%);border-top:1px solid rgba(0,200,83,0.1);position:relative;overflow:hidden}
+.spiritual-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,200,83,0.06) 0%,transparent 70%)}
 .spiritual-inner{position:relative;z-index:1}
 .spiritual-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem}
-.verse-card{
-  background:rgba(255,255,255,0.03);border:1px solid rgba(0,200,83,0.1);
-  border-radius:var(--radius);padding:2rem;text-align:center;
-  transition:all .3s;position:relative;overflow:hidden;
-}
-.verse-card::before{
-  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--verde),transparent);
-}
+.verse-card{background:rgba(255,255,255,0.03);border:1px solid rgba(0,200,83,0.1);border-radius:var(--radius);padding:2rem;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.verse-card::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--verde),transparent)}
 .verse-card:hover{border-color:rgba(0,200,83,0.25);transform:translateY(-3px)}
 .vc-icon{font-size:2rem;margin-bottom:1rem;color:var(--verde);opacity:.8}
 .vc-text{font-style:italic;color:var(--texto2);font-size:.9rem;line-height:1.8;margin-bottom:.8rem}
 .vc-ref{font-family:var(--font-ui);font-size:.75rem;font-weight:700;color:var(--verde);letter-spacing:.08em}
-.identity-card{
-  grid-column:1/-1;background:rgba(0,200,83,0.05);
-  border:1px solid rgba(0,200,83,0.15);border-radius:var(--radius);padding:2rem;
-  text-align:center;
-}
+.identity-card{grid-column:1/-1;background:rgba(0,200,83,0.05);border:1px solid rgba(0,200,83,0.15);border-radius:var(--radius);padding:2rem;text-align:center}
 .ic-title{font-family:var(--font-display);font-size:2rem;letter-spacing:.1em;color:var(--verde);margin-bottom:.5rem}
 .ic-text{font-size:1rem;color:var(--texto2);line-height:1.8;max-width:700px;margin:0 auto}
 
-/* ══════════════════════════════════════
-   TOAST
-══════════════════════════════════════ */
+/* SNAPSHOT MODAL */
+.snapshot-modal{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
+.snapshot-modal.open{opacity:1;pointer-events:all}
+.snapshot-box{background:var(--card);border:1px solid var(--borde);border-radius:var(--radius);padding:2rem;width:90%;max-width:480px}
+.snp-title{font-family:var(--font-ui);font-weight:700;font-size:1.1rem;margin-bottom:1.5rem;color:#fff}
+.snp-fields{display:grid;gap:1rem}
+.snp-field label{display:block;font-size:.72rem;font-family:var(--font-ui);letter-spacing:.1em;color:var(--texto2);margin-bottom:.4rem;text-transform:uppercase}
+.snp-field input{width:100%;background:var(--fondo2);border:1px solid var(--borde);color:var(--texto);border-radius:8px;padding:.7rem .9rem;font-size:.9rem}
+.snp-field input:focus{outline:none;border-color:var(--verde)}
+.snp-btns{display:flex;gap:1rem;margin-top:1.5rem}
+.snp-save{flex:1;background:var(--verde);color:#000;font-family:var(--font-ui);font-weight:700;font-size:.85rem;padding:.8rem;border-radius:8px;transition:all .2s}
+.snp-save:hover{background:var(--verde-d)}
+.snp-cancel{flex:1;background:rgba(255,255,255,0.06);color:var(--texto);font-family:var(--font-ui);font-weight:600;font-size:.85rem;padding:.8rem;border-radius:8px;border:1px solid var(--borde);transition:all .2s}
+.snp-cancel:hover{background:rgba(255,255,255,0.1)}
+
+/* BADGES */
+.badges-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-top:2rem}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem .5rem;background:var(--card);border:1px solid var(--borde);border-radius:12px;transition:all .3s;cursor:default}
+.badge-item.earned{border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.04)}
+.badge-item:hover{transform:translateY(-3px)}
+.badge-icon{font-size:1.8rem}
+.badge-name{font-family:var(--font-ui);font-size:.65rem;font-weight:700;color:var(--texto3);text-align:center;letter-spacing:.05em;line-height:1.3}
+.badge-item.earned .badge-name{color:var(--dorado)}
+.badge-locked{opacity:.3;filter:grayscale(1)}
+
+/* TOAST */
 .toast-cont{position:fixed;bottom:2rem;right:2rem;z-index:5000;display:flex;flex-direction:column;gap:.7rem}
-.toast{
-  background:var(--card);border:1px solid var(--borde);border-radius:10px;
-  padding:.9rem 1.4rem;font-family:var(--font-ui);font-size:.82rem;font-weight:600;
-  color:#fff;display:flex;align-items:center;gap:.6rem;
-  box-shadow:0 8px 30px rgba(0,0,0,.5);
-  animation:slideInToast .3s ease,fadeOutToast .3s ease 2.7s forwards;
-  min-width:240px;
-}
+.toast{background:var(--card);border:1px solid var(--borde);border-radius:10px;padding:.9rem 1.4rem;font-family:var(--font-ui);font-size:.82rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:.6rem;box-shadow:0 8px 30px rgba(0,0,0,.5);animation:slideInToast .3s ease,fadeOutToast .3s ease 2.7s forwards;min-width:240px}
 .toast.success{border-left:3px solid var(--verde)}
 .toast.error{border-left:3px solid var(--rojo)}
+.toast.info{border-left:3px solid var(--azul)}
 @keyframes slideInToast{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes fadeOutToast{from{opacity:1}to{opacity:0;transform:translateX(100%)}}
 
-/* ══════════════════════════════════════
-   FOOTER
-══════════════════════════════════════ */
-.footer-prog{
-  background:var(--fondo2);border-top:1px solid var(--borde);
-  padding:3rem 2rem 1.5rem;
-}
+/* FOOTER */
+.footer-prog{background:var(--fondo2);border-top:1px solid var(--borde);padding:3rem 2rem 1.5rem}
 .footer-prog-inner{max-width:1200px;margin:0 auto}
 .fp-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
 .fp-brand p{color:var(--texto2);font-size:.85rem;line-height:1.7;margin-top:.8rem}
@@ -696,29 +556,29 @@ input,textarea,select{font-family:inherit}
 .fp-bottom{border-top:1px solid var(--borde);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .fp-bottom p{font-size:.8rem;color:var(--texto3)}
 .fp-social{display:flex;gap:.7rem}
-.fp-social a{
-  width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);
-  display:flex;align-items:center;justify-content:center;color:var(--texto3);font-size:.85rem;transition:all .2s;
-}
+.fp-social a{width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);display:flex;align-items:center;justify-content:center;color:var(--texto3);font-size:.85rem;transition:all .2s}
 .fp-social a:hover{border-color:var(--verde);color:var(--verde)}
 
-/* ══════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:1024px){
   .hero-prog-inner,.fifa-inner,.scouting-inner{grid-template-columns:1fr}
   .hero-rating-display{flex-direction:row;align-items:center}
   .fifa-card-wrap{position:static}
   .fifa-card{width:260px;height:390px}
-  .evo-charts-grid,.progress-grid{grid-template-columns:1fr}
+  .evo-charts-grid,.mental-grid{grid-template-columns:1fr}
+  .progress-grid{grid-template-columns:1fr 1fr}
   .spiritual-grid{grid-template-columns:1fr 1fr}
   .fp-top{grid-template-columns:1fr 1fr}
+  .missions-grid{grid-template-columns:1fr 1fr}
+  .hof-grid{grid-template-columns:1fr 1fr}
+  .badges-grid{grid-template-columns:repeat(4,1fr)}
+  .hiw-steps{grid-template-columns:1fr 1fr}
+  .comparison-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:flex}
   .hero-prog-inner{padding:2rem 1.5rem 1.5rem;gap:2rem}
-  .fifa-inner{padding:0}
   .fifa-bars-grid{grid-template-columns:1fr}
   .profile-fields{grid-template-columns:1fr}
   .add-obj-form{grid-template-columns:1fr}
@@ -728,24 +588,48 @@ input,textarea,select{font-family:inherit}
   .hms-item{min-width:60px;padding:.6rem .8rem}
   .rating-big-wrap{width:160px;height:160px}
   .rating-big-num{font-size:3.5rem}
+  .progress-grid{grid-template-columns:1fr}
+  .missions-grid{grid-template-columns:1fr}
+  .hof-grid{grid-template-columns:1fr}
+  .badges-grid{grid-template-columns:repeat(3,1fr)}
+  .comparison-grid{grid-template-columns:1fr}
+  .hiw-steps{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .fifa-card{width:240px;height:360px}
   .section-gap{padding:4rem 0}
   .section-wrap{padding:0 1.2rem}
+  .badges-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
-
-<!-- NOISE -->
+<canvas id="particles-canvas"></canvas>
 <div class="noise"></div>
-
-<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ═══ NAVBAR ═══ -->
+<!-- LEVEL UP OVERLAY -->
+<div class="levelup-overlay" id="levelupOverlay">
+  <div class="levelup-box">
+    <div class="lu-crown">👑</div>
+    <div class="lu-title" id="luTitle">¡SUBISTE DE NIVEL!</div>
+    <div class="lu-sub" id="luSub">Has alcanzado un nuevo rango</div>
+    <div class="lu-verse" id="luVerse">"Todo lo puedo en Cristo que me fortalece." — Filipenses 4:13</div>
+    <button class="lu-close" onclick="closeLevelUp()"><i class="fas fa-check"></i> ¡GLORIA A DIOS!</button>
+  </div>
+</div>
+
+<!-- STAT UP NOTIFICATION -->
+<div class="statup-notif" id="statupNotif">
+  <span class="statup-arrow">↑</span>
+  <span id="statupText">¡Ritmo +2!</span>
+</div>
+
+<!-- TOAST -->
+<div class="toast-cont" id="toastCont"></div>
+
+<!-- NAVBAR -->
 <nav id="navbar">
   <a href="index.html" class="logo">
     <div class="logo-icon">
@@ -764,28 +648,21 @@ input,textarea,select{font-family:inherit}
       <span class="logo-tag">Fe · Fútbol · Gloria</span>
     </div>
   </a>
-
   <ul class="nav-links">
-    <li><a href="index.html"><i class="fas fa-home nav-icon"></i>Inicio</a></li>
-    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell nav-icon"></i>Entrenamientos</a></li>
-    <li><a href="estadisticas.html"><i class="fas fa-chart-bar nav-icon"></i>Estadísticas</a></li>
-    <li><a href="fotos.html"><i class="fas fa-camera nav-icon"></i>Fotos</a></li>
-    <li><a href="fe.html"><i class="fas fa-cross nav-icon"></i>Fe & Motivación</a></li>
-    <li><a href="nutricion.html"><i class="fas fa-apple-alt nav-icon"></i>Nutrición</a></li>
-    <li><a href="progreso.html" class="nav-cta active"><i class="fas fa-trophy nav-icon"></i>Mi Progreso</a></li>
+    <li><a href="index.html"><i class="fas fa-home" style="font-size:.75rem;opacity:.7"></i>Inicio</a></li>
+    <li><a href="entrenamiento.html"><i class="fas fa-dumbbell" style="font-size:.75rem;opacity:.7"></i>Entrenamientos</a></li>
+    <li><a href="estadisticas.html"><i class="fas fa-chart-bar" style="font-size:.75rem;opacity:.7"></i>Estadísticas</a></li>
+    <li><a href="fotos.html"><i class="fas fa-camera" style="font-size:.75rem;opacity:.7"></i>Fotos</a></li>
+    <li><a href="fe.html"><i class="fas fa-cross" style="font-size:.75rem;opacity:.7"></i>Fe & Motivación</a></li>
+    <li><a href="nutricion.html"><i class="fas fa-apple-alt" style="font-size:.75rem;opacity:.7"></i>Nutrición</a></li>
+    <li><a href="progreso.html" class="nav-cta active"><i class="fas fa-trophy" style="font-size:.75rem;opacity:.7"></i>Mi Progreso</a></li>
   </ul>
-
   <div class="nav-actions">
-    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-      <i class="fas fa-sun" id="themeIcon"></i>
-    </button>
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="theme-toggle" id="themeToggle"><i class="fas fa-sun" id="themeIcon"></i></button>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-close" id="mobileClose"><i class="fas fa-times"></i></button>
   <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
@@ -796,25 +673,24 @@ input,textarea,select{font-family:inherit}
   <a href="progreso.html" class="mob-active"><i class="fas fa-trophy"></i> Mi Progreso</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
+<!-- ══ HERO ══ -->
 <section class="hero-prog">
   <div class="hero-bg-prog"></div>
   <div class="hero-grid-lines"></div>
   <div class="hero-prog-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow"><i class="fas fa-crosshairs"></i> Sistema de Scouting Personal</div>
+      <div class="hero-eyebrow"><i class="fas fa-cross"></i> Carrera Futbolística — Con Dios en el Centro</div>
       <h1 class="hero-title-prog">
         <span class="ht-w">MI</span><br>
         <span class="ht-g">PERFIL</span><br>
         <span class="ht-d">ÉLITE</span>
       </h1>
       <p class="hero-desc-prog">
-        Tu sistema de análisis profesional. Cada entrenamiento, cada comida, cada partido
-        se refleja en tu carta. <strong>Esto no es un juego — es tu camino al profesionalismo.</strong>
+        Tu sistema profesional de scouting y carrera futbolística. Cada partido, cada entrenamiento, cada acto de fe se refleja en tu carta. <strong>Con Dios, el límite no existe.</strong>
       </p>
       <div class="hero-btns-prog">
-        <a href="#fifa-section" class="btn-prim"><i class="fas fa-id-card"></i> Ver Mi Carta</a>
-        <a href="#objetivos-section" class="btn-sec"><i class="fas fa-bullseye"></i> Mis Objetivos</a>
+        <a href="#fifa-section" class="btn-prim"><i class="fas fa-id-card"></i> Ver Mi Carta FIFA</a>
+        <a href="#missions-section" class="btn-sec"><i class="fas fa-sword"></i> Misiones RPG</a>
       </div>
     </div>
     <div class="hero-rating-display">
@@ -833,22 +709,22 @@ input,textarea,select{font-family:inherit}
         </svg>
         <div class="rating-big-inner">
           <span class="rating-big-num" id="heroRatingNum">--</span>
-          <span class="rating-big-label">RATING GLOBAL</span>
+          <span class="rating-big-label">OVR GLOBAL</span>
         </div>
       </div>
+      <div id="rangoBadge" class="rango-badge rango-amateur"><i class="fas fa-star"></i> <span id="rangoText">Amateur</span></div>
+      <div class="xp-bar-wrap">
+        <div class="xp-bar-header">
+          <span class="xp-bar-label">XP · Nivel <span id="heroLevel">1</span></span>
+          <span class="xp-bar-val"><span id="heroXP">0</span> / 100 XP</span>
+        </div>
+        <div class="xp-bar-track"><div class="xp-bar-fill" id="heroXPBar" style="width:0%"></div></div>
+      </div>
       <div class="hero-mini-stats">
-        <div class="hms-item">
-          <span class="hms-num" id="hmsTrainings">0</span>
-          <span class="hms-label">Entrenam.</span>
-        </div>
-        <div class="hms-item">
-          <span class="hms-num" id="hmsGoles">0</span>
-          <span class="hms-label">Goles</span>
-        </div>
-        <div class="hms-item">
-          <span class="hms-num" id="hmsPartidos">0</span>
-          <span class="hms-label">Partidos</span>
-        </div>
+        <div class="hms-item"><span class="hms-num" id="hmsTrainings">0</span><span class="hms-label">Entrenos</span></div>
+        <div class="hms-item"><span class="hms-num" id="hmsGoles">0</span><span class="hms-label">Goles</span></div>
+        <div class="hms-item"><span class="hms-num" id="hmsPartidos">0</span><span class="hms-label">Partidos</span></div>
+        <div class="hms-item"><span class="hms-num" id="hmsStreak">0</span><span class="hms-label">Racha 🔥</span></div>
       </div>
     </div>
   </div>
@@ -857,24 +733,20 @@ input,textarea,select{font-family:inherit}
 <!-- VERSE RIBBON -->
 <div class="verse-ribbon">
   <i class="fas fa-cross"></i>&nbsp;
-  "No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento." — <strong>Romanos 12:2</strong>
+  "Porque yo sé los planes que tengo para vosotros — planes de bienestar y no de calamidad." — <strong>Jeremías 29:11</strong>
 </div>
 
-<!-- ═══════════════════════════════════════
-     FIFA CARD + STATS SECTION
-═══════════════════════════════════════ -->
+<!-- ══ FIFA CARD SECTION ══ -->
 <section class="fifa-section section-gap" id="fifa-section">
   <div class="section-wrap">
-    <div style="margin-bottom:2.5rem" class="reveal">
-      <span class="section-eyebrow"><i class="fas fa-id-card"></i> Carta de Jugador</span>
-      <h2 class="section-h2">Tu Perfil <span class="gold">Profesional</span></h2>
-      <p class="section-sub">Estadísticas calculadas automáticamente desde tus datos de entrenamiento, nutrición y partidos.</p>
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-id-card"></i> Carta del Jugador</span>
+      <h2 class="section-h2">Mi Carta <span class="gold">FIFA</span></h2>
+      <p class="section-sub">Tu identidad como jugador en formato carta EA FC. Evoluciona automáticamente según tu actividad real.</p>
     </div>
-    <div class="fifa-inner">
-
-      <!-- FIFA CARD -->
-      <div class="fifa-card-wrap reveal">
-        <div class="fifa-card" id="fifaCard">
+    <div class="fifa-inner reveal">
+      <div class="fifa-card-wrap">
+        <div class="fifa-card card-rarity-gold" id="fifaCard">
           <div class="fifa-card-bg"></div>
           <div class="fifa-card-shine"></div>
           <div class="fifa-card-border"></div>
@@ -886,71 +758,49 @@ input,textarea,select{font-family:inherit}
               </div>
               <div class="fifa-pos-country">
                 <span class="fifa-flag">🇦🇷</span>
+                <span style="display:block;font-size:.6rem;color:rgba(255,215,0,.5);font-family:var(--font-ui);margin-top:.2rem;letter-spacing:.08em">ARG</span>
               </div>
             </div>
-            <div class="fifa-photo-area">
-              <div class="fifa-player-placeholder" id="photoPlaceholder" onclick="document.getElementById('photoInput').click()">
-                <i class="fas fa-user-circle"></i>
-                <span>SUBIR FOTO</span>
-              </div>
-              <img id="playerPhotoImg" class="fifa-player-img" src="" alt="Foto del jugador" style="display:none"/>
+            <div class="fifa-photo-area" id="photoArea">
+              <label for="photoInput" style="width:100%;height:100%;display:contents;cursor:pointer">
+                <img id="playerPhotoImg" class="fifa-player-img" alt="" style="display:none"/>
+                <div class="fifa-player-placeholder" id="photoPlaceholder">
+                  <i class="fas fa-user-circle"></i>
+                  <span>SUBIR FOTO</span>
+                </div>
+              </label>
               <div class="fifa-gradient-overlay"></div>
-              <input type="file" id="photoInput" class="fifa-upload-input" accept="image/*"/>
             </div>
+            <input type="file" id="photoInput" class="fifa-upload-input" accept="image/*"/>
             <div class="fifa-name-bar">
               <div class="fifa-name" id="cardName">TU NOMBRE</div>
             </div>
             <div class="fifa-stats-row">
-              <div class="fifa-stat-mini">
-                <span class="fsm-val" id="cs-rit">--</span>
-                <span class="fsm-lbl">RIT</span>
-              </div>
-              <div class="fifa-stat-mini">
-                <span class="fsm-val" id="cs-tir">--</span>
-                <span class="fsm-lbl">TIR</span>
-              </div>
-              <div class="fifa-stat-mini">
-                <span class="fsm-val" id="cs-pas">--</span>
-                <span class="fsm-lbl">PAS</span>
-              </div>
-              <div class="fifa-stat-mini">
-                <span class="fsm-val" id="cs-reg">--</span>
-                <span class="fsm-lbl">REG</span>
-              </div>
-              <div class="fifa-stat-mini">
-                <span class="fsm-val" id="cs-def">--</span>
-                <span class="fsm-lbl">DEF</span>
-              </div>
-              <div class="fifa-stat-mini">
-                <span class="fsm-val" id="cs-fis">--</span>
-                <span class="fsm-lbl">FIS</span>
-              </div>
+              <div class="fifa-stat-mini"><span class="fsm-val" id="cs-rit">--</span><span class="fsm-lbl">RIT</span></div>
+              <div class="fifa-stat-mini"><span class="fsm-val" id="cs-tir">--</span><span class="fsm-lbl">TIR</span></div>
+              <div class="fifa-stat-mini"><span class="fsm-val" id="cs-pas">--</span><span class="fsm-lbl">PAS</span></div>
+              <div class="fifa-stat-mini"><span class="fsm-val" id="cs-reg">--</span><span class="fsm-lbl">REG</span></div>
+              <div class="fifa-stat-mini"><span class="fsm-val" id="cs-def">--</span><span class="fsm-lbl">DEF</span></div>
+              <div class="fifa-stat-mini"><span class="fsm-val" id="cs-fis">--</span><span class="fsm-lbl">FÍS</span></div>
             </div>
           </div>
         </div>
-        <!-- 3D tilt hint -->
-        <p style="font-size:.72rem;color:var(--texto3);font-family:var(--font-ui);text-align:center">
-          <i class="fas fa-hand-point-up"></i> Mové el cursor para efecto 3D
-        </p>
-        <p style="font-size:.72rem;color:var(--verde);font-family:var(--font-ui);text-align:center;cursor:pointer" onclick="document.getElementById('photoInput').click()">
-          <i class="fas fa-camera"></i> Clic en la carta para subir foto
-        </p>
+        <div id="rarityLabel" class="rarity-label rl-gold">✦ GOLD · Jugador Comprometido</div>
+        <div class="potencial-bar">
+          <div class="pot-row"><span style="color:var(--texto2)">Potencial</span><span id="potencialVal" style="color:var(--celeste)">--/99</span></div>
+          <div class="pot-track"><div class="pot-fill" id="potencialBar" style="width:0%"></div></div>
+        </div>
       </div>
 
       <!-- STATS PANEL -->
       <div class="stats-panel reveal">
-
-        <!-- PROFILE EDIT -->
         <div class="profile-edit-section">
           <div class="pf-header">
             <span class="pf-title"><i class="fas fa-user-edit" style="color:var(--verde);margin-right:.4rem"></i> Perfil del Jugador</span>
             <button class="btn-edit" id="btnSaveProfile"><i class="fas fa-save"></i> Guardar</button>
           </div>
           <div class="profile-fields">
-            <div class="pf-field">
-              <label>Nombre Completo</label>
-              <input type="text" id="pfName" placeholder="Tu nombre"/>
-            </div>
+            <div class="pf-field"><label>Nombre Completo</label><input type="text" id="pfName" placeholder="Tu nombre"/></div>
             <div class="pf-field">
               <label>Posición Principal</label>
               <select id="pfPos">
@@ -963,101 +813,63 @@ input,textarea,select{font-family:inherit}
                 <option value="VOL">Volante (VOL)</option>
               </select>
             </div>
-            <div class="pf-field">
-              <label>Posición Secundaria</label>
-              <input type="text" id="pfPos2" placeholder="Ej: Extremo derecho"/>
-            </div>
+            <div class="pf-field"><label>Posición Secundaria</label><input type="text" id="pfPos2" placeholder="Ej: Extremo derecho"/></div>
             <div class="pf-field">
               <label>Estilo de Juego</label>
               <select id="pfStyle">
-                <option>Ofensivo</option>
-                <option>Defensivo</option>
-                <option>Mixto</option>
-                <option>Creador de juego</option>
-                <option>Box-to-box</option>
-                <option>Presionador</option>
+                <option>Ofensivo</option><option>Defensivo</option><option>Mixto</option>
+                <option>Creador de juego</option><option>Box-to-box</option><option>Presionador</option>
               </select>
             </div>
-            <div class="pf-field full">
-              <label>Fortalezas</label>
-              <input type="text" id="pfStrengths" placeholder="Ej: Velocidad, regate, visión de juego"/>
-            </div>
-            <div class="pf-field full">
-              <label>Áreas a mejorar</label>
-              <input type="text" id="pfWeaknesses" placeholder="Ej: Definición, juego aéreo"/>
-            </div>
-            <div class="pf-field full">
-              <label>Notas del Analista</label>
-              <textarea id="pfNotes" placeholder="Observaciones adicionales sobre tu juego..."></textarea>
-            </div>
+            <div class="pf-field full"><label>Fortalezas</label><input type="text" id="pfStrengths" placeholder="Ej: Velocidad, regate, visión de juego"/></div>
+            <div class="pf-field full"><label>Áreas a mejorar</label><input type="text" id="pfWeaknesses" placeholder="Ej: Definición, juego aéreo"/></div>
+            <div class="pf-field full"><label>Notas del Analista</label><textarea id="pfNotes" placeholder="Observaciones adicionales sobre tu juego..."></textarea></div>
           </div>
-          <button class="btn-save-prof" id="btnSaveProfileFull">
-            <i class="fas fa-save"></i> Guardar Perfil Completo
-          </button>
+          <button class="btn-save-prof" id="btnSaveProfileFull"><i class="fas fa-save"></i> Guardar Perfil Completo</button>
         </div>
 
-        <!-- STATS BARS -->
         <h3 style="font-family:var(--font-ui);font-weight:700;color:#fff;margin-bottom:1.2rem;font-size:.95rem;">
-          <i class="fas fa-sliders-h" style="color:var(--verde);margin-right:.5rem"></i>
-          Estadísticas — Calculadas Automáticamente
+          <i class="fas fa-sliders-h" style="color:var(--verde);margin-right:.5rem"></i> Estadísticas — Calculadas Automáticamente
         </h3>
         <div class="fifa-bars-grid">
           <div class="fifa-bar-card">
-            <div class="fbc-header">
-              <span class="fbc-name">⚡ RITMO</span>
-              <span class="fbc-val c-ritmo" id="val-ritmo">--</span>
-            </div>
+            <div class="fbc-header"><span class="fbc-name">⚡ RITMO</span><span class="fbc-val c-ritmo" id="val-ritmo">--</span></div>
             <div class="fbc-bar-bg"><div class="fbc-bar-fill c-ritmo" id="bar-ritmo" style="width:0%"></div></div>
             <div class="fbc-source" id="src-ritmo">Basado en entrenamientos de velocidad</div>
-            <input type="number" class="override-input" id="ov-ritmo" min="1" max="99" placeholder="—" title="Override manual"/>
+            <input type="number" class="override-input" id="ov-ritmo" min="1" max="99" placeholder="— override"/>
           </div>
           <div class="fifa-bar-card">
-            <div class="fbc-header">
-              <span class="fbc-name">🎯 TIRO</span>
-              <span class="fbc-val c-tiro" id="val-tiro">--</span>
-            </div>
+            <div class="fbc-header"><span class="fbc-name">🎯 TIRO</span><span class="fbc-val c-tiro" id="val-tiro">--</span></div>
             <div class="fbc-bar-bg"><div class="fbc-bar-fill c-tiro" id="bar-tiro" style="width:0%"></div></div>
-            <div class="fbc-source" id="src-tiro">Basado en goles y estadísticas de partidos</div>
-            <input type="number" class="override-input" id="ov-tiro" min="1" max="99" placeholder="—" title="Override manual"/>
+            <div class="fbc-source" id="src-tiro">Basado en goles y partidos</div>
+            <input type="number" class="override-input" id="ov-tiro" min="1" max="99" placeholder="— override"/>
           </div>
           <div class="fifa-bar-card">
-            <div class="fbc-header">
-              <span class="fbc-name">🎪 PASE</span>
-              <span class="fbc-val c-pase" id="val-pase">--</span>
-            </div>
+            <div class="fbc-header"><span class="fbc-name">🎪 PASE</span><span class="fbc-val c-pase" id="val-pase">--</span></div>
             <div class="fbc-bar-bg"><div class="fbc-bar-fill c-pase" id="bar-pase" style="width:0%"></div></div>
-            <div class="fbc-source" id="src-pase">Basado en asistencias y precisión de pase</div>
-            <input type="number" class="override-input" id="ov-pase" min="1" max="99" placeholder="—" title="Override manual"/>
+            <div class="fbc-source" id="src-pase">Basado en asistencias y técnica</div>
+            <input type="number" class="override-input" id="ov-pase" min="1" max="99" placeholder="— override"/>
           </div>
           <div class="fifa-bar-card">
-            <div class="fbc-header">
-              <span class="fbc-name">🌀 REGATE</span>
-              <span class="fbc-val c-regate" id="val-regate">--</span>
-            </div>
+            <div class="fbc-header"><span class="fbc-name">🌀 REGATE</span><span class="fbc-val c-regate" id="val-regate">--</span></div>
             <div class="fbc-bar-bg"><div class="fbc-bar-fill c-regate" id="bar-regate" style="width:0%"></div></div>
             <div class="fbc-source" id="src-regate">Basado en entrenamientos técnicos</div>
-            <input type="number" class="override-input" id="ov-regate" min="1" max="99" placeholder="—" title="Override manual"/>
+            <input type="number" class="override-input" id="ov-regate" min="1" max="99" placeholder="— override"/>
           </div>
           <div class="fifa-bar-card">
-            <div class="fbc-header">
-              <span class="fbc-name">🛡️ DEFENSA</span>
-              <span class="fbc-val c-defensa" id="val-defensa">--</span>
-            </div>
+            <div class="fbc-header"><span class="fbc-name">🛡️ DEFENSA</span><span class="fbc-val c-defensa" id="val-defensa">--</span></div>
             <div class="fbc-bar-bg"><div class="fbc-bar-fill c-defensa" id="bar-defensa" style="width:0%"></div></div>
-            <div class="fbc-source" id="src-defensa">Basado en entrenamientos defensivos</div>
-            <input type="number" class="override-input" id="ov-defensa" min="1" max="99" placeholder="—" title="Override manual"/>
+            <div class="fbc-source" id="src-defensa">Basado en sesiones defensivas</div>
+            <input type="number" class="override-input" id="ov-defensa" min="1" max="99" placeholder="— override"/>
           </div>
           <div class="fifa-bar-card">
-            <div class="fbc-header">
-              <span class="fbc-name">💪 FÍSICO</span>
-              <span class="fbc-val c-fisico" id="val-fisico">--</span>
-            </div>
+            <div class="fbc-header"><span class="fbc-name">💪 FÍSICO</span><span class="fbc-val c-fisico" id="val-fisico">--</span></div>
             <div class="fbc-bar-bg"><div class="fbc-bar-fill c-fisico" id="bar-fisico" style="width:0%"></div></div>
-            <div class="fbc-source" id="src-fisico">Basado en nutrición + entrenamientos físicos</div>
-            <input type="number" class="override-input" id="ov-fisico" min="1" max="99" placeholder="—" title="Override manual"/>
+            <div class="fbc-source" id="src-fisico">Nutrición + entrenamientos físicos</div>
+            <input type="number" class="override-input" id="ov-fisico" min="1" max="99" placeholder="— override"/>
           </div>
         </div>
-        <button class="btn-save-prof" id="btnApplyOverrides" style="background:rgba(255,215,0,0.15);color:var(--dorado);border:1px solid rgba(255,215,0,0.2)">
+        <button class="btn-save-prof" id="btnApplyOverrides" style="background:rgba(255,215,0,0.08);color:var(--dorado);border:1px solid rgba(255,215,0,0.2);margin-bottom:1rem">
           <i class="fas fa-sliders-h"></i> Aplicar Overrides Manuales
         </button>
       </div>
@@ -1065,205 +877,243 @@ input,textarea,select{font-family:inherit}
   </div>
 </section>
 
-<!-- ═══ PROGRESS SECTION ═══ -->
+<!-- ══ PROGRESS FACTORS ══ -->
 <section class="progress-section section-gap" id="progress-section">
   <div class="section-wrap">
     <div class="reveal">
-      <span class="section-eyebrow"><i class="fas fa-chart-line"></i> Factores de Crecimiento</span>
-      <h2 class="section-h2">Cómo Sube <span class="green">Tu Nivel</span></h2>
-      <p class="section-sub">Cada acción que realizás impacta directamente en tu rating. Así funciona el sistema.</p>
+      <span class="section-eyebrow"><i class="fas fa-chart-line"></i> Motor de Crecimiento</span>
+      <h2 class="section-h2">Cómo Evoluciona <span class="green">Tu Carta</span></h2>
+      <p class="section-sub">Cada acción registrada en el sistema impacta directamente en tu OVR, atributos y nivel de jugador.</p>
     </div>
     <div class="progress-grid reveal">
       <div class="prog-factor-card">
         <div class="pfc-icon green"><i class="fas fa-dumbbell"></i></div>
         <div class="pfc-title">Entrenamientos</div>
-        <div class="pfc-desc">Cada sesión completada suma puntos. Mayor frecuencia e intensidad = mayor impacto en Ritmo, Regate y Físico.</div>
+        <div class="pfc-desc">Cada sesión suma. Alta intensidad = mayor impacto en Ritmo, Regate y Físico.</div>
         <div class="pfc-bar"><div class="pfc-fill green" id="pfcTraining" style="width:0%"></div></div>
         <span class="pfc-pct green" id="pfcTrainingPct">0%</span>
       </div>
       <div class="prog-factor-card">
         <div class="pfc-icon orange"><i class="fas fa-apple-alt"></i></div>
         <div class="pfc-title">Nutrición</div>
-        <div class="pfc-desc">Días con buena alimentación aumentan el Físico. Cumplir la meta calórica y proteica es clave para el rendimiento.</div>
+        <div class="pfc-desc">Días con buena alimentación potencian el Físico y la Resistencia.</div>
         <div class="pfc-bar"><div class="pfc-fill orange" id="pfcNutrition" style="width:0%"></div></div>
         <span class="pfc-pct orange" id="pfcNutritionPct">0%</span>
       </div>
       <div class="prog-factor-card">
         <div class="pfc-icon gold"><i class="fas fa-futbol"></i></div>
         <div class="pfc-title">Rendimiento en Partidos</div>
-        <div class="pfc-desc">Goles, asistencias y actuaciones destacadas mejoran directamente Tiro, Pase y el Rating Global.</div>
+        <div class="pfc-desc">Goles, asistencias y actuaciones destacadas suben Tiro, Pase y Rating.</div>
         <div class="pfc-bar"><div class="pfc-fill gold" id="pfcMatch" style="width:0%"></div></div>
         <span class="pfc-pct gold" id="pfcMatchPct">0%</span>
       </div>
       <div class="prog-factor-card">
-        <div class="pfc-icon blue"><i class="fas fa-cross"></i></div>
-        <div class="pfc-title">Fe y Constancia</div>
-        <div class="pfc-desc">La consistencia en el tiempo es el factor más poderoso. Con Dios como base, cada día suma sin excepción.</div>
+        <div class="pfc-icon blue"><i class="fas fa-fire"></i></div>
+        <div class="pfc-title">Constancia &amp; Racha</div>
+        <div class="pfc-desc">Días consecutivos entrenando amplían el potencial y aceleran el crecimiento.</div>
         <div class="pfc-bar"><div class="pfc-fill blue" id="pfcFaith" style="width:0%"></div></div>
         <span class="pfc-pct blue" id="pfcFaithPct">0%</span>
       </div>
+      <div class="prog-factor-card" style="grid-column:span 2" id="mental-factor-card">
+        <div class="pfc-icon morado"><i class="fas fa-brain"></i></div>
+        <div class="pfc-title">Estado Mental (desde estadisticas.html)</div>
+        <div class="pfc-desc">Disciplina, energía, motivación y enfoque registrados impactan tu rendimiento y potencial de crecimiento.</div>
+        <div class="pfc-bar"><div class="pfc-fill morado" id="pfcMental" style="width:0%"></div></div>
+        <span class="pfc-pct morado" id="pfcMentalPct">0%</span>
+      </div>
     </div>
     <div class="how-it-works reveal">
-      <div class="hiw-title"><i class="fas fa-cogs" style="color:var(--verde)"></i> Cómo se Calcula el Rating</div>
+      <div class="hiw-title"><i class="fas fa-cogs" style="color:var(--verde)"></i> Cómo se Calcula el OVR — Algoritmo Automático</div>
       <div class="hiw-steps">
-        <div class="hiw-step">
-          <div class="hiw-step-num">1</div>
-          <div class="hiw-step-text"><strong>Lee datos de entrenamiento.html:</strong> Cuenta sesiones, extrae intensidad y tipo de ejercicio. Entrens de velocidad → Ritmo. Técnica → Regate. Físico → Físico.</div>
-        </div>
-        <div class="hiw-step">
-          <div class="hiw-step-num">2</div>
-          <div class="hiw-step-text"><strong>Lee datos de nutricion.html:</strong> Días con calorías y proteínas en meta suben el factor Físico. Cada día registrado cuenta.</div>
-        </div>
-        <div class="hiw-step">
-          <div class="hiw-step-num">3</div>
-          <div class="hiw-step-text"><strong>Lee datos de estadisticas.html:</strong> Goles impactan Tiro. Asistencias impactan Pase. Minutos jugados impactan Físico y Ritmo.</div>
-        </div>
-        <div class="hiw-step">
-          <div class="hiw-step-num">4</div>
-          <div class="hiw-step-text"><strong>Rating Global:</strong> Promedio ponderado de las 6 estadísticas. El sistema tiene un base mínima de 40 para jugadores que empiezan. Máximo: 99.</div>
-        </div>
+        <div class="hiw-step"><div class="hiw-step-num">1</div><div class="hiw-step-text"><strong>Lee estadisticas.html:</strong> partidos, goles, asistencias, rachas, estado mental via localStorage compartido.</div></div>
+        <div class="hiw-step"><div class="hiw-step-num">2</div><div class="hiw-step-text"><strong>Lee nutricion.html:</strong> días con calorías en meta → impacta Físico y Resistencia directamente.</div></div>
+        <div class="hiw-step"><div class="hiw-step-num">3</div><div class="hiw-step-text"><strong>Calcula atributos:</strong> 6 stats + 7 atributos extra (Mentalidad, IQ, Disciplina, Liderazgo, Visión, Constancia, Resistencia).</div></div>
+        <div class="hiw-step"><div class="hiw-step-num">4</div><div class="hiw-step-text"><strong>Promedio ponderado</strong> por posición → OVR final + potencial dinámico + rango + rareza de carta.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ OBJETIVOS SECTION ═══ -->
+<!-- ══ MISSIONS RPG SECTION ══ -->
+<section class="missions-section section-gap" id="missions-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-swords"></i> Sistema RPG</span>
+      <h2 class="section-h2">Misiones &amp; <span class="gold">Desafíos</span></h2>
+      <p class="section-sub">Sistema de misiones diarias, semanales y a largo plazo. Cumplir misiones otorga XP y sube tu carta.</p>
+    </div>
+    <div class="missions-grid reveal" id="missionsGrid">
+      <!-- Rendered by JS -->
+    </div>
+    <div style="margin-top:2rem" class="reveal">
+      <h3 style="font-family:var(--font-ui);font-weight:700;font-size:.95rem;color:#fff;margin-bottom:1.2rem"><i class="fas fa-trophy" style="color:var(--dorado);margin-right:.5rem"></i> Badges &amp; Logros</h3>
+      <div class="badges-grid" id="badgesGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MENTAL SYSTEM ══ -->
+<section class="mental-section section-gap" id="mental-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-brain"></i> Sistema Mental</span>
+      <h2 class="section-h2">Estado <span class="green">Mental</span></h2>
+      <p class="section-sub">Tu mentalidad impacta tu juego. Los datos vienen directo de estadisticas.html.</p>
+    </div>
+    <div class="mental-grid reveal">
+      <div class="mental-dashboard">
+        <div class="mental-title"><i class="fas fa-heartbeat" style="color:var(--rojo)"></i> Atributos Mentales</div>
+        <div class="mental-attrs" id="mentalAttrs">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+      <div class="mental-insights" id="mentalInsights">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OBJETIVOS ══ -->
 <section class="objetivos-section section-gap" id="objetivos-section">
   <div class="section-wrap">
     <div class="reveal">
       <span class="section-eyebrow"><i class="fas fa-bullseye"></i> Metas del Jugador</span>
       <h2 class="section-h2">Mis <span class="green">Objetivos</span></h2>
-      <p class="section-sub">Sistema completo de seguimiento de metas. Corto, mediano y largo plazo.</p>
+      <p class="section-sub">Sistema de seguimiento de metas a corto, mediano y largo plazo.</p>
     </div>
     <div class="obj-tabs reveal">
       <button class="obj-tab active" data-plazo="corto"><i class="fas fa-bolt"></i> Corto Plazo</button>
       <button class="obj-tab" data-plazo="mediano"><i class="fas fa-road"></i> Mediano Plazo</button>
       <button class="obj-tab" data-plazo="largo"><i class="fas fa-star"></i> Largo Plazo</button>
     </div>
-    <div class="obj-list reveal" id="objList">
-      <!-- Rendered by JS -->
-    </div>
-    <!-- Add form -->
+    <div class="obj-list reveal" id="objList"></div>
     <div class="add-obj-form reveal">
-      <div class="aof-field" style="grid-column:1/-1">
-        <label>Nuevo Objetivo</label>
-        <input type="text" id="newObjDesc" placeholder="Ej: Completar 20 entrenamientos este mes"/>
+      <div class="aof-field" style="grid-column:1/-1"><label>Nuevo Objetivo</label><input type="text" id="newObjDesc" placeholder="Ej: Completar 20 entrenamientos este mes"/></div>
+      <div class="aof-field"><label>Plazo</label>
+        <select id="newObjPlazo"><option value="corto">Corto Plazo</option><option value="mediano">Mediano Plazo</option><option value="largo">Largo Plazo</option></select>
       </div>
-      <div class="aof-field">
-        <label>Plazo</label>
-        <select id="newObjPlazo">
-          <option value="corto">Corto Plazo</option>
-          <option value="mediano">Mediano Plazo</option>
-          <option value="largo">Largo Plazo</option>
-        </select>
+      <div class="aof-field"><label>Fecha Límite</label><input type="date" id="newObjFecha"/></div>
+      <div class="aof-field"><label>Estado</label>
+        <select id="newObjEstado"><option value="pendiente">Pendiente</option><option value="en-progreso">En Progreso</option><option value="logrado">Logrado</option></select>
       </div>
-      <div class="aof-field">
-        <label>Fecha Límite</label>
-        <input type="date" id="newObjFecha"/>
-      </div>
-      <div class="aof-field">
-        <label>Estado Inicial</label>
-        <select id="newObjEstado">
-          <option value="pendiente">Pendiente</option>
-          <option value="en-progreso">En Progreso</option>
-          <option value="logrado">Logrado</option>
-        </select>
-      </div>
-      <div class="aof-field">
-        <label>Progreso %</label>
-        <input type="number" id="newObjPct" min="0" max="100" value="0" placeholder="0-100"/>
-      </div>
-      <button class="btn-add-obj" onclick="addObjetivo()">
-        <i class="fas fa-plus"></i> Agregar
-      </button>
+      <div class="aof-field"><label>Progreso %</label><input type="number" id="newObjPct" min="0" max="100" value="0"/></div>
+      <button class="btn-add-obj" onclick="addObjetivo()"><i class="fas fa-plus"></i> Agregar</button>
     </div>
   </div>
 </section>
 
-<!-- ═══ EVOLUTION SECTION ═══ -->
+<!-- ══ SCOUTING ══ -->
+<section class="scouting-section section-gap" id="scouting-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-search"></i> Informe de Scouting</span>
+      <h2 class="section-h2">Análisis <span class="green">Profesional</span></h2>
+      <p class="section-sub">Perfil completo estilo informe de club europeo. Tu estilo, rol ideal, comparaciones y proyección.</p>
+    </div>
+    <div class="scouting-inner reveal">
+      <div class="radar-wrap">
+        <div class="radar-title"><i class="fas fa-hexagon" style="color:var(--verde)"></i> Radar de Habilidades</div>
+        <canvas id="radarChart" style="max-width:300px;max-height:300px"></canvas>
+        <div style="margin-top:1.5rem;width:100%">
+          <div style="display:flex;justify-content:space-between;font-family:var(--font-ui);font-size:.75rem;color:var(--texto2);margin-bottom:.5rem">
+            <span>Rol ideal detectado</span>
+          </div>
+          <div id="rolIdeal" style="font-family:var(--font-ui);font-weight:700;font-size:.9rem;color:var(--verde);text-align:center;padding:.8rem;background:rgba(0,200,83,0.08);border:1px solid rgba(0,200,83,0.15);border-radius:10px">Calculando...</div>
+        </div>
+      </div>
+      <div class="profile-details-wrap">
+        <div class="pd-card">
+          <div class="pd-title"><i class="fas fa-check-circle"></i> Fortalezas</div>
+          <div class="pd-tags" id="strengthTags"><span class="pd-tag green">Sin datos</span></div>
+        </div>
+        <div class="pd-card">
+          <div class="pd-title" style="color:var(--rojo)"><i class="fas fa-exclamation-circle"></i> Áreas de Mejora</div>
+          <div class="pd-tags" id="weaknessTags"><span class="pd-tag red">Sin datos</span></div>
+        </div>
+        <div class="pd-card">
+          <div class="pd-title"><i class="fas fa-user-tie"></i> Comparaciones con Jugadores Reales</div>
+          <div class="comparison-grid" id="comparisonsGrid"></div>
+        </div>
+        <div class="pd-card">
+          <div class="pd-title"><i class="fas fa-file-alt"></i> Informe del Analista</div>
+          <div class="pd-text" id="analystNotes">Completa tu perfil para ver las observaciones aquí.</div>
+        </div>
+        <div class="pd-card" style="background:rgba(0,200,83,0.04);border-color:rgba(0,200,83,0.15)">
+          <div class="pd-title"><i class="fas fa-trophy"></i> Proyección Profesional</div>
+          <div class="pd-text" id="projectionText">Con constancia y fe, cada punto de rating acerca tu sueño profesional. <strong>El talento se multiplica con disciplina.</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TIMELINE / HISTORIAL ══ -->
+<section class="timeline-section section-gap" id="timeline-section">
+  <div class="section-wrap">
+    <div class="reveal">
+      <span class="section-eyebrow"><i class="fas fa-history"></i> Historial</span>
+      <h2 class="section-h2">Timeline de <span class="green">Evolución</span></h2>
+      <p class="section-sub">Cada hito en tu carrera, registrado. Subidas de OVR, récords, racha personal.</p>
+    </div>
+    <div class="timeline-wrap reveal" id="timelineWrap">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══ EVOLUTION CHARTS ══ -->
 <section class="evolution-section section-gap" id="evolution-section">
   <div class="section-wrap">
     <div class="reveal">
-      <span class="section-eyebrow"><i class="fas fa-chart-area"></i> Historial</span>
+      <span class="section-eyebrow"><i class="fas fa-chart-area"></i> Evolución</span>
       <h2 class="section-h2">Mi <span class="green">Evolución</span></h2>
       <p class="section-sub">Registrá snapshots de tu progreso y visualizá cómo creció tu nivel en el tiempo.</p>
     </div>
     <div class="evo-charts-grid reveal">
       <div class="evo-chart-card">
         <div class="ecc-header">
-          <span class="ecc-title"><i class="fas fa-star" style="color:var(--dorado);margin-right:.4rem"></i> Evolución del Rating</span>
+          <span class="ecc-title"><i class="fas fa-star" style="color:var(--dorado);margin-right:.4rem"></i> Evolución del OVR</span>
           <span class="ecc-badge" id="latestRatingBadge">—</span>
         </div>
-        <div class="chart-canvas-wrap">
-          <canvas id="ratingChart"></canvas>
-        </div>
-        <button class="add-history-btn" onclick="openSnapshotModal()">
-          <i class="fas fa-plus-circle"></i> Registrar Snapshot de Hoy
-        </button>
+        <div class="chart-canvas-wrap"><canvas id="ratingChart"></canvas></div>
+        <button class="add-history-btn" onclick="openSnapshotModal()"><i class="fas fa-plus-circle"></i> Registrar Snapshot de Hoy</button>
       </div>
       <div class="evo-chart-card">
         <div class="ecc-header">
-          <span class="ecc-title"><i class="fas fa-layer-group" style="color:var(--azul);margin-right:.4rem"></i> Stats en el Tiempo</span>
-          <span class="ecc-badge">Última sesión</span>
+          <span class="ecc-title"><i class="fas fa-layer-group" style="color:var(--azul);margin-right:.4rem"></i> Stats Actuales</span>
+          <span class="ecc-badge">Comparativa</span>
         </div>
-        <div class="chart-canvas-wrap">
-          <canvas id="statsEvolutionChart"></canvas>
-        </div>
+        <div class="chart-canvas-wrap"><canvas id="statsEvolutionChart"></canvas></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SCOUTING / RADAR SECTION ═══ -->
-<section class="scouting-section section-gap">
+<!-- ══ HALL OF FAME ══ -->
+<section class="halloffame-section section-gap" id="halloffame-section">
   <div class="section-wrap">
-    <div class="reveal">
-      <span class="section-eyebrow"><i class="fas fa-search"></i> Informe de Scouting</span>
-      <h2 class="section-h2">Análisis <span class="green">Técnico</span></h2>
-      <p class="section-sub">Perfil completo estilo informe de un club europeo. Fortalezas, debilidades y radar de habilidades.</p>
+    <div class="reveal" style="position:relative;z-index:1">
+      <span class="section-eyebrow" style="color:var(--dorado)"><i class="fas fa-crown"></i> Records Personales</span>
+      <h2 class="section-h2">Hall of <span class="gold">Fame</span></h2>
+      <p class="section-sub">Tus mejores actuaciones y récords históricos. El legado que estás construyendo con Dios.</p>
     </div>
-    <div class="scouting-inner reveal">
-      <div class="radar-wrap">
-        <div class="radar-title"><i class="fas fa-hexagon" style="color:var(--verde)"></i> Radar de Habilidades</div>
-        <canvas id="radarChart" style="max-width:300px;max-height:300px"></canvas>
-      </div>
-      <div class="profile-details-wrap">
-        <div class="pd-card">
-          <div class="pd-title"><i class="fas fa-check-circle"></i> Fortalezas</div>
-          <div class="pd-tags" id="strengthTags">
-            <span class="pd-tag green">Sin datos</span>
-          </div>
-        </div>
-        <div class="pd-card">
-          <div class="pd-title" style="color:var(--rojo)"><i class="fas fa-exclamation-circle"></i> Áreas de Mejora</div>
-          <div class="pd-tags" id="weaknessTags">
-            <span class="pd-tag red">Sin datos</span>
-          </div>
-        </div>
-        <div class="pd-card">
-          <div class="pd-title"><i class="fas fa-file-alt"></i> Observaciones del Analista</div>
-          <div class="pd-text" id="analystNotes">Completa tu perfil para ver las observaciones aquí.</div>
-        </div>
-        <div class="pd-card" style="background:rgba(0,200,83,0.04);border-color:rgba(0,200,83,0.15)">
-          <div class="pd-title"><i class="fas fa-trophy"></i> Proyección Profesional</div>
-          <div class="pd-text" id="projectionText">
-            Con constancia y fe, cada punto de rating acerca tu sueño profesional.
-            Seguí entrenando, comiendo bien y confiando en Dios. <strong>El talento se multiplica con disciplina.</strong>
-          </div>
-        </div>
-      </div>
+    <div class="hof-grid reveal" id="hofGrid">
+      <!-- Rendered by JS -->
     </div>
   </div>
 </section>
 
-<!-- ═══ SPIRITUAL SECTION ═══ -->
-<section class="spiritual-section section-gap">
+<!-- ══ SPIRITUAL SECTION ══ -->
+<section class="spiritual-section section-gap" id="spiritual-section">
   <div class="section-wrap">
     <div class="spiritual-inner">
       <div class="reveal">
-        <span class="section-eyebrow"><i class="fas fa-cross"></i> Fe & Propósito</span>
+        <span class="section-eyebrow"><i class="fas fa-cross"></i> Fe &amp; Propósito</span>
         <h2 class="section-h2">Dios en el <span class="green">Centro</span></h2>
-        <p class="section-sub">Tu rendimiento no es solo físico. Es espiritual. Él es tu entrenador principal.</p>
+        <p class="section-sub">Tu rendimiento no es solo físico. Es espiritual. Él es tu entrenador principal. Tu origen y tu destino.</p>
       </div>
       <div class="spiritual-grid reveal">
         <div class="verse-card">
@@ -1273,36 +1123,37 @@ input,textarea,select{font-family:inherit}
         </div>
         <div class="verse-card">
           <div class="vc-icon"><i class="fas fa-dumbbell"></i></div>
-          <p class="vc-text">"Esfuérzate y sé valiente. No temas ni desmayes, porque Jehová tu Dios estará contigo."</p>
+          <p class="vc-text">"Esfuérzate y sé valiente. No temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas."</p>
           <span class="vc-ref">— Josué 1:9</span>
         </div>
         <div class="verse-card">
-          <div class="vc-icon"><i class="fas fa-star"></i></div>
-          <p class="vc-text">"¿No saben que los que corren en el estadio, todos corren, pero uno solo obtiene el premio?"</p>
-          <span class="vc-ref">— 1 Corintios 9:24</span>
+          <div class="vc-icon"><i class="fas fa-fire"></i></div>
+          <p class="vc-text">"Los que confían en el Señor renovarán sus fuerzas. Volarán como águilas, correrán y no se cansarán."</p>
+          <span class="vc-ref">— Isaías 40:31</span>
         </div>
         <div class="verse-card">
-          <div class="vc-icon"><i class="fas fa-heart"></i></div>
-          <p class="vc-text">"Encomienda al Señor tus obras y tus planes tendrán éxito."</p>
+          <div class="vc-icon"><i class="fas fa-star"></i></div>
+          <p class="vc-text">"Todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres."</p>
+          <span class="vc-ref">— Colosenses 3:23</span>
+        </div>
+        <div class="verse-card">
+          <div class="vc-icon"><i class="fas fa-hands-praying"></i></div>
+          <p class="vc-text">"Encomienda tus obras al Señor y tus pensamientos serán establecidos."</p>
           <span class="vc-ref">— Proverbios 16:3</span>
         </div>
         <div class="verse-card">
-          <div class="vc-icon"><i class="fas fa-shield-alt"></i></div>
-          <p class="vc-text">"El Señor es mi fuerza y mi escudo; en Él confió mi corazón."</p>
-          <span class="vc-ref">— Salmo 28:7</span>
-        </div>
-        <div class="verse-card">
-          <div class="vc-icon"><i class="fas fa-fire"></i></div>
-          <p class="vc-text">"No os cansemos de hacer el bien, porque a su tiempo cosecharemos si no desmayamos."</p>
-          <span class="vc-ref">— Gálatas 6:9</span>
+          <div class="vc-icon"><i class="fas fa-trophy"></i></div>
+          <p class="vc-text">"Porque yo sé los planes que tengo para vosotros — planes de bienestar y no de calamidad."</p>
+          <span class="vc-ref">— Jeremías 29:11</span>
         </div>
         <div class="identity-card">
-          <div class="ic-title">✝ TU IDENTIDAD COMO JUGADOR</div>
+          <div class="ic-title">✝️ MI IDENTIDAD EN CRISTO</div>
           <p class="ic-text">
-            No sos solo un número en un sistema de scouting. Sos un hijo de Dios con un propósito específico.
-            Tu fútbol es tu ministerio. Cada gol, cada pase, cada entrenamiento es una oración en movimiento.
-            <strong>Jugar al máximo nivel es honrar al que te dio el talento.</strong>
-            Que cada partido sea una declaración de fe.
+            Soy hijo del Dios vivo. Juego para Su gloria, no para la aprobación del hombre. 
+            Mi talento es un regalo que debo multiplicar con disciplina, humildad y fe.
+            Cada entrenamiento es una oración. Cada partido, una ofrenda. 
+            <strong>No me conformo a este mundo — soy transformado por la renovación de mi mente.</strong>
+            El fútbol es mi plataforma, pero Cristo es mi fundamento.
           </p>
         </div>
       </div>
@@ -1315,199 +1166,172 @@ input,textarea,select{font-family:inherit}
   <div class="snapshot-box">
     <div class="snp-title"><i class="fas fa-camera" style="color:var(--verde);margin-right:.5rem"></i> Registrar Snapshot de Progreso</div>
     <div class="snp-fields">
-      <div class="snp-field">
-        <label>Fecha</label>
-        <input type="date" id="snpDate"/>
-      </div>
-      <div class="snp-field">
-        <label>Rating Global (ej: 65)</label>
-        <input type="number" id="snpRating" min="1" max="99" placeholder="65"/>
-      </div>
-      <div class="snp-field">
-        <label>Nota / Comentario</label>
-        <input type="text" id="snpNote" placeholder="Ej: Semana muy productiva"/>
-      </div>
+      <div class="snp-field"><label>Fecha</label><input type="date" id="snpDate"/></div>
+      <div class="snp-field"><label>OVR Actual</label><input type="number" id="snpRating" min="40" max="99"/></div>
+      <div class="snp-field"><label>Nota (opcional)</label><input type="text" id="snpNote" placeholder="¿Qué mejoró esta semana?"/></div>
     </div>
     <div class="snp-btns">
-      <button class="snp-save" onclick="saveSnapshot()">Guardar Snapshot</button>
+      <button class="snp-save" onclick="saveSnapshot()"><i class="fas fa-save"></i> Guardar</button>
       <button class="snp-cancel" onclick="closeSnapshotModal()">Cancelar</button>
     </div>
   </div>
 </div>
-
-<!-- TOAST -->
-<div class="toast-cont" id="toastCont"></div>
 
 <!-- FOOTER -->
 <footer class="footer-prog">
   <div class="footer-prog-inner">
     <div class="fp-top">
       <div class="fp-brand">
-        <a href="index.html" class="logo">
-          <div class="logo-icon" style="width:40px;height:40px">
-            <svg viewBox="0 0 64 64" style="width:22px;height:22px;fill:white"><circle cx="32" cy="32" r="28" fill="none" stroke="white" stroke-width="3"/><polygon points="32,8 40,20 24,20" fill="white"/><polygon points="50,26 58,38 44,42" fill="white"/><polygon points="44,52 32,58 20,52" fill="white"/><polygon points="20,42 6,38 14,26" fill="white"/></svg>
-          </div>
-          <div class="logo-text">
-            <span class="logo-name">EL CAMINO</span>
-            <span class="logo-tag">Fe · Fútbol · Gloria</span>
-          </div>
-        </a>
-        <p>Mi viaje hacia el fútbol profesional, documentado con fe, disciplina y la gracia de Dios en cada paso.</p>
+        <div class="logo"><div class="logo-icon" style="width:36px;height:36px"><i class="fas fa-futbol" style="color:#fff;font-size:.9rem"></i><span class="logo-cross"><i class="fas fa-cross"></i></span></div><div class="logo-text"><span class="logo-name" style="font-size:.9rem">EL CAMINO</span></div></div>
+        <p style="margin-top:.8rem">Fe · Fútbol · Gloria. Sistema personal de scouting y carrera futbolística. Con Dios en el centro.</p>
       </div>
-      <div class="fp-col">
-        <h4>Secciones</h4>
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="entrenamiento.html">Entrenamientos</a></li>
-          <li><a href="estadisticas.html">Estadísticas</a></li>
-          <li><a href="progreso.html">Mi Progreso</a></li>
-        </ul>
-      </div>
-      <div class="fp-col">
-        <h4>Recursos</h4>
-        <ul>
-          <li><a href="nutricion.html">Nutrición</a></li>
-          <li><a href="fe.html">Fe & Dios</a></li>
-          <li><a href="fotos.html">Galería</a></li>
-          <li><a href="frases.html">Frases</a></li>
-        </ul>
-      </div>
-      <div class="fp-col">
-        <h4>Versículo</h4>
-        <ul>
-          <li><a href="fe.html" style="color:var(--verde);font-style:italic;line-height:1.7">"Todo lo puedo en Cristo que me fortalece." — Fil. 4:13</a></li>
-        </ul>
-      </div>
+      <div class="fp-col"><h4>Sistema</h4><ul><li><a href="progreso.html">Mi Progreso</a></li><li><a href="estadisticas.html">Estadísticas</a></li><li><a href="entrenamiento.html">Entrenamientos</a></li><li><a href="nutricion.html">Nutrición</a></li></ul></div>
+      <div class="fp-col"><h4>Personal</h4><ul><li><a href="fotos.html">Fotos</a></li><li><a href="fe.html">Fe &amp; Motivación</a></li><li><a href="#halloffame-section">Hall of Fame</a></li><li><a href="#timeline-section">Timeline</a></li></ul></div>
+      <div class="fp-col"><h4>El Camino</h4><ul><li><a href="#missions-section">Misiones RPG</a></li><li><a href="#scouting-section">Scouting</a></li><li><a href="#evolution-section">Evolución</a></li><li><a href="#spiritual-section">Devocional</a></li></ul></div>
     </div>
     <div class="fp-bottom">
-      <p>© 2025 El Camino · Hecho con <span style="color:var(--verde)">♥</span> y mucha fe · Gloria a Dios</p>
+      <p>"El Señor es mi fortaleza." — Habacuc 3:19 · El Camino al Fútbol Profesional</p>
       <div class="fp-social">
         <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
         <a href="#"><i class="fab fa-youtube"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════
-     JAVASCRIPT COMPLETO
-═══════════════════════════════════════ -->
 <script>
-/* ════════════════════════════════════════════
-   PERSISTENCIA: localStorage (bien estructurado)
-   
-   Claves usadas:
-   - progreso_profile      → Perfil del jugador
-   - progreso_overrides    → Overrides manuales de stats
-   - progreso_objetivos    → Array de objetivos
-   - progreso_snapshots    → Array de snapshots de rating
-   - progreso_photo        → Foto del jugador (base64)
-   
-   Las stats se calculan leyendo también:
-   - nutricion_dailyLog    → datos de nutricion.html
-   - training_sessions     → datos de entrenamiento.html
-   - estadisticas_data     → datos de estadisticas.html
-════════════════════════════════════════════ */
+'use strict';
+/* ════════════════════════════════════════════════════════
+   EL CAMINO — progreso.js v3.0
+   Sistema de carrera futbolística con Dios en el centro.
+   ════════════════════════════════════════════════════════ */
 
+/* ─── STORAGE KEYS ─────────────────────────────────── */
 const KEYS = {
-  profile:    'progreso_profile',
-  overrides:  'progreso_overrides',
-  objetivos:  'progreso_objetivos',
-  snapshots:  'progreso_snapshots',
-  photo:      'progreso_photo',
-  // Cross-page reads
-  nutricion:  'nutricion_dailyLog',
-  training:   'training_sessions',
-  stats:      'estadisticas_data',
+  profile:    'elcamino_profile_v1',
+  overrides:  'elcamino_overrides_v1',
+  snapshots:  'elcamino_snapshots_v1',
+  objetivos:  'elcamino_objetivos_v1',
+  photo:      'elcamino_photo_v1',
+  timeline:   'elcamino_timeline_v1',
+  prevStats:  'elcamino_prev_stats_v1',
+  badges:     'elcamino_badges_v1',
+  level:      'elcamino_level_v1',
+  // Data from estadisticas.html (shared localStorage)
+  matches:    'elcamino_matches_v1',
+  training:   'elcamino_training_v1',
+  goals:      'elcamino_goals_v1',
+  mental:     'elcamino_mental_v1',
+  // Data from nutricion
   nutriLogs:  'nutricion_weekly',
+  nutricion:  'nutricion_data',
 };
 
-function LS(key){ try{ return JSON.parse(localStorage.getItem(key)) }catch(e){ return null } }
-function LSset(key,val){ try{ localStorage.setItem(key, JSON.stringify(val)) }catch(e){ showToast('Error al guardar','error') } }
+function LS(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch{ return null; } }
+function LSset(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){ showToast('Error al guardar','error'); } }
 
-/* ════════ STATS CALCULATOR ════════
-   Lee datos de otras páginas y calcula cada stat.
-   Fórmulas reales basadas en actividad registrada.
-════════════════════════════════════ */
+/* ─── STAT CALCULATOR ──────────────────────────────── */
 function calcStats(){
   const overrides = LS(KEYS.overrides) || {};
-  
-  // --- Leer datos de entrenamiento ---
-  const sessions = LS(KEYS.training) || [];
-  const totalSessions = sessions.length;
-  // Clasificar por tipo de entrenamiento si existe keyword
-  let velSessions=0, tecSessions=0, fisSessions=0, defSessions=0;
-  sessions.forEach(s => {
-    const name = (s.name||s.title||s.tipo||'').toLowerCase();
-    if(/veloc|sprint|carrera|rapidez/.test(name)) velSessions++;
-    if(/técni|regate|control|dribbl/.test(name)) tecSessions++;
-    if(/físic|fuerza|gym|muscu|resistencia/.test(name)) fisSessions++;
-    if(/defens|marca|presion/.test(name)) defSessions++;
+
+  // ── De estadisticas.html ──
+  const matches   = LS(KEYS.matches)  || [];
+  const trainings = LS(KEYS.training) || [];
+  const mentalLog = LS(KEYS.mental)   || [];
+
+  const totalSessions = trainings.length;
+  const totalMatches  = matches.length;
+  const totalGoals    = matches.reduce((a,m)=>a+(m.goals||0),0);
+  const totalAssists  = matches.reduce((a,m)=>a+(m.assists||0),0);
+  const avgRating     = matches.length ? (matches.reduce((a,m)=>a+(m.rating||5),0)/matches.length) : 5;
+  const wins          = matches.filter(m=>m.result==='win').length;
+  const winrate       = matches.length ? wins/matches.length : 0;
+
+  // Streak
+  let streak = 0;
+  if(trainings.length){
+    const dates = [...new Set(trainings.map(t=>t.date))].sort().reverse();
+    let ref = new Date(); ref.setHours(0,0,0,0);
+    for(const d of dates){
+      const day = new Date(d+'T00:00:00');
+      const diff = Math.round((ref-day)/86400000);
+      if(diff===0||diff===1){streak++;ref=day;}else break;
+    }
+  }
+  let bestStreak = 0;
+  if(trainings.length){
+    const dates=[...new Set(trainings.map(t=>t.date))].sort();
+    let cur=1;bestStreak=1;
+    for(let i=1;i<dates.length;i++){
+      const prev=new Date(dates[i-1]+'T00:00:00');
+      const curr=new Date(dates[i]+'T00:00:00');
+      const diff=Math.round((curr-prev)/86400000);
+      if(diff===1){cur++;bestStreak=Math.max(bestStreak,cur);}else cur=1;
+    }
+  }
+
+  // Classify trainings
+  let velS=0,tecS=0,fisS=0,defS=0,menS=0,tacS=0;
+  trainings.forEach(s=>{
+    const t=(s.type||s.tipo||'').toLowerCase();
+    const n=(s.name||s.title||s.exercises||'').toLowerCase();
+    if(t==='fisico'||/veloc|sprint|carrera|rapidez/.test(n)) fisS++;
+    if(t==='tecnico'||/técni|regate|control|dribbl/.test(n)) tecS++;
+    if(t==='fisico') fisS++;
+    if(t==='tactico') tacS++;
+    if(t==='mental') menS++;
+    if(/defens|marca|presion/.test(n)) defS++;
+    if(s.intensity==='alta') velS++;
   });
-  
-  // --- Leer datos de nutrición ---
+
+  // ── De nutricion.html ──
   const nutriLogs = LS(KEYS.nutriLogs) || LS(KEYS.nutricion) || {};
   const nutriDays = Object.keys(nutriLogs).length;
-  let daysOnTarget = 0;
-  Object.values(nutriLogs).forEach(day => {
-    if(day && day.calorias && day.calorias >= 2200) daysOnTarget++;
+  let daysOnTarget=0;
+  Object.values(nutriLogs).forEach(day=>{
+    if(day&&(day.calorias||day.calories)>= 2000) daysOnTarget++;
   });
-  
-  // --- Leer datos de estadísticas ---
-  const statsData = LS(KEYS.stats) || {};
-  const goles = Number(statsData.goles||0);
-  const asistencias = Number(statsData.asistencias||0);
-  const partidos = Number(statsData.partidos||0);
-  const minutosJugados = Number(statsData.minutos||partidos*70||0);
-  
-  // --- Calcular cada stat ---
-  // Base: 40 (jugador que empieza) + bonificaciones por actividad
-  const BASE = 40;
-  const MAX_BONUS = 55; // máximo bonus = llega a 95
-  
-  // RITMO: velocidad training + minutos jugados
-  let ritmoRaw = BASE
-    + Math.min(15, velSessions * 1.5)
-    + Math.min(10, minutosJugados / 120)
-    + Math.min(10, totalSessions * 0.5);
-  
-  // TIRO: goles + partidos jugados
-  let tiroRaw = BASE
-    + Math.min(20, goles * 2.5)
-    + Math.min(10, partidos * 0.8)
-    + Math.min(5, tecSessions * 0.5);
-  
-  // PASE: asistencias + sesiones técnicas
-  let paseRaw = BASE
-    + Math.min(20, asistencias * 3)
-    + Math.min(15, tecSessions * 1.2)
-    + Math.min(5, partidos * 0.4);
-  
-  // REGATE: sesiones técnicas + total sessions
-  let regateRaw = BASE
-    + Math.min(20, tecSessions * 2)
-    + Math.min(10, totalSessions * 0.4)
-    + Math.min(5, velSessions * 0.5);
-  
-  // DEFENSA: sesiones defensivas + partidos
-  let defensaRaw = BASE
-    + Math.min(15, defSessions * 2)
-    + Math.min(10, partidos * 0.5)
-    + Math.min(5, totalSessions * 0.2);
-  
-  // FÍSICO: nutrición + sesiones físicas + minutos
-  let fisicoRaw = BASE
-    + Math.min(15, daysOnTarget * 0.8)
-    + Math.min(15, fisSessions * 1.5)
-    + Math.min(10, totalSessions * 0.3)
-    + Math.min(5, minutosJugados / 200);
-  
-  // Clamp a 99
-  const clamp = v => Math.min(99, Math.max(40, Math.round(v)));
-  
-  let stats = {
+
+  // ── Mental averages (últimos 7 días) ──
+  const mentalAvg = (function(){
+    if(!mentalLog.length) return {energia:5,motivacion:5,enfoque:5,disciplina:5};
+    const last7=mentalLog.slice(-7);
+    const s=last7.reduce((a,m)=>({
+      energia:a.energia+(m.energia||5),
+      motivacion:a.motivacion+(m.motivacion||5),
+      enfoque:a.enfoque+(m.enfoque||5),
+      disciplina:a.disciplina+(m.disciplina||5)
+    }),{energia:0,motivacion:0,enfoque:0,disciplina:0});
+    const n=last7.length;
+    return{energia:+(s.energia/n).toFixed(1),motivacion:+(s.motivacion/n).toFixed(1),
+           enfoque:+(s.enfoque/n).toFixed(1),disciplina:+(s.disciplina/n).toFixed(1)};
+  })();
+
+  const mentalMod = (mentalAvg.energia+mentalAvg.motivacion+mentalAvg.enfoque+mentalAvg.disciplina)/(4*10);
+
+  // ── STAT FORMULAS ──
+  const BASE=40, clamp=v=>Math.min(99,Math.max(40,Math.round(v)));
+
+  const minutosJugados = totalMatches*75;
+
+  let ritmoRaw = BASE + Math.min(14,velS*1.4) + Math.min(8,minutosJugados/150) + Math.min(8,totalSessions*0.5) + Math.min(5,streak);
+  let tiroRaw  = BASE + Math.min(22,totalGoals*2.8) + Math.min(8,totalMatches*0.7) + Math.min(5,avgRating*0.8);
+  let paseRaw  = BASE + Math.min(22,totalAssists*3.5) + Math.min(12,tecS*1.2) + Math.min(5,totalMatches*0.3);
+  let regateRaw= BASE + Math.min(22,tecS*2.2) + Math.min(10,totalSessions*0.4) + Math.min(5,velS*0.5);
+  let defensaRaw=BASE + Math.min(15,defS*2.2) + Math.min(10,totalMatches*0.5) + Math.min(5,totalSessions*0.2);
+  let fisicoRaw= BASE + Math.min(14,daysOnTarget*0.9) + Math.min(14,fisS*1.6) + Math.min(8,totalSessions*0.3) + Math.min(4,streak*0.3);
+
+  // Mental boost
+  const mBoost = mentalMod * 6;
+  ritmoRaw  += mBoost*0.8; tiroRaw   += mBoost*0.9; paseRaw   += mBoost;
+  regateRaw += mBoost*0.8; defensaRaw+= mBoost*0.6; fisicoRaw += mBoost*0.7;
+
+  // Winrate bonus
+  const wrBonus = winrate * 5;
+  tiroRaw  += wrBonus; paseRaw += wrBonus*0.7;
+
+  let stats={
     ritmo:   clamp(ritmoRaw),
     tiro:    clamp(tiroRaw),
     pase:    clamp(paseRaw),
@@ -1515,204 +1339,490 @@ function calcStats(){
     defensa: clamp(defensaRaw),
     fisico:  clamp(fisicoRaw),
   };
-  
-  // Aplicar overrides manuales si existen
-  Object.keys(overrides).forEach(k => {
-    if(overrides[k] && !isNaN(overrides[k])){
-      stats[k] = Math.min(99, Math.max(1, Number(overrides[k])));
-    }
+
+  // Extra atributos
+  const mentality   = clamp(BASE + mentalAvg.motivacion*4 + streak*2 + wins*0.5);
+  const disciplina  = clamp(BASE + mentalAvg.disciplina*5 + totalSessions*0.6);
+  const iq          = clamp(BASE + tecS*1.5 + tacS*2 + totalMatches*0.7);
+  const liderazgo   = clamp(BASE + wins*1.5 + streak*1.5 + totalMatches*0.4);
+  const vision      = clamp(BASE + totalAssists*2.5 + tecS*1.2 + paseRaw*0.1);
+  const constancia  = clamp(BASE + streak*4 + bestStreak*1.5 + totalSessions*0.5);
+  const resistencia = clamp(BASE + fisS*2 + daysOnTarget*0.7 + totalSessions*0.4);
+
+  // Apply overrides
+  Object.keys(overrides).forEach(k=>{
+    if(overrides[k]&&!isNaN(overrides[k])) stats[k]=Math.min(99,Math.max(1,Number(overrides[k])));
   });
-  
-  // Rating global: promedio ponderado (posición puede cambiar pesos)
-  const profile = LS(KEYS.profile) || {};
-  const pos = profile.posicion || 'MED';
-  let weights = { ritmo:1, tiro:1, pase:1, regate:1, defensa:1, fisico:1 };
-  if(pos==='DEL'){ weights.tiro=2; weights.ritmo=1.5 }
-  else if(pos==='DEF'){ weights.defensa=2; weights.fisico=1.5 }
-  else if(pos==='MED'||pos==='CAM'||pos==='VOL'){ weights.pase=1.5; weights.regate=1.2 }
-  else if(pos==='EXT'){ weights.ritmo=2; weights.regate=1.5 }
-  
-  const totalW = Object.values(weights).reduce((a,b)=>a+b,0);
-  const weightedSum = Object.keys(stats).reduce((s,k)=>s+stats[k]*(weights[k]||1),0);
-  const rating = Math.round(weightedSum / totalW);
-  
-  // Sources para mostrar en UI
-  const sources = {
-    ritmo:   `${velSessions} sesiones velocidad · ${Math.round(minutosJugados/60)}h jugadas`,
-    tiro:    `${goles} goles · ${partidos} partidos`,
-    pase:    `${asistencias} asistencias · ${tecSessions} sesiones técnicas`,
-    regate:  `${tecSessions} sesiones técnicas · ${totalSessions} total`,
-    defensa: `${defSessions} sesiones defensivas · ${partidos} partidos`,
-    fisico:  `${daysOnTarget}/${nutriDays} días con buena nutrición · ${fisSessions} sesiones físicas`,
-  };
-  
+
+  // OVR ponderado por posición
+  const profile=LS(KEYS.profile)||{};
+  const pos=profile.posicion||'MED';
+  let weights={ritmo:1,tiro:1,pase:1,regate:1,defensa:1,fisico:1};
+  if(pos==='DEL'){weights.tiro=2.2;weights.ritmo=1.6;weights.regate=1.2}
+  else if(pos==='DEF'){weights.defensa=2.2;weights.fisico=1.6;weights.ritmo=1.1}
+  else if(pos==='MED'||pos==='VOL'){weights.pase=1.6;weights.regate=1.3;weights.fisico=1.1}
+  else if(pos==='CAM'){weights.pase=1.8;weights.tiro=1.4;weights.regate=1.5}
+  else if(pos==='EXT'){weights.ritmo=2.2;weights.regate=1.8;weights.tiro=1.2}
+  else if(pos==='ARQ'){weights.defensa=2.5;weights.fisico=1.5}
+  const totalW=Object.values(weights).reduce((a,b)=>a+b,0);
+  const wSum=Object.keys(stats).reduce((s,k)=>s+stats[k]*(weights[k]||1),0);
+  const rating=Math.round(wSum/totalW);
+
+  // XP
+  let xp=totalMatches*10+totalSessions*5;
+  xp+=wins*5+totalGoals*3+totalAssists*2;
+  xp+=streak*2+bestStreak;
+  const level=Math.floor(xp/100)+1;
+  const xpPct=xp%100;
+
+  // Potencial dinámico
+  const age=18; // default; would read from profile
+  const baseP=Math.min(99,rating+8+Math.max(0,(22-age)*1.5)+streak*0.5);
+  const potencial=clamp(baseP);
+
+  // Rango
+  let rango='amateur';
+  if(rating>=90) rango='leyenda';
+  else if(rating>=80) rango='elite';
+  else if(rating>=70) rango='profesional';
+  else if(rating>=60) rango='semipro';
+  else if(rating>=50) rango='promesa';
+
+  // Rareza carta
+  let rareza='bronze';
+  if(rating>=85) rareza='icon';
+  else if(rating>=75) rareza='special';
+  else if(rating>=65) rareza='gold';
+  else if(rating>=55) rareza='silver';
+
   // Progress factors
-  const trainingPct = Math.min(100, Math.round(totalSessions / 50 * 100));
-  const nutritionPct = Math.min(100, Math.round(daysOnTarget / 30 * 100));
-  const matchPct = Math.min(100, Math.round(partidos / 20 * 100));
-  const faithPct = Math.min(100, Math.round((totalSessions + daysOnTarget) / 80 * 100));
-  
-  return { stats, rating, sources, trainingPct, nutritionPct, matchPct, faithPct,
-           goles, asistencias, partidos, totalSessions };
+  const trainingPct = Math.min(100,Math.round(totalSessions/50*100));
+  const nutritionPct= Math.min(100,Math.round(daysOnTarget/30*100));
+  const matchPct    = Math.min(100,Math.round(totalMatches/20*100));
+  const faithPct    = Math.min(100,Math.round((streak/30)*100));
+  const mentalPct   = Math.round(mentalMod*100);
+
+  const sources={
+    ritmo:   `${velS} sesiones intensas · ${Math.round(minutosJugados/60)}h jugadas · Racha: ${streak}d`,
+    tiro:    `${totalGoals} goles · ${totalMatches} partidos · Rating prom: ${avgRating}`,
+    pase:    `${totalAssists} asistencias · ${tecS} sesiones técnicas`,
+    regate:  `${tecS} sesiones técnicas · ${totalSessions} total`,
+    defensa: `${defS} sesiones defensivas · ${totalMatches} partidos`,
+    fisico:  `${daysOnTarget}/${nutriDays} días nutrición OK · ${fisS} ses. físicas`,
+  };
+
+  return{
+    stats,rating,sources,potencial,rango,rareza,xp,level,xpPct,
+    trainingPct,nutritionPct,matchPct,faithPct,mentalPct,
+    totalGoals,totalAssists,totalMatches,totalSessions,
+    streak,bestStreak,wins,winrate,avgRating,
+    mentality,disciplina,iq,liderazgo,vision,constancia,resistencia,
+    mentalAvg, nutriDays, daysOnTarget, matches, trainings
+  };
 }
 
-/* ════════ UI UPDATERS ════════ */
-function updateFifaCard(stats, rating, profile){
-  const nm = profile.nombre||'TU NOMBRE';
-  const pos = profile.posicion||'MED';
-  
-  document.getElementById('cardRating').textContent = rating;
-  document.getElementById('cardPos').textContent = pos;
-  document.getElementById('cardName').textContent = nm.toUpperCase().substring(0,14);
-  document.getElementById('cs-rit').textContent = stats.ritmo;
-  document.getElementById('cs-tir').textContent = stats.tiro;
-  document.getElementById('cs-pas').textContent = stats.pase;
-  document.getElementById('cs-reg').textContent = stats.regate;
-  document.getElementById('cs-def').textContent = stats.defensa;
-  document.getElementById('cs-fis').textContent = stats.fisico;
+/* ─── RANGO CONFIG ─────────────────────────────────── */
+const RANGO_CONFIG={
+  amateur:       {cls:'rango-amateur',label:'Amateur',icon:'⚽',verse:'Filipenses 4:13'},
+  promesa:       {cls:'rango-promesa',label:'Promesa',icon:'⭐',verse:'Josué 1:9'},
+  semipro:       {cls:'rango-semipro',label:'Semiprofesional',icon:'🌟',verse:'Isaías 40:31'},
+  profesional:   {cls:'rango-profesional',label:'Profesional',icon:'🏆',verse:'Colosenses 3:23'},
+  elite:         {cls:'rango-elite',label:'Élite',icon:'💎',verse:'Jeremías 29:11'},
+  leyenda:       {cls:'rango-leyenda',label:'Leyenda',icon:'👑',verse:'Romanos 8:28'}
+};
+
+/* ─── UPDATE UI ─────────────────────────────────────── */
+function updateFifaCard(stats,rating,profile,rareza){
+  const nm=profile.nombre||'TU NOMBRE';
+  const pos=profile.posicion||'MED';
+  document.getElementById('cardRating').textContent=rating;
+  document.getElementById('cardPos').textContent=pos;
+  document.getElementById('cardName').textContent=nm.toUpperCase().substring(0,14);
+  document.getElementById('cs-rit').textContent=stats.ritmo;
+  document.getElementById('cs-tir').textContent=stats.tiro;
+  document.getElementById('cs-pas').textContent=stats.pase;
+  document.getElementById('cs-reg').textContent=stats.regate;
+  document.getElementById('cs-def').textContent=stats.defensa;
+  document.getElementById('cs-fis').textContent=stats.fisico;
+
+  // Update rareza
+  const card=document.getElementById('fifaCard');
+  card.className='fifa-card card-rarity-'+rareza;
+  const rarityLabels={bronze:'⚪ BRONZE',silver:'⚪ SILVER',gold:'✦ GOLD',special:'💎 SPECIAL',icon:'👑 ICON'};
+  const rarityClasses={bronze:'rl-bronze',silver:'rl-silver',gold:'rl-gold',special:'rl-special',icon:'rl-icon'};
+  const rl=document.getElementById('rarityLabel');
+  if(rl){rl.className='rarity-label '+rarityClasses[rareza];rl.textContent=rarityLabels[rareza]+(nm!=='TU NOMBRE'?' · '+nm:'')}
 }
 
-function updateStatBars(stats, sources){
-  const keys = ['ritmo','tiro','pase','regate','defensa','fisico'];
-  keys.forEach(k => {
-    const el = document.getElementById(`val-${k}`);
-    const bar = document.getElementById(`bar-${k}`);
-    const src = document.getElementById(`src-${k}`);
-    if(el) el.textContent = stats[k];
-    if(bar){ setTimeout(()=>{ bar.style.width = stats[k]+'%' }, 300) }
-    if(src && sources[k]) src.textContent = sources[k];
-  });
-}
-
-function updateHeroRating(rating){
-  document.getElementById('heroRatingNum').textContent = rating;
-  document.getElementById('cardRating').textContent = rating;
-  // Ring animation
-  const ring = document.getElementById('heroRatingRing');
+function updateHeroRating(rating,data){
+  document.getElementById('heroRatingNum').textContent=rating;
+  const ring=document.getElementById('heroRatingRing');
   if(ring){
-    const circumference = 703;
-    const offset = circumference - (rating/99)*circumference;
-    setTimeout(()=>{ ring.style.strokeDashoffset = offset; ring.style.transition='stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)'; }, 500);
+    const offset=703-(rating/99)*703;
+    setTimeout(()=>{ring.style.strokeDashoffset=offset;ring.style.transition='stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)';},500);
   }
-  // Badge
-  const badge = document.getElementById('latestRatingBadge');
-  if(badge) badge.textContent = rating;
+  const badge=document.getElementById('latestRatingBadge');
+  if(badge) badge.textContent=rating;
+
+  // Rango
+  const rc=RANGO_CONFIG[data.rango]||RANGO_CONFIG.amateur;
+  const rb=document.getElementById('rangoBadge');
+  rb.className='rango-badge '+rc.cls;
+  document.getElementById('rangoText').textContent=rc.label;
+
+  // XP
+  document.getElementById('heroLevel').textContent=data.level;
+  document.getElementById('heroXP').textContent=data.xpPct;
+  setTimeout(()=>{document.getElementById('heroXPBar').style.width=data.xpPct+'%';},600);
+
+  // Mini stats
+  document.getElementById('hmsTrainings').textContent=data.totalSessions;
+  document.getElementById('hmsGoles').textContent=data.totalGoals;
+  document.getElementById('hmsPartidos').textContent=data.totalMatches;
+  document.getElementById('hmsStreak').textContent=data.streak;
+}
+
+function updateStatBars(stats,sources){
+  const keys=['ritmo','tiro','pase','regate','defensa','fisico'];
+  keys.forEach(k=>{
+    const el=document.getElementById('val-'+k);
+    const bar=document.getElementById('bar-'+k);
+    const src=document.getElementById('src-'+k);
+    if(el) el.textContent=stats[k];
+    if(bar) setTimeout(()=>{bar.style.width=stats[k]+'%';},300);
+    if(src&&sources[k]) src.textContent=sources[k];
+  });
 }
 
 function updateProgressFactors(data){
-  const factors = [
-    {id:'pfcTraining', pctId:'pfcTrainingPct', pct:data.trainingPct},
-    {id:'pfcNutrition', pctId:'pfcNutritionPct', pct:data.nutritionPct},
-    {id:'pfcMatch', pctId:'pfcMatchPct', pct:data.matchPct},
-    {id:'pfcFaith', pctId:'pfcFaithPct', pct:data.faithPct},
+  const factors=[
+    {id:'pfcTraining',pctId:'pfcTrainingPct',pct:data.trainingPct},
+    {id:'pfcNutrition',pctId:'pfcNutritionPct',pct:data.nutritionPct},
+    {id:'pfcMatch',pctId:'pfcMatchPct',pct:data.matchPct},
+    {id:'pfcFaith',pctId:'pfcFaithPct',pct:data.faithPct},
+    {id:'pfcMental',pctId:'pfcMentalPct',pct:data.mentalPct},
   ];
-  factors.forEach(f => {
-    const bar = document.getElementById(f.id);
-    const pct = document.getElementById(f.pctId);
-    if(bar) setTimeout(()=>{ bar.style.width = f.pct+'%'; bar.style.transition='width 1.5s cubic-bezier(.22,1,.36,1)'; }, 400);
-    if(pct) pct.textContent = f.pct+'%';
+  factors.forEach(f=>{
+    const bar=document.getElementById(f.id);
+    const pct=document.getElementById(f.pctId);
+    if(bar) setTimeout(()=>{bar.style.width=f.pct+'%';bar.style.transition='width 1.5s cubic-bezier(.22,1,.36,1)';},400);
+    if(pct) pct.textContent=f.pct+'%';
   });
 }
 
-function updateHeroMiniStats(data){
-  document.getElementById('hmsTrainings').textContent = data.totalSessions||0;
-  document.getElementById('hmsGoles').textContent = data.goles||0;
-  document.getElementById('hmsPartidos').textContent = data.partidos||0;
+function updatePotencial(potencial,rating){
+  document.getElementById('potencialVal').textContent=potencial+'/99';
+  setTimeout(()=>{document.getElementById('potencialBar').style.width=(potencial/99*100)+'%';},700);
 }
 
-/* ════════ PROFILE ════════ */
+/* ─── MENTAL ────────────────────────────────────────── */
+function updateMentalSystem(data){
+  const attrs=[
+    {key:'energia',  label:'Energía',    cls:'ma-energia',  val:data.mentalAvg.energia},
+    {key:'motivacion',label:'Motivación',cls:'ma-motivacion',val:data.mentalAvg.motivacion},
+    {key:'enfoque',  label:'Enfoque',    cls:'ma-enfoque',   val:data.mentalAvg.enfoque},
+    {key:'disciplina',label:'Disciplina',cls:'ma-disciplina',val:data.mentalAvg.disciplina},
+    {key:'confianza',label:'Confianza',  cls:'ma-confianza', val:Math.min(10,data.wins*0.5+data.streak*0.3+5).toFixed(1)},
+    {key:'resistencia',label:'Resistencia',cls:'ma-resistencia',val:Math.min(10,(data.resistencia-40)/6).toFixed(1)},
+  ];
+  const cont=document.getElementById('mentalAttrs');
+  if(cont) cont.innerHTML=attrs.map(a=>`
+    <div class="mental-attr">
+      <div class="ma-row"><span class="ma-label">${a.label}</span><span class="ma-val">${a.val}/10</span></div>
+      <div class="ma-bar"><div class="ma-fill ${a.cls}" style="width:${a.val*10}%"></div></div>
+    </div>`).join('');
+
+  // AI Insights
+  const insights=[];
+  if(data.streak>=7) insights.push({cls:'positive',icon:'fa-fire',title:'🔥 Racha imparable',body:`${data.streak} días seguidos. La constancia es el arma de los campeones.`});
+  if(data.mentalAvg.disciplina>=7) insights.push({cls:'positive',icon:'fa-check-double',title:'Disciplina alta',body:'Tu disciplina mental está en nivel élite. Seguí así.'});
+  if(data.mentalAvg.energia<4) insights.push({cls:'warning',icon:'fa-battery-empty',title:'Energía baja',body:'Tus niveles de energía están bajos. Prioriza el descanso y la nutrición.'});
+  if(data.mentalAvg.motivacion<5) insights.push({cls:'warning',icon:'fa-heart-broken',title:'Motivación en caída',body:'Recordá tu propósito. ¿Por qué empezaste? Dios tiene un plan contigo.'});
+  if(data.winrate>0.6) insights.push({cls:'positive',icon:'fa-trophy',title:'Mentalidad ganadora',body:`${Math.round(data.winrate*100)}% de victorias. Tu mental está dominando.`});
+  if(data.totalSessions>20) insights.push({cls:'faith',icon:'fa-cross',title:'Fe en acción',body:'Con más de 20 entrenamientos, tu dedicación honra a Dios.'});
+  if(!insights.length) insights.push({cls:'info',icon:'fa-cross',title:'Seguí construyendo',body:'Registrá tu estado mental en Estadísticas para ver análisis personalizados.'});
+
+  const cont2=document.getElementById('mentalInsights');
+  if(cont2) cont2.innerHTML=insights.slice(0,4).map(i=>`
+    <div class="mental-insight-card">
+      <div class="mi-icon ${i.cls}"><i class="fas ${i.icon}"></i></div>
+      <div class="mi-text"><strong>${i.title}</strong><span>${i.body}</span></div>
+    </div>`).join('');
+}
+
+/* ─── SCOUTING PROFILE ──────────────────────────────── */
+function updateScoutingProfile(p,data){
+  const strEl=document.getElementById('strengthTags');
+  if(strEl&&p.fortalezas){
+    const tags=p.fortalezas.split(',').map(s=>s.trim()).filter(Boolean);
+    strEl.innerHTML=tags.length?tags.map(t=>`<span class="pd-tag green">${t}</span>`).join(''):'<span class="pd-tag">Sin datos</span>';
+  }
+  const weakEl=document.getElementById('weaknessTags');
+  if(weakEl&&p.debilidades){
+    const tags=p.debilidades.split(',').map(s=>s.trim()).filter(Boolean);
+    weakEl.innerHTML=tags.length?tags.map(t=>`<span class="pd-tag red">${t}</span>`).join(''):'<span class="pd-tag">Sin datos</span>';
+  }
+  const notesEl=document.getElementById('analystNotes');
+  if(notesEl) notesEl.textContent=p.notas||'Completa tu perfil para ver las observaciones aquí.';
+  const projEl=document.getElementById('projectionText');
+  if(projEl&&p.estilo) projEl.innerHTML=`Estilo: <strong>${p.estilo}</strong>. ${p.posicion?'Posición principal: <strong>'+p.posicion+'</strong>.':''} Con constancia y fe, cada punto de rating acerca tu sueño. <strong>El talento se multiplica con disciplina.</strong>`;
+
+  // Comparaciones automáticas
+  if(data){
+    const pos=p.posicion||'MED';
+    const comps=getComparisons(pos,data);
+    const cg=document.getElementById('comparisonsGrid');
+    if(cg) cg.innerHTML=comps.map(c=>`
+      <div class="comp-card">
+        <div class="comp-player-name">${c.name}</div>
+        <div class="comp-attribute">${c.attr}</div>
+        <div class="comp-similarity">${c.pct}%</div>
+        <div class="comp-label">similitud</div>
+      </div>`).join('');
+
+    // Rol ideal
+    const rol=detectRolIdeal(pos,data);
+    const ri=document.getElementById('rolIdeal');
+    if(ri) ri.textContent='⚽ '+rol;
+  }
+}
+
+function getComparisons(pos,data){
+  const r=data.rating;
+  const templates={
+    DEL:[{name:'Bergwijn',attr:'Velocidad y Gol'},{name:'Dybala',attr:'Regate y Visión'},{name:'Benzema',attr:'Juego Combinativo'}],
+    MED:[{name:'Pedri',attr:'Pase y Visión'},{name:'Frenkie',attr:'Box-to-Box'},{name:'Kroos',attr:'Precisión'}],
+    CAM:[{name:'De Bruyne',attr:'Creación'},{name:'Isco',attr:'Regate Interior'},{name:'Özil',attr:'Asistencias'}],
+    EXT:[{name:'Salah',attr:'Velocidad y Gol'},{name:'Sané',attr:'Desborde'},{name:'Neymar',attr:'Regate'}],
+    DEF:[{name:'Alaba',attr:'Juego Aéreo'},{name:'Militão',attr:'Marcación'},{name:'Upamecano',attr:'Velocidad Def.'}],
+    ARQ:[{name:'Ter Stegen',attr:'Reflejos'},{name:'Courtois',attr:'Salidas'},{name:'Ederson',attr:'Juego Pie'}],
+    VOL:[{name:'Busquets',attr:'Distribución'},{name:'Rodri',attr:'Recuperación'},{name:'Camavinga',attr:'Dinamismo'}]
+  };
+  const pool=templates[pos]||templates.MED;
+  const pcts=[Math.min(99,Math.round(r*0.7+Math.random()*15)),Math.min(99,Math.round(r*0.65+Math.random()*12)),Math.min(99,Math.round(r*0.6+Math.random()*10))];
+  return pool.map((p,i)=>({...p,pct:pcts[i]}));
+}
+
+function detectRolIdeal(pos,data){
+  if(pos==='DEL'&&data.stats.ritmo>data.stats.tiro) return 'Extremo Secundero';
+  if(pos==='DEL') return 'Delantero Centro';
+  if(pos==='MED'&&data.stats.pase>data.stats.regate) return 'Mediocampista Distribuidor';
+  if(pos==='MED'&&data.stats.fisico>data.stats.pase) return 'Box-to-Box';
+  if(pos==='CAM') return 'Mediapunta / Falso 9';
+  if(pos==='EXT'&&data.stats.ritmo>75) return 'Extremo de Desborde';
+  if(pos==='EXT') return 'Extremo Mixto';
+  if(pos==='DEF') return 'Defensor Central';
+  if(pos==='ARQ') return 'Arquero Moderno';
+  return 'Jugador Completo';
+}
+
+/* ─── MISSIONS RPG ──────────────────────────────────── */
+function renderMissions(data){
+  const missions=[
+    {type:'daily',typeLabel:'Diario',typeColor:'mt-daily',icon:'fa-sun',title:'Entreno de Hoy',desc:'Completá al menos 1 sesión de entrenamiento hoy.',xp:'+15 XP',pct:data.trainings&&data.trainings.find(t=>t.date===today())?100:0},
+    {type:'daily',typeLabel:'Diario',typeColor:'mt-daily',icon:'fa-pray',title:'Momento con Dios',desc:'Dedicá tiempo a la oración y lectura bíblica.',xp:'+10 XP',pct:50},
+    {type:'weekly',typeLabel:'Semanal',typeColor:'mt-weekly',icon:'fa-dumbbell',title:'5 Entrenamientos esta Semana',desc:`Completá 5 sesiones esta semana.`,xp:'+50 XP',pct:Math.min(100,Math.round(data.trainingsThisWeek/5*100))},
+    {type:'weekly',typeLabel:'Semanal',typeColor:'mt-weekly',icon:'fa-futbol',title:'3 Partidos esta Semana',desc:'Jugá 3 partidos o prácticas esta semana.',xp:'+40 XP',pct:Math.min(100,Math.round(data.matchesThisWeek/3*100))},
+    {type:'long',typeLabel:'Largo Plazo',typeColor:'mt-long',icon:'fa-fire',title:'Racha de 30 Días',desc:'Entrenar 30 días consecutivos es el camino al élite.',xp:'+200 XP',pct:Math.min(100,Math.round(data.streak/30*100))},
+    {type:'long',typeLabel:'Largo Plazo',typeColor:'mt-long',icon:'fa-star',title:'Llegar a OVR 70',desc:'Un OVR de 70 representa nivel semiprofesional.',xp:'+300 XP',pct:Math.min(100,Math.round(data.rating/70*100))},
+  ];
+  const grid=document.getElementById('missionsGrid');
+  if(!grid) return;
+  grid.innerHTML=missions.map(m=>{
+    const done=m.pct>=100;
+    return`<div class="mission-card ${done?'completed':''}">
+      <div class="mission-type ${m.typeColor}"><i class="fas ${m.icon}"></i> ${m.typeLabel}</div>
+      <div class="mission-title">${m.title}</div>
+      <div class="mission-desc">${m.desc}</div>
+      <div class="mission-reward"><i class="fas fa-star"></i> ${m.xp}</div>
+      ${done?`<div class="mission-complete-badge"><i class="fas fa-check"></i> COMPLETADO ✓</div>`:
+      `<div class="mission-progress-wrap">
+        <div class="mission-pct-row"><span>Progreso</span><span>${m.pct}%</span></div>
+        <div class="mission-bar"><div class="mission-bar-fill" style="width:${m.pct}%"></div></div>
+      </div>`}
+    </div>`;
+  }).join('');
+}
+
+/* ─── BADGES ─────────────────────────────────────────── */
+const ALL_BADGES=[
+  {id:'first_training',icon:'💪',name:'Primera Sesión',condition:d=>d.totalSessions>=1},
+  {id:'ten_trainings',icon:'🏋️',name:'10 Entrenamientos',condition:d=>d.totalSessions>=10},
+  {id:'first_goal',icon:'⚽',name:'Primer Gol',condition:d=>d.totalGoals>=1},
+  {id:'ten_goals',icon:'🥅',name:'10 Goles',condition:d=>d.totalGoals>=10},
+  {id:'first_match',icon:'🏟️',name:'Primer Partido',condition:d=>d.totalMatches>=1},
+  {id:'streak5',icon:'🔥',name:'Racha de 5',condition:d=>d.streak>=5},
+  {id:'streak10',icon:'⚡',name:'Racha de 10',condition:d=>d.streak>=10},
+  {id:'streak30',icon:'💎',name:'Racha de 30',condition:d=>d.streak>=30},
+  {id:'ovr60',icon:'⭐',name:'OVR 60',condition:d=>d.rating>=60},
+  {id:'ovr70',icon:'🌟',name:'OVR 70',condition:d=>d.rating>=70},
+  {id:'ovr80',icon:'🏆',name:'OVR 80',condition:d=>d.rating>=80},
+  {id:'winner',icon:'🥇',name:'Ganador',condition:d=>d.wins>=5},
+  {id:'faith',icon:'✝️',name:'Fe Inquebrantable',condition:d=>d.totalSessions>=20},
+  {id:'god_center',icon:'🙏',name:'Dios en el Centro',condition:d=>d.totalSessions>=5&&d.totalMatches>=3},
+  {id:'potencial',icon:'🚀',name:'Alto Potencial',condition:d=>d.potencial>=75},
+  {id:'goleador',icon:'🎯',name:'Goleador',condition:d=>d.totalGoals>=20},
+  {id:'asistidor',icon:'🎪',name:'Asistidor',condition:d=>d.totalAssists>=10},
+  {id:'leyenda',icon:'👑',name:'Leyenda',condition:d=>d.rango==='leyenda'},
+];
+
+function renderBadges(data){
+  const grid=document.getElementById('badgesGrid');
+  if(!grid) return;
+  grid.innerHTML=ALL_BADGES.map(b=>{
+    const earned=b.condition(data);
+    return`<div class="badge-item ${earned?'earned':'badge-locked'}" title="${b.name}${earned?'':(': Bloqueado')}">
+      <div class="badge-icon">${b.icon}</div>
+      <div class="badge-name">${b.name}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── HALL OF FAME ──────────────────────────────────── */
+function renderHallOfFame(data){
+  const snaps=LS(KEYS.snapshots)||[];
+  const maxOVR=snaps.length?Math.max(...snaps.map(s=>s.rating)):data.rating;
+  const records=[
+    {icon:'🏆',title:'Mejor OVR',val:maxOVR,sub:'Máximo histórico'},
+    {icon:'⚽',title:'Total de Goles',val:data.totalGoals,sub:'En toda la carrera'},
+    {icon:'🎪',title:'Asistencias',val:data.totalAssists,sub:'En toda la carrera'},
+    {icon:'🔥',title:'Mejor Racha',val:data.bestStreak+'d',sub:'Días consecutivos'},
+    {icon:'🏟️',title:'Partidos Jugados',val:data.totalMatches,sub:'Partidos registrados'},
+    {icon:'💪',title:'Entrenamientos',val:data.totalSessions,sub:'Sesiones completadas'},
+    {icon:'✝️',title:'Días de Fe',val:data.totalSessions+data.totalMatches,sub:'Acciones de Dios'},
+    {icon:'📈',title:'OVR Actual',val:data.rating,sub:'Rating de hoy'},
+    {icon:'🌟',title:'XP Total',val:data.xp,sub:'Experiencia acumulada'},
+  ];
+  const grid=document.getElementById('hofGrid');
+  if(grid) grid.innerHTML=records.map(r=>`
+    <div class="hof-card">
+      <div class="hof-icon">${r.icon}</div>
+      <div class="hof-title">${r.title}</div>
+      <div class="hof-val">${r.val}</div>
+      <div class="hof-sub">${r.sub}</div>
+    </div>`).join('');
+}
+
+/* ─── TIMELINE ──────────────────────────────────────── */
+function renderTimeline(data){
+  const existing=LS(KEYS.timeline)||[];
+  // Auto-generate from data
+  const autoItems=[];
+  if(data.totalSessions>=1) autoItems.push({date:'Inicio',text:'Primera sesión de entrenamiento registrada.',milestone:'Primer paso de Fe',badge:'🌱'});
+  if(data.totalGoals>=1) autoItems.push({date:'Partido',text:`Primer gol registrado. Comenzás a demostrar tu capacidad goleadora.`,milestone:'+Tiro',badge:'⚽'});
+  if(data.streak>=5) autoItems.push({date:'Racha',text:`Alcanzaste ${data.streak} días consecutivos de entrenamiento.`,milestone:`${data.streak}d Racha 🔥`,badge:'🔥'});
+  if(data.rating>=50) autoItems.push({date:'OVR',text:`Rating alcanzó ${data.rating}. Subís de nivel como jugador.`,milestone:`OVR ${data.rating}`,badge:'📈'});
+  if(data.totalAssists>=5) autoItems.push({date:'Asistencias',text:'5 asistencias acumuladas. Tu visión de juego está creciendo.',milestone:'+Pase & Visión',badge:'🎪'});
+
+  const all=[...existing,...autoItems].slice(0,8);
+  if(!all.length){ const w=document.getElementById('timelineWrap'); if(w) w.innerHTML='<p style="color:var(--texto3);font-size:.85rem;padding:2rem 0">Registrá actividad en Estadísticas para ver tu timeline aquí.</p>'; return; }
+
+  const wrap=document.getElementById('timelineWrap');
+  if(!wrap) return;
+  wrap.innerHTML=all.map(item=>`
+    <div class="timeline-item">
+      <div class="tl-date">${item.date}</div>
+      <div class="tl-text">${item.text}</div>
+      ${item.milestone?`<div class="tl-milestone"><span class="tl-badge">${item.badge||'✦'} ${item.milestone}</span></div>`:''}
+    </div>`).join('');
+}
+
+/* ─── LEVEL UP DETECTION ─────────────────────────────── */
+function checkLevelUp(data){
+  const prev=LS(KEYS.prevStats)||{level:1,rango:'amateur'};
+  const verses={promesa:'"Jehová Dios estará contigo dondequiera que vayas." — Josué 1:9',semipro:'"Los que confían en el Señor renovarán sus fuerzas." — Isaías 40:31',profesional:'"Todo lo que hagáis, hacedlo de corazón, como para el Señor." — Col 3:23',elite:'"Porque yo sé los planes que tengo para vosotros." — Jer 29:11',leyenda:'"Nada es imposible para Dios." — Lucas 1:37'};
+  if(data.level>prev.level){
+    document.getElementById('luTitle').textContent='¡NIVEL '+data.level+'!';
+    document.getElementById('luSub').textContent='Has ganado '+data.xpPct+' XP nuevo. Tu carrera crece con Dios.';
+    document.getElementById('levelupOverlay').classList.add('show');
+  } else if(data.rango!==prev.rango&&data.rango!=='amateur'){
+    const rc=RANGO_CONFIG[data.rango];
+    document.getElementById('luTitle').textContent=rc.icon+' '+rc.label.toUpperCase();
+    document.getElementById('luSub').textContent='Has alcanzado el rango '+rc.label+'. ¡Gloria a Dios!';
+    document.getElementById('luVerse').textContent=verses[data.rango]||'"Todo lo puedo en Cristo que me fortalece." — Fil 4:13';
+    document.getElementById('levelupOverlay').classList.add('show');
+  }
+  LSset(KEYS.prevStats,{level:data.level,rango:data.rango,rating:data.rating});
+}
+
+function closeLevelUp(){ document.getElementById('levelupOverlay').classList.remove('show'); }
+
+/* ─── STAT UP NOTIFICATION ──────────────────────────── */
+function checkStatUp(data){
+  const prev=LS(KEYS.prevStats)||{};
+  if(!prev.stats) return;
+  const keys=['ritmo','tiro','pase','regate','defensa','fisico'];
+  for(const k of keys){
+    if(data.stats[k]>=(prev.stats[k]||0)+2){
+      showStatUp(k.charAt(0).toUpperCase()+k.slice(1)+' +'+((data.stats[k]||0)-(prev.stats[k]||0)));
+      break;
+    }
+  }
+}
+function showStatUp(msg){
+  const el=document.getElementById('statupNotif');
+  document.getElementById('statupText').textContent='⬆ '+msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+/* ─── PROFILE ────────────────────────────────────────── */
 function loadProfile(){
-  const p = LS(KEYS.profile) || {};
-  if(p.nombre)    document.getElementById('pfName').value = p.nombre;
-  if(p.posicion)  document.getElementById('pfPos').value = p.posicion;
-  if(p.posicion2) document.getElementById('pfPos2').value = p.posicion2;
-  if(p.estilo)    document.getElementById('pfStyle').value = p.estilo;
-  if(p.fortalezas)  document.getElementById('pfStrengths').value = p.fortalezas;
-  if(p.debilidades) document.getElementById('pfWeaknesses').value = p.debilidades;
-  if(p.notas)     document.getElementById('pfNotes').value = p.notas;
+  const p=LS(KEYS.profile)||{};
+  if(p.nombre) document.getElementById('pfName').value=p.nombre;
+  if(p.posicion) document.getElementById('pfPos').value=p.posicion;
+  if(p.posicion2) document.getElementById('pfPos2').value=p.posicion2;
+  if(p.estilo) document.getElementById('pfStyle').value=p.estilo;
+  if(p.fortalezas) document.getElementById('pfStrengths').value=p.fortalezas;
+  if(p.debilidades) document.getElementById('pfWeaknesses').value=p.debilidades;
+  if(p.notas) document.getElementById('pfNotes').value=p.notas;
 }
 
 function saveProfile(){
-  const p = {
-    nombre:      document.getElementById('pfName').value,
-    posicion:    document.getElementById('pfPos').value,
-    posicion2:   document.getElementById('pfPos2').value,
-    estilo:      document.getElementById('pfStyle').value,
-    fortalezas:  document.getElementById('pfStrengths').value,
-    debilidades: document.getElementById('pfWeaknesses').value,
-    notas:       document.getElementById('pfNotes').value,
+  const p={
+    nombre:     document.getElementById('pfName').value,
+    posicion:   document.getElementById('pfPos').value,
+    posicion2:  document.getElementById('pfPos2').value,
+    estilo:     document.getElementById('pfStyle').value,
+    fortalezas: document.getElementById('pfStrengths').value,
+    debilidades:document.getElementById('pfWeaknesses').value,
+    notas:      document.getElementById('pfNotes').value,
   };
-  LSset(KEYS.profile, p);
-  updateScoutingProfile(p);
+  LSset(KEYS.profile,p);
   refreshAll();
   showToast('Perfil guardado ✓','success');
 }
 
-function updateScoutingProfile(p){
-  // Fortalezas
-  const strEl = document.getElementById('strengthTags');
-  if(strEl && p.fortalezas){
-    const tags = p.fortalezas.split(',').map(s=>s.trim()).filter(Boolean);
-    strEl.innerHTML = tags.length ? tags.map(t=>`<span class="pd-tag green">${t}</span>`).join('') : '<span class="pd-tag">Sin datos</span>';
-  }
-  // Debilidades
-  const weakEl = document.getElementById('weaknessTags');
-  if(weakEl && p.debilidades){
-    const tags = p.debilidades.split(',').map(s=>s.trim()).filter(Boolean);
-    weakEl.innerHTML = tags.length ? tags.map(t=>`<span class="pd-tag red">${t}</span>`).join('') : '<span class="pd-tag">Sin datos</span>';
-  }
-  // Notas
-  const notesEl = document.getElementById('analystNotes');
-  if(notesEl) notesEl.textContent = p.notas || 'Completa tu perfil para ver las observaciones aquí.';
-  // Proyección
-  const projEl = document.getElementById('projectionText');
-  if(projEl && p.estilo){
-    projEl.innerHTML = `Estilo: <strong>${p.estilo}</strong>. ${p.posicion?'Posición principal: <strong>'+p.posicion+'</strong>.':''} Con constancia y fe, cada punto de rating acerca tu sueño profesional. <strong>El talento se multiplica con disciplina.</strong>`;
-  }
-}
-
-/* ════════ OVERRIDES ════════ */
 function loadOverrides(){
-  const ov = LS(KEYS.overrides) || {};
-  Object.keys(ov).forEach(k => {
-    const el = document.getElementById(`ov-${k}`);
-    if(el && ov[k]) el.value = ov[k];
-  });
+  const ov=LS(KEYS.overrides)||{};
+  Object.keys(ov).forEach(k=>{const el=document.getElementById('ov-'+k);if(el&&ov[k]) el.value=ov[k];});
 }
-
 function applyOverrides(){
-  const keys = ['ritmo','tiro','pase','regate','defensa','fisico'];
-  const ov = {};
-  keys.forEach(k => {
-    const val = document.getElementById(`ov-${k}`)?.value;
-    if(val && !isNaN(val)) ov[k] = Number(val);
-  });
-  LSset(KEYS.overrides, ov);
+  const keys=['ritmo','tiro','pase','regate','defensa','fisico'];
+  const ov={};
+  keys.forEach(k=>{const val=document.getElementById('ov-'+k)?.value;if(val&&!isNaN(val)) ov[k]=Number(val);});
+  LSset(KEYS.overrides,ov);
   refreshAll();
   showToast('Overrides aplicados ✓','success');
 }
 
-/* ════════ OBJETIVOS ════════ */
-let currentPlazo = 'corto';
-
+/* ─── OBJETIVOS ─────────────────────────────────────── */
+let currentPlazo='corto';
 function loadObjetivos(){
-  const list = LS(KEYS.objetivos) || getDefaultObjetivos();
-  const filtered = list.filter(o=>o.plazo===currentPlazo);
-  const container = document.getElementById('objList');
+  const list=LS(KEYS.objetivos)||getDefaultObjetivos();
+  const filtered=list.filter(o=>o.plazo===currentPlazo);
+  const container=document.getElementById('objList');
   if(!container) return;
   if(!filtered.length){
-    container.innerHTML = `<div style="text-align:center;color:var(--texto3);padding:2rem;font-family:var(--font-ui);font-size:.85rem">
-      <i class="fas fa-bullseye" style="font-size:2rem;margin-bottom:.5rem;display:block;opacity:.3"></i>
-      No hay objetivos de ${currentPlazo} plazo aún. ¡Agregá uno!
-    </div>`;
+    container.innerHTML=`<div style="text-align:center;color:var(--texto3);padding:2rem;font-family:var(--font-ui);font-size:.85rem"><i class="fas fa-bullseye" style="font-size:2rem;margin-bottom:.5rem;display:block;opacity:.3"></i>No hay objetivos de ${currentPlazo} plazo. ¡Agregá uno!</div>`;
     return;
   }
-  container.innerHTML = filtered.map((obj, idx) => {
-    const stClass = obj.estado==='logrado'?'logrado':obj.estado==='en-progreso'?'en-progreso':'';
-    const stLabel = obj.estado==='logrado'?'Logrado':obj.estado==='en-progreso'?'En Progreso':'Pendiente';
-    const stStyleClass = obj.estado==='logrado'?'st-logrado':obj.estado==='en-progreso'?'st-progreso':'st-pendiente';
-    const globalIdx = list.indexOf(obj);
-    return `<div class="obj-card ${stClass}">
+  container.innerHTML=filtered.map((obj,idx)=>{
+    const stClass=obj.estado==='logrado'?'logrado':obj.estado==='en-progreso'?'en-progreso':'';
+    const stLabel=obj.estado==='logrado'?'Logrado':obj.estado==='en-progreso'?'En Progreso':'Pendiente';
+    const stStyleClass=obj.estado==='logrado'?'st-logrado':obj.estado==='en-progreso'?'st-progreso':'st-pendiente';
+    const globalIdx=list.indexOf(obj);
+    return`<div class="obj-card ${stClass}">
       <div class="obj-left">
         <div class="obj-name">${obj.desc}</div>
         <div class="obj-date"><i class="fas fa-calendar" style="margin-right:.3rem"></i>${obj.fecha||'Sin fecha'}</div>
@@ -1727,347 +1837,241 @@ function loadObjetivos(){
           <option value="logrado" ${obj.estado==='logrado'?'selected':''}>Logrado</option>
         </select>
         <input type="range" min="0" max="100" value="${obj.pct||0}" style="width:80px" oninput="updateObjPct(${globalIdx},this.value)"/>
-        <button class="obj-delete" onclick="deleteObjetivo(${globalIdx})" title="Eliminar"><i class="fas fa-trash"></i></button>
+        <button class="obj-delete" onclick="deleteObjetivo(${globalIdx})"><i class="fas fa-trash"></i></button>
       </div>
     </div>`;
   }).join('');
 }
 
 function getDefaultObjetivos(){
-  return [
-    {desc:'Completar 20 sesiones de entrenamiento',plazo:'corto',estado:'en-progreso',pct:40,fecha:'2025-03-31'},
-    {desc:'Mantener la dieta por 30 días seguidos',plazo:'corto',estado:'pendiente',pct:10,fecha:'2025-04-15'},
-    {desc:'Anotar 10 goles en la temporada',plazo:'mediano',estado:'en-progreso',pct:30,fecha:'2025-06-30'},
-    {desc:'Llegar a un rating de 70 en el sistema',plazo:'mediano',estado:'pendiente',pct:0,fecha:'2025-08-01'},
+  return[
+    {desc:'Completar 20 sesiones de entrenamiento',plazo:'corto',estado:'en-progreso',pct:40,fecha:'2025-06-30'},
+    {desc:'Mantener la dieta por 30 días seguidos',plazo:'corto',estado:'pendiente',pct:10,fecha:'2025-07-15'},
+    {desc:'Anotar 10 goles en la temporada',plazo:'mediano',estado:'en-progreso',pct:30,fecha:'2025-12-31'},
+    {desc:'Llegar a OVR 70 en el sistema',plazo:'mediano',estado:'pendiente',pct:0,fecha:'2026-01-01'},
     {desc:'Firmar primer contrato profesional',plazo:'largo',estado:'pendiente',pct:0,fecha:'2027-01-01'},
     {desc:'Jugar en club de Primera División',plazo:'largo',estado:'pendiente',pct:0,fecha:'2028-01-01'},
   ];
 }
 
 function addObjetivo(){
-  const desc = document.getElementById('newObjDesc').value.trim();
-  if(!desc){ showToast('Escribí un objetivo','error'); return; }
-  const list = LS(KEYS.objetivos) || getDefaultObjetivos();
-  list.push({
-    desc,
-    plazo:  document.getElementById('newObjPlazo').value,
-    fecha:  document.getElementById('newObjFecha').value,
-    estado: document.getElementById('newObjEstado').value,
-    pct:    Number(document.getElementById('newObjPct').value)||0,
-  });
-  LSset(KEYS.objetivos, list);
+  const desc=document.getElementById('newObjDesc').value.trim();
+  if(!desc){showToast('Escribí un objetivo','error');return;}
+  const list=LS(KEYS.objetivos)||getDefaultObjetivos();
+  list.push({desc,plazo:document.getElementById('newObjPlazo').value,fecha:document.getElementById('newObjFecha').value,estado:document.getElementById('newObjEstado').value,pct:Number(document.getElementById('newObjPct').value)||0});
+  LSset(KEYS.objetivos,list);
   document.getElementById('newObjDesc').value='';
-  document.getElementById('newObjPct').value=0;
   loadObjetivos();
   showToast('Objetivo agregado ✓','success');
 }
+function deleteObjetivo(idx){const list=LS(KEYS.objetivos)||[];list.splice(idx,1);LSset(KEYS.objetivos,list);loadObjetivos();}
+function updateObjEstado(idx,estado){const list=LS(KEYS.objetivos)||[];if(list[idx]){list[idx].estado=estado;LSset(KEYS.objetivos,list);loadObjetivos();if(estado==='logrado')showToast('🎉 ¡Objetivo logrado! Gloria a Dios','success');}}
+function updateObjPct(idx,pct){const list=LS(KEYS.objetivos)||[];if(list[idx]){list[idx].pct=Number(pct);LSset(KEYS.objetivos,list);loadObjetivos();}}
 
-function deleteObjetivo(idx){
-  const list = LS(KEYS.objetivos) || [];
-  list.splice(idx,1);
-  LSset(KEYS.objetivos, list);
-  loadObjetivos();
-  showToast('Objetivo eliminado','success');
-}
-
-function updateObjEstado(idx, estado){
-  const list = LS(KEYS.objetivos) || [];
-  if(list[idx]){ list[idx].estado=estado; LSset(KEYS.objetivos,list); loadObjetivos(); }
-}
-
-function updateObjPct(idx, pct){
-  const list = LS(KEYS.objetivos) || [];
-  if(list[idx]){ list[idx].pct=Number(pct); LSset(KEYS.objetivos,list); loadObjetivos(); }
-}
-
-/* ════════ SNAPSHOTS / HISTORIAL ════════ */
-let ratingChartInstance = null;
-let statsEvoChartInstance = null;
-
-function openSnapshotModal(){
-  document.getElementById('snpDate').value = new Date().toISOString().split('T')[0];
-  const data = calcStats();
-  document.getElementById('snpRating').value = data.rating;
-  document.getElementById('snapshotModal').classList.add('open');
-}
-
-function closeSnapshotModal(){ document.getElementById('snapshotModal').classList.remove('open'); }
-
-function saveSnapshot(){
-  const date   = document.getElementById('snpDate').value;
-  const rating = Number(document.getElementById('snpRating').value);
-  const note   = document.getElementById('snpNote').value;
-  if(!date||isNaN(rating)){ showToast('Completa los campos','error'); return; }
-  const snaps = LS(KEYS.snapshots) || [];
-  // Evitar duplicados misma fecha
-  const existIdx = snaps.findIndex(s=>s.date===date);
-  if(existIdx>=0) snaps[existIdx]={date,rating,note};
-  else snaps.push({date,rating,note});
-  snaps.sort((a,b)=>a.date.localeCompare(b.date));
-  LSset(KEYS.snapshots, snaps);
-  closeSnapshotModal();
-  renderRatingChart();
-  showToast('Snapshot guardado ✓','success');
-}
+/* ─── CHARTS ─────────────────────────────────────────── */
+let ratingChartInst=null,statsEvoChartInst=null,radarChartInst=null;
 
 function renderRatingChart(){
-  const snaps = LS(KEYS.snapshots) || [];
-  const ctx = document.getElementById('ratingChart');
+  const snaps=LS(KEYS.snapshots)||[];
+  const ctx=document.getElementById('ratingChart');
   if(!ctx) return;
-  const labels = snaps.length ? snaps.map(s=>s.date.slice(5)) : ['Hoy'];
-  const data   = snaps.length ? snaps.map(s=>s.rating) : [calcStats().rating];
-  
-  if(ratingChartInstance) ratingChartInstance.destroy();
-  ratingChartInstance = new Chart(ctx, {
-    type:'line',
-    data:{
-      labels,
-      datasets:[{
-        label:'Rating',data,
-        borderColor:'#00c853',backgroundColor:'rgba(0,200,83,0.08)',
-        borderWidth:2,pointBackgroundColor:'#00c853',
-        pointRadius:5,pointHoverRadius:8,fill:true,tension:.4,
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{
-        backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#00c853',bodyColor:'#e8e8f0',
-        borderColor:'rgba(0,200,83,0.2)',borderWidth:1,
-        callbacks:{label:ctx=>`Rating: ${ctx.raw}`}
-      }},
-      scales:{
-        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}}},
-        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}},min:40,max:99},
-      }
-    }
-  });
+  const labels=snaps.length?snaps.map(s=>s.date.slice(5)):['Hoy'];
+  const dat=snaps.length?snaps.map(s=>s.rating):[calcStats().rating];
+  if(ratingChartInst) ratingChartInst.destroy();
+  ratingChartInst=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'OVR',data:dat,borderColor:'#00c853',backgroundColor:'rgba(0,200,83,0.08)',borderWidth:2,pointBackgroundColor:'#00c853',pointRadius:5,pointHoverRadius:8,fill:true,tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#00c853',bodyColor:'#e8e8f0',borderColor:'rgba(0,200,83,0.2)',borderWidth:1}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}},min:40,max:99}}}});
 }
 
-function renderStatsEvoChart(){
-  const ctx = document.getElementById('statsEvolutionChart');
+function renderStatsEvoChart(stats){
+  const ctx=document.getElementById('statsEvolutionChart');
   if(!ctx) return;
-  const {stats} = calcStats();
-  if(statsEvoChartInstance) statsEvoChartInstance.destroy();
-  statsEvoChartInstance = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels:['Ritmo','Tiro','Pase','Regate','Defensa','Físico'],
-      datasets:[{
-        label:'Stats actuales',
-        data:[stats.ritmo,stats.tiro,stats.pase,stats.regate,stats.defensa,stats.fisico],
-        backgroundColor:['rgba(255,142,83,0.7)','rgba(255,215,0,0.7)','rgba(0,200,83,0.7)','rgba(168,85,247,0.7)','rgba(0,180,216,0.7)','rgba(34,197,94,0.7)'],
-        borderColor:['#ff8e53','#ffd700','#00c853','#a855f7','#00b4d8','#22c55e'],
-        borderWidth:2,borderRadius:6,
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{
-        backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#fff',bodyColor:'#e8e8f0',
-        borderColor:'rgba(255,255,255,0.1)',borderWidth:1,
-      }},
-      scales:{
-        x:{grid:{display:false},ticks:{color:'#9090b0',font:{size:11}}},
-        y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}},min:0,max:99},
-      }
-    }
-  });
+  if(statsEvoChartInst) statsEvoChartInst.destroy();
+  statsEvoChartInst=new Chart(ctx,{type:'bar',data:{labels:['Ritmo','Tiro','Pase','Regate','Defensa','Físico'],datasets:[{data:[stats.ritmo,stats.tiro,stats.pase,stats.regate,stats.defensa,stats.fisico],backgroundColor:['rgba(255,142,83,0.7)','rgba(255,215,0,0.7)','rgba(0,200,83,0.7)','rgba(168,85,247,0.7)','rgba(0,180,216,0.7)','rgba(34,197,94,0.7)'],borderColor:['#ff8e53','#ffd700','#00c853','#a855f7','#00b4d8','#22c55e'],borderWidth:2,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#9090b0',font:{size:11}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#9090b0',font:{size:11}},min:0,max:99}}}});
 }
 
-/* ════════ RADAR CHART ════════ */
-let radarChartInstance = null;
 function renderRadarChart(stats){
-  const ctx = document.getElementById('radarChart');
+  const ctx=document.getElementById('radarChart');
   if(!ctx) return;
-  if(radarChartInstance) radarChartInstance.destroy();
-  radarChartInstance = new Chart(ctx, {
-    type:'radar',
-    data:{
-      labels:['Ritmo','Tiro','Pase','Regate','Defensa','Físico'],
-      datasets:[{
-        label:'Mi nivel',
-        data:[stats.ritmo,stats.tiro,stats.pase,stats.regate,stats.defensa,stats.fisico],
-        borderColor:'#00c853',backgroundColor:'rgba(0,200,83,0.12)',
-        pointBackgroundColor:'#00c853',pointRadius:5,borderWidth:2,
-      }]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:true,
-      plugins:{legend:{display:false},tooltip:{
-        backgroundColor:'rgba(15,15,24,0.9)',titleColor:'#00c853',bodyColor:'#e8e8f0',
-        borderColor:'rgba(0,200,83,0.2)',borderWidth:1,
-      }},
-      scales:{r:{
-        grid:{color:'rgba(255,255,255,0.08)'},
-        pointLabels:{color:'#9090b0',font:{size:12,family:"'Syne', sans-serif"}},
-        ticks:{display:false},angleLines:{color:'rgba(255,255,255,0.05)'},
-        min:0,max:99,
-      }}
-    }
-  });
+  if(radarChartInst) radarChartInst.destroy();
+  radarChartInst=new Chart(ctx,{type:'radar',data:{labels:['Ritmo','Tiro','Pase','Regate','Defensa','Físico'],datasets:[{label:'Mi nivel',data:[stats.ritmo,stats.tiro,stats.pase,stats.regate,stats.defensa,stats.fisico],borderColor:'#00c853',backgroundColor:'rgba(0,200,83,0.12)',pointBackgroundColor:'#00c853',pointRadius:5,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{r:{grid:{color:'rgba(255,255,255,0.08)'},pointLabels:{color:'#9090b0',font:{size:12,family:"'Syne',sans-serif"}},ticks:{display:false},angleLines:{color:'rgba(255,255,255,0.05)'},min:0,max:99}}}});
 }
 
-/* ════════ FOTO JUGADOR ════════ */
+/* ─── SNAPSHOTS ──────────────────────────────────────── */
+function openSnapshotModal(){
+  document.getElementById('snpDate').value=today();
+  document.getElementById('snpRating').value=calcStats().rating;
+  document.getElementById('snapshotModal').classList.add('open');
+}
+function closeSnapshotModal(){ document.getElementById('snapshotModal').classList.remove('open'); }
+function saveSnapshot(){
+  const date=document.getElementById('snpDate').value;
+  const rating=Number(document.getElementById('snpRating').value);
+  const note=document.getElementById('snpNote').value;
+  if(!date||isNaN(rating)){showToast('Completa los campos','error');return;}
+  const snaps=LS(KEYS.snapshots)||[];
+  const idx=snaps.findIndex(s=>s.date===date);
+  if(idx>=0) snaps[idx]={date,rating,note};
+  else snaps.push({date,rating,note});
+  snaps.sort((a,b)=>a.date.localeCompare(b.date));
+  LSset(KEYS.snapshots,snaps);
+  closeSnapshotModal();
+  renderRatingChart();
+  showToast('Snapshot guardado ✓ OVR: '+rating,'success');
+}
+
+/* ─── PHOTO UPLOAD ──────────────────────────────────── */
 function initPhotoUpload(){
-  const input = document.getElementById('photoInput');
-  const img   = document.getElementById('playerPhotoImg');
-  const ph    = document.getElementById('photoPlaceholder');
-  
-  // Cargar foto guardada
-  const savedPhoto = localStorage.getItem(KEYS.photo);
-  if(savedPhoto){ img.src=savedPhoto; img.style.display='block'; ph.style.display='none'; }
-  
-  input.addEventListener('change', e => {
-    const file = e.target.files[0];
+  const input=document.getElementById('photoInput');
+  const img=document.getElementById('playerPhotoImg');
+  const ph=document.getElementById('photoPlaceholder');
+  const saved=localStorage.getItem(KEYS.photo);
+  if(saved){img.src=saved;img.style.display='block';ph.style.display='none';}
+  input.addEventListener('change',e=>{
+    const file=e.target.files[0];
     if(!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const dataUrl = ev.target.result;
-      img.src = dataUrl;
-      img.style.display = 'block';
-      ph.style.display = 'none';
-      localStorage.setItem(KEYS.photo, dataUrl);
-      showToast('Foto actualizada ✓','success');
-    };
+    const reader=new FileReader();
+    reader.onload=ev=>{const d=ev.target.result;img.src=d;img.style.display='block';ph.style.display='none';localStorage.setItem(KEYS.photo,d);showToast('Foto actualizada ✓','success');};
     reader.readAsDataURL(file);
   });
 }
 
-/* ════════ FIFA CARD 3D TILT ════════ */
+/* ─── CARD TILT ──────────────────────────────────────── */
 function initCardTilt(){
-  const card = document.getElementById('fifaCard');
+  const card=document.getElementById('fifaCard');
   if(!card) return;
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const cx = rect.width/2, cy = rect.height/2;
-    const rotX = ((y-cy)/cy)*-12;
-    const rotY = ((x-cx)/cx)*12;
-    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
-    const shine = card.querySelector('.fifa-card-shine');
-    if(shine) shine.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.12) 0%, transparent 60%)`;
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    const x=e.clientX-rect.left,y=e.clientY-rect.top;
+    const cx=rect.width/2,cy=rect.height/2;
+    const rotX=((y-cy)/cy)*-12,rotY=((x-cx)/cx)*12;
+    card.style.transform=`perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+    const shine=card.querySelector('.fifa-card-shine');
+    if(shine) shine.style.background=`radial-gradient(circle at ${x}px ${y}px,rgba(255,255,255,0.12) 0%,transparent 60%)`;
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
-    const shine = card.querySelector('.fifa-card-shine');
-    if(shine) shine.style.background = 'linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 40%,rgba(255,215,0,0.04) 100%)';
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='perspective(800px) rotateX(0) rotateY(0) scale(1)';
+    const shine=card.querySelector('.fifa-card-shine');
+    if(shine) shine.style.background='linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 40%,rgba(255,215,0,0.04) 100%)';
   });
 }
 
-/* ════════ REFRESH ALL ════════ */
-function refreshAll(){
-  const data = calcStats();
-  const profile = LS(KEYS.profile) || {};
-  updateFifaCard(data.stats, data.rating, profile);
-  updateStatBars(data.stats, data.sources);
-  updateHeroRating(data.rating);
-  updateProgressFactors(data);
-  updateHeroMiniStats(data);
-  renderRadarChart(data.stats);
-  renderStatsEvoChart();
-  updateScoutingProfile(profile);
+/* ─── PARTICLES ──────────────────────────────────────── */
+function initParticles(){
+  const canvas=document.getElementById('particles-canvas');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const particles=Array.from({length:40},()=>({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+    r:Math.random()*2+0.5,vx:(Math.random()-.5)*0.3,vy:(Math.random()-.5)*0.3,
+    alpha:Math.random()*0.4+0.1
+  }));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0) p.x=canvas.width;if(p.x>canvas.width) p.x=0;
+      if(p.y<0) p.y=canvas.height;if(p.y>canvas.height) p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,200,83,${p.alpha})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 }
 
-/* ════════ TOAST ════════ */
-function showToast(msg, type='success'){
-  const cont = document.getElementById('toastCont');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${msg}`;
+/* ─── TOAST ──────────────────────────────────────────── */
+function showToast(msg,type='success'){
+  const cont=document.getElementById('toastCont');
+  const toast=document.createElement('div');
+  toast.className='toast '+type;
+  toast.innerHTML=`<i class="fas fa-${type==='success'?'check-circle':type==='error'?'times-circle':'info-circle'}"></i> ${msg}`;
   cont.appendChild(toast);
-  setTimeout(()=>toast.remove(), 3200);
+  setTimeout(()=>toast.remove(),3200);
 }
 
-/* ════════ NAVBAR ════════ */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
-});
-document.getElementById('hamburger').addEventListener('click',()=>{
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobileNav').classList.toggle('open');
-});
-document.getElementById('mobileClose').addEventListener('click',()=>{
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobileNav').classList.remove('open');
-});
+/* ─── HELPERS ─────────────────────────────────────────── */
+function today(){ return new Date().toISOString().slice(0,10); }
 
-/* ════════ THEME ════════ */
-(function(){
-  const saved = localStorage.getItem('theme')||'dark';
-  document.documentElement.setAttribute('data-theme',saved);
-  document.getElementById('themeIcon').className = saved==='dark'?'fas fa-sun':'fas fa-moon';
-})();
-document.getElementById('themeToggle').addEventListener('click',()=>{
-  const curr = document.documentElement.getAttribute('data-theme');
-  const next = curr==='dark'?'light':'dark';
-  document.documentElement.setAttribute('data-theme',next);
-  localStorage.setItem('theme',next);
-  document.getElementById('themeIcon').className = next==='dark'?'fas fa-sun':'fas fa-moon';
-});
+function getTrainingsThisWeek(trainings){
+  const now=new Date();
+  const weekStart=new Date(now);weekStart.setDate(now.getDate()-now.getDay());weekStart.setHours(0,0,0,0);
+  return trainings.filter(t=>{if(!t.date) return false;return new Date(t.date+'T00:00:00')>=weekStart;}).length;
+}
+function getMatchesThisWeek(matches){
+  const now=new Date();
+  const weekStart=new Date(now);weekStart.setDate(now.getDate()-now.getDay());weekStart.setHours(0,0,0,0);
+  return matches.filter(m=>{if(!m.date) return false;return new Date(m.date+'T00:00:00')>=weekStart;}).length;
+}
 
-/* ════════ REVEAL ════════ */
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); observer.unobserve(e.target); } });
-},{threshold:0.1});
+/* ─── REFRESH ALL ─────────────────────────────────────── */
+function refreshAll(){
+  const data=calcStats();
+  const profile=LS(KEYS.profile)||{};
+
+  // Extend data with week stats
+  data.trainingsThisWeek=getTrainingsThisWeek(data.trainings);
+  data.matchesThisWeek=getMatchesThisWeek(data.matches);
+
+  updateFifaCard(data.stats,data.rating,profile,data.rareza);
+  updateHeroRating(data.rating,data);
+  updateStatBars(data.stats,data.sources);
+  updateProgressFactors(data);
+  updatePotencial(data.potencial,data.rating);
+  updateMentalSystem(data);
+  updateScoutingProfile(profile,data);
+  renderMissions(data);
+  renderBadges(data);
+  renderHallOfFame(data);
+  renderTimeline(data);
+  renderStatsEvoChart(data.stats);
+  renderRadarChart(data.stats);
+  checkStatUp(data);
+  checkLevelUp(data);
+  loadObjetivos();
+}
+
+/* ─── NAVBAR ──────────────────────────────────────────── */
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
+document.getElementById('hamburger').addEventListener('click',()=>{document.getElementById('hamburger').classList.toggle('open');document.getElementById('mobileNav').classList.toggle('open');});
+document.getElementById('mobileClose').addEventListener('click',()=>{document.getElementById('hamburger').classList.remove('open');document.getElementById('mobileNav').classList.remove('open');});
+window.addEventListener('scroll',()=>{const bg=document.querySelector('.hero-bg-prog');if(bg) bg.style.transform=`translateY(${window.scrollY*0.06}px)`;});
+
+/* ─── THEME ───────────────────────────────────────────── */
+(function(){const s=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',s);document.getElementById('themeIcon').className=s==='dark'?'fas fa-sun':'fas fa-moon';})();
+document.getElementById('themeToggle').addEventListener('click',()=>{const c=document.documentElement.getAttribute('data-theme');const n=c==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('theme',n);document.getElementById('themeIcon').className=n==='dark'?'fas fa-sun':'fas fa-moon';});
+
+/* ─── REVEAL ──────────────────────────────────────────── */
+const observer=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);observer.unobserve(e.target);}});},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-/* ════════ CURSOR ════════ */
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
+/* ─── CURSOR ──────────────────────────────────────────── */
+const cursor=document.getElementById('cursor');const cursorRing=document.getElementById('cursorRing');
 let cx=0,cy=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  cx=e.clientX;cy=e.clientY;
-  cursor.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;
-});
-(function animateRing(){
-  rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;
-  cursorRing.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-  requestAnimationFrame(animateRing);
-})();
-document.querySelectorAll('a,button,.obj-card,.fifa-card,.prog-factor-card,.verse-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cursor.style.background='var(--dorado)';
-    cursorRing.style.width='55px';cursorRing.style.height='55px';
-  });
-  el.addEventListener('mouseleave',()=>{
-    cursor.style.background='var(--verde)';
-    cursorRing.style.width='38px';cursorRing.style.height='38px';
-  });
-});
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cursor.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;});
+(function animRing(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;cursorRing.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,.fifa-card').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.background='var(--dorado)';cursorRing.style.width='55px';cursorRing.style.height='55px';});el.addEventListener('mouseleave',()=>{cursor.style.background='var(--verde)';cursorRing.style.width='38px';cursorRing.style.height='38px';});});
 
-/* ════════ OBJ TABS ════════ */
-document.querySelectorAll('.obj-tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.obj-tab').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentPlazo = btn.dataset.plazo;
-    loadObjetivos();
-  });
-});
+/* ─── OBJ TABS ────────────────────────────────────────── */
+document.querySelectorAll('.obj-tab').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.obj-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentPlazo=btn.dataset.plazo;loadObjetivos();});});
 
-/* ════════ BUTTONS ════════ */
-document.getElementById('btnSaveProfile').addEventListener('click', saveProfile);
-document.getElementById('btnSaveProfileFull').addEventListener('click', saveProfile);
-document.getElementById('btnApplyOverrides').addEventListener('click', applyOverrides);
+/* ─── BUTTONS ─────────────────────────────────────────── */
+document.getElementById('btnSaveProfile').addEventListener('click',saveProfile);
+document.getElementById('btnSaveProfileFull').addEventListener('click',saveProfile);
+document.getElementById('btnApplyOverrides').addEventListener('click',applyOverrides);
 
-/* ════════ PARALLAX HERO ════════ */
-window.addEventListener('scroll',()=>{
-  const bg = document.querySelector('.hero-bg-prog');
-  if(bg) bg.style.transform=`translateY(${window.scrollY*0.06}px)`;
-});
-
-/* ════════ INIT ════════ */
+/* ─── INIT ────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded',()=>{
   loadProfile();
   loadOverrides();
-  loadObjetivos();
   initPhotoUpload();
   initCardTilt();
+  initParticles();
   renderRatingChart();
-  setTimeout(refreshAll, 100);
-  console.log('⚽✝️ El Camino — Mi Progreso · Sistema de Scouting Personal · Con Dios todo es posible');
+  setTimeout(refreshAll,150);
+  console.log('%c⚽✝️ El Camino — Mi Progreso v3.0','color:#00c853;font-size:1.1rem;font-weight:bold;');
+  console.log('%c"Todo lo puedo en Cristo que me fortalece." — Filipenses 4:13','color:#ffd700;font-style:italic;');
+  console.log('%cLeyendo datos desde: elcamino_matches_v1, elcamino_training_v1, elcamino_mental_v1, nutricion_weekly','color:#9090b0;font-size:.8rem;');
 });
 </script>
 </body>
